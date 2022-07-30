@@ -1,7 +1,6 @@
 
 
 import React from 'react';
-
 import './ChatNav.scss';
 
 /**
@@ -42,12 +41,12 @@ export default function ChatNav ( props ) {
         <nav>
             <div className={'nav-left'}>
                 <button className='nav-users' onClick={on_users}>
-                    {this.state.totalUsers} users online
+                    {props.totalUsers} users online
                 </button>
             </div>
             <div className={'nav-right'}>
                 <button className='nav-user' onClick={on_user}>
-                    {this.state.user}
+                    {props.userName}
                 </button>
             </div>
         </nav>

@@ -73,7 +73,12 @@ export default class App extends Component {
             },
             users: [],
             messages: [],
-            totalUsers: 0,
+            usersTotal: 0,
+            preferences: {
+                showTimeStamps: false,
+                showNameChanges: false,
+                showUserJoins: false,
+            },
         };
 
     /*======================================
@@ -81,44 +86,247 @@ export default class App extends Component {
     ========================================*/
 
         // State methods - Connection
-        this.socket                 = new WebSocket('ws://localhost:3001');
+        this.socket               = new WebSocket('ws://localhost:3001');
 
         // State methods - Users
-        this.set_users              = this.set_users.bind(this);
-        this.user_add               = this.user_add.bind(this);
-        this.user_remove            = this.user_remove.bind(this);
+        this.set_users            = this.set_users.bind(this);
+        this.user_add             = this.user_add.bind(this);
+        this.user_remove          = this.user_remove.bind(this);
 
         // State methods - User Info
-        this.set_current_user_ID    = this.set_current_player_ID.bind(this);
-        this.set_current_user_name  = this.set_current_player_name.bind(this);
-        this.set_current_user_color = this.set_current_player_color.bind(this);
-
-        // State methods - Users Info
-        this.set_user_name          = this.set_player_name.bind(this);
-        this.set_user_color         = this.set_player_color.bind(this);
+        this.set_user_ID          = this.set_user_ID.bind(this);
+        this.set_user_name        = this.set_user_name.bind(this);
+        this.set_user_color       = this.set_user_color.bind(this);
 
         // State methods - Messages
-        this.message_add            = this.message_add.bind(this);
-        this.set_messages           = this.set_messages.bind(this);
+        this.set_messages         = this.set_messages.bind(this);
+        this.message_add          = this.message_add.bind(this);
+
+        // State methods - Preferences
+        this.set_pref_timeStamps  = this.set_pref_timeStamps.bind(this);
+        this.set_pref_nameChanges = this.set_pref_nameChanges.bind(this);
+        this.set_pref_userJoins   = this.set_pref_userJoins.bind(this);
 
         // Functional methods - Time / Date
-        this.calculateTimeSince     = this.calculateTimeSince.bind(this);
+        this.calculateTimeSince   = this.calculateTimeSince.bind(this);
     }
 
     /*================================================
         ANCHOR: STATE METHODS - Game States
     ==================================================*/
 
+    set_users ( usersArray )
+    {
+        console.log('===> set_users');
+        this.setState({ users: usersArray });
+        this.setState({ usersTotal: this.state.users.length + 1 });
+        console.log('===> END - set_users');
+    }
 
+    /*======================================*/
+    /*======================================*/
+
+    user_add ( user )
+    {
+        console.log('===> user_add');
+        // this.state.users.push( user );
+        this.setState( prevState => ({
+            users: [ ...prevState.users, user ]
+        }));
+        this.setState({ usersTotal: this.state.usersTotal + 1 });
+        console.log('===> END - user_add');
+    }
+
+    /*======================================*/
+    /*======================================*/
+
+    user_remove ( userID )
+    {
+        console.log('===> user_remove');
+        // this.state.users = this.state.users.filter( user => ( user.id !== userID ) );
+        this.setState( prevState => {
+            let users = prevState.users.filter( user => user.id !== userID );
+            return { users };
+        });
+        this.setState({ usersTotal: this.state.usersTotal - 1 });
+        console.log('===> END - user_remove');
+    }
 
     /*================================================
-        ANCHOR: FUNCTIONAL METHODS
+        ANCHOR: STATE METHODS - User Info
     ==================================================*/
 
-    calculateTimeSince ( messageTime )
+    set_user_ID ( ID )
+    {
+        console.log('===> set_user_ID');
+        this.setState(prevState => {
+            let user = { ...prevState.user };
+            user.id = ID;
+            return { user };
+        });
+        console.log('===> END - set_user_ID');
+    }
+
+    /*======================================*/
+    /*======================================*/
+
+    set_user_name ( user, name )
+    {
+        console.log('===> set_user_name');
+        if ( user.id === this.state.user.id )
+        {
+            // > Current user
+            console.log('> Current user');
+            this.setState(prevState => {
+                let user = { ...prevState.user };
+                user.name = name;
+                return { user };
+            });
+            // > WS
+            let newUpdate = {
+                type: 'updateUserName',
+                player: this.state.user,
+                newName: name,
+            };
+            this.socket.send( JSON.stringify( newUpdate ));
+            console.log('>>>>>>>>> Message Sent - updateUserName >>>>>>>>>');
+        }
+        else
+        {
+            // > Other user
+            console.log('> Other user');
+            this.setState( prevState => {
+                let users = prevState.users;
+                for ( let i = 0; i < users.length; i++ )
+                {
+                    if ( users[i].id === user.id )
+                    {
+                        users[i].name = name;
+                    }
+                }
+                return { users };
+            });
+        }
+        console.log('===> END - set_user_name');
+    }
+
+    /*======================================*/
+    /*======================================*/
+
+    set_user_color ( user, color )
+    {
+        console.log('===> set_user_color');
+        if ( user.id === this.state.user.id )
+        {
+            // > Current user
+            console.log('> Current user');
+            this.setState(prevState => {
+                let user = { ...prevState.user };
+                user.color = color;
+                return { user };
+            });
+            // > WS
+            let newUpdate = {
+                type: 'updateUserColor',
+                player: this.state.user,
+                newColor: color,
+            };
+            this.socket.send( JSON.stringify( newUpdate ));
+            console.log('>>>>>>>>> Message Sent - updateUserColor >>>>>>>>>');
+        }
+        else
+        {
+            // > Other user
+            console.log('> Other user');
+            this.setState( prevState => {
+                let users = prevState.users;
+                for ( let i = 0; i < users.length; i++ )
+                {
+                    if ( users[i].id === user.id )
+                    {
+                        users[i].color = color;
+                    }
+                }
+                return { users };
+            });
+        }
+        console.log('===> END - set_user_color');
+    }
+
+    /*================================================
+        ANCHOR: STATE METHODS - Messages
+    ==================================================*/
+
+    set_messages( messagesArray )
+    {
+        console.log('===> set_messages');
+        this.setState({ messages: messagesArray });
+        console.log('===> END - lset_messages');
+    }
+
+    /*======================================*/
+    /*======================================*/
+
+    message_add ( message )
+    {
+        console.log('===> message_add');
+        this.setState( prevState => ({
+            messages: [ ...prevState.messages, message]
+        }));
+        console.log('===> END - message_add');
+    }
+
+    /*================================================
+        ANCHOR: STATE METHODS - Preferences
+    ==================================================*/
+
+    set_pref_nameChanges ( state )
+    {
+        console.log('===> set_pref_nameChanges');
+        this.setState(prevState => {
+            let preferences = { ...prevState.preferences };
+            preferences.nameChanges = state;
+            return { preferences };
+        });
+        console.log('===> END - set_pref_nameChanges');
+    }
+
+    /*======================================*/
+    /*======================================*/
+
+    set_pref_timeStamps ( state )
+    {
+        console.log('===> set_pref_timeStamps');
+        this.setState(prevState => {
+            let preferences = { ...prevState.preferences };
+            preferences.timeStamps = state;
+            return { preferences };
+        });
+        console.log('===> END - set_pref_timeStamps');
+    }
+
+    /*======================================*/
+    /*======================================*/
+
+    set_pref_userJoins ( state )
+    {
+        console.log('===> set_pref_userJoins');
+        this.setState(prevState => {
+            let preferences = { ...prevState.preferences };
+            preferences.userJoins = state;
+            return { preferences };
+        });
+        console.log('===> END - set_pref_userJoins');
+    }
+
+    /*================================================
+        ANCHOR: FUNCTIONAL METHODS - Time / Date
+    ==================================================*/
+
+    calculateTimeSince ( time )
     {
         let currentTime = Date.now();
-        let timeSince = currentTime - messageTime;
+        let timeSince = currentTime - time;
         let seconds = timeSince / 1000;
         let minutes = timeSince / 1000 / 60;
 
@@ -173,18 +381,18 @@ export default class App extends Component {
             {
 
                 /*================================================
-                    ANCHOR: HANDLER - PLAYER CONNECTIONS
+                    ANCHOR: HANDLER - USER CONNECTIONS
                 ==================================================*/
 
                 case 'clientConnected':
                 {
-                    // > This handler is only fired ONCE when the CURRENT player joins
+                    // > This handler is only fired ONCE when the CURRENT user joins
                     console.log('======= HANDLER - clientConnected =======');
 
                     // > Set current user ID
                     console.log('> Setting ID');
                     if ( updateData.userID )
-                    { this.set_current_user_ID( updateData.userID ); }
+                    { this.set_user_ID( updateData.userID ); }
 
                     // > Set previous messages
                     console.log('> Setting messages');
@@ -196,14 +404,14 @@ export default class App extends Component {
                     if ( !( updateData.users === undefined ) && ( updateData.users.length ) )
                     { this.set_users( updateData.users ); }
 
-                    // > Send current player information to server
-                    console.log('> Send newUser');
+                    // > Send current user information to server
+                    console.log('> Send userConnected');
                     let newUpdate = {
-                        type: 'newUser',
+                        type: 'userConnected',
                         user: this.state.user,
                     };
                     ws.send( JSON.stringify( newUpdate ) );
-                    console.log('>>>>>>>>> Message Sent - newUser >>>>>>>>>');
+                    console.log('>>>>>>>>> Message Sent - userConnected >>>>>>>>>');
                     console.log('======= END - HANDLER - clientConnected =======');
                     break;
                 }
@@ -211,74 +419,63 @@ export default class App extends Component {
                 /*======================================*/
                 /*======================================*/
 
-                case 'newUser':
+                case 'userConnected':
                 {
-                    // > This handler is only fired when OTHER players join
-                    console.log('======= HANDLER - newUser =======');
-                    this.user_add( updateData.player );
-                    this.message_add( userDisconnected, 'conncted' );
-                    console.log('======= END - HANDLER - newUser =======');
+                    // > This handler is only fired when OTHER users join
+                    console.log('======= HANDLER - userConnected =======');
+                    this.user_add( updateData.user );
+                    this.message_add( updateData.message );
+                    console.log('======= END - HANDLER - userConnected =======');
                     break;
                 }
 
                 /*======================================*/
                 /*======================================*/  
 
-                case 'clientDisconnected':
+                case 'userDisconnected':
                 {
-                    this.userAmount( updateData.total );
-                    const userDisconnected = {
-                        type: 'incomingClientDisconnected',
-                        content: 'A user has disconnected',
-                        messageTime: updateData.messageTime,
-                        id: message.id
-                    };
-                    this.message_add( userDisconnected, 'disconncted' );
-                    window.scrollTo( 0, document.body.scrollHeight );
+                    // This handler is only fired when OTHER users leave
+                    console.log('======= HANDLER - userDisconnected =======');
+                    this.user_remove( updateData.userID );
+                    this.message_add( updateData.message );
+                    console.log('======= END - HANDLER - userDisconnected =======');
                     break;
                 }
-
-                case 'clientDisconnected':
-                {
-                    // This handler is only fired when OTHER players leave
-                    // console.log('======= HANDLER - clientDisconnected =======');
-                    this.player_remove( updateData.playerID );
-                    // console.log('======= END - HANDLER - clientDisconnected =======');
-                    break;
-                }
-
-
-
-                /*======================================*/
-                /*======================================*/
-
-
 
                 /*================================================
-                    ANCHOR: HANDLER - PLAYERS INFO
+                    ANCHOR: HANDLER - USER INFO
                 ==================================================*/
 
+                case 'updateUserName':
+                {
+                    console.log('======= HANDLER - updateUserName =======');
+                    this.set_user_name( updateData.user, updateData.name );
+                    this.message_add( updateData.message );
+                    console.log('======= END - HANDLER - updateUserName =======');
+                    break;
+                }
+                
+                /*======================================*/  
+                /*======================================*/  
 
-
+                case 'updateUserColor':
+                {
+                    console.log('======= HANDLER - updateUserColor =======');
+                    this.set_user_color( updateData.user, updateData.color );
+                    this.message_add( updateData.message );
+                    console.log('======= END - HANDLER - updateUserColor =======');
+                    break;
+                }
 
                 /*================================================
                     ANCHOR: HANDLER - MESSAGES
                 ==================================================*/
 
-                case 'incomingMessage':
+                case 'newMessage':
                 {
-                    this.addMessage( updateData );
-                    window.scrollTo( 0, document.body.scrollHeight );
-                    break;
-                }
-
-                /*======================================*/
-                /*======================================*/
-
-                case 'incomingNotification':
-                {
-                    this.addMessage( updateData );
-                    window.scrollTo( 0, document.body.scrollHeight );
+                    console.log('======= HANDLER - newMessage =======');
+                    this.message_add( updateData.message );
+                    console.log('======= END - HANDLER - newMessage =======');
                     break;
                 }
 
@@ -314,23 +511,16 @@ export default class App extends Component {
 
                 <ChatNav
                     totalUsers={this.state.totalUsers}
+                    userName={this.state.user.name}
                 />
 
                 <div className='container-title'>
                     <span href='/' className='nav-title'>ChatFox</span>
                 </div>
 
-
-                {/* <MessageList
+                <MessageList
                     messages={this.state.messages}
-                    display={this.state.display}
-                    preferencesDisplay={this.state.preferencesDisplay}
-                    timestampDisplay={this.state.timestampDisplay}
-                    colorMenu={this.colorMenu}
-                    changeColor={this.changeColor}
-                    calculateTimeSince={this.calculateTimeSince}
-                    showTimestamps={this.showTimestamps}
-                /> */}
+                />
 
                 {/* <ChatBar
                     currentUser={this.state.currentUser.name}
