@@ -18,7 +18,7 @@ const wss = new SocketServer.Server({ server });
 
 
 /*======================================
-    GAME CLASS - CHAT
+    CLASS
 ========================================*/
 
 class Chat
@@ -26,78 +26,78 @@ class Chat
     constructor()
     {
         this.state = {
-            clients: [],
-            chatLog: [],
+            users: [],
+            messages: [],
         };
 
         /*======================================*/
         /*======================================*/
 
-        // State methods - Clients
-        this.client_add               = this.client_add.bind(this);
-        this.client_remove            = this.client_remove.bind(this);
+        // State methods - Users
+        this.user_add       = this.user_add.bind(this);
+        this.user_remove    = this.user_remove.bind(this);
 
-        // State methods - Client Info
-        this.set_client_name          = this.set_client_name.bind(this);
+        // State methods - User Info
+        this.set_user_name  = this.set_user_name.bind(this);
+        this.set_user_color = this.set_user_color.bind(this);
 
-        // State methods - Chat Log
-        this.log_add_item             = this.log_add_item.bind(this);
-        this.log_clear                = this.log_clear.bind(this);
+        // State methods - Messages
+        this.message_add    = this.message_add.bind(this);
     }
 
     /*======================================
-        STATE METHODS - Clients
+        STATE METHODS - Users
     ========================================*/
 
-    client_add ( client )
+    user_add ( user )
     {
-        this.state.clients.push( client );
+        this.state.users.push( user );
     }
 
     /*======================================*/
     /*======================================*/
 
-    client_remove ( clientID )
+    user_remove ( userID )
     {
-        this.state.clients = this.state.clients.filter( client => ( client.id !== clientID ) );
+        this.state.users = this.state.users.filter( user => ( user.id !== userID ) );
     }
 
     /*======================================
-        STATE METHODS - Client Info
+        STATE METHODS - User Info
     ========================================*/
 
-    set_client_name ( client, newName )
+    set_user_name ( user, newName )
     {
-        for ( let i = 0; i < this.state.clients.length; i++ )
+        for ( let i = 0; i < this.state.users.length; i++ )
         {
-            if ( this.state.clients[i].id === client.id )
+            if ( this.state.users[i].id === user.id )
             {
-                this.state.clients[i].name = newName;
+                this.state.users[i].name = newName;
+            }
+        }
+    }
+
+    /*======================================*/
+    /*======================================*/
+
+    set_user_color ( user, newColor )
+    {
+        for ( let i = 0; i < this.state.users.length; i++ )
+        {
+            if ( this.state.users[i].id === user.id )
+            {
+                this.state.users[i].name = newColor;
             }
         }
     }
 
     /*======================================
-        STATE METHODS - Chat Log
+        STATE METHODS - Messages
     ========================================*/
 
-    log_add_item ( logItem )
+    message_add ( message )
     {
-        console.log('===> log_add_item: ', logItem);
-        console.log('> BEFORE: ', this.state.chatLog);
-        this.state.chatLog.push( logItem );
-        console.log('> AFTER: ', this.state.chatLog);
-        console.log('===> END - log_add_item');
-    }
-
-    /*======================================*/
-    /*======================================*/
-
-    log_clear ()
-    {
-        console.log('===> log_clear');
-        this.state.chatLog = [];
-        console.log('===> END - log_clear');
+        this.state.messages.push( message );
     }
 }
 
@@ -158,13 +158,13 @@ wss.on('connection', ( wsClient ) =>
     // Set initial client data
     let clientData = {
         id:       uuidv4(), // message id
-        clientID: uuidv4(), // id for disconnecting player removal and determining host
+        userID:   uuidv4(), // id for disconnecting user removal
         type:     'clientConnected',
-        clients:  chat.state.clients,
-        chatLog:  chat.state.chatLog,
+        users:    chat.state.users,
+        messages: chat.state.messages,
     };
     
-    // Send id, clients, and chat log to connecting client
+    // Send id, users, and message to connecting client
     wss.broadcast_client( JSON.stringify( clientData ), wsClient );
     console.log('>>>>>>>>> Message Sent - Client Data >>>>>>>>>');
     console.log('======= END - Client Connected =======');
@@ -188,16 +188,16 @@ wss.on('connection', ( wsClient ) =>
                 HANDLER - CLIENT CONNECTION
             ========================================*/
 
-            case 'newPlayer':
+            case 'newUser':
             {
-                // > Send new player data to all other players
-                console.log('======= HANDLER - newPlayer =======');
+                // > Send new user data to all other users
+                console.log('======= HANDLER - newUser =======');
                 updateData.id = uuidv4();
-                clientData.clientID = updateData.player.id // set id for disconnecting player removal
-                game.player_add( updateData.player );
+                clientData.clientID = updateData.user.id // set id for disconnecting user removal
+                chat.user_add( updateData.user );
                 wss.broadcast( JSON.stringify( updateData ), wsClient );
-                console.log('>>>>>>>>> Message Sent - newPlayer >>>>>>>>>');
-                console.log('======= END HANDLER - newPlayer =======');
+                console.log('>>>>>>>>> Message Sent - newUser >>>>>>>>>');
+                console.log('======= END HANDLER - newUser =======');
                 break;
             }  
             
@@ -205,14 +205,28 @@ wss.on('connection', ( wsClient ) =>
                 HANDLER - CLIENT INFO
             ========================================*/
 
-            case 'updatePlayerName':
+            case 'updateUserName':
             {
-                console.log('======= HANDLER - updatePlayerName =======');
+                console.log('======= HANDLER - updateUserName =======');
                 updateData.id = uuidv4();
-                game.set_client_name( updateData.player, updateData.newName );
+                chat.set_user_name( updateData.user, updateData.newName );
                 wss.broadcast( JSON.stringify( updateData ), wsClient );
-                console.log('>>>>>>>>> Message Sent - updatePlayerName >>>>>>>>>');
-                console.log('======= END HANDLER - updatePlayerName =======');
+                console.log('>>>>>>>>> Message Sent - updateUserName >>>>>>>>>');
+                console.log('======= END HANDLER - updateUserName =======');
+                break;
+            }
+            
+            /*======================================*/
+            /*======================================*/
+
+            case 'updateUserColor':
+            {
+                console.log('======= HANDLER - updateUserColor =======');
+                updateData.id = uuidv4();
+                chat.set_user_color( updateData.user, updateData.newColor );
+                wss.broadcast( JSON.stringify( updateData ), wsClient );
+                console.log('>>>>>>>>> Message Sent - updateUserColor >>>>>>>>>');
+                console.log('======= END HANDLER - updateUserColor =======');
                 break;
             }
 
@@ -227,6 +241,9 @@ wss.on('connection', ( wsClient ) =>
                 wss.broadcast( JSON.stringify( updateData ), wsClient );
                 break;
             }
+
+            /*======================================*/
+            /*======================================*/
 
             case "postNotification":
             {

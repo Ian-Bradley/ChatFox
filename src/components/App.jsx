@@ -1,9 +1,22 @@
 import React, { Component } from 'react';
+import ChatNav from './ChatNav/ChatNav.jsx';
 // import ChatBar from './ChatBar/ChatBar.jsx';
 // import MessageList from '../MessageList.jsx';
 import './App.scss';
 
-// HELPER FUNCTIONS
+/* TODO:
+> settings menu
+    - show name change notifications
+    - show user join notifications
+    - show timestamps
+    - change user color
+    - change user name
+*/
+
+/*======================================
+    ANCHOR: HELPER FUNCTIONS
+========================================*/
+
 function generateRandomColor()
 {
     let randomColor = '';
@@ -24,7 +37,11 @@ function generateRandomColor()
     return randomColor;
 }
 
-function generateAnonymous () {
+/*======================================*/
+/*======================================*/
+
+function generateAnonymous ()
+{
     let name = 'Anonymous';
     let numbers = '0123456789';
     let randomNumberString = '';
@@ -36,6 +53,9 @@ function generateAnonymous () {
     return name;
 }
 
+/*======================================*/
+/*======================================*/
+
 export default class App extends Component {
 
     /*======================================
@@ -46,127 +66,54 @@ export default class App extends Component {
     {
         super(props);
         this.state = {
-            currentUser: {name: ''},
-            display: 'none',
-            preferencesDisplay: 'none',
-            timestampDisplay: 'none',
+            user: {
+                id: 0,
+                name: generateAnonymous(),
+                color: generateRandomColor(),
+            },
+            users: [],
             messages: [],
             totalUsers: 0,
-            menuOpen: false,
-            anonymousName: generateAnonymous(),
-            color: generateRandomColor()
         };
 
     /*======================================
         ANCHOR: METHOD BINDING
     ========================================*/
 
-        // State methods
-        this.socket = new WebSocket('ws://localhost:3001');
-        this.addMessage = this.addMessage.bind(this);
-        this.changeUserName = this.changeUserName.bind(this);
-        this.userAmount = this.userAmount.bind(this);
-        this.colorMenu = this.colorMenu.bind(this);
-        this.changeColor = this.changeColor.bind(this);
-        this.preferencesMenu = this.preferencesMenu.bind(this);
-        this.calculateTimeSince = this.calculateTimeSince.bind(this);
-        this.showTimestamps = this.showTimestamps.bind(this);
+        // State methods - Connection
+        this.socket                 = new WebSocket('ws://localhost:3001');
 
+        // State methods - Users
+        this.set_users              = this.set_users.bind(this);
+        this.user_add               = this.user_add.bind(this);
+        this.user_remove            = this.user_remove.bind(this);
 
-        // Functional methods
+        // State methods - User Info
+        this.set_current_user_ID    = this.set_current_player_ID.bind(this);
+        this.set_current_user_name  = this.set_current_player_name.bind(this);
+        this.set_current_user_color = this.set_current_player_color.bind(this);
 
+        // State methods - Users Info
+        this.set_user_name          = this.set_player_name.bind(this);
+        this.set_user_color         = this.set_player_color.bind(this);
+
+        // State methods - Messages
+        this.message_add            = this.message_add.bind(this);
+        this.set_messages           = this.set_messages.bind(this);
+
+        // Functional methods - Time / Date
+        this.calculateTimeSince     = this.calculateTimeSince.bind(this);
     }
-
-
 
     /*================================================
         ANCHOR: STATE METHODS - Game States
     ==================================================*/
 
-    //COMPONENT METHODS
-    changeUserName ( username )
-    {
-        this.setState({currentUser: {name: username}});
-    }
 
-    /*======================================*/
-    /*======================================*/
 
-    addMessage ( message )
-    {
-        const messages = this.state.messages.concat(message);
-        this.setState({messages: messages});
-    }
-
-    /*======================================*/
-    /*======================================*/
-
-    userAmount ( total )
-    {
-        this.setState({totalUsers: total});
-    }
-
-    /*======================================*/
-    /*======================================*/
-
-    changeColor ( color )
-    {
-        this.setState({color: color});
-    }
-
-    /*======================================*/
-    /*======================================*/
-
-    colorMenu()
-    {
-        if ( this.state.menuOpen )
-        {
-            this.setState({preferencesDisplay: 'none'});
-            this.setState({display: 'none'});
-            this.setState({menuOpen: false});
-        }
-        else
-        {
-            this.setState({display: 'flex'});
-            this.setState({menuOpen: true});
-        }
-    }
-
-    /*======================================*/
-    /*======================================*/
-
-    preferencesMenu()
-    {
-        if ( this.state.menuOpen )
-        {
-            this.setState({preferencesDisplay: 'none'});
-            this.setState({display: 'none'});
-            this.setState({menuOpen: false});
-        }
-        else
-        {
-            this.setState({preferencesDisplay: 'flex'});
-            this.setState({menuOpen: true});
-        }
-    }
-
-    /*======================================*/
-    /*======================================*/
-
-    showTimestamps()
-    {
-        if ( this.state.timestampDisplay === 'none' )
-        {
-            this.setState({timestampDisplay: 'flex'});
-        }
-        else
-        {
-            this.setState({timestampDisplay: 'none'});
-        }
-    }
-
-    /*======================================*/
-    /*======================================*/
+    /*================================================
+        ANCHOR: FUNCTIONAL METHODS
+    ==================================================*/
 
     calculateTimeSince ( messageTime )
     {
@@ -225,8 +172,98 @@ export default class App extends Component {
             switch ( updateData.messageType )
             {
 
+                /*================================================
+                    ANCHOR: HANDLER - PLAYER CONNECTIONS
+                ==================================================*/
+
+                case 'clientConnected':
+                {
+                    // > This handler is only fired ONCE when the CURRENT player joins
+                    console.log('======= HANDLER - clientConnected =======');
+
+                    // > Set current user ID
+                    console.log('> Setting ID');
+                    if ( updateData.userID )
+                    { this.set_current_user_ID( updateData.userID ); }
+
+                    // > Set previous messages
+                    console.log('> Setting messages');
+                    if ( !( updateData.messages === undefined ) && ( updateData.messages.length ) )
+                    { this.set_messages( updateData.messages ); }
+
+                    // > Set users
+                    console.log('> Setting users');
+                    if ( !( updateData.users === undefined ) && ( updateData.users.length ) )
+                    { this.set_users( updateData.users ); }
+
+                    // > Send current player information to server
+                    console.log('> Send newUser');
+                    let newUpdate = {
+                        type: 'newUser',
+                        user: this.state.user,
+                    };
+                    ws.send( JSON.stringify( newUpdate ) );
+                    console.log('>>>>>>>>> Message Sent - newUser >>>>>>>>>');
+                    console.log('======= END - HANDLER - clientConnected =======');
+                    break;
+                }
+
+                /*======================================*/
+                /*======================================*/
+
+                case 'newUser':
+                {
+                    // > This handler is only fired when OTHER players join
+                    console.log('======= HANDLER - newUser =======');
+                    this.user_add( updateData.player );
+                    this.message_add( userDisconnected, 'conncted' );
+                    console.log('======= END - HANDLER - newUser =======');
+                    break;
+                }
+
                 /*======================================*/
                 /*======================================*/  
+
+                case 'clientDisconnected':
+                {
+                    this.userAmount( updateData.total );
+                    const userDisconnected = {
+                        type: 'incomingClientDisconnected',
+                        content: 'A user has disconnected',
+                        messageTime: updateData.messageTime,
+                        id: message.id
+                    };
+                    this.message_add( userDisconnected, 'disconncted' );
+                    window.scrollTo( 0, document.body.scrollHeight );
+                    break;
+                }
+
+                case 'clientDisconnected':
+                {
+                    // This handler is only fired when OTHER players leave
+                    // console.log('======= HANDLER - clientDisconnected =======');
+                    this.player_remove( updateData.playerID );
+                    // console.log('======= END - HANDLER - clientDisconnected =======');
+                    break;
+                }
+
+
+
+                /*======================================*/
+                /*======================================*/
+
+
+
+                /*================================================
+                    ANCHOR: HANDLER - PLAYERS INFO
+                ==================================================*/
+
+
+
+
+                /*================================================
+                    ANCHOR: HANDLER - MESSAGES
+                ==================================================*/
 
                 case 'incomingMessage':
                 {
@@ -247,37 +284,6 @@ export default class App extends Component {
 
                 /*======================================*/
                 /*======================================*/
-
-                case 'incomingClientConnected':
-                {
-                    this.userAmount( updateData.total );
-                    const userConnected = {
-                        type: 'incomingClientConnected',
-                        content: 'A user has connected',
-                        messageTime: updateData.messageTime,
-                        id: updateData.id
-                    };
-                    this.addMessage( userConnected );
-                    window.scrollTo( 0, document.body.scrollHeight );
-                    break;
-                }
-
-                /*======================================*/
-                /*======================================*/
-
-                case 'incomingClientDisconnected':
-                {
-                    this.userAmount( updateData.total );
-                    const userDisconnected = {
-                        type: 'incomingClientDisconnected',
-                        content: 'A user has disconnected',
-                        messageTime: updateData.messageTime,
-                        id: message.id
-                    };
-                    this.addMessage( userDisconnected );
-                    window.scrollTo( 0, document.body.scrollHeight );
-                    break;
-                }
 
                 default:
             }
@@ -305,10 +311,15 @@ export default class App extends Component {
         
         return (
             <div>
-                {/* <nav className="navbar">
-                    <a href="/" className="navbar-brand">Chattr</a>
-                    <span className="navbar-users">{this.state.totalUsers} users online</span>
-                </nav> */}
+
+                <ChatNav
+                    totalUsers={this.state.totalUsers}
+                />
+
+                <div className='container-title'>
+                    <span href='/' className='nav-title'>ChatFox</span>
+                </div>
+
 
                 {/* <MessageList
                     messages={this.state.messages}
@@ -319,9 +330,9 @@ export default class App extends Component {
                     changeColor={this.changeColor}
                     calculateTimeSince={this.calculateTimeSince}
                     showTimestamps={this.showTimestamps}
-                />
+                /> */}
 
-                <ChatBar
+                {/* <ChatBar
                     currentUser={this.state.currentUser.name}
                     changeUserName={this.changeUserName}
                     color={this.state.color}
