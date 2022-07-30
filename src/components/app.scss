@@ -1,46 +1,18 @@
 
 body {
-    background: #aec6cf;
-    color: black;
     font-family: 'Open Sans', sans-serif;
-    font-size: 14px;
-    margin: 70px 0;
+    font-size: 16px;
 }
 
-.message {
-    padding: 5px;
-}
-
-.message.system {
-    font-style: italic;
-    padding: 5px 20px;
-}
-
-.message-content,
-.message-username {
-    overflow: hidden;
-    overflow-wrap: break-word;
-    margin: 5px;
-    padding: 0 10px;
-}
-
-.message-content {
-
-}
-
-.message-time {
-    float: right;
-    margin-right: 20px;
-}
-
-#images {
-    max-width: 450px;
-    max-height: 250px;
-}
-
-.message-username {
-    font-weight: 700;
-    color: black;
+.close {
+    position: absolute;
+    top: 12px;
+    right: 22px;
+    font-size: 15px;
+    transform: rotate(45deg);
+    border-radius: 25px;
+    background-color: darkgrey;
+    border-color: darkgrey;
 }
 
 /*======================================

@@ -1,8 +1,16 @@
 import React from 'react';
 import './ChatBar.scss';
 
+/**
+ * @props
+ * @props
+ */
+
 export default function ChatBar ( props )
 {
+    /*======================================
+        RENDER FUNCTIONS - Interactions
+    ========================================*/
 
     //CHAT MESSAGE HANDLER
     const onKeyUp = e =>
@@ -16,80 +24,40 @@ export default function ChatBar ( props )
             }
             else
             {
-                const content = e.target.value;
-                let username = props.currentUser;
-                let currentTime = Date.now();
+                // const content = e.target.value;
+                // let username = props.currentUser;
 
-                if (props.currentUser === "")
-                {
-                    username = props.anonymous;
-                }
+                // if (props.currentUser === "")
+                // {
+                //     username = props.anonymous;
+                // }
 
-                let newMessage = {
-                    username: username,
-                    content: content,
-                    time: currentTime,
-                    type: "postMessage",
-                    color: props.color
-                };
+                // let newMessage = {
+                //     username: username,
+                //     content: content,
+                //     time: Date.now(),
+                //     type: "postMessage",
+                //     color: props.color
+                // };
 
-                props.message.onopen(newMessage);
-                e.target.value = "";
+                // props.message.onopen(newMessage);
+                // e.target.value = "";
             }
         }
     };
 
-    //USERNAME HANDLER
-    const onKeyDown = e =>
-    {
-        if (e.keyCode === 13)
-        {
+    /*======================================
+        RENDER FUNCTIONS - Displaying
+    ========================================*/
 
-            let currentUser = props.currentUser;
-            let currentTime = Date.now();
 
-            if (currentUser === e.target.value)
-            {
-                // DO NOTHING
-            }
-            else
-            {
-                if (props.currentUser === "")
-                {
-                    currentUser = props.anonymous;
-                }
-
-                const name = {
-                    oldUsername: currentUser,
-                    newUsername: e.target.value,
-                    time: currentTime,
-                    color: props.color,
-                    type: "postNotification"
-                };
-
-                props.changeUserName(e.target.value);
-                props.message.onopen(name);
-            }
-        }
-    };
-
-    // COLOR MENU HANDLER
-    const onClick = e =>
-    {
-        // e.preventDefault();
-        props.colorMenu();
-    }
-
-    // PREFERENCES HANDLER
-    const onPref = e =>
-    {
-        // e.preventDefault();
-        props.preferencesMenu();
-    }
+    /*======================================
+        COMPONENTS
+    ========================================*/
 
     return (
-        <div className="chatbar">
-            <input className="preferences-button"
+        <div className="container-chatbar">
+            {/* <input className="preferences-button"
                 onClick={onPref}
                 type="image"
                 src="build/preferences.png"
@@ -103,18 +71,18 @@ export default function ChatBar ( props )
                 src="build/color.png"
                 style={{backgroundColor:props.color}}
                 value=""
-            />
+            /> */}
 
-            <input className="chatbar-username"
+            {/* <input className="chatbar-username"
                 onKeyDown={onKeyDown}
                 id="username"
                 defaultValue={props.currentUser}
                 placeholder={props.anonymous}
-            />
+            /> */}
 
             <input className="chatbar-message"
                 onKeyUp={onKeyUp}
-                placeholder="Type a message and hit ENTER"
+                placeholder="Type your message here"
             />
         </div>
     );

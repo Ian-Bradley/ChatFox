@@ -1,0 +1,16 @@
+main.app {
+    & .container-title {
+        position: relative;
+
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: center;
+
+        width: 100%;
+
+        & .app-title {
+            font-size: 5rem;
+            font-weight: 800;
+        }
+    }
+}

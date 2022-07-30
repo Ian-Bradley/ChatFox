@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import ChatNav from './ChatNav/ChatNav.jsx';
-// import ChatBar from './ChatBar/ChatBar.jsx';
-// import MessageList from '../MessageList.jsx';
+import ChatTitle from './ChatNav/ChatTitle.jsx';
+import ChatMessageList from './ChatNav/ChatMessageList.jsx';
+import ChatBar from './ChatNav/ChatBar.jsx';
 import './App.scss';
 
 /* TODO:
@@ -11,6 +12,8 @@ import './App.scss';
     - show timestamps
     - change user color
     - change user name
+
+> auto-shorten links
 */
 
 /*======================================
@@ -507,31 +510,31 @@ export default class App extends Component {
         ==================================================*/
         
         return (
-            <div>
+            <main className='app'>
+
+                {/* <input
+                    className="close"
+                    onClick={onClose}
+                    type="submit"
+                    value="+"
+                /> */}
 
                 <ChatNav
                     totalUsers={this.state.totalUsers}
                     userName={this.state.user.name}
                 />
 
-                <div className='container-title'>
-                    <span href='/' className='nav-title'>ChatFox</span>
-                </div>
+                <ChatTitle />
 
-                <MessageList
+                <ChatMessageList
                     messages={this.state.messages}
                 />
 
-                {/* <ChatBar
-                    currentUser={this.state.currentUser.name}
-                    changeUserName={this.changeUserName}
-                    color={this.state.color}
-                    message={this.socket}
-                    colorMenu={this.colorMenu}
-                    preferencesMenu={this.preferencesMenu}
-                    anonymous={this.state.anonymousName}
-                /> */}
-            </div>
+                <ChatBar
+
+                />
+
+            </main>
         );
     }
 }

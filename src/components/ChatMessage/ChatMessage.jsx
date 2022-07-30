@@ -1,88 +1,99 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './ChatMessage.scss';
 
-export default class ChatMessage extends Component
+/**
+ * @props message (object)
+ * -> name (string)
+ * -> content (string)
+ * -> time (number)
+ * -> color (string)
+ * -> type (string)
+ */
+
+export default function ChatMessage ( props )
 {
-    render()
+    /*======================================
+        RENDER FUNCTIONS - Interactions
+    ========================================*/
+
+
+    /*======================================
+        RENDER FUNCTIONS - Displaying
+    ========================================*/
+
+    //REGULAR EXPRESS FOR FINDING IMAGE EXTENSIONS
+    let regex = ( /\.( gif|jp?g|png|svg|bmp|tiff|bat )$/i );
+
+
+    // TIMESTAMP HANDLING
+    let time = props.calculateTimeSince( props.message.messageTime );
+    
+    /*======================================
+        COMPONENTS
+    ========================================*/
+
+    switch ( props.message.type )
     {
-        //REGULAR EXPRESS FOR FINDING IMAGE EXTENSIONS
-        let regex = (/\.(gif|jp?g|png|svg|bmp|tiff|bat)$/i);
 
+        /*======================================*/
+        /*======================================*/
 
-        // TIMESTAMP HANDLING
-        let time = this.props.calculateTimeSince(this.props.messages.messageTime);
-
-
-        //BUILD MESSAGE CONTAINERS BASED ON TYPE OF MESSAGE
-        if(this.props.messages.type === "incomingMessage")
+        case 'message':
         {
-            //DISPLAY IMAGE IF A URL WITH AN IMAGE EXTENSION IS FOUND
-            if(regex.test(this.props.messages.content))
+            if( regex.test( props.message.content ) )
             {
+                // > Display image is a URL with an image extension is found
                 return (
-                    <div className="message">
-                        <span className="message-username" style={{color:this.props.messages.color}}>
-                            {this.props.messages.username}
+                    <main className="chat-message">
+                        <span className="message-username">
+                            {props.message.username}
                         </span>
-                        <img className="message-content" id="images" src={this.props.messages.content} alt="Image"/>
-                    </div>
+                        <img className="message-content" id="images" src={props.message.content} alt="Image"/>
+                    </main>
                 );
             }
-            return (
-            <div className="message">
-                <span className="message-username" style={{color:this.props.messages.color}}>
-                    {this.props.messages.username}
-                </span>
-                <span className="message-content">
-                    {this.props.messages.content}
-                </span>
-                <span className="message-time" style={{display: this.props.timestampDisplay}}>
-                    {time}
-                </span>
-            </div>
-            );
+            else
+            {
+                // > DISPLAY IMAGE IF A URL WITH AN IMAGE EXTENSION IS FOUND
+                return (
+                    <main className="chat-message">
+                        <span className="message-username" style={{color:props.message.color}}>
+                            {props.message.username}
+                        </span>
+                        <span className="message-content">
+                            {props.message.content}
+                        </span>
+                        <span className="message-time" style={{display: props.timestampDisplay}}>
+                            {time}
+                        </span>
+                    </main>
+                );
+            }
         }
 
+        /*======================================*/
+        /*======================================*/  
 
-        if(this.props.messages.type === "incomingNotification")
+        case 'notification':
         {
             return (
-                <div className="message system">
+                <main className="chat-message system">
                     <span className="message-notification">
-                        <span style={{color:this.props.messages.color}}>
-                            {this.props.messages.oldUsername}
+                        <span style={{color:props.message.color}}>
+                            {props.message.oldUsername}
                         </span>
                         <span> changed their name to </span>
-                        <span style={{color:this.props.messages.color}}>
-                            {this.props.messages.newUsername}
+                        <span style={{color:props.message.color}}>
+                            {props.message.newUsername}
                         </span>
                     </span>
-                </div>
+                </main>
             );
         }
 
+        /*======================================*/
+        /*======================================*/
 
-        if(this.props.messages.type === "incomingClientConnected")
-        {
-            return (
-                <div className="message system">
-                    <span className="message-connected">
-                        {this.props.messages.content}
-                    </span>
-                </div>
-            );
-        }
-
-
-        if(this.props.messages.type === "incomingClientDisconnected")
-        {
-            return (
-                <div className="message system">
-                    <span className="message-disconnected">
-                        {this.props.messages.content}
-                    </span>
-                </div>
-            );
-        }
+        default:
     }
 }

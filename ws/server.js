@@ -1,5 +1,5 @@
 /*======================================
-    SERVER CONFIGURATION
+    ANCHOR: SERVER CONFIGURATION
 ========================================*/
 
 const express = require('express');
@@ -13,12 +13,12 @@ const server = express()
 const wss = new SocketServer.Server({ server });
 
 /*======================================
-    FUNCTIONAL METHODS
+    ANCHOR: FUNCTIONAL METHODS
 ========================================*/
 
 
 /*======================================
-    CLASS
+    ANCHOR: CLASS
 ========================================*/
 
 class Chat
@@ -46,7 +46,7 @@ class Chat
     }
 
     /*======================================
-        STATE METHODS - Users
+        ANCHOR: STATE METHODS - Users
     ========================================*/
 
     user_add ( user )
@@ -63,7 +63,7 @@ class Chat
     }
 
     /*======================================
-        STATE METHODS - User Info
+        ANCHOR: STATE METHODS - User Info
     ========================================*/
 
     set_user_name ( user, newName )
@@ -92,7 +92,7 @@ class Chat
     }
 
     /*======================================
-        STATE METHODS - Messages
+        ANCHOR: STATE METHODS - Messages
     ========================================*/
 
     message_add ( message )
@@ -102,13 +102,13 @@ class Chat
 }
 
 /*======================================
-    CLASS INITIATION
+    ANCHOR: CLASS INITIATION
 ========================================*/
 
 let chat = new Chat();
 
 /*======================================
-    WS SERVER FUNCTIONS
+    ANCHOR: WS SERVER FUNCTIONS
 ========================================*/
 
 wss.broadcast = ( data, wsClient ) =>
@@ -143,14 +143,14 @@ wss.broadcast_all = ( data ) =>
 };
 
 /*======================================
-    WS SERVER
+    ANCHOR: WS SERVER
 ========================================*/
 
 wss.on('connection', ( wsClient ) =>
 {
 
     /*======================================
-        INITIAL CONNECTION TO CLIENT
+        ANCHOR: INITIAL CONNECTION TO CLIENT
     ========================================*/
 
     console.log('======= Client Connected =======');
@@ -172,7 +172,7 @@ wss.on('connection', ( wsClient ) =>
 
 
     /*======================================
-        HANDLERS
+        ANCHOR: HANDLERS
     ========================================*/
 
     wsClient.on('message', function incoming( data )
@@ -185,7 +185,7 @@ wss.on('connection', ( wsClient ) =>
         {
 
             /*======================================
-                HANDLER - USER CONNECTION
+                ANCHOR: HANDLER - USER CONNECTION
             ========================================*/
 
             case 'userConnected':
@@ -203,7 +203,7 @@ wss.on('connection', ( wsClient ) =>
             }  
             
             /*======================================
-                HANDLER - USER INFO
+                ANCHOR: HANDLER - USER INFO
             ========================================*/
 
             case 'updateUserName':
@@ -234,7 +234,7 @@ wss.on('connection', ( wsClient ) =>
             }
 
             /*======================================
-                HANDLER - MESSAGES
+                ANCHOR: HANDLER - MESSAGES
             ========================================*/
 
             case "newMessage":
@@ -255,7 +255,7 @@ wss.on('connection', ( wsClient ) =>
     });
 
     /*======================================
-        CLOSING CONNECTION
+        ANCHOR: CLOSING CONNECTION
     ========================================*/
     
     wsClient.on('close', ( wsClient ) =>
@@ -266,7 +266,7 @@ wss.on('connection', ( wsClient ) =>
         // > 
         let disconnectMessage = {
             content: '',
-            
+
         };
         chat.message_add( updateData.message );
 

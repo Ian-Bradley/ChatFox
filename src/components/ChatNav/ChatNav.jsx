@@ -4,11 +4,12 @@ import React from 'react';
 import './ChatNav.scss';
 
 /**
- * @props teamRed (object)       Team data for remaining guesses and cards
- * @props teamBlue (object)      Team data for remaining guesses and cards
+ * @props totalUsers (number) Total number of connected users
+ * @props userName (string)   Name of the current user
  */
 
-export default function ChatNav ( props ) {
+export default function ChatNav ( props )
+{
 
     /*======================================
         RENDER FUNCTIONS - Interactions
@@ -37,14 +38,15 @@ export default function ChatNav ( props ) {
     /*======================================
         COMPONENTS
     ========================================*/
+
     return (
         <nav>
-            <div className={'nav-left'}>
+            <div>
                 <button className='nav-users' onClick={on_users}>
                     {props.totalUsers} users online
                 </button>
             </div>
-            <div className={'nav-right'}>
+            <div>
                 <button className='nav-user' onClick={on_user}>
                     {props.userName}
                 </button>

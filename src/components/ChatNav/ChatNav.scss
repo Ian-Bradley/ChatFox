@@ -1,22 +1,13 @@
 nav {
     display: flex;
     flex-flow: row nowrap;
+    justify-content: space-between;
 
-    position: fixed;
-    top: 0;
-    left: 0;
+    position: relative;
 
     padding: 0;
     height: 60px;
 
-    & .nav-left {
-        position: absolute;
-        left: 0;
-    }
-    & .nav-right {
-        position: absolute;
-        right: 0;
-    }
     & .nav-user, .nav-users {
         font-weight: 700;
         font-size: 22px;
