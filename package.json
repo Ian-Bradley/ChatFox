@@ -1,8 +1,8 @@
 {
   "name": "chatfox",
   "version": "1.0.0",
-  "description": "A very 'lite' chat program",
-  "main": "index.js",
+  "description": "A lite chat program",
+  "main": "index.jsx",
   "scripts": {
     "start": "./node_modules/webpack/bin/webpack.js serve --mode development",
     "build": "./node_modules/webpack/bin/webpack.js"

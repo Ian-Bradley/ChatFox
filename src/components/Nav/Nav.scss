@@ -1,0 +1,25 @@
+@import "../../styles/variables.scss";
+
+nav {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+
+    position: relative;
+    padding: 0;
+    margin: 0;
+
+    & .nav-user, .nav-users {
+        font-size: $nav-font-size;
+        font-weight: $nav-font-weight;
+
+        border:$nav-border-width solid $nav-border-color;
+        border-radius: $nav-border-radius;
+
+        height: $nav-height;
+        width: $nav-width;
+
+        color: $nav-color;
+        background-color: $nav-bg-color;
+    }
+}

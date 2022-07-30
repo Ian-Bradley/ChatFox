@@ -1,14 +1,12 @@
-
-
 import React from 'react';
-import './ChatNav.scss';
+import './Nav.scss';
 
 /**
  * @props totalUsers (number) Total number of connected users
- * @props userName (string)   Name of the current user
+ * @props user (object) User info
  */
 
-export default function ChatNav ( props )
+export default function Nav ( props )
 {
 
     /*======================================
@@ -47,8 +45,8 @@ export default function ChatNav ( props )
                 </button>
             </div>
             <div>
-                <button className='nav-user' onClick={on_user}>
-                    {props.userName}
+                <button className={'nav-user ' + props.user.color} onClick={on_user}>
+                    {props.user.name}
                 </button>
             </div>
         </nav>

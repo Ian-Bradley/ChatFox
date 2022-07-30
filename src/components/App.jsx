@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import ChatNav from './ChatNav/ChatNav.jsx';
-import ChatTitle from './ChatNav/ChatTitle.jsx';
-import ChatMessageList from './ChatNav/ChatMessageList.jsx';
-import ChatBar from './ChatNav/ChatBar.jsx';
+import Nav from './Nav/Nav.jsx';
+import Title from './Title/Title.jsx';
+import ChatBar from './ChatBar/ChatBar.jsx';
+import UserList from './UserList/UserList.jsx';
+import MessageList from './MessageList/MessageList.jsx';
 import './App.scss';
 
 /* TODO:
@@ -104,6 +105,7 @@ export default class App extends Component {
         // State methods - Messages
         this.set_messages         = this.set_messages.bind(this);
         this.message_add          = this.message_add.bind(this);
+        this.message_send         = this.message_send.bind(this);
 
         // State methods - Preferences
         this.set_pref_timeStamps  = this.set_pref_timeStamps.bind(this);
@@ -273,12 +275,29 @@ export default class App extends Component {
     message_add ( message )
     {
         console.log('===> message_add');
+
         this.setState( prevState => ({
             messages: [ ...prevState.messages, message]
         }));
+
         console.log('===> END - message_add');
     }
 
+    /*======================================*/
+    /*======================================*/
+
+    message_send ( newMessage )
+    {
+        console.log('===> message_send');
+        // > WS
+        let newUpdate = {
+            type: 'newMessage',
+            message: newMessage,
+        };
+        this.socket.send( JSON.stringify( newUpdate ));
+        console.log('>>>>>>>>> Message Sent - newMessage >>>>>>>>>');
+        console.log('===> END - message_send');
+    }
     /*================================================
         ANCHOR: STATE METHODS - Preferences
     ==================================================*/
@@ -374,13 +393,13 @@ export default class App extends Component {
         {
             console.log('>>>>>>>>> Message Recieved >>>>>>>>>');
             let updateData = JSON.parse( messageData.data );
-            console.log('> ', updateData.messageType);
+            console.log('> ', updateData.type);
 
             /*================================================
                 HANDLERS
             ==================================================*/
 
-            switch ( updateData.messageType )
+            switch ( updateData.type )
             {
 
                 /*================================================
@@ -407,11 +426,18 @@ export default class App extends Component {
                     if ( !( updateData.users === undefined ) && ( updateData.users.length ) )
                     { this.set_users( updateData.users ); }
 
-                    // > Send current user information to server
+                    // > Send current user (with new user message) information to server
                     console.log('> Send userConnected');
                     let newUpdate = {
                         type: 'userConnected',
                         user: this.state.user,
+                        message: {
+                            type:    'notification',
+                            name:    this.state.user.name,
+                            time:    Date.now(),
+                            color:   this.state.user.color,
+                            content: 'has connected',
+                        },
                     };
                     ws.send( JSON.stringify( newUpdate ) );
                     console.log('>>>>>>>>> Message Sent - userConnected >>>>>>>>>');
@@ -511,29 +537,31 @@ export default class App extends Component {
         
         return (
             <main className='app'>
-
-                {/* <input
-                    className="close"
-                    onClick={onClose}
-                    type="submit"
-                    value="+"
-                /> */}
-
-                <ChatNav
+                {/* <span className="close" onClick={onClose}>+</span> */}
+                {
+                /* // * -> type (string)
+                // * -> name (string)
+                // * -> time (number)
+                // * -> color (string)
+                // * -> content (string) */
+                }
+                <Nav
                     totalUsers={this.state.totalUsers}
-                    userName={this.state.user.name}
+                    user={this.state.user}
                 />
-
-                <ChatTitle />
-
-                <ChatMessageList
-                    messages={this.state.messages}
-                />
-
+                <Title />
+                <div className='container-lists'>
+                    <UserList
+                        users={this.state.users}
+                    />
+                    <MessageList
+                        messages={this.state.messages}
+                    />
+                </div>
                 <ChatBar
-
+                    user={this.state.user}
+                    message_send={this.message_send}
                 />
-
             </main>
         );
     }

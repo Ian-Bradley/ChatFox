@@ -1,16 +1,16 @@
 import React from 'react';
-import './ChatMessage.scss';
+import './Message.scss';
 
 /**
  * @props message (object)
+ * -> type (string)
  * -> name (string)
- * -> content (string)
  * -> time (number)
  * -> color (string)
- * -> type (string)
+ * -> content (string)
  */
 
-export default function ChatMessage ( props )
+export default function Message ( props )
 {
     /*======================================
         RENDER FUNCTIONS - Interactions
@@ -22,11 +22,11 @@ export default function ChatMessage ( props )
     ========================================*/
 
     //REGULAR EXPRESS FOR FINDING IMAGE EXTENSIONS
-    let regex = ( /\.( gif|jp?g|png|svg|bmp|tiff|bat )$/i );
+    // let regex = ( /\.( gif|jp?g|png|svg|bmp|tiff|bat )$/i );
 
 
     // TIMESTAMP HANDLING
-    let time = props.calculateTimeSince( props.message.messageTime );
+    // let time = props.calculateTimeSince( props.message.messageTime );
     
     /*======================================
         COMPONENTS
@@ -40,35 +40,35 @@ export default function ChatMessage ( props )
 
         case 'message':
         {
-            if( regex.test( props.message.content ) )
-            {
-                // > Display image is a URL with an image extension is found
-                return (
-                    <main className="chat-message">
-                        <span className="message-username">
-                            {props.message.username}
-                        </span>
-                        <img className="message-content" id="images" src={props.message.content} alt="Image"/>
-                    </main>
-                );
-            }
-            else
-            {
+            // if( regex.test( props.message.content ) )
+            // {
+                // > Display image if a URL with an image extension is found
+                // return (
+                //     <main className="chat-message">
+                //         <span className="message-name">
+                //             {props.message.name}
+                //         </span>
+                //         <img className="message-content" id="images" src={props.message.content} alt="Image"/>
+                //     </main>
+                // );
+            // }
+            // else
+            // {
                 // > DISPLAY IMAGE IF A URL WITH AN IMAGE EXTENSION IS FOUND
                 return (
-                    <main className="chat-message">
-                        <span className="message-username" style={{color:props.message.color}}>
-                            {props.message.username}
+                    <main className="message">
+                        <span className="message-time">
+                            {props.message.time}
+                        </span>
+                        <span className={"message-name " + props.message.color}>
+                            {props.message.name}
                         </span>
                         <span className="message-content">
                             {props.message.content}
                         </span>
-                        <span className="message-time" style={{display: props.timestampDisplay}}>
-                            {time}
-                        </span>
                     </main>
                 );
-            }
+            // }
         }
 
         /*======================================*/
@@ -77,23 +77,28 @@ export default function ChatMessage ( props )
         case 'notification':
         {
             return (
-                <main className="chat-message system">
-                    <span className="message-notification">
+                <main className="message">
+                    <div className="message-notification">
                         <span style={{color:props.message.color}}>
-                            {props.message.oldUsername}
+                            {props.message.nameOld}
                         </span>
                         <span> changed their name to </span>
                         <span style={{color:props.message.color}}>
-                            {props.message.newUsername}
+                            {props.message.name}
                         </span>
-                    </span>
+                    </div>
                 </main>
             );
+            return <div>test</div>
         }
 
         /*======================================*/
         /*======================================*/
 
         default:
+        {  
+            console.log('ChatMessage - Error: Unrecognized message type')
+            return null;
+        }
     }
 }

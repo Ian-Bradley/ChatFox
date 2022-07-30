@@ -1,5 +1,6 @@
+@import "../../styles/variables.scss";
+
 main.app {
-    
     & .message {
         padding: 5px;
 
@@ -31,7 +32,7 @@ main.app {
         
         & .message-username {
             font-weight: 700;
-            color: black;
+            color: #000;
         }
     }
 }

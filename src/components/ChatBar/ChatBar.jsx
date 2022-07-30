@@ -2,8 +2,7 @@ import React from 'react';
 import './ChatBar.scss';
 
 /**
- * @props
- * @props
+ * @props user (object) User info
  */
 
 export default function ChatBar ( props )
@@ -24,24 +23,16 @@ export default function ChatBar ( props )
             }
             else
             {
-                // const content = e.target.value;
-                // let username = props.currentUser;
+                let newMessage = {
+                    type: "message",
+                    name: props.user.name,
+                    time: Date.now(),
+                    color: props.user.color,
+                    content: e.target.value,
+                };
 
-                // if (props.currentUser === "")
-                // {
-                //     username = props.anonymous;
-                // }
-
-                // let newMessage = {
-                //     username: username,
-                //     content: content,
-                //     time: Date.now(),
-                //     type: "postMessage",
-                //     color: props.color
-                // };
-
-                // props.message.onopen(newMessage);
-                // e.target.value = "";
+                props.message_send( newMessage );
+                e.target.value = "";
             }
         }
     };
@@ -56,35 +47,15 @@ export default function ChatBar ( props )
     ========================================*/
 
     return (
-        <div className="container-chatbar">
-            {/* <input className="preferences-button"
-                onClick={onPref}
-                type="image"
-                src="build/preferences.png"
-                value=""
-            />
-
-            <input className="color-button"
-                id="color-button"
-                onClick={onClick}
-                type="image"
-                src="build/color.png"
-                style={{backgroundColor:props.color}}
-                value=""
-            /> */}
-
-            {/* <input className="chatbar-username"
-                onKeyDown={onKeyDown}
-                id="username"
-                defaultValue={props.currentUser}
-                placeholder={props.anonymous}
-            /> */}
-
-            <input className="chatbar-message"
-                onKeyUp={onKeyUp}
-                placeholder="Type your message here"
-            />
-        </div>
+        <main className="container-chatbar">
+            <div>
+                <input
+                    className="chatbar-message"
+                    onKeyUp={onKeyUp}
+                    placeholder="Type your message here"
+                />
+            </div>    
+        </main>
     );
     
 }

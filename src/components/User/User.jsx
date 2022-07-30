@@ -1,12 +1,15 @@
 import React from 'react';
-import './ChatTitle.scss';
+import './Message.scss';
 
 /**
- * @props
+ * @props user (object)
+ * -> id (string)
+ * -> name (string)
+ * -> color (string)
  */
 
-export default function ChatTitle ( props ) {
-
+export default function Message ( props )
+{
     /*======================================
         RENDER FUNCTIONS - Interactions
     ========================================*/
@@ -16,14 +19,14 @@ export default function ChatTitle ( props ) {
         RENDER FUNCTIONS - Displaying
     ========================================*/
 
-
+    
     /*======================================
         COMPONENTS
     ========================================*/
 
     return (
-        <div className='container-title'>
-            <span className='app-title'>ChatFox</span>
-        </div>
+        <main className="user">
+            User
+        </main>
     );
 }

@@ -158,9 +158,9 @@ wss.on('connection', ( wsClient ) =>
     // Set initial client data
     let userData = {
         id:       uuidv4(), // message id
-        userID:   uuidv4(), // id for disconnecting user removal (maybe: supply id on auth page)
         type:     'clientConnected',
         users:    chat.state.users,
+        userID:   uuidv4(), // id for disconnecting user removal (maybe: supply id on auth page)
         messages: chat.state.messages,
     };
     
@@ -242,7 +242,7 @@ wss.on('connection', ( wsClient ) =>
                 console.log('======= HANDLER - newMessage =======');
                 updateData.id = uuidv4();
                 chat.message_add( updateData.message );
-                wss.broadcast( JSON.stringify( updateData ), wsClient );
+                wss.broadcast_all( JSON.stringify( updateData ) );
                 console.log('======= END - HANDLER - newMessage =======');
                 break;
             }
@@ -261,25 +261,32 @@ wss.on('connection', ( wsClient ) =>
     wsClient.on('close', ( wsClient ) =>
     {
         console.log('======= Client Disonnected =======');
-        chat.client_remove( userData.id );  
 
-        // > 
+        console.log('find user: ', chat.state.users.find(user => user.id = userData.userID ));
+
+        // > Disconnect message
         let disconnectMessage = {
-            content: '',
-
+            type:    'notification',
+            name:    chat.state.users.find(user => user.id = userData.userID ).name,
+            time:    Date.now(),
+            color:   chat.state.users.find(user => user.id = userData.userID ).color,
+            content: 'has disconnected',
         };
-        chat.message_add( updateData.message );
+        chat.message_add( disconnectMessage );
 
         // > Disconnect data for other users
         let updateData = {
-            id: uuidv4(), // message id
-            userID: userData.id, // client removal id
-            time: Date.now(),
-            type: 'userDisconnected',
+            id:      uuidv4(), // message id
+            type:    'userDisconnected',
+            userID:  userData.userID, // user removal id
             message: disconnectMessage,
         };
         wss.broadcast( JSON.stringify( updateData ), wsClient );
         console.log('>>>>>>>>> Message Sent - userDisconnected >>>>>>>>>');
+
+        // > Remove user
+        chat.user_remove( userData.userID );  
+
         console.log('======= END - Client Disonnected =======');
     });
 });

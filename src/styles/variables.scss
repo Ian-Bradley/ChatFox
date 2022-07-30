@@ -1,0 +1,42 @@
+
+/*======================================
+    APP GENERAL
+========================================*/
+
+$app-font-size: 16px;
+$app-spacing: 0.6rem;
+
+/*======================================
+    NAV BUTTONS
+========================================*/
+
+$nav-color: #FFF;
+$nav-bg-color: #000;
+$nav-border-color: lawngreen;
+$nav-border-width: 2px;
+$nav-font-size: 1rem;
+$nav-font-weight: 600;
+$nav-border-radius: 6px;
+$nav-height: 25px;
+$nav-width: 60px;
+
+/*======================================
+    MODAL CLOSE BUTTONS
+========================================*/
+
+$close-color: #000;
+$close-font-size: 1rem;
+$close-font-weight: 600;
+$close-position-top: 12px;
+$close-position-right: 22px;
+$close-border-radius: 25px;
+
+/*======================================
+    ANIMATIONS
+========================================*/
+
+$animation-time__minor: 200ms;
+
+$transition__all: all $animation-time__minor ease 0ms;
+$transition__opacity: opacity $animation-time__minor ease-in 0ms;
+$transition__border: border $animation-time__minor ease-in 0ms;
