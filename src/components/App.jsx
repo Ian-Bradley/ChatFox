@@ -13,6 +13,8 @@ import './App.scss';
     - show timestamps
     - change user color
     - change user name
+    - 12/24 hours time
+    - alternate line shading
 
 > auto-shorten links
 */
@@ -23,21 +25,12 @@ import './App.scss';
 
 function generateRandomColor()
 {
-    let randomColor = '';
-    let colors = [
-        'rebeccapurple',
-        'orange',
-        'maroon',
-        'orangered',
-        'royalblue',
-        'lightseagreen',
-        'darkgoldenrod',
-        'gold',
-        'lawngreen',
-        'darkgreen',
-        'saddlebrown',
-    ];
-    randomColor += colors[Math.floor(Math.random() * colors.length)];
+    let randomColor = '#';
+    let hexCharacters = '0123456789ABCDEF';
+    for (let i = 0; i < 6; i++)
+    {
+        randomColor += hexCharacters.charAt(Math.floor(Math.random() * hexCharacters.length));
+    }
     return randomColor;
 }
 
@@ -46,10 +39,10 @@ function generateRandomColor()
 
 function generateAnonymous ()
 {
-    let name = 'Anonymous';
+    let name = 'RandomName';
     let numbers = '0123456789';
     let randomNumberString = '';
-    for (let i = 0; i < 4; i++)
+    for (let i = 0; i < 6; i++)
     {
         randomNumberString += numbers.charAt(Math.floor(Math.random() * numbers.length));
     }
@@ -70,8 +63,9 @@ export default class App extends Component {
     {
         super(props);
         this.state = {
+            appTitle: 'ChatFox',
             user: {
-                id: 0,
+                id: 1,
                 name: generateAnonymous(),
                 color: generateRandomColor(),
             },
@@ -111,9 +105,6 @@ export default class App extends Component {
         this.set_pref_timeStamps  = this.set_pref_timeStamps.bind(this);
         this.set_pref_nameChanges = this.set_pref_nameChanges.bind(this);
         this.set_pref_userJoins   = this.set_pref_userJoins.bind(this);
-
-        // Functional methods - Time / Date
-        this.calculateTimeSince   = this.calculateTimeSince.bind(this);
     }
 
     /*================================================
@@ -182,6 +173,16 @@ export default class App extends Component {
         {
             // > Current user
             console.log('> Current user');
+            // const previousName = this.state.user.name;
+            const newMessage = {
+                type:     'notification-name',
+                name:     name,
+                namePrev: this.state.user.name,
+                time:     new Date(),
+                color:    this.state.user.color,
+            };
+            // > States
+            this.message_add( newMessage );
             this.setState(prevState => {
                 let user = { ...prevState.user };
                 user.name = name;
@@ -190,8 +191,9 @@ export default class App extends Component {
             // > WS
             let newUpdate = {
                 type: 'updateUserName',
-                player: this.state.user,
+                user: this.state.user,
                 newName: name,
+                message: newMessage,
             };
             this.socket.send( JSON.stringify( newUpdate ));
             console.log('>>>>>>>>> Message Sent - updateUserName >>>>>>>>>');
@@ -225,6 +227,16 @@ export default class App extends Component {
         {
             // > Current user
             console.log('> Current user');
+            // const previousColor = this.state.user.color;
+            const newMessage = {
+                type:      'notification-color',
+                name:      this.state.user.name,
+                time:      new Date(),
+                color:     color,
+                colorPrev: this.state.user.color,
+            };
+            // > States
+            this.message_add( newMessage );
             this.setState(prevState => {
                 let user = { ...prevState.user };
                 user.color = color;
@@ -233,8 +245,9 @@ export default class App extends Component {
             // > WS
             let newUpdate = {
                 type: 'updateUserColor',
-                player: this.state.user,
+                user: this.state.user,
                 newColor: color,
+                message: newMessage,
             };
             this.socket.send( JSON.stringify( newUpdate ));
             console.log('>>>>>>>>> Message Sent - updateUserColor >>>>>>>>>');
@@ -342,35 +355,6 @@ export default class App extends Component {
     }
 
     /*================================================
-        ANCHOR: FUNCTIONAL METHODS - Time / Date
-    ==================================================*/
-
-    calculateTimeSince ( time )
-    {
-        let currentTime = Date.now();
-        let timeSince = currentTime - time;
-        let seconds = timeSince / 1000;
-        let minutes = timeSince / 1000 / 60;
-
-        if ( seconds < 60 )
-        {
-            return Math.round( seconds ) + 's';
-        }
-
-        if( minutes < 60 )
-        {
-            return Math.round( minutes ) + 'm';
-        }
-
-        if( hours < 24 )
-        {
-            return Math.round( hours ) + 'h';
-        }
-
-        return Math.round( days ) + 'd';
-    }
-
-    /*================================================
         ANCHOR: COMPONENT ACTIONS
     ==================================================*/
 
@@ -407,106 +391,105 @@ export default class App extends Component {
                 ==================================================*/
 
                 case 'clientConnected':
-                {
-                    // > This handler is only fired ONCE when the CURRENT user joins
-                    console.log('======= HANDLER - clientConnected =======');
+                    {
+                        // > This handler is only fired ONCE when the CURRENT user joins
+                        console.log('======= HANDLER - clientConnected =======');
 
-                    // > Set current user ID
-                    console.log('> Setting ID');
-                    if ( updateData.userID )
-                    { this.set_user_ID( updateData.userID ); }
+                        // > Set current user ID
+                        console.log('> Setting ID');
+                        if ( updateData.userID )
+                        { this.set_user_ID( updateData.userID ); }
 
-                    // > Set previous messages
-                    console.log('> Setting messages');
-                    if ( !( updateData.messages === undefined ) && ( updateData.messages.length ) )
-                    { this.set_messages( updateData.messages ); }
+                        // > Set previous messages
+                        console.log('> Setting messages');
+                        if ( !( updateData.messages === undefined ) && ( updateData.messages.length ) )
+                        { this.set_messages( updateData.messages ); }
 
-                    // > Set users
-                    console.log('> Setting users');
-                    if ( !( updateData.users === undefined ) && ( updateData.users.length ) )
-                    { this.set_users( updateData.users ); }
+                        // > Set users
+                        console.log('> Setting users');
+                        if ( !( updateData.users === undefined ) && ( updateData.users.length ) )
+                        { this.set_users( updateData.users ); }
 
-                    // > Send current user (with new user message) information to server
-                    console.log('> Send userConnected');
-                    let newUpdate = {
-                        type: 'userConnected',
-                        user: this.state.user,
-                        message: {
-                            type:    'notification',
-                            name:    this.state.user.name,
-                            time:    Date.now(),
-                            color:   this.state.user.color,
-                            content: 'has connected',
-                        },
-                    };
-                    ws.send( JSON.stringify( newUpdate ) );
-                    console.log('>>>>>>>>> Message Sent - userConnected >>>>>>>>>');
-                    console.log('======= END - HANDLER - clientConnected =======');
-                    break;
-                }
+                        // > Send current user (with new user message) information to server
+                        console.log('> Send userConnected');
+                        let newUpdate = {
+                            type: 'userConnected',
+                            user: this.state.user,
+                            message: {
+                                type:    'notification-connect',
+                                name:    this.state.user.name,
+                                time:    new Date(),
+                                color:   this.state.user.color,
+                            },
+                        };
+                        ws.send( JSON.stringify( newUpdate ) );
+                        console.log('>>>>>>>>> Message Sent - userConnected >>>>>>>>>');
+                        console.log('======= END - HANDLER - clientConnected =======');
+                        break;
+                    }
 
                 /*======================================*/
                 /*======================================*/
 
                 case 'userConnected':
-                {
-                    // > This handler is only fired when OTHER users join
-                    console.log('======= HANDLER - userConnected =======');
-                    this.user_add( updateData.user );
-                    this.message_add( updateData.message );
-                    console.log('======= END - HANDLER - userConnected =======');
-                    break;
-                }
+                    {
+                        // > This handler is only fired when OTHER users join
+                        console.log('======= HANDLER - userConnected =======');
+                        this.user_add( updateData.user );
+                        this.message_add( updateData.message );
+                        console.log('======= END - HANDLER - userConnected =======');
+                        break;
+                    }
 
                 /*======================================*/
                 /*======================================*/  
 
                 case 'userDisconnected':
-                {
-                    // This handler is only fired when OTHER users leave
-                    console.log('======= HANDLER - userDisconnected =======');
-                    this.user_remove( updateData.userID );
-                    this.message_add( updateData.message );
-                    console.log('======= END - HANDLER - userDisconnected =======');
-                    break;
-                }
+                    {
+                        // This handler is only fired when OTHER users leave
+                        console.log('======= HANDLER - userDisconnected =======');
+                        this.user_remove( updateData.userID );
+                        this.message_add( updateData.message );
+                        console.log('======= END - HANDLER - userDisconnected =======');
+                        break;
+                    }
 
                 /*================================================
                     ANCHOR: HANDLER - USER INFO
                 ==================================================*/
 
                 case 'updateUserName':
-                {
-                    console.log('======= HANDLER - updateUserName =======');
-                    this.set_user_name( updateData.user, updateData.name );
-                    this.message_add( updateData.message );
-                    console.log('======= END - HANDLER - updateUserName =======');
-                    break;
-                }
+                    {
+                        console.log('======= HANDLER - updateUserName =======');
+                        this.set_user_name( updateData.user, updateData.name );
+                        this.message_add( updateData.message );
+                        console.log('======= END - HANDLER - updateUserName =======');
+                        break;
+                    }
                 
                 /*======================================*/  
                 /*======================================*/  
 
                 case 'updateUserColor':
-                {
-                    console.log('======= HANDLER - updateUserColor =======');
-                    this.set_user_color( updateData.user, updateData.color );
-                    this.message_add( updateData.message );
-                    console.log('======= END - HANDLER - updateUserColor =======');
-                    break;
-                }
+                    {
+                        console.log('======= HANDLER - updateUserColor =======');
+                        this.set_user_color( updateData.user, updateData.color );
+                        this.message_add( updateData.message );
+                        console.log('======= END - HANDLER - updateUserColor =======');
+                        break;
+                    }
 
                 /*================================================
                     ANCHOR: HANDLER - MESSAGES
                 ==================================================*/
 
                 case 'newMessage':
-                {
-                    console.log('======= HANDLER - newMessage =======');
-                    this.message_add( updateData.message );
-                    console.log('======= END - HANDLER - newMessage =======');
-                    break;
-                }
+                    {
+                        console.log('======= HANDLER - newMessage =======');
+                        this.message_add( updateData.message );
+                        console.log('======= END - HANDLER - newMessage =======');
+                        break;
+                    }
 
                 /*======================================*/
                 /*======================================*/
@@ -532,36 +515,71 @@ export default class App extends Component {
     {
 
         /*================================================
+            ANCHOR: RENDER FUNCTIONS - Dev Tools
+        ==================================================*/
+
+        const on_dev_user = () => {
+            // const fakeLog = [
+            //     { player: {team: 'red', name: 'Chilled'}, itemType: 'clue', clue: 'Food' },
+            // ];
+        }
+        const on_dev_color = () => { this.set_user_color( this.state.user, generateRandomColor() ); }
+        const on_dev_name = e => { if (e.keyCode === 13) { this.set_user_name( this.state.user, e.target.value ); e.target.value = ''; } }
+
+        /*================================================
             ANCHOR: COMPONENTS
         ==================================================*/
         
         return (
             <main className='app'>
-                {/* <span className="close" onClick={onClose}>+</span> */}
-                {
-                /* // * -> type (string)
-                // * -> name (string)
-                // * -> time (number)
-                // * -> color (string)
-                // * -> content (string) */
-                }
+                {/* <span className='close' onClick={onClose}>+</span> */}
                 <Nav
-                    totalUsers={this.state.totalUsers}
                     user={this.state.user}
                 />
-                <Title />
-                <div className='container-lists'>
-                    <UserList
-                        users={this.state.users}
-                    />
-                    <MessageList
-                        messages={this.state.messages}
-                    />
+                <Title
+                    appTitle={this.state.appTitle}
+                />
+
+                <div className='container-app'>
+                    <div className='container-chat'>
+                        <MessageList
+                            messages={this.state.messages}
+                            preferences={this.state.preferences}
+                        />
+                        <ChatBar
+                            user={this.state.user}
+                            message_send={this.message_send}
+                        />
+                    </div>
+                    <div className='container-users'>
+                        <UserList
+                            totalUsers={this.state.totalUsers}
+                            users={this.state.users}
+                        />
+                    </div>
+
                 </div>
-                <ChatBar
-                    user={this.state.user}
-                    message_send={this.message_send}
-                />
+
+                <div id='dev-tools'>
+                    <div>
+                        <ul>
+                            <li><span>Current Player: </span></li>
+                            <li>{this.state.user.id + ' '}<span>ID</span></li>
+                            <li>{this.state.user.name + ' '}<span>Name</span></li>
+                            <li>{this.state.user.color + ' '}<span>Color</span></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <input
+                            type='text'
+                            className='name-input'
+                            placeholder='Name'
+                            defaultValue=''
+                            onKeyDown={on_dev_name}
+                        />
+                        <button onClick={on_dev_color}>Color</button>
+                    </div>
+                </div>
             </main>
         );
     }

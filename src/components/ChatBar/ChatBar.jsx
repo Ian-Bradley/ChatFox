@@ -17,22 +17,22 @@ export default function ChatBar ( props )
         // e.preventDefault();
         if (e.keyCode === 13)
         {
-            if (e.target.value === "")
+            if (e.target.value === '')
             {
                 // DO NOTHING ON EMPTY FIELD ENTRY
             }
             else
             {
                 let newMessage = {
-                    type: "message",
+                    type: 'message',
                     name: props.user.name,
-                    time: Date.now(),
+                    time: new Date(),
                     color: props.user.color,
                     content: e.target.value,
                 };
 
                 props.message_send( newMessage );
-                e.target.value = "";
+                e.target.value = '';
             }
         }
     };
@@ -47,12 +47,12 @@ export default function ChatBar ( props )
     ========================================*/
 
     return (
-        <main className="container-chatbar">
-            <div>
+        <main className='container-chatbar'>
+            <div className='chatbar'>
                 <input
-                    className="chatbar-message"
+                    className='chatbar-input'
                     onKeyUp={onKeyUp}
-                    placeholder="Type your message here"
+                    placeholder='Type your message here'
                 />
             </div>    
         </main>

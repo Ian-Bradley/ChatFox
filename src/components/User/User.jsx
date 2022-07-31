@@ -1,5 +1,5 @@
 import React from 'react';
-import './Message.scss';
+import './User.scss';
 
 /**
  * @props user (object)
@@ -25,7 +25,7 @@ export default function Message ( props )
     ========================================*/
 
     return (
-        <main className="user">
+        <main className='user'>
             User
         </main>
     );

@@ -2,7 +2,7 @@ import React from 'react';
 import './Title.scss';
 
 /**
- * @props
+ * @props appTitle (string)
  */
 
 export default function Title ( props ) {
@@ -22,8 +22,10 @@ export default function Title ( props ) {
     ========================================*/
 
     return (
-        <div className='container-title'>
-            <span className='app-title'>ChatFox</span>
-        </div>
+        <main className='container-title'>
+            <div className='app-title'>
+                <span>{props.appTitle}</span>
+            </div>
+        </main>
     );
 }

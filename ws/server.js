@@ -189,63 +189,64 @@ wss.on('connection', ( wsClient ) =>
             ========================================*/
 
             case 'userConnected':
-            {
-                // > Send new user data to all other users
-                console.log('======= HANDLER - userConnected =======');
-                updateData.id = uuidv4();
-                userData.userID = updateData.user.id // set id for disconnecting user removal
-                chat.user_add( updateData.user );
-                chat.message_add( updateData.message );
-                wss.broadcast( JSON.stringify( updateData ), wsClient );
-                console.log('>>>>>>>>> Message Sent - userConnected >>>>>>>>>');
-                console.log('======= END HANDLER - userConnected =======');
-                break;
-            }  
+                {
+                    // > Send new user data to all other users
+                    console.log('======= HANDLER - userConnected =======');
+                    updateData.id = uuidv4();
+                    userData.userID = updateData.user.id // set id for disconnecting user removal
+                    chat.user_add( updateData.user );
+                    chat.message_add( updateData.message );
+                    wss.broadcast( JSON.stringify( updateData ), wsClient );
+                    console.log('>>>>>>>>> Message Sent - userConnected >>>>>>>>>');
+                    console.log('======= END HANDLER - userConnected =======');
+                    break;
+                }  
             
             /*======================================
                 ANCHOR: HANDLER - USER INFO
             ========================================*/
 
             case 'updateUserName':
-            {
-                console.log('======= HANDLER - updateUserName =======');
-                updateData.id = uuidv4();
-                chat.set_user_name( updateData.user, updateData.newName );
-                chat.message_add( updateData.message );
-                wss.broadcast( JSON.stringify( updateData ), wsClient );
-                console.log('>>>>>>>>> Message Sent - updateUserName >>>>>>>>>');
-                console.log('======= END HANDLER - updateUserName =======');
-                break;
-            }
+                {
+                    console.log('======= HANDLER - updateUserName =======');
+                    updateData.id = uuidv4();
+                    chat.set_user_name( updateData.user, updateData.newName );
+                    chat.message_add( updateData.message );
+                    wss.broadcast( JSON.stringify( updateData ), wsClient );
+                    console.log('>>>>>>>>> Message Sent - updateUserName >>>>>>>>>');
+                    console.log('======= END HANDLER - updateUserName =======');
+                    break;
+                }
 
             /*======================================*/
             /*======================================*/
 
             case 'updateUserColor':
-            {
-                console.log('======= HANDLER - updateUserColor =======');
-                updateData.id = uuidv4();
-                chat.set_user_color( updateData.user, updateData.newColor );
-                chat.message_add( updateData.message );
-                wss.broadcast( JSON.stringify( updateData ), wsClient );
-                console.log('>>>>>>>>> Message Sent - updateUserColor >>>>>>>>>');
-                console.log('======= END HANDLER - updateUserColor =======');
-                break;
-            }
+                {
+                    console.log('======= HANDLER - updateUserColor =======');
+                    updateData.id = uuidv4();
+                    chat.set_user_color( updateData.user, updateData.newColor );
+                    chat.message_add( updateData.message );
+                    wss.broadcast( JSON.stringify( updateData ), wsClient );
+                    console.log('>>>>>>>>> Message Sent - updateUserColor >>>>>>>>>');
+                    console.log('======= END HANDLER - updateUserColor =======');
+                    break;
+                }
 
             /*======================================
                 ANCHOR: HANDLER - MESSAGES
             ========================================*/
 
             case "newMessage":
-            {
-                console.log('======= HANDLER - newMessage =======');
-                updateData.id = uuidv4();
-                chat.message_add( updateData.message );
-                wss.broadcast_all( JSON.stringify( updateData ) );
-                console.log('======= END - HANDLER - newMessage =======');
-                break;
-            }
+                {
+                    console.log('======= HANDLER - newMessage =======');
+                    updateData.id = uuidv4();
+                    chat.message_add( updateData.message );
+                    wss.broadcast_all( JSON.stringify( updateData ) );
+                    console.log('>>>>>>>>> Message Sent - newMessage >>>>>>>>>');
+                    console.log('======= END - HANDLER - newMessage =======');
+                    break;
+                }
 
             /*======================================*/
             /*======================================*/
@@ -266,11 +267,10 @@ wss.on('connection', ( wsClient ) =>
 
         // > Disconnect message
         let disconnectMessage = {
-            type:    'notification',
+            type:    'notification-disconnect',
             name:    chat.state.users.find(user => user.id = userData.userID ).name,
-            time:    Date.now(),
+            time:    new Date(),
             color:   chat.state.users.find(user => user.id = userData.userID ).color,
-            content: 'has disconnected',
         };
         chat.message_add( disconnectMessage );
 

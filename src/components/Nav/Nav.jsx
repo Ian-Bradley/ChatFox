@@ -2,7 +2,6 @@ import React from 'react';
 import './Nav.scss';
 
 /**
- * @props totalUsers (number) Total number of connected users
  * @props user (object) User info
  */
 
@@ -38,17 +37,12 @@ export default function Nav ( props )
     ========================================*/
 
     return (
-        <nav>
-            <div>
-                <button className='nav-users' onClick={on_users}>
-                    {props.totalUsers} users online
-                </button>
-            </div>
-            <div>
+        <main className='container-nav'>
+            <nav>
                 <button className={'nav-user ' + props.user.color} onClick={on_user}>
                     {props.user.name}
                 </button>
-            </div>
-        </nav>
+            </nav>
+        </main>
     );
 }

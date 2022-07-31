@@ -1,33 +1,34 @@
 @import "../../styles/variables.scss";
 
 main.app {
+    & .container-chatbar {
+        width: 100%;
+        height: $app-height-chatbar;
+    }
+
     .chatbar {
-        background: #fff;
-        border-top: 1px solid #000;
-        bottom: 0;
         display: flex;
-        left: 0;
-        padding: 5px;
-        position: fixed;
-        right: 0;
+        flex-flow: row nowrap;
+        align-items: center;
+        justify-content: center;
 
-        & .chatbar-username, .chatbar-message {
-            border: 1px solid #000;
-            display: block;
-            height: 40px;
-            line-height: 40px;
-            margin: 5px;
-            padding: 0 9px;
+        width: $chatbar-width;
+        height: 100%;
+
+        & .chatbar-input {
+            width: 100%;
+
+            color: $chatbar-color;
+            background-color: $chatbar-bg-color;
+
+            border: $chatbar-border;
+            border-radius: $chatbar-border-radius;
+
+            font-size: $chatbar-font-size;
+            font-weight: $chatbar-font-weight;
+
+            line-height: $chatbar-line-height;
+            padding: $chatbar-padding;
         }
-
-        & .chatbar-username {
-
-        }
-
-        & .chatbar-message {
-
-        }
-        
-
     }
 }

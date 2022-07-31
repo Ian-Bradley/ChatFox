@@ -1,11 +1,73 @@
 @import "../styles/variables.scss";
 
 
-html, body,
 main.app {
+    background: grey;
+
+}
+.message-list .container-message:nth-child(2n-1) {
+    background: lightgrey;
+}
+
+#dev-tools {
+    position: fixed;
+    right: 400px;
+    z-index: 1000;
+    display: flex;
+    flex-flow: column nowrap;
+
+    & > div:nth-child(1) {
+        width: auto;
+        white-space: nowrap;
+
+        & ul {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 20px 0;
+            display: flex;
+            flex-flow: column nowrap;
+            align-items: flex-end;
+
+            & li {
+                margin-top: 6px;
+            }
+    
+            & span {
+                font-weight: 800;
+                border: 2px solid black;
+                padding: 0px 2px;
+            }
+        }
+    }
+
+    & > div:nth-child(2) {
+        display: flex;
+        flex-flow: column nowrap;
+    }
+}
+
+/*======================================
+    CONTAINERS
+========================================*/
+
+/*======================================
+#root
+    main.app
+        .container-app
+            .container-chat
+                MessageList
+                ChatBar
+            .container-users
+                UserList
+========================================*/
+
+html,
+body,
+#root,
+main.app,
+.container-app {
     width: 100%;
     height: 100%;
-
     overflow: hidden;
 }
 
@@ -21,14 +83,28 @@ main.app {
     align-items: flex-start;
     justify-content: flex-start;
 
-    & .container-lists {
+    & .container-app {
         display: flex;
         flex-flow: row nowrap;
         align-items: flex-start;
         justify-content: flex-start;
+
+        & .container-chat {
+            display: flex;
+            flex-flow: column nowrap;
+            align-items: flex-start;
+            justify-content: flex-start;
+
+            width: $app-width-chat;
+            height: 100%;
+        }
+
+        & .container-users {
+            width: $app-width-users;
+            height: 100%;
+        }
     }
 }
-
 
 /*======================================
     GENERAL ELEMENTS

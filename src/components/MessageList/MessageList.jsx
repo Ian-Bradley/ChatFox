@@ -1,9 +1,10 @@
 import React from 'react';
-import Message from "../Message/Message.jsx";
+import Message from '../Message/Message.jsx';
 import './MessageList.scss';
 
 /**
- * @props messages (array) List of all messages
+ * @props messages (array)     List of all messages
+ * @props preferences (object) App+Display info
  */
 
 export default function MessageList ( props )
@@ -27,6 +28,7 @@ export default function MessageList ( props )
                     <Message
                         key={index}
                         message={message}
+                        preferences={props.preferences}
                     />
                 )
             )
@@ -38,7 +40,7 @@ export default function MessageList ( props )
     ========================================*/
 
     return (
-        <main className="message-list">
+        <main className='message-list'>
             {display_messages()}
         </main>
     );

@@ -1,9 +1,10 @@
 import React from 'react';
-import User from "../User/User.jsx";
+import User from '../User/User.jsx';
 import './UserList.scss';
 
 /**
- * @props users (array) List of all users
+ * @props totalUsers (number) Total number of connected users
+ * @props users (array)       List of all users
  */
 
 export default function UserList ( props )
@@ -38,7 +39,8 @@ export default function UserList ( props )
     ========================================*/
 
     return (
-        <main className="user-list">
+        <main className='user-list'>
+            <div>{props.totalUsers}</div>
             {display_users()}
         </main>
     );

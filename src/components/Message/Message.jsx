@@ -2,12 +2,8 @@ import React from 'react';
 import './Message.scss';
 
 /**
- * @props message (object)
- * -> type (string)
- * -> name (string)
- * -> time (number)
- * -> color (string)
- * -> content (string)
+ * @props message (object)     Message info
+ * @props preferences (object) App+Display info
  */
 
 export default function Message ( props )
@@ -21,12 +17,15 @@ export default function Message ( props )
         RENDER FUNCTIONS - Displaying
     ========================================*/
 
-    //REGULAR EXPRESS FOR FINDING IMAGE EXTENSIONS
-    // let regex = ( /\.( gif|jp?g|png|svg|bmp|tiff|bat )$/i );
+    // > Regular expression for image extensions
+    const imageExtensionRegex = ( /\.( gif|jp?g|png|svg|bmp|tiff|bat )$/i );
 
-
-    // TIMESTAMP HANDLING
-    // let time = props.calculateTimeSince( props.message.messageTime );
+    const display_timestamp = () =>
+    {
+        let date = props.message.time;
+        let output = date.toLocaleTimeString();
+        return output;
+    }
     
     /*======================================
         COMPONENTS
@@ -39,65 +38,146 @@ export default function Message ( props )
         /*======================================*/
 
         case 'message':
-        {
-            // if( regex.test( props.message.content ) )
-            // {
-                // > Display image if a URL with an image extension is found
-                // return (
-                //     <main className="chat-message">
-                //         <span className="message-name">
-                //             {props.message.name}
-                //         </span>
-                //         <img className="message-content" id="images" src={props.message.content} alt="Image"/>
-                //     </main>
-                // );
-            // }
-            // else
-            // {
-                // > DISPLAY IMAGE IF A URL WITH AN IMAGE EXTENSION IS FOUND
-                return (
-                    <main className="message">
-                        <span className="message-time">
-                            {props.message.time}
-                        </span>
-                        <span className={"message-name " + props.message.color}>
-                            {props.message.name}
-                        </span>
-                        <span className="message-content">
-                            {props.message.content}
-                        </span>
-                    </main>
-                );
-            // }
-        }
+            {
+                if( imageExtensionRegex.test( props.message.content ) )
+                {
+                    // > Display image (with possible caption) if a URL with an image extension is found
+                    return (
+                        <main className='container-message'>
+                            <div className='message'>
+                                <span className='message-time'>
+                                    {display_timestamp()}
+                                </span>
+                                <span className={'message-name ' + props.message.color}>
+                                    {props.message.name}
+                                </span>
+                                <div className='message-image-container'>
+                                    <img className='message-image' src={props.message.content} alt='Image'/>
+                                    <span className='message-content image-caption'>
+                                        {props.message.content}
+                                    </span>
+                                </div>
+                            </div>
+                        </main>
+                    );
+                }
+                else
+                {
+                    // > Display regular text message
+                    return (
+                        <main className='container-message'>
+                            <div className='message'>
+                                <span className='message-time'>
+                                    {display_timestamp()}
+                                </span>
+                                <span className={'message-name ' + props.message.color}>
+                                    {props.message.name}
+                                </span>
+                                <span className='message-content'>
+                                    {props.message.content}
+                                </span>
+                            </div>
+                        </main>
+                    );
+                }
+            }
 
         /*======================================*/
         /*======================================*/  
 
-        case 'notification':
-        {
-            return (
-                <main className="message">
-                    <div className="message-notification">
-                        <span style={{color:props.message.color}}>
-                            {props.message.nameOld}
-                        </span>
-                        <span> changed their name to </span>
-                        <span style={{color:props.message.color}}>
-                            {props.message.name}
-                        </span>
-                    </div>
-                </main>
-            );
-            return <div>test</div>
-        }
+        case 'notification-connect':
+            {
+                return (
+                    <main className='container-message'>
+                        <div className='message notification'>
+                            <span className='message-time'>
+                                {display_timestamp()}
+                            </span>
+                            <span className={props.message.color}>
+                                {props.message.name}
+                            </span>
+                            <span> connected</span>
+                        </div>
+                    </main>
+                );
+            }
+
+        /*======================================*/
+        /*======================================*/  
+
+         case 'notification-disconnect':
+            {
+                return (
+                    <main className='container-message'>
+                        <div className='message notification'>
+                            <span className='message-time'>
+                                {display_timestamp()}
+                            </span>
+                            <span className={props.message.color}>
+                                {props.message.name}
+                            </span>
+                            <span> disconnected</span>
+                        </div>
+                    </main>
+                );
+            }
+
+        /*======================================*/
+        /*======================================*/  
+
+         case 'notification-name':
+            {
+                return (
+                    <main className='container-message'>
+                        <div className='message notification'>
+                            <span className='message-time'>
+                                {display_timestamp()}
+                            </span>
+                            <span className={props.message.color}>
+                                {props.message.namePrev}
+                            </span>
+                            <span> changed their name to </span>
+                            <span className={props.message.color}>
+                                {props.message.name}
+                            </span>
+                        </div>
+                    </main>
+                );
+            }
+
+        /*======================================*/
+        /*======================================*/  
+
+         case 'notification-color':
+            {
+                return (
+                    <main className='container-message'>
+                        <div className='message notification'>
+                            <span className='message-time'>
+                                {display_timestamp()}
+                            </span>
+                            <span className={props.message.color}>
+                                {props.message.name}
+                            </span>
+                            <span> changed their color from </span>
+                            <span className={props.message.colorPrev}>
+                                {props.message.colorPrev}
+                            </span>
+                            <span> to </span>
+                            <span className={props.message.color}>
+                                {props.message.color}
+                            </span>
+                        </div>
+                    </main>
+                );
+            }
 
         /*======================================*/
         /*======================================*/
 
         default:
         {  
-            console.log('ChatMessage - Error: Unrecognized message type')
+            console.log('Message.jsx - Error: Unrecognized message type')
             return null;
         }
     }
