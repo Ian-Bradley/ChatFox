@@ -27,7 +27,12 @@ main.app {
             }
             
             & .message-name {
-                font-weight: $message-name-font-weight;
+                font-weight: $user-name-font-weight;
+                cursor: pointer;
+
+                &:hover {
+                    text-decoration: underline;
+                }
             }
     
             & .message-time {

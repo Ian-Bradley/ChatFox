@@ -3,8 +3,9 @@ import User from '../User/User.jsx';
 import './UserList.scss';
 
 /**
- * @props totalUsers (number) Total number of connected users
- * @props users (array)       List of all users
+ * @props totalUsers (number)   Total number of connected users
+ * @props users (array)         List of all users
+ * @props click_name (function) Clicking on a user name
  */
 
 export default function UserList ( props )
@@ -23,14 +24,18 @@ export default function UserList ( props )
     {
         if ( !( props.users === undefined ) && ( props.users.length ) )
         {
-            return (
-                props.users.map(( user, index ) =>
+            let usersArray = [];
+            for (let i = 0; i < props.users.length; i++)
+            {
+                usersArray.push(
                     <User
-                        key={index}
-                        user={user}
+                        key={i}
+                        user={props.users[i]}
+                        click_name={props.click_name}
                     />
-                )
-            )
+                );
+            }
+            return usersArray;
         }
     }
 
@@ -40,7 +45,11 @@ export default function UserList ( props )
 
     return (
         <main className='user-list'>
-            <div>{props.totalUsers}</div>
+            <div className='user-total'>
+                <span>
+                    {props.totalUsers} Users
+                </span>
+            </div>
             {display_users()}
         </main>
     );

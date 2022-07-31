@@ -2,8 +2,9 @@ import React from 'react';
 import './Message.scss';
 
 /**
- * @props message (object)     Message info
- * @props preferences (object) App+Display info
+ * @props message (object)      Message info
+ * @props preferences (object)  App+Display info
+ * @props click_name (function) Clicking on a user name
  */
 
 export default function Message ( props )
@@ -12,6 +13,10 @@ export default function Message ( props )
         RENDER FUNCTIONS - Interactions
     ========================================*/
 
+    const on_click_name = e =>
+    {
+        props.click_name( e );
+    }
 
     /*======================================
         RENDER FUNCTIONS - Displaying
@@ -41,22 +46,43 @@ export default function Message ( props )
 
     switch ( props.message.type )
     {
-
-        /*======================================*/
-        /*======================================*/
-
         case 'message':
             {
-                if( imageExtensionRegex.test( props.message.content ) )
+                if( !( imageExtensionRegex.test( props.message.content ) ) )
                 {
-                    // > Display image (with possible caption) if a URL with an image extension is found
+                    /*======================================
+                        MESSAGE - Regular
+                    ========================================*/
+
                     return (
                         <main className='container-message'>
                             <div className='message'>
                                 <span className='message-time'>
                                     {display_timestamp()}
                                 </span>
-                                <span className={'message-name ' + props.message.color}>
+                                <span className={'message-name'}  style={{color: props.message.color}}>
+                                    {props.message.name}
+                                </span>
+                                <span className='message-content'>
+                                    {props.message.content}
+                                </span>
+                            </div>
+                        </main>
+                    );
+                }
+                else
+                {
+                    /*======================================
+                        MESSAGE - Image
+                    ========================================*/
+
+                    return (
+                        <main className='container-message'>
+                            <div className='message'>
+                                <span className='message-time'>
+                                    {display_timestamp()}
+                                </span>
+                                <span className={'message-name'}  style={{color: props.message.color}} onClick={on_click_name}>
                                     {props.message.name}
                                 </span>
                                 <div className='message-image-container'>
@@ -69,29 +95,11 @@ export default function Message ( props )
                         </main>
                     );
                 }
-                else
-                {
-                    // > Display regular text message
-                    return (
-                        <main className='container-message'>
-                            <div className='message'>
-                                <span className='message-time'>
-                                    {display_timestamp()}
-                                </span>
-                                <span className={'message-name ' + props.message.color}>
-                                    {props.message.name}
-                                </span>
-                                <span className='message-content'>
-                                    {props.message.content}
-                                </span>
-                            </div>
-                        </main>
-                    );
-                }
             }
 
-        /*======================================*/
-        /*======================================*/  
+        /*======================================
+            NOTIFICATION - Connection
+        ========================================*/
 
         case 'notification-connect':
             {
@@ -101,7 +109,7 @@ export default function Message ( props )
                             <span className='message-time'>
                                 {display_timestamp()}
                             </span>
-                            <span className={'message-name ' + props.message.color}>
+                            <span className={'message-name'}  style={{color: props.message.color}}>
                                 {props.message.name}
                             </span>
                             <span className='message-text'> connected</span>
@@ -110,8 +118,9 @@ export default function Message ( props )
                 );
             }
 
-        /*======================================*/
-        /*======================================*/  
+        /*======================================
+            NOTIFICATION - Disconnection
+        ========================================*/
 
          case 'notification-disconnect':
             {
@@ -121,7 +130,7 @@ export default function Message ( props )
                             <span className='message-time'>
                                 {display_timestamp()}
                             </span>
-                            <span className={'message-name ' + props.message.color}>
+                            <span className={'message-name'}  style={{color: props.message.color}}>
                                 {props.message.name}
                             </span>
                             <span className='message-text'> disconnected</span>
@@ -130,8 +139,9 @@ export default function Message ( props )
                 );
             }
 
-        /*======================================*/
-        /*======================================*/  
+        /*======================================
+            NOTIFICATION - Name change
+        ========================================*/
 
          case 'notification-name':
             {
@@ -141,11 +151,11 @@ export default function Message ( props )
                             <span className='message-time'>
                                 {display_timestamp()}
                             </span>
-                            <span className={'message-name ' + props.message.color}>
+                            <span className={'message-name'}  style={{color: props.message.color}}>
                                 {props.message.namePrev}
                             </span>
                             <span className='message-text'> changed their name to </span>
-                            <span className={'message-name ' + props.message.color}>
+                            <span className={'message-name'}  style={{color: props.message.color}}>
                                 {props.message.name}
                             </span>
                         </div>
@@ -153,8 +163,9 @@ export default function Message ( props )
                 );
             }
 
-        /*======================================*/
-        /*======================================*/  
+        /*======================================
+            NOTIFICATION - Color change
+        ========================================*/
 
          case 'notification-color':
             {
@@ -164,15 +175,15 @@ export default function Message ( props )
                             <span className='message-time'>
                                 {display_timestamp()}
                             </span>
-                            <span className={'message-name ' + props.message.color}>
+                            <span className={'message-name'}  style={{color: props.message.color}}>
                                 {props.message.name}
                             </span>
                             <span className='message-text'> changed their color from </span>
-                            <span className={'message-name ' + props.message.colorPrev}>
+                            <span className={'message-name'} style={{color: props.message.colorPrev}}>
                                 {props.message.colorPrev}
                             </span>
                             <span className='message-text'> to </span>
-                            <span className={'message-name ' + props.message.color}>
+                            <span className={'message-name'}  style={{color: props.message.color}}>
                                 {props.message.color}
                             </span>
                         </div>

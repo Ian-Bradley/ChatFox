@@ -3,8 +3,9 @@ import Message from '../Message/Message.jsx';
 import './MessageList.scss';
 
 /**
- * @props messages (array)     List of all messages
- * @props preferences (object) App+Display info
+ * @props messages (array)      List of all messages
+ * @props preferences (object)  App+Display info
+ * @props click_name (function) Clicking on a user name
  */
 
 export default function MessageList ( props )
@@ -31,6 +32,7 @@ export default function MessageList ( props )
                         key={i}
                         message={props.messages[i]}
                         preferences={props.preferences}
+                        click_name={props.click_name}
                     />
                 );
             }

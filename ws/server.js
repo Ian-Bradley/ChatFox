@@ -266,6 +266,7 @@ wss.on('connection', ( wsClient ) =>
         console.log('find user: ', chat.state.users.find(user => user.id = userData.userID ));
 
         // > Disconnect message
+        // TODO: error when refreshing?
         let disconnectMessage = {
             type:    'notification-disconnect',
             name:    chat.state.users.find(user => user.id = userData.userID ).name,

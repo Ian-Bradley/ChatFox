@@ -3,7 +3,7 @@
     ANCHOR: APP GENERAL
 ========================================*/
 
-$app-font-size: 16px;
+$app-font-size: 14px;
 $app-spacing: 0.4rem;
 
 $app-width-users: 325px;
@@ -11,6 +11,15 @@ $app-width-chat: calc(100% - 325px);
 
 $app-height-chatbar: 60px;
 $app-height-messages: calc(100% - 60px);
+
+/*======================================
+    ANCHOR: USER NAMES + USER LIST
+========================================*/
+
+$user-name-font-weight: 700;
+
+$users-total-font-size: 2rem;
+$users-total-font-weight: 800;
 
 /*======================================
     ANCHOR: MESSAGES
@@ -22,12 +31,10 @@ $message-color-notification: #333;
 $message-padding: 5px;
 $message-spacing: 4px;
 
+$message-font-weight: 400;
 $message-font-size: 1rem;
 $message-time-font-size: 0.8rem;
 $message-caption-font-size: 0.5rem;
-
-$message-font-weight: 400;
-$message-name-font-weight: 700;
 
 $message-image-width: 177px;
 $message-image-height: 100px;

@@ -1,22 +1,15 @@
 @import "../../styles/variables.scss";
 
 main.app {
-    & .user {
-        padding: 5px;
+    & .container-user {
+        width: 100%;
 
-        // & .message.system {
+        & .user {
 
-        // }
 
+            & .user-name {
+                font-weight: $user-name-font-weight;
+            }
+        }
     }
 }
-
-
-
-
-
-
-
-
-
-

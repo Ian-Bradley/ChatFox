@@ -16,7 +16,12 @@ import './App.scss';
     - 12/24 hours time
     - alternate line shading
 
+> limit message to ~100 || ~50 then add "load more" button (only visible at top of list)
 > auto-shorten links
+> @user highlighting
+> whisper/dm system
+> tagging system
+> nickname system
 */
 
 /*======================================
@@ -113,6 +118,10 @@ export default class App extends Component {
         this.send_message         = this.send_message.bind(this);
         this.send_user_name       = this.send_user_name.bind(this);
         this.send_user_color      = this.send_user_color.bind(this);
+
+        // Functional methonds - User Interactions
+        this.click_name           = this.click_name.bind(this);
+
     }
 
     /*================================================
@@ -374,6 +383,23 @@ export default class App extends Component {
     }
 
     /*================================================
+        ANCHOR: FUNCTIONAL METHODS - User Interactions
+    ==================================================*/
+
+    click_name ( data )
+    {
+        console.log('===> click_name');
+        console.log('data: ', data);
+        // TODO: name clicking
+        // --> open DM + Info sidebar (OVER player list)
+        // --> this sidebar will have a button to swap to DM Chat (new window, don't overwrite MessageList, just make a new one on top)
+        // --> "return to main chat" button
+        // --> maybe have a "close chat" option to reduce open windows
+
+        console.log('===> END - click_name');
+    }
+
+    /*================================================
         ANCHOR: COMPONENT ACTIONS
     ==================================================*/
 
@@ -564,6 +590,7 @@ export default class App extends Component {
                         <MessageList
                             messages={this.state.messages}
                             preferences={this.state.preferences}
+                            click_name={this.click_name}
                         />
                         <ChatBar
                             user={this.state.user}
@@ -574,6 +601,7 @@ export default class App extends Component {
                         <UserList
                             totalUsers={this.state.totalUsers}
                             users={this.state.users}
+                            click_name={this.click_name}
                         />
                     </div>
 

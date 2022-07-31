@@ -11,28 +11,18 @@ export default function ChatBar ( props )
         RENDER FUNCTIONS - Interactions
     ========================================*/
 
-    //CHAT MESSAGE HANDLER
-    const onKeyUp = e =>
+    const on_typing_message = e =>
     {
-        // e.preventDefault();
-        if (e.keyCode === 13)
+        if ( ( e.keyCode === 13 ) && ( e.target.value !== '' ) )
         {
-            if (e.target.value === '')
-            {
-                // > Empty field -> do nothing
-            }
-            else
-            {
-                let newMessage = {
+            props.send_message({
                     type: 'message',
                     name: props.user.name,
                     time: new Date(),
                     color: props.user.color,
                     content: e.target.value,
-                };
-                props.send_message( newMessage );
-                e.target.value = '';
-            }
+                });
+            e.target.value = '';
         }
     };
 
@@ -50,7 +40,7 @@ export default function ChatBar ( props )
             <div className='chatbar'>
                 <input
                     className='chatbar-input'
-                    onKeyUp={onKeyUp}
+                    onKeyUp={on_typing_message}
                     placeholder='Type your message here'
                 />
             </div>    
