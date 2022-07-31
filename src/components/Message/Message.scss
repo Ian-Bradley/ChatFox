@@ -2,42 +2,55 @@
 
 main.app {
     & .container-message {
-        padding: 5px;
+        padding: $message-padding;
         width: 100%;
-
-        & .message {
-            display: flex;
-            flex-flow: row nowrap;
-            align-items: flex-start;
-            justify-content: flex-start;
-        }
 
         & .message.notification {
             font-style: italic;
         }
 
-        & .message-content, .message-username {
-            overflow: hidden;
-            overflow-wrap: break-word;
-        }
+        & .message {
+            display: flex;
+            flex-flow: row nowrap;
+            align-items: center;
+            justify-content: flex-start;
 
-        & .message-content {
+            color: $message-color;
+            font-size: $message-font-size;
 
-        }
+            & span {
+                margin-right: $message-spacing;
+            }
+
+            & .message-content {
+                font-weight: $message-font-weight;
+            }
+            
+            & .message-name {
+                font-weight: $message-name-font-weight;
+            }
+    
+            & .message-time {
+                font-size: $message-time-font-size;
+            }
+    
+            & .message-text {
+                font-size: 1rem;
+                font-weight: 400;
+            }
+    
+            & .message-image-container {
+                width: $message-image-width;
+                height: $message-image-height;
+
+                & .message-image {
+                    transform: scale(1);
+                }
         
-        & .message-username {
-            font-weight: 700;
-            color: #000;
+                & .image-caption {
+                    font-size: $message-caption-font-size;
+                }
+            }
         }
     }
 }
-
-
-
-
-
-
-
-
-
-

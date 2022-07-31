@@ -37,17 +37,21 @@ function generateRandomColor()
 /*======================================*/
 /*======================================*/
 
-function generateAnonymous ()
+function generateRandomName ()
 {
-    let name = 'RandomName';
-    let numbers = '0123456789';
+    let randomNameString = ''
     let randomNumberString = '';
+
+    let numbers = '0123456789';
     for (let i = 0; i < 6; i++)
     {
         randomNumberString += numbers.charAt(Math.floor(Math.random() * numbers.length));
     }
-    name += randomNumberString;
-    return name;
+    
+    let names = ['Beren', 'Dior', 'Elwing', 'Elrond', 'Elros', 'Ecthelion', 'Gandalf', 'Luthien', 'Aragorn', 'Elendil', 'Melian', 'Olorin', 'Manwe', 'Varda'];
+    randomNameString += names[(Math.floor(Math.random() * names.length))];
+
+    return (randomNameString + '-' + randomNumberString);
 }
 
 /*======================================*/
@@ -66,7 +70,7 @@ export default class App extends Component {
             appTitle: 'ChatFox',
             user: {
                 id: 1,
-                name: generateAnonymous(),
+                name: generateRandomName(),
                 color: generateRandomColor(),
             },
             users: [],
@@ -99,12 +103,16 @@ export default class App extends Component {
         // State methods - Messages
         this.set_messages         = this.set_messages.bind(this);
         this.message_add          = this.message_add.bind(this);
-        this.message_send         = this.message_send.bind(this);
 
         // State methods - Preferences
         this.set_pref_timeStamps  = this.set_pref_timeStamps.bind(this);
         this.set_pref_nameChanges = this.set_pref_nameChanges.bind(this);
         this.set_pref_userJoins   = this.set_pref_userJoins.bind(this);
+
+        // WS - User Interactions
+        this.send_message         = this.send_message.bind(this);
+        this.send_user_name       = this.send_user_name.bind(this);
+        this.send_user_color      = this.send_user_color.bind(this);
     }
 
     /*================================================
@@ -166,37 +174,19 @@ export default class App extends Component {
     /*======================================*/
     /*======================================*/
 
-    set_user_name ( user, name )
+    set_user_name ( user, newName )
     {
+        console.log('newName: ', newName);
         console.log('===> set_user_name');
         if ( user.id === this.state.user.id )
         {
             // > Current user
             console.log('> Current user');
-            // const previousName = this.state.user.name;
-            const newMessage = {
-                type:     'notification-name',
-                name:     name,
-                namePrev: this.state.user.name,
-                time:     new Date(),
-                color:    this.state.user.color,
-            };
-            // > States
-            this.message_add( newMessage );
             this.setState(prevState => {
                 let user = { ...prevState.user };
-                user.name = name;
+                user.name = newName;
                 return { user };
             });
-            // > WS
-            let newUpdate = {
-                type: 'updateUserName',
-                user: this.state.user,
-                newName: name,
-                message: newMessage,
-            };
-            this.socket.send( JSON.stringify( newUpdate ));
-            console.log('>>>>>>>>> Message Sent - updateUserName >>>>>>>>>');
         }
         else
         {
@@ -208,7 +198,7 @@ export default class App extends Component {
                 {
                     if ( users[i].id === user.id )
                     {
-                        users[i].name = name;
+                        users[i].name = newName;
                     }
                 }
                 return { users };
@@ -220,37 +210,19 @@ export default class App extends Component {
     /*======================================*/
     /*======================================*/
 
-    set_user_color ( user, color )
+    set_user_color ( user, newColor )
     {
+        console.log('newColor: ', newColor);
         console.log('===> set_user_color');
         if ( user.id === this.state.user.id )
         {
             // > Current user
             console.log('> Current user');
-            // const previousColor = this.state.user.color;
-            const newMessage = {
-                type:      'notification-color',
-                name:      this.state.user.name,
-                time:      new Date(),
-                color:     color,
-                colorPrev: this.state.user.color,
-            };
-            // > States
-            this.message_add( newMessage );
             this.setState(prevState => {
                 let user = { ...prevState.user };
-                user.color = color;
+                user.color = newColor;
                 return { user };
             });
-            // > WS
-            let newUpdate = {
-                type: 'updateUserColor',
-                user: this.state.user,
-                newColor: color,
-                message: newMessage,
-            };
-            this.socket.send( JSON.stringify( newUpdate ));
-            console.log('>>>>>>>>> Message Sent - updateUserColor >>>>>>>>>');
         }
         else
         {
@@ -262,7 +234,7 @@ export default class App extends Component {
                 {
                     if ( users[i].id === user.id )
                     {
-                        users[i].color = color;
+                        users[i].color = newColor;
                     }
                 }
                 return { users };
@@ -296,21 +268,6 @@ export default class App extends Component {
         console.log('===> END - message_add');
     }
 
-    /*======================================*/
-    /*======================================*/
-
-    message_send ( newMessage )
-    {
-        console.log('===> message_send');
-        // > WS
-        let newUpdate = {
-            type: 'newMessage',
-            message: newMessage,
-        };
-        this.socket.send( JSON.stringify( newUpdate ));
-        console.log('>>>>>>>>> Message Sent - newMessage >>>>>>>>>');
-        console.log('===> END - message_send');
-    }
     /*================================================
         ANCHOR: STATE METHODS - Preferences
     ==================================================*/
@@ -352,6 +309,68 @@ export default class App extends Component {
             return { preferences };
         });
         console.log('===> END - set_pref_userJoins');
+    }
+
+    /*================================================
+        ANCHOR: WS METHODS - User Interactions
+    ==================================================*/
+
+    send_message ( newMessage )
+    {
+        console.log('===> send_message');
+        let newUpdate = {
+            type: 'newMessage',
+            message: newMessage,
+        };
+        this.socket.send( JSON.stringify( newUpdate ));
+        console.log('>>>>>>>>> Message Sent - newMessage >>>>>>>>>');
+        console.log('===> END - send_message');
+    }
+
+    /*======================================*/
+    /*======================================*/
+
+    send_user_name ( user, newName )
+    {
+        console.log('===> send_user_name');
+        let newUpdate = {
+            type: 'updateUserName',
+            user: user,
+            newName: newName,
+            message: {
+                type:     'notification-name',
+                name:     newName,
+                namePrev: user.name,
+                time:     new Date(),
+                color:    user.color,
+            },
+        };
+        this.socket.send( JSON.stringify( newUpdate ));
+        console.log('>>>>>>>>> Message Sent - updateUserName >>>>>>>>>');
+        console.log('===> END - send_user_name');
+    }
+
+    /*======================================*/
+    /*======================================*/
+
+    send_user_color ( user, newColor )
+    {
+        console.log('===> send_user_color');
+        let newUpdate = {
+            type: 'updateUserColor',
+            user: user,
+            newColor: newColor,
+            message: {
+                type:      'notification-color',
+                name:      user.name,
+                time:      new Date(),
+                color:     newColor,
+                colorPrev: user.color,
+            },
+        };
+        this.socket.send( JSON.stringify( newUpdate ));
+        console.log('>>>>>>>>> Message Sent - updateUserColor >>>>>>>>>');
+        console.log('===> END - send_user_color');
     }
 
     /*================================================
@@ -461,7 +480,7 @@ export default class App extends Component {
                 case 'updateUserName':
                     {
                         console.log('======= HANDLER - updateUserName =======');
-                        this.set_user_name( updateData.user, updateData.name );
+                        this.set_user_name( updateData.user, updateData.newName );
                         this.message_add( updateData.message );
                         console.log('======= END - HANDLER - updateUserName =======');
                         break;
@@ -473,7 +492,7 @@ export default class App extends Component {
                 case 'updateUserColor':
                     {
                         console.log('======= HANDLER - updateUserColor =======');
-                        this.set_user_color( updateData.user, updateData.color );
+                        this.set_user_color( updateData.user, updateData.newColor );
                         this.message_add( updateData.message );
                         console.log('======= END - HANDLER - updateUserColor =======');
                         break;
@@ -523,8 +542,8 @@ export default class App extends Component {
             //     { player: {team: 'red', name: 'Chilled'}, itemType: 'clue', clue: 'Food' },
             // ];
         }
-        const on_dev_color = () => { this.set_user_color( this.state.user, generateRandomColor() ); }
-        const on_dev_name = e => { if (e.keyCode === 13) { this.set_user_name( this.state.user, e.target.value ); e.target.value = ''; } }
+        const on_dev_color = () => { this.send_user_color( this.state.user, generateRandomColor() ); }
+        const on_dev_name = e => { if (e.keyCode === 13) { this.send_user_name( this.state.user, e.target.value ); e.target.value = ''; } }
 
         /*================================================
             ANCHOR: COMPONENTS
@@ -548,7 +567,7 @@ export default class App extends Component {
                         />
                         <ChatBar
                             user={this.state.user}
-                            message_send={this.message_send}
+                            send_message={this.send_message}
                         />
                     </div>
                     <div className='container-users'>

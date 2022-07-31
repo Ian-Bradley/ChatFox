@@ -19,7 +19,7 @@ export default function ChatBar ( props )
         {
             if (e.target.value === '')
             {
-                // DO NOTHING ON EMPTY FIELD ENTRY
+                // > Empty field -> do nothing
             }
             else
             {
@@ -30,8 +30,7 @@ export default function ChatBar ( props )
                     color: props.user.color,
                     content: e.target.value,
                 };
-
-                props.message_send( newMessage );
+                props.send_message( newMessage );
                 e.target.value = '';
             }
         }

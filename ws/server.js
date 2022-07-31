@@ -212,7 +212,7 @@ wss.on('connection', ( wsClient ) =>
                     updateData.id = uuidv4();
                     chat.set_user_name( updateData.user, updateData.newName );
                     chat.message_add( updateData.message );
-                    wss.broadcast( JSON.stringify( updateData ), wsClient );
+                    wss.broadcast_all( JSON.stringify( updateData ) );
                     console.log('>>>>>>>>> Message Sent - updateUserName >>>>>>>>>');
                     console.log('======= END HANDLER - updateUserName =======');
                     break;
@@ -227,7 +227,7 @@ wss.on('connection', ( wsClient ) =>
                     updateData.id = uuidv4();
                     chat.set_user_color( updateData.user, updateData.newColor );
                     chat.message_add( updateData.message );
-                    wss.broadcast( JSON.stringify( updateData ), wsClient );
+                    wss.broadcast_all( JSON.stringify( updateData ) );
                     console.log('>>>>>>>>> Message Sent - updateUserColor >>>>>>>>>');
                     console.log('======= END HANDLER - updateUserColor =======');
                     break;

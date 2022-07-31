@@ -23,15 +23,18 @@ export default function MessageList ( props )
     {
         if ( !( props.messages === undefined ) && ( props.messages.length ) )
         {
-            return (
-                props.messages.map(( message, index ) =>
+            let messageArray = [];
+            for (let i = 0; i < props.messages.length; i++)
+            {
+                messageArray.push(
                     <Message
-                        key={index}
-                        message={message}
+                        key={i}
+                        message={props.messages[i]}
                         preferences={props.preferences}
                     />
-                )
-            )
+                );
+            }
+            return messageArray;
         }
     }
 

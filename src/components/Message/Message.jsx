@@ -22,9 +22,17 @@ export default function Message ( props )
 
     const display_timestamp = () =>
     {
-        let date = props.message.time;
-        let output = date.toLocaleTimeString();
-        return output;
+
+        // TODO: convert date string back to object (parse JSON)
+
+        if ( props.message.time instanceof Object || props.message.time instanceof Date )
+        {
+            console.log('Message.jsx - Error: Timestamp is Object --> has not passed to server')
+            return null;
+        }
+
+        console.log( typeof props.message.time );
+        return ('[' + props.message.time + ']');
     }
     
     /*======================================
@@ -93,10 +101,10 @@ export default function Message ( props )
                             <span className='message-time'>
                                 {display_timestamp()}
                             </span>
-                            <span className={props.message.color}>
+                            <span className={'message-name ' + props.message.color}>
                                 {props.message.name}
                             </span>
-                            <span> connected</span>
+                            <span className='message-text'> connected</span>
                         </div>
                     </main>
                 );
@@ -113,10 +121,10 @@ export default function Message ( props )
                             <span className='message-time'>
                                 {display_timestamp()}
                             </span>
-                            <span className={props.message.color}>
+                            <span className={'message-name ' + props.message.color}>
                                 {props.message.name}
                             </span>
-                            <span> disconnected</span>
+                            <span className='message-text'> disconnected</span>
                         </div>
                     </main>
                 );
@@ -133,11 +141,11 @@ export default function Message ( props )
                             <span className='message-time'>
                                 {display_timestamp()}
                             </span>
-                            <span className={props.message.color}>
+                            <span className={'message-name ' + props.message.color}>
                                 {props.message.namePrev}
                             </span>
-                            <span> changed their name to </span>
-                            <span className={props.message.color}>
+                            <span className='message-text'> changed their name to </span>
+                            <span className={'message-name ' + props.message.color}>
                                 {props.message.name}
                             </span>
                         </div>
@@ -156,15 +164,15 @@ export default function Message ( props )
                             <span className='message-time'>
                                 {display_timestamp()}
                             </span>
-                            <span className={props.message.color}>
+                            <span className={'message-name ' + props.message.color}>
                                 {props.message.name}
                             </span>
-                            <span> changed their color from </span>
-                            <span className={props.message.colorPrev}>
+                            <span className='message-text'> changed their color from </span>
+                            <span className={'message-name ' + props.message.colorPrev}>
                                 {props.message.colorPrev}
                             </span>
-                            <span> to </span>
-                            <span className={props.message.color}>
+                            <span className='message-text'> to </span>
+                            <span className={'message-name ' + props.message.color}>
                                 {props.message.color}
                             </span>
                         </div>
@@ -177,7 +185,7 @@ export default function Message ( props )
 
         default:
         {  
-            console.log('Message.jsx - Error: Unrecognized message type')
+            console.log('Message.jsx - Error: Unrecognized message type');
             return null;
         }
     }

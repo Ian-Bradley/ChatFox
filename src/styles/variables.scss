@@ -13,6 +13,26 @@ $app-height-chatbar: 60px;
 $app-height-messages: calc(100% - 60px);
 
 /*======================================
+    ANCHOR: MESSAGES
+========================================*/
+
+$message-color: #000;
+$message-color-notification: #333;
+
+$message-padding: 5px;
+$message-spacing: 4px;
+
+$message-font-size: 1rem;
+$message-time-font-size: 0.8rem;
+$message-caption-font-size: 0.5rem;
+
+$message-font-weight: 400;
+$message-name-font-weight: 700;
+
+$message-image-width: 177px;
+$message-image-height: 100px;
+
+/*======================================
     ANCHOR: NAV BUTTONS
 ========================================*/
 
