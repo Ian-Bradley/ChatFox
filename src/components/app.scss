@@ -1,14 +1,5 @@
 @import "../styles/variables.scss";
 
-
-main.app {
-    background: grey;
-
-}
-.message-list .container-message:nth-child(2n-1) {
-    background: darkgrey;
-}
-
 #dev-tools {
     position: fixed;
     right: 400px;
@@ -71,17 +62,23 @@ main.app,
     overflow: hidden;
 }
 
-body {
-    font-family: 'Open Sans', sans-serif;
-    font-size: $app-font-size;
-}
-
 main.app {
-    padding: $app-spacing;
     display: flex;
     flex-flow: column nowrap;
     align-items: flex-start;
     justify-content: flex-start;
+
+    padding: $app-spacing;
+
+    font-family: 'Open Sans', sans-serif;
+    font-size: $app-font-size;
+
+    background: $app-bg-main;
+    color: $app-font-color;
+
+    & a {
+        color: $app-font-color-link
+    }
 
     & .container-app {
         display: flex;
@@ -102,6 +99,8 @@ main.app {
         & .container-users {
             width: $app-width-users;
             height: 100%;
+            
+            background: $app-bg-lite-1;
         }
     }
 }

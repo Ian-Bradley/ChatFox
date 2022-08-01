@@ -1,11 +1,10 @@
 @import "../../styles/variables.scss";
-
 main.app {
     & .message-list {
         display: flex;
         flex-flow: column nowrap;
         align-items: flex-start;
-        justify-content: flex-end;
+        justify-content: initial;
 
         width: 100%;
         height: $app-height-messages;

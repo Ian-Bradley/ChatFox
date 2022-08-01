@@ -1,5 +1,4 @@
 @import "../../styles/variables.scss";
-
 main.app {
     & .user-list {
         position: relative;
@@ -13,15 +12,33 @@ main.app {
         height: 100%;
         overflow-y: scroll;
 
-        & .user-total {
-            position: absolute;
-            top: 0;
-            right: 0;
+        & .user-top {
+            display: flex;
+            flex-flow: row nowrap;
+            align-items: center;
+            justify-content: space-between;
 
-            & span {
+            background: $app-bg-lite-3;
+            padding: $app-spacing;
+            width: 100%;
+
+            & .user-title {
+                font-size: $users-title-font-size;
+                font-weight: $users-title-font-weight;
+            }
+
+            & .user-total {
                 font-size: $users-total-font-size;
                 font-weight: $users-total-font-weight;
             }
         }
+
+        & .user-bot {
+            background: $app-bg-lite-1;
+            padding: $app-spacing;
+            width: 100%;
+            height: 100%;
+        }
+
     }
 }

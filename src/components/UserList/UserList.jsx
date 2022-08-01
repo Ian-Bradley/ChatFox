@@ -3,7 +3,7 @@ import User from '../User/User.jsx';
 import './UserList.scss';
 
 /**
- * @props totalUsers (number)   Total number of connected users
+ * @props usersTotal (number)   Total number of connected users
  * @props users (array)         List of all users
  * @props click_name (function) Clicking on a user name
  */
@@ -45,12 +45,13 @@ export default function UserList ( props )
 
     return (
         <main className='user-list'>
-            <div className='user-total'>
-                <span>
-                    {props.totalUsers} Users
-                </span>
+            <div className='user-top'>
+                <span className='user-title'>Users</span>
+                <span className='user-total'>{props.usersTotal}</span>
             </div>
-            {display_users()}
+            <div className='user-bot'>
+                {display_users()}
+            </div>
         </main>
     );
 }

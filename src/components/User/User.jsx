@@ -17,7 +17,9 @@ export default function Message ( props )
 
     const on_click_name = e =>
     {
+        console.log('===> on_click_name');
         props.click_name( e );
+        console.log('===> END - on_click_name');
     }
 
     /*======================================

@@ -1,15 +1,24 @@
-import React from 'react';
+// import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import Message from '../Message/Message.jsx';
 import './MessageList.scss';
 
 /**
  * @props messages (array)      List of all messages
- * @props preferences (object)  App+Display info
+ * @props preferences (object)  App + Display info
  * @props click_name (function) Clicking on a user name
  */
 
 export default function MessageList ( props )
 {
+    /*======================================
+        REFERENCE HOOK
+    ========================================*/
+
+    const list = useRef(null);
+    useEffect(() => {
+        list.current.scrollTop = list.current.scrollHeight;
+    });
 
     /*======================================
         RENDER FUNCTIONS - Interactions
@@ -45,7 +54,10 @@ export default function MessageList ( props )
     ========================================*/
 
     return (
-        <main className='message-list'>
+        <main
+            className='message-list'
+            ref={list}
+        >
             {display_messages()}
         </main>
     );

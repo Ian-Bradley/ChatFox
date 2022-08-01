@@ -1,3 +1,4 @@
+@import "../../styles/variables.scss";
 main.app {
     & .container-title {
         position: relative;
@@ -9,8 +10,13 @@ main.app {
         width: 100%;
 
         & .app-title {
-            font-size: 5rem;
-            font-weight: 800;
+            font-size: $title-font-size;
+            font-weight: $title-font-weight;
         }
     }
 }
+
+
+// $title-color-green: #C3FBF4;
+// $title-color-blue: #5684AE;
+// $title-color-black: #000000;

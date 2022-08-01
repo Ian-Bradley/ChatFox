@@ -15,7 +15,9 @@ export default function Message ( props )
 
     const on_click_name = e =>
     {
+        console.log('===> on_click_name');
         props.click_name( e );
+        console.log('===> END - on_click_name');
     }
 
     /*======================================
@@ -36,7 +38,7 @@ export default function Message ( props )
             return null;
         }
 
-        console.log( typeof props.message.time );
+        // console.log( typeof props.message.time );
         return ('[' + props.message.time + ']');
     }
     
@@ -61,7 +63,7 @@ export default function Message ( props )
                                     {display_timestamp()}
                                 </span>
                                 <span className={'message-name'}  style={{color: props.message.color}}>
-                                    {props.message.name}
+                                    {props.message.name}:
                                 </span>
                                 <span className='message-content'>
                                     {props.message.content}
@@ -112,7 +114,7 @@ export default function Message ( props )
                             <span className={'message-name'}  style={{color: props.message.color}}>
                                 {props.message.name}
                             </span>
-                            <span className='message-text'> connected</span>
+                            <span className='message-content'> connected</span>
                         </div>
                     </main>
                 );
@@ -133,7 +135,7 @@ export default function Message ( props )
                             <span className={'message-name'}  style={{color: props.message.color}}>
                                 {props.message.name}
                             </span>
-                            <span className='message-text'> disconnected</span>
+                            <span className='message-content'> disconnected</span>
                         </div>
                     </main>
                 );
@@ -154,7 +156,7 @@ export default function Message ( props )
                             <span className={'message-name'}  style={{color: props.message.color}}>
                                 {props.message.namePrev}
                             </span>
-                            <span className='message-text'> changed their name to </span>
+                            <span className='message-content'> changed their name to </span>
                             <span className={'message-name'}  style={{color: props.message.color}}>
                                 {props.message.name}
                             </span>
@@ -178,12 +180,12 @@ export default function Message ( props )
                             <span className={'message-name'}  style={{color: props.message.color}}>
                                 {props.message.name}
                             </span>
-                            <span className='message-text'> changed their color from </span>
-                            <span className={'message-name'} style={{color: props.message.colorPrev}}>
+                            <span className='message-content'> changed their color from </span>
+                            <span className={'message-color'} style={{color: props.message.colorPrev}}>
                                 {props.message.colorPrev}
                             </span>
-                            <span className='message-text'> to </span>
-                            <span className={'message-name'}  style={{color: props.message.color}}>
+                            <span className='message-content'> to </span>
+                            <span className={'message-color'}  style={{color: props.message.color}}>
                                 {props.message.color}
                             </span>
                         </div>

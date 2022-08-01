@@ -4,9 +4,11 @@ import Title from './Title/Title.jsx';
 import ChatBar from './ChatBar/ChatBar.jsx';
 import UserList from './UserList/UserList.jsx';
 import MessageList from './MessageList/MessageList.jsx';
+import * as C from '../constants.js'
 import './App.scss';
 
 /* TODO:
+NOW:
 > settings menu
     - show name change notifications
     - show user join notifications
@@ -15,13 +17,21 @@ import './App.scss';
     - change user name
     - 12/24 hours time
     - alternate line shading
+    - messages come from top
 
+
+> searchbar for UserList
 > limit message to ~100 || ~50 then add "load more" button (only visible at top of list)
 > auto-shorten links
 > @user highlighting
+> Prevent dropping to bottom of message list while user is scrolling on it (or not at bottom, like twitch.tv chat)
+
+LATER:
 > whisper/dm system
 > tagging system
 > nickname system
+    - nicknames given to other users and only show up to by the current user
+    - nicknames show in the message list and user list, but not in the user panel (slide-out sidebar)
 */
 
 /*======================================
@@ -48,12 +58,12 @@ function generateRandomName ()
     let randomNumberString = '';
 
     let numbers = '0123456789';
-    for (let i = 0; i < 6; i++)
+    for (let i = 0; i < 7; i++)
     {
         randomNumberString += numbers.charAt(Math.floor(Math.random() * numbers.length));
     }
     
-    let names = ['Beren', 'Dior', 'Elwing', 'Elrond', 'Elros', 'Ecthelion', 'Gandalf', 'Luthien', 'Aragorn', 'Elendil', 'Melian', 'Olorin', 'Manwe', 'Varda'];
+    let names = C.onst.lotrNames;
     randomNameString += names[(Math.floor(Math.random() * names.length))];
 
     return (randomNameString + '-' + randomNumberString);
@@ -80,7 +90,7 @@ export default class App extends Component {
             },
             users: [],
             messages: [],
-            usersTotal: 0,
+            usersTotal: 1,
             preferences: {
                 showTimeStamps: false,
                 showNameChanges: false,
@@ -130,10 +140,10 @@ export default class App extends Component {
 
     set_users ( usersArray )
     {
-        console.log('===> set_users');
+        // console.log('===> set_users');
         this.setState({ users: usersArray });
         this.setState({ usersTotal: this.state.users.length + 1 });
-        console.log('===> END - set_users');
+        // console.log('===> END - set_users');
     }
 
     /*======================================*/
@@ -141,13 +151,12 @@ export default class App extends Component {
 
     user_add ( user )
     {
-        console.log('===> user_add');
-        // this.state.users.push( user );
+        // console.log('===> user_add');
         this.setState( prevState => ({
             users: [ ...prevState.users, user ]
         }));
         this.setState({ usersTotal: this.state.usersTotal + 1 });
-        console.log('===> END - user_add');
+        // console.log('===> END - user_add');
     }
 
     /*======================================*/
@@ -155,14 +164,13 @@ export default class App extends Component {
 
     user_remove ( userID )
     {
-        console.log('===> user_remove');
-        // this.state.users = this.state.users.filter( user => ( user.id !== userID ) );
+        // console.log('===> user_remove');
         this.setState( prevState => {
             let users = prevState.users.filter( user => user.id !== userID );
             return { users };
         });
         this.setState({ usersTotal: this.state.usersTotal - 1 });
-        console.log('===> END - user_remove');
+        // console.log('===> END - user_remove');
     }
 
     /*================================================
@@ -171,13 +179,13 @@ export default class App extends Component {
 
     set_user_ID ( ID )
     {
-        console.log('===> set_user_ID');
+        // console.log('===> set_user_ID');
         this.setState(prevState => {
             let user = { ...prevState.user };
             user.id = ID;
             return { user };
         });
-        console.log('===> END - set_user_ID');
+        // console.log('===> END - set_user_ID');
     }
 
     /*======================================*/
@@ -185,12 +193,10 @@ export default class App extends Component {
 
     set_user_name ( user, newName )
     {
-        console.log('newName: ', newName);
-        console.log('===> set_user_name');
+        // console.log('===> set_user_name');
         if ( user.id === this.state.user.id )
         {
             // > Current user
-            console.log('> Current user');
             this.setState(prevState => {
                 let user = { ...prevState.user };
                 user.name = newName;
@@ -200,7 +206,6 @@ export default class App extends Component {
         else
         {
             // > Other user
-            console.log('> Other user');
             this.setState( prevState => {
                 let users = prevState.users;
                 for ( let i = 0; i < users.length; i++ )
@@ -213,7 +218,7 @@ export default class App extends Component {
                 return { users };
             });
         }
-        console.log('===> END - set_user_name');
+        // console.log('===> END - set_user_name');
     }
 
     /*======================================*/
@@ -221,12 +226,10 @@ export default class App extends Component {
 
     set_user_color ( user, newColor )
     {
-        console.log('newColor: ', newColor);
-        console.log('===> set_user_color');
+        // console.log('===> set_user_color');
         if ( user.id === this.state.user.id )
         {
             // > Current user
-            console.log('> Current user');
             this.setState(prevState => {
                 let user = { ...prevState.user };
                 user.color = newColor;
@@ -236,7 +239,6 @@ export default class App extends Component {
         else
         {
             // > Other user
-            console.log('> Other user');
             this.setState( prevState => {
                 let users = prevState.users;
                 for ( let i = 0; i < users.length; i++ )
@@ -249,7 +251,7 @@ export default class App extends Component {
                 return { users };
             });
         }
-        console.log('===> END - set_user_color');
+        // console.log('===> END - set_user_color');
     }
 
     /*================================================
@@ -258,9 +260,9 @@ export default class App extends Component {
 
     set_messages( messagesArray )
     {
-        console.log('===> set_messages');
+        // console.log('===> set_messages');
         this.setState({ messages: messagesArray });
-        console.log('===> END - lset_messages');
+        // console.log('===> END - set_messages');
     }
 
     /*======================================*/
@@ -268,13 +270,11 @@ export default class App extends Component {
 
     message_add ( message )
     {
-        console.log('===> message_add');
-
+        // console.log('===> message_add');
         this.setState( prevState => ({
             messages: [ ...prevState.messages, message]
         }));
-
-        console.log('===> END - message_add');
+        // console.log('===> END - message_add');
     }
 
     /*================================================
@@ -326,14 +326,14 @@ export default class App extends Component {
 
     send_message ( newMessage )
     {
-        console.log('===> send_message');
+        // console.log('===> send_message');
         let newUpdate = {
             type: 'newMessage',
             message: newMessage,
         };
         this.socket.send( JSON.stringify( newUpdate ));
-        console.log('>>>>>>>>> Message Sent - newMessage >>>>>>>>>');
-        console.log('===> END - send_message');
+        // console.log('>>>>>>>>> Message Sent - newMessage >>>>>>>>>');
+        // console.log('===> END - send_message');
     }
 
     /*======================================*/
@@ -341,7 +341,7 @@ export default class App extends Component {
 
     send_user_name ( user, newName )
     {
-        console.log('===> send_user_name');
+        // console.log('===> send_user_name');
         let newUpdate = {
             type: 'updateUserName',
             user: user,
@@ -355,8 +355,8 @@ export default class App extends Component {
             },
         };
         this.socket.send( JSON.stringify( newUpdate ));
-        console.log('>>>>>>>>> Message Sent - updateUserName >>>>>>>>>');
-        console.log('===> END - send_user_name');
+        // console.log('>>>>>>>>> Message Sent - updateUserName >>>>>>>>>');
+        // console.log('===> END - send_user_name');
     }
 
     /*======================================*/
@@ -364,7 +364,7 @@ export default class App extends Component {
 
     send_user_color ( user, newColor )
     {
-        console.log('===> send_user_color');
+        // console.log('===> send_user_color');
         let newUpdate = {
             type: 'updateUserColor',
             user: user,
@@ -378,8 +378,8 @@ export default class App extends Component {
             },
         };
         this.socket.send( JSON.stringify( newUpdate ));
-        console.log('>>>>>>>>> Message Sent - updateUserColor >>>>>>>>>');
-        console.log('===> END - send_user_color');
+        // console.log('>>>>>>>>> Message Sent - updateUserColor >>>>>>>>>');
+        // console.log('===> END - send_user_color');
     }
 
     /*================================================
@@ -420,9 +420,8 @@ export default class App extends Component {
 
         ws.onmessage = ( messageData ) =>
         {
-            console.log('>>>>>>>>> Message Recieved >>>>>>>>>');
             let updateData = JSON.parse( messageData.data );
-            console.log('> ', updateData.type);
+            console.log('>>>>>>>>> Message Recieved - ' + updateData.type + ' >>>>>>>>>');
 
             /*================================================
                 HANDLERS
@@ -438,25 +437,25 @@ export default class App extends Component {
                 case 'clientConnected':
                     {
                         // > This handler is only fired ONCE when the CURRENT user joins
-                        console.log('======= HANDLER - clientConnected =======');
+                        // console.log('======= HANDLER - clientConnected =======');
 
                         // > Set current user ID
-                        console.log('> Setting ID');
+                        // console.log('> Setting ID');
                         if ( updateData.userID )
                         { this.set_user_ID( updateData.userID ); }
 
                         // > Set previous messages
-                        console.log('> Setting messages');
+                        // console.log('> Setting messages');
                         if ( !( updateData.messages === undefined ) && ( updateData.messages.length ) )
                         { this.set_messages( updateData.messages ); }
 
                         // > Set users
-                        console.log('> Setting users');
+                        // console.log('> Setting users');
                         if ( !( updateData.users === undefined ) && ( updateData.users.length ) )
                         { this.set_users( updateData.users ); }
 
                         // > Send current user (with new user message) information to server
-                        console.log('> Send userConnected');
+                        // console.log('> Send userConnected');
                         let newUpdate = {
                             type: 'userConnected',
                             user: this.state.user,
@@ -468,8 +467,8 @@ export default class App extends Component {
                             },
                         };
                         ws.send( JSON.stringify( newUpdate ) );
-                        console.log('>>>>>>>>> Message Sent - userConnected >>>>>>>>>');
-                        console.log('======= END - HANDLER - clientConnected =======');
+                        // console.log('>>>>>>>>> Message Sent - userConnected >>>>>>>>>');
+                        // console.log('======= END - HANDLER - clientConnected =======');
                         break;
                     }
 
@@ -479,10 +478,10 @@ export default class App extends Component {
                 case 'userConnected':
                     {
                         // > This handler is only fired when OTHER users join
-                        console.log('======= HANDLER - userConnected =======');
+                        // console.log('======= HANDLER - userConnected =======');
                         this.user_add( updateData.user );
                         this.message_add( updateData.message );
-                        console.log('======= END - HANDLER - userConnected =======');
+                        // console.log('======= END - HANDLER - userConnected =======');
                         break;
                     }
 
@@ -492,10 +491,10 @@ export default class App extends Component {
                 case 'userDisconnected':
                     {
                         // This handler is only fired when OTHER users leave
-                        console.log('======= HANDLER - userDisconnected =======');
+                        // console.log('======= HANDLER - userDisconnected =======');
                         this.user_remove( updateData.userID );
                         this.message_add( updateData.message );
-                        console.log('======= END - HANDLER - userDisconnected =======');
+                        // console.log('======= END - HANDLER - userDisconnected =======');
                         break;
                     }
 
@@ -505,10 +504,10 @@ export default class App extends Component {
 
                 case 'updateUserName':
                     {
-                        console.log('======= HANDLER - updateUserName =======');
+                        // console.log('======= HANDLER - updateUserName =======');
                         this.set_user_name( updateData.user, updateData.newName );
                         this.message_add( updateData.message );
-                        console.log('======= END - HANDLER - updateUserName =======');
+                        // console.log('======= END - HANDLER - updateUserName =======');
                         break;
                     }
                 
@@ -517,10 +516,10 @@ export default class App extends Component {
 
                 case 'updateUserColor':
                     {
-                        console.log('======= HANDLER - updateUserColor =======');
+                        // console.log('======= HANDLER - updateUserColor =======');
                         this.set_user_color( updateData.user, updateData.newColor );
                         this.message_add( updateData.message );
-                        console.log('======= END - HANDLER - updateUserColor =======');
+                        // console.log('======= END - HANDLER - updateUserColor =======');
                         break;
                     }
 
@@ -530,9 +529,9 @@ export default class App extends Component {
 
                 case 'newMessage':
                     {
-                        console.log('======= HANDLER - newMessage =======');
+                        // console.log('======= HANDLER - newMessage =======');
                         this.message_add( updateData.message );
-                        console.log('======= END - HANDLER - newMessage =======');
+                        // console.log('======= END - HANDLER - newMessage =======');
                         break;
                     }
 
@@ -563,13 +562,10 @@ export default class App extends Component {
             ANCHOR: RENDER FUNCTIONS - Dev Tools
         ==================================================*/
 
-        const on_dev_user = () => {
-            // const fakeLog = [
-            //     { player: {team: 'red', name: 'Chilled'}, itemType: 'clue', clue: 'Food' },
-            // ];
-        }
+        const on_dev_user = () => { this.user_add( { id: generateRandomName(), name: generateRandomName(), color: generateRandomColor() } ) }
         const on_dev_color = () => { this.send_user_color( this.state.user, generateRandomColor() ); }
         const on_dev_name = e => { if (e.keyCode === 13) { this.send_user_name( this.state.user, e.target.value ); e.target.value = ''; } }
+        const on_dev_name2 = e => { this.send_user_name( this.state.user, generateRandomName() ); }
 
         /*================================================
             ANCHOR: COMPONENTS
@@ -599,7 +595,7 @@ export default class App extends Component {
                     </div>
                     <div className='container-users'>
                         <UserList
-                            totalUsers={this.state.totalUsers}
+                            usersTotal={this.state.usersTotal}
                             users={this.state.users}
                             click_name={this.click_name}
                         />
@@ -620,11 +616,13 @@ export default class App extends Component {
                         <input
                             type='text'
                             className='name-input'
-                            placeholder='Name'
+                            placeholder='Specific name'
                             defaultValue=''
                             onKeyDown={on_dev_name}
                         />
+                        <button onClick={on_dev_name2}>Name</button>
                         <button onClick={on_dev_color}>Color</button>
+                        <button onClick={on_dev_user}>Fake User</button>
                     </div>
                 </div>
             </main>

@@ -1,9 +1,10 @@
 @import "../../styles/variables.scss";
-
 main.app {
     & .container-chatbar {
         width: 100%;
         height: $app-height-chatbar;
+
+        background: $app-bg-lite-1;
     }
 
     .chatbar {
