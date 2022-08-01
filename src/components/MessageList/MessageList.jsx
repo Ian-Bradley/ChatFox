@@ -12,7 +12,7 @@ import './MessageList.scss';
 export default function MessageList ( props )
 {
     /*======================================
-        REFERENCE HOOK
+        HOOKS
     ========================================*/
 
     const list = useRef(null);

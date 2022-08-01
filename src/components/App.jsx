@@ -38,35 +38,48 @@ LATER:
     ANCHOR: HELPER FUNCTIONS
 ========================================*/
 
-function generateRandomColor()
+const isTooDark = (hexStr) =>
 {
-    let randomColor = '#';
-    let hexCharacters = '0123456789ABCDEF';
-    for (let i = 0; i < 6; i++)
-    {
-        randomColor += hexCharacters.charAt(Math.floor(Math.random() * hexCharacters.length));
-    }
-    return randomColor;
+    let c = hexStr.substring(1);      // strip #
+    let rgb = parseInt(c, 16);   // convert rrggbb to decimal
+    let r = (rgb >> 16) & 0xff;  // extract red
+    let g = (rgb >>  8) & 0xff;  // extract green
+    let b = (rgb >>  0) & 0xff;  // extract blue
+    let luma = 0.2126 * r + 0.7152 * g + 0.0722 * b; // per ITU-R BT.709
+    if(luma < 50)
+    {return true;} // is too dark
+    else
+    {return false;} // is light enough
 }
 
 /*======================================*/
 /*======================================*/
 
-function generateRandomName ()
+const generateRandomColor = () =>
 {
-    let randomNameString = ''
-    let randomNumberString = '';
+    let randomColor = '#';
+    let hexCharacters = '0123456789ABCDEF';
+    for(let i = 0; i < 6; i++)
+    {randomColor += hexCharacters.charAt(Math.floor(Math.random() * hexCharacters.length));}
+    if(isTooDark(randomColor))
+    {return generateRandomColor();}
+    else
+    {return randomColor;}
+}
 
+/*======================================*/
+/*======================================*/
+
+const generateRandomName = () =>
+{
+    let randomName = ''
+    let randomNumber = '';
     let numbers = '0123456789';
     for (let i = 0; i < 7; i++)
-    {
-        randomNumberString += numbers.charAt(Math.floor(Math.random() * numbers.length));
-    }
-    
+    {randomNumber += numbers.charAt(Math.floor(Math.random() * numbers.length));}
     let names = C.onst.lotrNames;
-    randomNameString += names[(Math.floor(Math.random() * names.length))];
-
-    return (randomNameString + '-' + randomNumberString);
+    randomName += names[(Math.floor(Math.random() * names.length))];
+    return (randomName + '-' + randomNumber);
 }
 
 /*======================================*/
@@ -95,6 +108,7 @@ export default class App extends Component {
                 showTimeStamps: false,
                 showNameChanges: false,
                 showUserJoins: false,
+                show24HourTime: false,
             },
         };
 
@@ -123,6 +137,7 @@ export default class App extends Component {
         this.set_pref_timeStamps  = this.set_pref_timeStamps.bind(this);
         this.set_pref_nameChanges = this.set_pref_nameChanges.bind(this);
         this.set_pref_userJoins   = this.set_pref_userJoins.bind(this);
+        this.set_pref_24HourTime  = this.set_pref_24HourTime.bind(this);
 
         // WS - User Interactions
         this.send_message         = this.send_message.bind(this);
@@ -286,7 +301,7 @@ export default class App extends Component {
         console.log('===> set_pref_nameChanges');
         this.setState(prevState => {
             let preferences = { ...prevState.preferences };
-            preferences.nameChanges = state;
+            preferences.showNameChanges = state;
             return { preferences };
         });
         console.log('===> END - set_pref_nameChanges');
@@ -300,7 +315,7 @@ export default class App extends Component {
         console.log('===> set_pref_timeStamps');
         this.setState(prevState => {
             let preferences = { ...prevState.preferences };
-            preferences.timeStamps = state;
+            preferences.showTimeStamps = state;
             return { preferences };
         });
         console.log('===> END - set_pref_timeStamps');
@@ -314,10 +329,24 @@ export default class App extends Component {
         console.log('===> set_pref_userJoins');
         this.setState(prevState => {
             let preferences = { ...prevState.preferences };
-            preferences.userJoins = state;
+            preferences.showUserJoins = state;
             return { preferences };
         });
         console.log('===> END - set_pref_userJoins');
+    }
+
+    /*======================================*/
+    /*======================================*/
+
+    set_pref_24HourTime ( state )
+    {
+        console.log('===> set_pref_24HourTime');
+        this.setState(prevState => {
+            let preferences = { ...prevState.preferences };
+            preferences.show24HourTime = state;
+            return { preferences };
+        });
+        console.log('===> END - set_pref_24HourTime');
     }
 
     /*================================================
@@ -332,7 +361,7 @@ export default class App extends Component {
             message: newMessage,
         };
         this.socket.send( JSON.stringify( newUpdate ));
-        // console.log('>>>>>>>>> Message Sent - newMessage >>>>>>>>>');
+        console.log('>>>>>>>>> Message Sent - newMessage >>>>>>>>>');
         // console.log('===> END - send_message');
     }
 
@@ -350,12 +379,12 @@ export default class App extends Component {
                 type:     'notification-name',
                 name:     newName,
                 namePrev: user.name,
-                time:     new Date(),
+                time:     new Date().toGMTString(),
                 color:    user.color,
             },
         };
         this.socket.send( JSON.stringify( newUpdate ));
-        // console.log('>>>>>>>>> Message Sent - updateUserName >>>>>>>>>');
+        console.log('>>>>>>>>> Message Sent - updateUserName >>>>>>>>>');
         // console.log('===> END - send_user_name');
     }
 
@@ -372,13 +401,13 @@ export default class App extends Component {
             message: {
                 type:      'notification-color',
                 name:      user.name,
-                time:      new Date(),
+                time:      new Date().toGMTString(),
                 color:     newColor,
                 colorPrev: user.color,
             },
         };
         this.socket.send( JSON.stringify( newUpdate ));
-        // console.log('>>>>>>>>> Message Sent - updateUserColor >>>>>>>>>');
+        console.log('>>>>>>>>> Message Sent - updateUserColor >>>>>>>>>');
         // console.log('===> END - send_user_color');
     }
 
@@ -462,12 +491,12 @@ export default class App extends Component {
                             message: {
                                 type:    'notification-connect',
                                 name:    this.state.user.name,
-                                time:    new Date(),
+                                time:    new Date().toGMTString(),
                                 color:   this.state.user.color,
                             },
                         };
                         ws.send( JSON.stringify( newUpdate ) );
-                        // console.log('>>>>>>>>> Message Sent - userConnected >>>>>>>>>');
+                        console.log('>>>>>>>>> Message Sent - userConnected >>>>>>>>>');
                         // console.log('======= END - HANDLER - clientConnected =======');
                         break;
                     }

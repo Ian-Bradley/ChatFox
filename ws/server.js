@@ -267,10 +267,11 @@ wss.on('connection', ( wsClient ) =>
 
         // > Disconnect message
         // TODO: error when refreshing?
+        // TODO: error - color being send instead of name?
         let disconnectMessage = {
             type:    'notification-disconnect',
             name:    chat.state.users.find(user => user.id = userData.userID ).name,
-            time:    new Date(),
+            time:    new Date().toGMTString(),
             color:   chat.state.users.find(user => user.id = userData.userID ).color,
         };
         chat.message_add( disconnectMessage );

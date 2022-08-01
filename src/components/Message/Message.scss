@@ -14,7 +14,8 @@ main.app {
             flex-flow: row nowrap;
             align-items: center;
             justify-content: flex-start;
-
+            
+            white-space: nowrap;
             font-size: $message-font-size;
             font-weight: $message-font-weight;
 
@@ -23,7 +24,8 @@ main.app {
             }
 
             & .message-content {
-
+                word-break: break-word;
+                white-space: normal;
             }
 
             & .message-name, .message-color {

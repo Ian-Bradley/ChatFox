@@ -18,7 +18,7 @@ export default function ChatBar ( props )
             props.send_message({
                     type: 'message',
                     name: props.user.name,
-                    time: new Date(),
+                    time: new Date().toGMTString(),
                     color: props.user.color,
                     content: e.target.value,
                 });
