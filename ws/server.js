@@ -59,7 +59,22 @@ class Chat
 
     user_remove ( userID )
     {
-        this.state.users = this.state.users.filter( user => ( user.id !== userID ) );
+        console.log('userID: ', userID);
+        console.log('typeof userID: ', typeof userID);
+        console.log('FIND USER: ', this.state.users.find( user => ( user.id === userID ) ));
+        if ( this.state.users.find( user => ( user.id === userID ) ) )
+        {
+            // > User exists in array
+            console.log('User exists in array');
+            console.log('this.state.users: ', this.state.users);
+            this.state.users = this.state.users.filter( user => ( user.id !== userID ) );
+            console.log('this.state.users: ', this.state.users);
+        }
+        else
+        {
+            // > No user!!
+            console.log('No user!!');
+        }
     }
 
     /*======================================
@@ -86,7 +101,7 @@ class Chat
         {
             if ( this.state.users[i].id === user.id )
             {
-                this.state.users[i].name = newColor;
+                this.state.users[i].color = newColor;
             }
         }
     }
@@ -160,7 +175,7 @@ wss.on('connection', ( wsClient ) =>
         id:       uuidv4(), // message id
         type:     'clientConnected',
         users:    chat.state.users,
-        userID:   uuidv4(), // id for disconnecting user removal (maybe: supply id on auth page)
+        userID:   uuidv4(), // id for disconnecting user removal (TODO: supply id on auth page)
         messages: chat.state.messages,
     };
     
@@ -168,8 +183,6 @@ wss.on('connection', ( wsClient ) =>
     wss.broadcast_client( JSON.stringify( userData ), wsClient );
     console.log('>>>>>>>>> Message Sent - Client Data >>>>>>>>>');
     console.log('======= END - Client Connected =======');
-
-
 
     /*======================================
         ANCHOR: HANDLERS
@@ -274,6 +287,7 @@ wss.on('connection', ( wsClient ) =>
             time:    new Date().toGMTString(),
             color:   chat.state.users.find(user => user.id = userData.userID ).color,
         };
+        console.log('disconnectMessage: ', disconnectMessage);
         chat.message_add( disconnectMessage );
 
         // > Disconnect data for other users
@@ -283,6 +297,7 @@ wss.on('connection', ( wsClient ) =>
             userID:  userData.userID, // user removal id
             message: disconnectMessage,
         };
+        console.log('updateData: ', updateData);
         wss.broadcast( JSON.stringify( updateData ), wsClient );
         console.log('>>>>>>>>> Message Sent - userDisconnected >>>>>>>>>');
 

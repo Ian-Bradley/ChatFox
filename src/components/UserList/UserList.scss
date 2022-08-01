@@ -28,12 +28,21 @@ main.app {
             }
 
             & .user-total {
+                position: absolute;
+                top: $app-spacing;
+                right: $app-spacing;
                 font-size: $users-total-font-size;
                 font-weight: $users-total-font-weight;
             }
+
+            & .user-search-btn {
+                position: absolute;
+                bottom: $app-spacing;
+                right: $app-spacing;
+            }
         }
 
-        & .user-bot {
+        & .user-bottom {
             background: $app-bg-lite-1;
             padding: $app-spacing;
             width: 100%;

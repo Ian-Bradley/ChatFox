@@ -1,4 +1,6 @@
 import React from 'react';
+import Button from '../Button/Button.js';
+import IconUser from '../../images/icons/user.svg';
 import './Nav.scss';
 
 /**
@@ -11,15 +13,6 @@ export default function Nav ( props )
     /*======================================
         RENDER FUNCTIONS - Interactions
     ========================================*/
-
-    const on_users = () =>
-    {
-        console.log('===> on_users');
-        console.log('===> END - on_users');
-    }
-
-    /*======================================*/
-    /*======================================*/
 
     const on_user = () =>
     {
@@ -35,13 +28,17 @@ export default function Nav ( props )
     /*======================================
         COMPONENTS
     ========================================*/
+    //props.user.color
 
     return (
         <main className='container-nav'>
             <nav>
-                <button className={'nav-user ' + props.user.color} onClick={on_user}>
-                    {props.user.name}
-                </button>
+                <Button
+                    btnClasses  ={'nav-user'}
+                    btnFunction ={on_user}
+                    btnText     ={props.user.name}
+                    btnIcon     ={IconUser}
+                />
             </nav>
         </main>
     );

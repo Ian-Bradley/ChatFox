@@ -87,6 +87,18 @@ $user-spacing: 2px;
 $user-name-font-weight: 700;
 
 /*======================================
+    ANCHOR: BUTTONS
+========================================*/
+
+$button-icon-size: 20px;
+$button-height: 40px;
+$button-border-radius: 1.3rem;
+
+$button-font-size: 1.2rem;
+$button-line-height: 1.5rem;
+$button-weight: 500;
+
+/*======================================
     ANCHOR: MESSAGES
 ========================================*/
 
@@ -96,23 +108,26 @@ $message-spacing: 4px;
 $message-font-weight: 400;
 $message-font-size: 0.9rem;
 $message-note-font-size: 0.8rem;
-$message-time-font-size: 0.8rem;
+$message-time-font-size: 0.7rem;
 $message-caption-font-size: 0.5rem;
 
 $message-image-width: 177px;
 $message-image-height: 100px;
 
 /*======================================
-    ANCHOR: NAV BUTTONS
+    ANCHOR: NAV
 ========================================*/
+
+$nav-height: 100px;
 
 $nav-color: #FFF;
 $nav-bg-color: #000;
+
 $nav-border: 2px solid rgb(150, 17, 177);
+$nav-border-radius: 6px;
+
 $nav-font-size: 1rem;
 $nav-font-weight: 600;
-$nav-border-radius: 6px;
-$nav-height: 25px;
 
 /*======================================
     ANCHOR: CHAT BAR

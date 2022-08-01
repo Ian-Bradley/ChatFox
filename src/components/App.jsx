@@ -40,7 +40,7 @@ LATER:
 
 const isTooDark = (hexStr) =>
 {
-    let c = hexStr.substring(1);      // strip #
+    let c = hexStr.substring(1); // strip #
     let rgb = parseInt(c, 16);   // convert rrggbb to decimal
     let r = (rgb >> 16) & 0xff;  // extract red
     let g = (rgb >>  8) & 0xff;  // extract green
@@ -117,35 +117,35 @@ export default class App extends Component {
     ========================================*/
 
         // State methods - Connection
-        this.socket               = new WebSocket('ws://localhost:3001');
+        this.socket = new WebSocket('ws://localhost:3001');
 
         // State methods - Users
-        this.set_users            = this.set_users.bind(this);
-        this.user_add             = this.user_add.bind(this);
-        this.user_remove          = this.user_remove.bind(this);
+        this.set_users   = this.set_users.bind(this);
+        this.user_add    = this.user_add.bind(this);
+        this.user_remove = this.user_remove.bind(this);
 
         // State methods - User Info
-        this.set_user_ID          = this.set_user_ID.bind(this);
-        this.set_user_name        = this.set_user_name.bind(this);
-        this.set_user_color       = this.set_user_color.bind(this);
+        this.set_user_ID    = this.set_user_ID.bind(this);
+        this.set_user_name  = this.set_user_name.bind(this);
+        this.set_user_color = this.set_user_color.bind(this);
 
         // State methods - Messages
-        this.set_messages         = this.set_messages.bind(this);
-        this.message_add          = this.message_add.bind(this);
+        this.set_messages = this.set_messages.bind(this);
+        this.message_add  = this.message_add.bind(this);
 
         // State methods - Preferences
-        this.set_pref_timeStamps  = this.set_pref_timeStamps.bind(this);
-        this.set_pref_nameChanges = this.set_pref_nameChanges.bind(this);
-        this.set_pref_userJoins   = this.set_pref_userJoins.bind(this);
-        this.set_pref_24HourTime  = this.set_pref_24HourTime.bind(this);
+        this.toggle_pref_timeStamps  = this.toggle_pref_timeStamps.bind(this);
+        this.toggle_pref_nameChanges = this.toggle_pref_nameChanges.bind(this);
+        this.toggle_pref_userJoins   = this.toggle_pref_userJoins.bind(this);
+        this.toggle_pref_24HourTime  = this.toggle_pref_24HourTime.bind(this);
 
-        // WS - User Interactions
-        this.send_message         = this.send_message.bind(this);
-        this.send_user_name       = this.send_user_name.bind(this);
-        this.send_user_color      = this.send_user_color.bind(this);
+        // WS Methods
+        this.send_message    = this.send_message.bind(this);
+        this.send_user_name  = this.send_user_name.bind(this);
+        this.send_user_color = this.send_user_color.bind(this);
 
         // Functional methonds - User Interactions
-        this.click_name           = this.click_name.bind(this);
+        this.click_name = this.click_name.bind(this);
 
     }
 
@@ -293,64 +293,64 @@ export default class App extends Component {
     }
 
     /*================================================
-        ANCHOR: STATE METHODS - Preferences
+        ANCHOR: STATE METHODS - Preference Toggling
     ==================================================*/
 
-    set_pref_nameChanges ( state )
+    toggle_pref_nameChanges ()
     {
-        console.log('===> set_pref_nameChanges');
+        console.log('===> toggle_pref_nameChanges');
         this.setState(prevState => {
             let preferences = { ...prevState.preferences };
-            preferences.showNameChanges = state;
+            preferences.showNameChanges = !preferences.showNameChanges;
             return { preferences };
         });
-        console.log('===> END - set_pref_nameChanges');
+        console.log('===> END - toggle_pref_nameChanges');
     }
 
     /*======================================*/
     /*======================================*/
 
-    set_pref_timeStamps ( state )
+    toggle_pref_timeStamps ()
     {
-        console.log('===> set_pref_timeStamps');
+        console.log('===> toggle_pref_timeStamps');
         this.setState(prevState => {
             let preferences = { ...prevState.preferences };
-            preferences.showTimeStamps = state;
+            preferences.showTimeStamps = !preferences.showTimeStamps;
             return { preferences };
         });
-        console.log('===> END - set_pref_timeStamps');
+        console.log('===> END - toggle_pref_timeStamps');
     }
 
     /*======================================*/
     /*======================================*/
 
-    set_pref_userJoins ( state )
+    toggle_pref_userJoins ()
     {
-        console.log('===> set_pref_userJoins');
+        console.log('===> toggle_pref_userJoins');
         this.setState(prevState => {
             let preferences = { ...prevState.preferences };
-            preferences.showUserJoins = state;
+            preferences.showUserJoins = !preferences.showUserJoins;
             return { preferences };
         });
-        console.log('===> END - set_pref_userJoins');
+        console.log('===> END - toggle_pref_userJoins');
     }
 
     /*======================================*/
     /*======================================*/
 
-    set_pref_24HourTime ( state )
+    toggle_pref_24HourTime ()
     {
-        console.log('===> set_pref_24HourTime');
+        console.log('===> toggle_pref_24HourTime');
         this.setState(prevState => {
             let preferences = { ...prevState.preferences };
-            preferences.show24HourTime = state;
+            preferences.show24HourTime = !preferences.show24HourTime;
             return { preferences };
         });
-        console.log('===> END - set_pref_24HourTime');
+        console.log('===> END - toggle_pref_24HourTime');
     }
 
     /*================================================
-        ANCHOR: WS METHODS - User Interactions
+        ANCHOR: WS METHODS
     ==================================================*/
 
     send_message ( newMessage )
@@ -652,6 +652,22 @@ export default class App extends Component {
                         <button onClick={on_dev_name2}>Name</button>
                         <button onClick={on_dev_color}>Color</button>
                         <button onClick={on_dev_user}>Fake User</button>
+                        <div>
+                            <input type='checkbox' id='dev-name' onClick={this.toggle_pref_nameChanges}/>
+                            <label htmlFor='dev-name'>Name changes</label>
+                        </div>
+                        <div>
+                        <input type='checkbox' id='dev-time' onClick={this.toggle_pref_timeStamps}/>
+                            <label htmlFor='dev-time'>Timestamps</label>
+                        </div>
+                        <div>
+                        <input type='checkbox' id='dev-user' onClick={this.toggle_pref_userJoins}/>
+                            <label htmlFor='dev-user'>User joins</label>
+                        </div>
+                        <div>
+                            <input type='checkbox' id='dev-hour' onClick={this.toggle_pref_24HourTime}/>
+                            <label htmlFor='dev-hour'>24 hour time</label>
+                        </div>
                     </div>
                 </div>
             </main>

@@ -24,7 +24,7 @@ export default function ChatBar ( props )
                 });
             e.target.value = '';
         }
-    };
+    }
 
     /*======================================
         RENDER FUNCTIONS - Displaying

@@ -18,6 +18,7 @@ export default function Message ( props )
     const on_click_name = e =>
     {
         console.log('===> on_click_name');
+        e.preventDefault();
         props.click_name( e );
         console.log('===> END - on_click_name');
     }
@@ -27,6 +28,7 @@ export default function Message ( props )
     ========================================*/
 
     // > Regular expression for image extensions
+    // TODO: Switch to checking in ChatBar and storing URL to message object
     const imageExtensionRegex = ( /\.( gif|jp?g|png|svg|bmp|tiff|bat )$/i );
 
     const display_timestamp = () =>
@@ -36,7 +38,7 @@ export default function Message ( props )
         let timeStamp_min = parseInt( props.message.time.slice(20,22) );
         let timeStamp_sec = parseInt( props.message.time.slice(23,25) );
 
-        console.log('=======================================================');
+        // console.log('=======================================================');
         // console.log('BEFORE > hours: ', timeStamp_hrs);
         // console.log('BEFORE > minutes: ', timeStamp_min);
         // console.log('BEFORE > seconds: ', timeStamp_sec);
@@ -96,7 +98,7 @@ export default function Message ( props )
         // if ( timeStamp_hrs.slice(0,1) === '0' )
         // { timeStamp_hrs = timeStamp_hrs.slice(1,2) }
 
-        console.log('=======================================================');
+        // console.log('=======================================================');
 
         return ('['+timeStamp_hrs+':'+timeStamp_min+':'+timeStamp_sec+']');
     }
