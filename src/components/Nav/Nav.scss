@@ -2,14 +2,29 @@
 main.app {
     & .container-nav {
         position: relative;
-        
-        display: flex;
-        flex-flow: row nowrap;
-        align-items: center;
-        justify-content: center;
-
         width: 100%;
         height: $nav-height;
+
+        & .container-title {
+            position: fixed;
+            top: $app-spacing;
+            left: $app-spacing;
+    
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: center;
+    
+            width: 100%;
+    
+            & .app-title {
+                font-size: $title-font-size;
+                font-weight: $title-font-weight;
+            }
+
+            // $title-color-green: #C3FBF4;
+            // $title-color-blue: #5684AE;
+            // $title-color-black: #000000;
+        }
 
         nav {
             position: fixed;

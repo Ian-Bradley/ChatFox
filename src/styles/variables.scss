@@ -6,8 +6,7 @@
 $app-font-size: 14px;
 $app-spacing: 0.4rem;
 
-$app-width-users: 325px;
-$app-width-chat: calc(100% - 325px);
+$app-width-sidebar: 325px;
 
 $app-height-chatbar: 60px;
 $app-height-messages: calc(100% - 60px);
@@ -118,7 +117,7 @@ $message-image-height: 100px;
     ANCHOR: NAV
 ========================================*/
 
-$nav-height: 100px;
+$nav-height: 80px;
 
 $nav-color: #FFF;
 $nav-bg-color: #000;

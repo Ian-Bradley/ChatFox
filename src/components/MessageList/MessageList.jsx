@@ -11,30 +11,30 @@ import './MessageList.scss';
 
 export default function MessageList ( props )
 {
-    /*======================================
+    /*================================================
         HOOKS
-    ========================================*/
+    ==================================================*/
 
     const list = useRef(null);
     useEffect(() => {
         list.current.scrollTop = list.current.scrollHeight;
     });
 
-    /*======================================
+    /*================================================
         RENDER FUNCTIONS - Interactions
-    ========================================*/
+    ==================================================*/
 
 
-    /*======================================
+    /*================================================
         RENDER FUNCTIONS - Displaying
-    ========================================*/
+    ==================================================*/
 
     const display_messages = () =>
     {
         if ( !( props.messages === undefined ) && ( props.messages.length ) )
         {
             let messageArray = [];
-            for (let i = 0; i < props.messages.length; i++)
+            for (let i = props.messages.length-1; i > 0; i--)
             {
                 messageArray.push(
                     <Message
@@ -49,9 +49,9 @@ export default function MessageList ( props )
         }
     }
 
-    /*======================================
+    /*================================================
         COMPONENTS
-    ========================================*/
+    ==================================================*/
 
     return (
         <main

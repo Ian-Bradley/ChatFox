@@ -2,7 +2,7 @@
 main.app {
     & .message-list {
         display: flex;
-        flex-flow: column nowrap;
+        flex-flow: column-reverse nowrap;
         align-items: flex-start;
         justify-content: initial;
 
@@ -11,13 +11,3 @@ main.app {
         overflow-y: scroll;
     }
 }
-
-
-
-
-
-
-
-
-
-

@@ -1,18 +1,20 @@
 import React from 'react';
-import Button from '../Button/Button.js';
+import Button from '../Button/Button.jsx';
 import IconUser from '../../images/icons/user.svg';
+// import IconSettings from '../../images/icons/settings.svg';
 import './Nav.scss';
 
 /**
  * @props user (object) User info
+ * @props appTitle (string)
  */
 
 export default function Nav ( props )
 {
 
-    /*======================================
-        RENDER FUNCTIONS - Interactions
-    ========================================*/
+    /*================================================
+        ANCHOR: RENDER FUNCTIONS - Interactions
+    ==================================================*/
 
     const on_user = () =>
     {
@@ -20,19 +22,27 @@ export default function Nav ( props )
         console.log('===> END - on_user');
     }
 
-    /*======================================
-        RENDER FUNCTIONS - Displaying
-    ========================================*/
+    /*================================================
+        ANCHOR: RENDER FUNCTIONS - Displaying
+    ==================================================*/
 
 
-    /*======================================
-        COMPONENTS
-    ========================================*/
+    /*================================================
+        ANCHOR: COMPONENTS
+    ==================================================*/
     //props.user.color
 
     return (
         <main className='container-nav'>
+            <div className='container-title'>
+                <span>{props.appTitle}</span>
+            </div>
             <nav>
+                {/* <Button
+                    btnClasses  ={'nav-settings'}
+                    btnFunction ={on_settings}
+                    btnIcon     ={IconSettings}
+                /> */}
                 <Button
                     btnClasses  ={'nav-user'}
                     btnFunction ={on_user}

@@ -2,7 +2,8 @@
 
 #dev-tools {
     position: fixed;
-    right: 350px;
+    top: 0;
+    right: 267px;
     z-index: 1000;
     display: flex;
     flex-flow: column nowrap;
@@ -37,39 +38,45 @@
     }
 }
 
-/*======================================
-    CONTAINERS
-========================================*/
+/*================================================
+    ANCHOR: HELPERS
+==================================================*/
 
-/*======================================
+.hidden {
+    display: none;
+}
+
+/*================================================
+    ANCHOR: CONTAINERS
+==================================================*/
+
+/*================================================
 #root
     main.app
         .container-app
-            .container-chat
-                MessageList
-                ChatBar
-            .container-users
-                UserList
-========================================*/
+            Nav
+            .container-body
+                .container-channels
+                    ChannelList
+                .container-chat
+                    MessageList
+                    ChatBar
+                .container-users
+                    UserList
+==================================================*/
 
 html,
 body,
 #root,
 main.app,
-.container-app {
+.container-app,
+.container-body {
     width: 100%;
     height: 100%;
     overflow: hidden;
 }
 
 main.app {
-    display: flex;
-    flex-flow: column nowrap;
-    align-items: flex-start;
-    justify-content: flex-start;
-
-    padding: $app-spacing;
-
     font-family: 'Open Sans', sans-serif;
     font-size: $app-font-size;
 
@@ -82,44 +89,52 @@ main.app {
 
     & .container-app {
         display: flex;
-        flex-flow: row nowrap;
+        flex-flow: column nowrap;
         align-items: flex-start;
         justify-content: flex-start;
 
-        & .container-chat {
+        & .container-body {
             display: flex;
-            flex-flow: column nowrap;
+            flex-flow: row nowrap;
             align-items: flex-start;
             justify-content: flex-start;
 
-            width: $app-width-chat;
-            height: 100%;
-        }
 
-        & .container-users {
-            width: $app-width-users;
-            height: 100%;
-            
-            background: $app-bg-lite-1;
+            & .container-chat {
+                display: flex;
+                flex-flow: column nowrap;
+                align-items: flex-start;
+                justify-content: flex-start;
+    
+                width: 100%;
+                height: 100%;
+                padding: $app-spacing;
+            }
+    
+            & .container-channels, .container-users {
+                width: $app-width-sidebar;
+                height: 100%;
+                
+                background: $app-bg-lite-1;
+            }
         }
     }
 }
 
-/*======================================
-    GENERAL ELEMENTS
-========================================*/
+/*================================================
+    ANCHOR: GENERAL ELEMENTS
+==================================================*/
 
 .close {
     position: absolute;
     top: $close-position-top;
     right: $close-position-right;
+
     font-size: $close-font-size;
     font-weight: $close-font-weight;
+    
     transform: rotate(45deg);
     border-radius: $close-border-radius;
     background-color: $close-color;
     border-color: $close-color;
 }
-
-
-

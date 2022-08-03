@@ -1,6 +1,6 @@
 import React from 'react';
 import User from '../User/User.jsx';
-import Button from '../Button/Button.js';
+import Button from '../Button/Button.jsx';
 // import IconSearch from '../../images/icons/search.svg';
 import './UserList.scss';
 
@@ -13,9 +13,9 @@ import './UserList.scss';
 export default function UserList ( props )
 {
 
-    /*======================================
+    /*=================================================
         RENDER FUNCTIONS - Interactions
-    ========================================*/
+    ===================================================*/
 
     const on_search_button = e =>
     {
@@ -24,9 +24,9 @@ export default function UserList ( props )
         console.log('===> END - on_search_button');
     }
 
-    /*======================================
+    /*=================================================
         RENDER FUNCTIONS - Displaying
-    ========================================*/
+    ===================================================*/
 
     const display_users = () =>
     {
@@ -47,9 +47,9 @@ export default function UserList ( props )
         }
     }
 
-    /*======================================
+    /*=================================================
         COMPONENTS
-    ========================================*/
+    ===================================================*/
 
     return (
         <main className='user-list'>

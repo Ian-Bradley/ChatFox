@@ -3,6 +3,8 @@ export const onst = {
     GMT_min: parseInt( new Date().toString().slice(31,33) ),
     GMT_direction: new Date().toString().slice(28,29),
 
+    classHidden: 'hidden',
+
     lotrNames: [
         'Adalgrim Took','Adanedhel','Adanel','Adrahil','Adrahil II','Aegnor','Ælfwine','Aerin','Agarwaen','Aikanáro','Aiwendil','Alatar','Alatáriel','Aldamir','Aldaron',
         'Aldor','Amandil','Amdír','Amlaith','Amras','Amrod','Amroth','Amrothos','Anairë','Anardil','Anárion','Anborn','Ancalagon','Andrast','Andreth','Andróg','Anfauglir',

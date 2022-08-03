@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Nav from './Nav/Nav.jsx';
-import Title from './Title/Title.jsx';
 import ChatBar from './ChatBar/ChatBar.jsx';
 import UserList from './UserList/UserList.jsx';
 import MessageList from './MessageList/MessageList.jsx';
@@ -107,6 +106,7 @@ export default class App extends Component {
             preferences: {
                 showTimeStamps: false,
                 showNameChanges: false,
+                showColorChanges: false,
                 showUserJoins: false,
                 show24HourTime: false,
             },
@@ -134,10 +134,11 @@ export default class App extends Component {
         this.message_add  = this.message_add.bind(this);
 
         // State methods - Preferences
-        this.toggle_pref_timeStamps  = this.toggle_pref_timeStamps.bind(this);
-        this.toggle_pref_nameChanges = this.toggle_pref_nameChanges.bind(this);
-        this.toggle_pref_userJoins   = this.toggle_pref_userJoins.bind(this);
-        this.toggle_pref_24HourTime  = this.toggle_pref_24HourTime.bind(this);
+        this.toggle_pref_timeStamps   = this.toggle_pref_timeStamps.bind(this);
+        this.toggle_pref_nameChanges  = this.toggle_pref_nameChanges.bind(this);
+        this.toggle_pref_colorChanges = this.toggle_pref_colorChanges.bind(this);
+        this.toggle_pref_userJoins    = this.toggle_pref_userJoins.bind(this);
+        this.toggle_pref_24HourTime   = this.toggle_pref_24HourTime.bind(this);
 
         // WS Methods
         this.send_message    = this.send_message.bind(this);
@@ -145,8 +146,8 @@ export default class App extends Component {
         this.send_user_color = this.send_user_color.bind(this);
 
         // Functional methonds - User Interactions
-        this.click_name = this.click_name.bind(this);
-
+        this.click_name  = this.click_name.bind(this);
+        this.change_pref = this.change_pref.bind(this);
     }
 
     /*================================================
@@ -298,27 +299,40 @@ export default class App extends Component {
 
     toggle_pref_nameChanges ()
     {
-        console.log('===> toggle_pref_nameChanges');
+        // console.log('===> toggle_pref_nameChanges');
         this.setState(prevState => {
             let preferences = { ...prevState.preferences };
             preferences.showNameChanges = !preferences.showNameChanges;
             return { preferences };
         });
-        console.log('===> END - toggle_pref_nameChanges');
+        // console.log('===> END - toggle_pref_nameChanges');
     }
 
     /*======================================*/
     /*======================================*/
 
+    toggle_pref_colorChanges ()
+    {
+        // console.log('===> toggle_pref_colorChanges');
+        this.setState(prevState => {
+            let preferences = { ...prevState.preferences };
+            preferences.showColorChanges = !preferences.showColorChanges;
+            return { preferences };
+        });
+        // console.log('===> END - toggle_pref_colorChanges');
+    }
+    /*======================================*/
+    /*======================================*/
+
     toggle_pref_timeStamps ()
     {
-        console.log('===> toggle_pref_timeStamps');
+        // console.log('===> toggle_pref_timeStamps');
         this.setState(prevState => {
             let preferences = { ...prevState.preferences };
             preferences.showTimeStamps = !preferences.showTimeStamps;
             return { preferences };
         });
-        console.log('===> END - toggle_pref_timeStamps');
+        // console.log('===> END - toggle_pref_timeStamps');
     }
 
     /*======================================*/
@@ -326,13 +340,13 @@ export default class App extends Component {
 
     toggle_pref_userJoins ()
     {
-        console.log('===> toggle_pref_userJoins');
+        // console.log('===> toggle_pref_userJoins');
         this.setState(prevState => {
             let preferences = { ...prevState.preferences };
             preferences.showUserJoins = !preferences.showUserJoins;
             return { preferences };
         });
-        console.log('===> END - toggle_pref_userJoins');
+        // console.log('===> END - toggle_pref_userJoins');
     }
 
     /*======================================*/
@@ -340,13 +354,13 @@ export default class App extends Component {
 
     toggle_pref_24HourTime ()
     {
-        console.log('===> toggle_pref_24HourTime');
+        // console.log('===> toggle_pref_24HourTime');
         this.setState(prevState => {
             let preferences = { ...prevState.preferences };
             preferences.show24HourTime = !preferences.show24HourTime;
             return { preferences };
         });
-        console.log('===> END - toggle_pref_24HourTime');
+        // console.log('===> END - toggle_pref_24HourTime');
     }
 
     /*================================================
@@ -361,7 +375,7 @@ export default class App extends Component {
             message: newMessage,
         };
         this.socket.send( JSON.stringify( newUpdate ));
-        console.log('>>>>>>>>> Message Sent - newMessage >>>>>>>>>');
+        // console.log('>>>>>>>>> Message Sent - newMessage >>>>>>>>>');
         // console.log('===> END - send_message');
     }
 
@@ -384,7 +398,7 @@ export default class App extends Component {
             },
         };
         this.socket.send( JSON.stringify( newUpdate ));
-        console.log('>>>>>>>>> Message Sent - updateUserName >>>>>>>>>');
+        // console.log('>>>>>>>>> Message Sent - updateUserName >>>>>>>>>');
         // console.log('===> END - send_user_name');
     }
 
@@ -407,7 +421,7 @@ export default class App extends Component {
             },
         };
         this.socket.send( JSON.stringify( newUpdate ));
-        console.log('>>>>>>>>> Message Sent - updateUserColor >>>>>>>>>');
+        // console.log('>>>>>>>>> Message Sent - updateUserColor >>>>>>>>>');
         // console.log('===> END - send_user_color');
     }
 
@@ -426,6 +440,34 @@ export default class App extends Component {
         // --> maybe have a "close chat" option to reduce open windows
 
         console.log('===> END - click_name');
+    }
+
+    /*======================================*/
+    /*======================================*/
+
+    change_pref ( pref )
+    {
+        // console.log('===> change_pref');
+        switch ( pref )
+        {
+            case 'showTimeStamps':
+                { this.toggle_pref_timeStamps(); break; }  
+
+            case 'showNameChanges':
+                { this.toggle_pref_nameChanges(); break; }
+
+            case 'showColorChanges':
+                { this.toggle_pref_colorChanges(); break; }
+
+            case 'showUserJoins':
+                { this.toggle_pref_userJoins(); break; }
+
+            case "show24HourTime":
+                { this.toggle_pref_24HourTime(); break; }
+
+            default:
+        }
+        // console.log('===> END - change_pref');
     }
 
     /*================================================
@@ -496,7 +538,7 @@ export default class App extends Component {
                             },
                         };
                         ws.send( JSON.stringify( newUpdate ) );
-                        console.log('>>>>>>>>> Message Sent - userConnected >>>>>>>>>');
+                        // console.log('>>>>>>>>> Message Sent - userConnected >>>>>>>>>');
                         // console.log('======= END - HANDLER - clientConnected =======');
                         break;
                     }
@@ -595,6 +637,11 @@ export default class App extends Component {
         const on_dev_color = () => { this.send_user_color( this.state.user, generateRandomColor() ); }
         const on_dev_name = e => { if (e.keyCode === 13) { this.send_user_name( this.state.user, e.target.value ); e.target.value = ''; } }
         const on_dev_name2 = e => { this.send_user_name( this.state.user, generateRandomName() ); }
+        const on_dev_pref1 = e => { this.change_pref( e.target.className ) }
+        const on_dev_pref2 = e => { this.change_pref( e.target.className ) }
+        const on_dev_pref3 = e => { this.change_pref( e.target.className ) }
+        const on_dev_pref4 = e => { this.change_pref( e.target.className ) }
+        const on_dev_pref5 = e => { this.change_pref( e.target.className ) }
 
         /*================================================
             ANCHOR: COMPONENTS
@@ -603,42 +650,51 @@ export default class App extends Component {
         return (
             <main className='app'>
                 {/* <span className='close' onClick={onClose}>+</span> */}
-                <Nav
-                    user={this.state.user}
-                />
-                <Title
-                    appTitle={this.state.appTitle}
-                />
+
 
                 <div className='container-app'>
-                    <div className='container-chat'>
-                        <MessageList
-                            messages={this.state.messages}
-                            preferences={this.state.preferences}
-                            click_name={this.click_name}
-                        />
-                        <ChatBar
-                            user={this.state.user}
-                            send_message={this.send_message}
-                        />
-                    </div>
-                    <div className='container-users'>
-                        <UserList
-                            usersTotal={this.state.usersTotal}
-                            users={this.state.users}
-                            click_name={this.click_name}
-                        />
-                    </div>
+                    <Nav
+                        user={this.state.user}
+                        appTitle={this.state.appTitle}
+                        change_pref={this.change_pref}
+                    />
+                    <div className='container-body'>
+                        <div className='container-channels'>
 
+                        </div>
+                        <div className='container-chat'>
+                            <MessageList
+                                messages={this.state.messages}
+                                preferences={this.state.preferences}
+                                click_name={this.click_name}
+                            />
+                            <ChatBar
+                                user={this.state.user}
+                                send_message={this.send_message}
+                            />
+                        </div>
+                        <div className='container-users'>
+                            <UserList
+                                usersTotal={this.state.usersTotal}
+                                users={this.state.users}
+                                click_name={this.click_name}
+                            />
+                        </div>
+                    </div>
                 </div>
 
                 <div id='dev-tools'>
                     <div>
                         <ul>
                             <li><span>Current Player: </span></li>
-                            <li>{this.state.user.id + ' '}<span>ID</span></li>
-                            <li>{this.state.user.name + ' '}<span>Name</span></li>
-                            <li>{this.state.user.color + ' '}<span>Color</span></li>
+                            <li>{this.state.user.id+' '}<span>ID</span></li>
+                            <li>{this.state.user.name+' '}<span>Name</span></li>
+                            <li>{this.state.user.color+' '}<span>Color</span></li>
+                            <li>{this.state.preferences.showNameChanges+' '}<span>NameChanges</span></li>
+                            <li>{this.state.preferences.showColorChanges+' '}<span>ColorChanges</span></li>
+                            <li>{this.state.preferences.showUserJoins+' '}<span>UserJoins</span></li>
+                            <li>{this.state.preferences.showTimeStamps+' '}<span>Timestamps</span></li>
+                            <li>{this.state.preferences.show24HourTime+' '}<span>24HourTime</span></li>
                         </ul>
                     </div>
                     <div>
@@ -652,22 +708,16 @@ export default class App extends Component {
                         <button onClick={on_dev_name2}>Name</button>
                         <button onClick={on_dev_color}>Color</button>
                         <button onClick={on_dev_user}>Fake User</button>
-                        <div>
-                            <input type='checkbox' id='dev-name' onClick={this.toggle_pref_nameChanges}/>
-                            <label htmlFor='dev-name'>Name changes</label>
-                        </div>
-                        <div>
-                        <input type='checkbox' id='dev-time' onClick={this.toggle_pref_timeStamps}/>
-                            <label htmlFor='dev-time'>Timestamps</label>
-                        </div>
-                        <div>
-                        <input type='checkbox' id='dev-user' onClick={this.toggle_pref_userJoins}/>
-                            <label htmlFor='dev-user'>User joins</label>
-                        </div>
-                        <div>
-                            <input type='checkbox' id='dev-hour' onClick={this.toggle_pref_24HourTime}/>
-                            <label htmlFor='dev-hour'>24 hour time</label>
-                        </div>
+                        <div><input type='checkbox' className='showNameChanges' id='dev-name' onClick={on_dev_pref1}/>
+                        <label htmlFor='dev-name'>Name changes</label></div>
+                        <div><input type='checkbox' className='showColorChanges' id='dev-color' onClick={on_dev_pref5}/>
+                        <label htmlFor='dev-color'>ColorChanges</label></div>
+                        <div><input type='checkbox' className='showUserJoins' id='dev-user' onClick={on_dev_pref3}/>
+                        <label htmlFor='dev-user'>User joins</label></div>
+                        <div><input type='checkbox' className='showTimeStamps' id='dev-time' onClick={on_dev_pref2}/>
+                        <label htmlFor='dev-time'>Timestamps</label></div>
+                        <div><input type='checkbox' className='show24HourTime' id='dev-hour' onClick={on_dev_pref4}/>
+                        <label htmlFor='dev-hour'>24 hour time</label></div>
                     </div>
                 </div>
             </main>
