@@ -1,17 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 
-// >>> COMPONENTS
+// COMPONENTS
 import Button from '../Button/Button.jsx';
 import IconUser from '../../images/icons/user.svg';
-// import IconSettings from '../../images/icons/settings.svg';
+import IconSettings from '../../images/icons/settings.svg';
 
-// >>> CSS & GLOBAL CONSTANTS
-import * as C from '../../helpers/constants.js'
+// CSS
 import './Nav.scss';
 
-/*======================================*/
-/*======================================*/
+/**
+ * @props 
+ */
 
 export default function Nav ( props )
 {
@@ -31,6 +31,15 @@ export default function Nav ( props )
         console.log('===> END - on_user');
     }
 
+    /*======================================*/
+    /*======================================*/
+
+    const on_settings = () =>
+    {
+        console.log('===> on_settings');
+        console.log('===> END - on_settings');
+    }
+
     /*================================================
         ANCHOR: DISPLAYING
     ==================================================*/
@@ -46,11 +55,11 @@ export default function Nav ( props )
                 <span>{document.title}</span>
             </div>
             <nav>
-                {/* <Button
+                <Button
                     btnClasses  ={'nav-settings'}
                     btnFunction ={on_settings}
                     btnIcon     ={IconSettings}
-                /> */}
+                />
                 <Button
                     btnClasses  ={'nav-user'}
                     btnFunction ={on_user}

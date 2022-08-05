@@ -1,16 +1,20 @@
 import React from 'react';
-import * as C from '../../constants.js'
+import * as C from '../../helpers/constants.js'
 import './Message.scss';
 
 /**
  * @props message (object)      Message info
- * @props preferences (object)  App + Display info
  * @props click_name (function) Clicking on a user name
- * @props GMT (string)          GMT of user for timestamp
  */
 
 export default function Message ( props )
 {
+    /*======================================
+        ANCHOR: STATES
+    ========================================*/
+
+    const prefs = useSelector( ( state ) => { return state['preferences'].preferences; } );
+
     /*================================================
         ANCHOR: INTERACTIONS
     ==================================================*/
@@ -32,7 +36,7 @@ export default function Message ( props )
 
     const display_timestamp = () =>
     {
-        if ( props.preferences.showTimeStamps )
+        if ( prefs.showTimeStamps )
         {
             // Mon, 01 Aug 2022 02:38:32 GMT
             let timeStamp_hrs = parseInt( props.message.time.slice(17,19) );
@@ -71,7 +75,7 @@ export default function Message ( props )
             // console.log('NEGATIVES > seconds: ', timeStamp_sec);
 
             // > Convert to 12-hours time
-            if ( !props.preferences.show24HourTime && ( timeStamp_hrs > 12 ) )
+            if ( !prefs.show24HourTime && ( timeStamp_hrs > 12 ) )
             { timeStamp_hrs -= 12 }
 
             // console.log('24HOUR > hours: ', timeStamp_hrs);
@@ -176,7 +180,7 @@ export default function Message ( props )
 
         case 'notification-connect':
             {
-                if ( props.preferences.showUserJoins )
+                if ( prefs.showUserJoins )
                 {
                     return (
                         <main className='container-message'>
@@ -206,7 +210,7 @@ export default function Message ( props )
 
          case 'notification-disconnect':
             {
-                if ( props.preferences.showUserJoins )
+                if ( prefs.showUserJoins )
                 {
                     return (
                         <main className='container-message'>
@@ -236,7 +240,7 @@ export default function Message ( props )
 
          case 'notification-name':
             {
-                if ( props.preferences.showNameChanges )
+                if ( prefs.showNameChanges )
                 {
                     return (
                         <main className='container-message'>
@@ -273,7 +277,7 @@ export default function Message ( props )
 
          case 'notification-color':
             {
-                if ( props.preferences.showColorChanges )
+                if ( prefs.showColorChanges )
                 {
                     return (
                         <main className='container-message'>

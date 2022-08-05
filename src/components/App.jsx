@@ -1,18 +1,19 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-// >>> REDUX ACTIONS
+// REDUX ACTIONS
 // import { set, increment, decrement } from '../redux/features/userTotal.feature.js';
 import { setID, setName, setColor } from '../redux/features/user.feature.js';
+import { toggle24HourTime, toggleColorChanges, toggleNameChanges, toggleTimestamps, toggleUserJoins } from '../redux/features/preferences.feature.js';
 
-// >>> COMPONENETS
+// COMPONENETS
 import Nav from './Nav/Nav.jsx';
-// import ChatBar from './ChatBar/ChatBar.jsx';
+import ChatBar from './ChatBar/ChatBar.jsx';
 import UserList from './UserList/UserList.jsx';
-// import MessageList from './MessageList/MessageList.jsx';
+import MessageList from './MessageList/MessageList.jsx';
 
-// >>> CSS & GLOBAL CONSTANTS + HELPER FUNCTIONS
-import * as C from '../helpers/constants.js'
+// CSS + GLOBAL CONSTANTS + HELPER FUNCTIONS
+// import * as C from '../helpers/constants.js'
 import * as H from '../helpers/helpers.js'
 import './App.scss';
 
@@ -26,16 +27,8 @@ export default function App ()
     ========================================*/
 
     const user = useSelector( ( state ) => { return state['user'].user; } );
-    // const [messages, setMessages] = useState([]);
-    // const [preferences, setPreferences] = useState({
-    //     showTimeStamps: false,
-    //     showNameChanges: false,
-    //     showColorChanges: false,
-    //     showUserJoins: false,
-    //     show24HourTime: false,
-    // });
-
-    // dispatch( decrement() );
+    const prefs = useSelector( ( state ) => { return state['preferences'].preferences; } );
+    const dispatch = useDispatch();
 
     /*======================================
         ANCHOR: METHOD BINDING
@@ -58,13 +51,6 @@ export default function App ()
 // this.set_messages = this.set_messages.bind(this);
 // this.message_add  = this.message_add.bind(this);
 
-// // State methods - Preferences
-// this.toggle_pref_timeStamps   = this.toggle_pref_timeStamps.bind(this);
-// this.toggle_pref_nameChanges  = this.toggle_pref_nameChanges.bind(this);
-// this.toggle_pref_colorChanges = this.toggle_pref_colorChanges.bind(this);
-// this.toggle_pref_userJoins    = this.toggle_pref_userJoins.bind(this);
-// this.toggle_pref_24HourTime   = this.toggle_pref_24HourTime.bind(this);
-
 // // WS Methods
 // this.send_message    = this.send_message.bind(this);
 // this.send_user_name  = this.send_user_name.bind(this);
@@ -72,7 +58,6 @@ export default function App ()
 
 // // Functional methonds - User Interactions
 // this.click_name  = this.click_name.bind(this);
-// this.change_pref = this.change_pref.bind(this);
 
     /*================================================
         ANCHOR: STATE METHODS - Game States
@@ -218,98 +203,27 @@ export default function App ()
     // }
 
     /*================================================
-        ANCHOR: STATE METHODS - Preference Toggling
-    ==================================================*/
-
-    // toggle_pref_nameChanges ()
-    // {
-    //     // console.log('===> toggle_pref_nameChanges');
-    //     this.setState(prevState => {
-    //         let preferences = { ...prevState.preferences };
-    //         preferences.showNameChanges = !preferences.showNameChanges;
-    //         return { preferences };
-    //     });
-    //     // console.log('===> END - toggle_pref_nameChanges');
-    // }
-
-    /*======================================*/
-    /*======================================*/
-
-    // toggle_pref_colorChanges ()
-    // {
-    //     // console.log('===> toggle_pref_colorChanges');
-    //     this.setState(prevState => {
-    //         let preferences = { ...prevState.preferences };
-    //         preferences.showColorChanges = !preferences.showColorChanges;
-    //         return { preferences };
-    //     });
-    //     // console.log('===> END - toggle_pref_colorChanges');
-    // }
-
-    /*======================================*/
-    /*======================================*/
-
-    // toggle_pref_timeStamps ()
-    // {
-    //     // console.log('===> toggle_pref_timeStamps');
-    //     this.setState(prevState => {
-    //         let preferences = { ...prevState.preferences };
-    //         preferences.showTimeStamps = !preferences.showTimeStamps;
-    //         return { preferences };
-    //     });
-    //     // console.log('===> END - toggle_pref_timeStamps');
-    // }
-
-    /*======================================*/
-    /*======================================*/
-
-    // toggle_pref_userJoins ()
-    // {
-    //     // console.log('===> toggle_pref_userJoins');
-    //     this.setState(prevState => {
-    //         let preferences = { ...prevState.preferences };
-    //         preferences.showUserJoins = !preferences.showUserJoins;
-    //         return { preferences };
-    //     });
-    //     // console.log('===> END - toggle_pref_userJoins');
-    // }
-
-    /*======================================*/
-    /*======================================*/
-
-    // toggle_pref_24HourTime ()
-    // {
-    //     // console.log('===> toggle_pref_24HourTime');
-    //     this.setState(prevState => {
-    //         let preferences = { ...prevState.preferences };
-    //         preferences.show24HourTime = !preferences.show24HourTime;
-    //         return { preferences };
-    //     });
-    //     // console.log('===> END - toggle_pref_24HourTime');
-    // }
-
-    /*================================================
         ANCHOR: WS METHODS
     ==================================================*/
 
-    // send_message ( newMessage )
-    // {
-    //     // console.log('===> send_message');
-    //     let newUpdate = {
-    //         type: 'newMessage',
-    //         message: newMessage,
-    //     };
-    //     this.socket.send( JSON.stringify( newUpdate ));
-    //     // console.log('>>>>>>>>> Message Sent - newMessage >>>>>>>>>');
-    //     // console.log('===> END - send_message');
-    // }
+    const send_message = ( newMessage ) =>
+    {
+        console.log('===> send_message');
+        // let newUpdate = {
+        //     type: 'newMessage',
+        //     message: newMessage,
+        // };
+        // this.socket.send( JSON.stringify( newUpdate ));
+        // console.log('>>>>>>>>> Message Sent - newMessage >>>>>>>>>');
+        console.log('===> END - send_message');
+    }
 
     /*======================================*/
     /*======================================*/
 
-    // send_user_name ( user, newName )
-    // {
-    //     // console.log('===> send_user_name');
+    send_user_name ( user, newName )
+    {
+        console.log('===> send_user_name');
     //     let newUpdate = {
     //         type: 'updateUserName',
     //         user: user,
@@ -324,15 +238,15 @@ export default function App ()
     //     };
     //     this.socket.send( JSON.stringify( newUpdate ));
     //     // console.log('>>>>>>>>> Message Sent - updateUserName >>>>>>>>>');
-    //     // console.log('===> END - send_user_name');
-    // }
+        console.log('===> END - send_user_name');
+    }
 
     /*======================================*/
     /*======================================*/
 
-    // send_user_color ( user, newColor )
-    // {
-    //     // console.log('===> send_user_color');
+    send_user_color ( user, newColor )
+    {
+        console.log('===> send_user_color');
     //     let newUpdate = {
     //         type: 'updateUserColor',
     //         user: user,
@@ -347,67 +261,38 @@ export default function App ()
     //     };
     //     this.socket.send( JSON.stringify( newUpdate ));
     //     // console.log('>>>>>>>>> Message Sent - updateUserColor >>>>>>>>>');
-    //     // console.log('===> END - send_user_color');
-    // }
+        console.log('===> END - send_user_color');
+    }
 
     /*================================================
         ANCHOR: INTERACTIONS
     ==================================================*/
 
-    click_name ( data )
+    const click_name = ( data ) =>
     {
         console.log('===> click_name');
         console.log('data: ', data);
         // TODO: name clicking
         // --> open DM + Info sidebar (OVER player list)
         // --> this sidebar will have a button to swap to DM Chat (new window, don't overwrite MessageList, just make a new one on top)
-        // --> "return to main chat" button
-        // --> maybe have a "close chat" option to reduce open windows
-
+        // --> 'return to main chat' button
+        // --> maybe have a 'close chat' option to reduce open windows
         console.log('===> END - click_name');
     }
-
-    /*======================================*/
-    /*======================================*/
-
-    // change_pref ( pref )
-    // {
-    //     // console.log('===> change_pref');
-    //     switch ( pref )
-    //     {
-    //         case 'showTimeStamps':
-    //             { this.toggle_pref_timeStamps(); break; }  
-
-    //         case 'showNameChanges':
-    //             { this.toggle_pref_nameChanges(); break; }
-
-    //         case 'showColorChanges':
-    //             { this.toggle_pref_colorChanges(); break; }
-
-    //         case 'showUserJoins':
-    //             { this.toggle_pref_userJoins(); break; }
-
-    //         case "show24HourTime":
-    //             { this.toggle_pref_24HourTime(); break; }
-
-    //         default:
-    //     }
-    //     // console.log('===> END - change_pref');
-    // }
 
     /*================================================
         ANCHOR: DEV TOOLS
     ==================================================*/
 
     // const on_dev_user  = () => { this.user_add( { id: H.elper.generateRandomName(), name: H.elper.generateRandomName(), color: H.elper.generateRandomColor() } ) }
-    // const on_dev_color = () => { this.send_user_color( this.state.user, H.elper.generateRandomColor() ); }
-    const on_dev_name  = e => { if (e.keyCode === 13) { this.send_user_name( this.state.user, e.target.value ); e.target.value = ''; } }
-    const on_dev_name2 = e => { this.send_user_name( this.state.user, H.elper.generateRandomName() ); }
-    // const on_dev_pref1 = e => { this.change_pref( e.target.className ) }
-    // const on_dev_pref2 = e => { this.change_pref( e.target.className ) }
-    // const on_dev_pref3 = e => { this.change_pref( e.target.className ) }
-    // const on_dev_pref4 = e => { this.change_pref( e.target.className ) }
-    // const on_dev_pref5 = e => { this.change_pref( e.target.className ) }
+    const on_dev_color = () => { dispatch( setColor( H.elper.generateRandomColor() ) ); }
+    const on_dev_name  = e  => { if (e.keyCode === 13) { dispatch( setName( e.target.value ) ); e.target.value = ''; } }
+    const on_dev_name2 = () => { dispatch( setName( H.elper.generateRandomName() ) ); }
+    const on_dev_pref1 = () => { dispatch( toggleNameChanges() ); }
+    const on_dev_pref2 = () => { dispatch( toggleColorChanges() ); }
+    const on_dev_pref3 = () => { dispatch( toggleUserJoins() ); }
+    const on_dev_pref4 = () => { dispatch( toggleTimestamps() ); }
+    const on_dev_pref5 = () => { dispatch( toggle24HourTime() ); }
 
     /*================================================
         ANCHOR: COMPONENTS
@@ -419,31 +304,24 @@ export default function App ()
 
 
             <div className='container-app'>
-                <Nav
-                    // user={this.state.user}
-                    // appTitle={this.state.appTitle}
-                    // change_pref={this.change_pref}
-                />
+                <Nav />
                 <div className='container-body'>
                     <div className='container-channels'>
 
                     </div>
                     <div className='container-chat'>
-                        {/* <MessageList
-                            messages={this.state.messages}
-                            preferences={this.state.preferences}
-                            click_name={this.click_name}
+                        <MessageList
+                            // messages={this.state.messages}
+                            click_name={click_name}
                         />
                         <ChatBar
-                            user={this.state.user}
-                            send_message={this.send_message}
-                        /> */}
+                            send_message={send_message}
+                        />
                     </div>
                     <div className='container-users'>
                         <UserList
-                            // usersTotal={this.state.usersTotal}
                             // users={this.state.users}
-                            // click_name={this.click_name}
+                            click_name={click_name}
                         />
                     </div>
                 </div>
@@ -456,11 +334,11 @@ export default function App ()
                         <li>{user.id+' '}<span>ID</span></li>
                         <li>{user.name+' '}<span>Name</span></li>
                         <li>{user.color+' '}<span>Color</span></li>
-                        {/* <li>{this.state.preferences.showNameChanges+' '}<span>NameChanges</span></li>
-                        <li>{this.state.preferences.showColorChanges+' '}<span>ColorChanges</span></li>
-                        <li>{this.state.preferences.showUserJoins+' '}<span>UserJoins</span></li>
-                        <li>{this.state.preferences.showTimeStamps+' '}<span>Timestamps</span></li>
-                        <li>{this.state.preferences.show24HourTime+' '}<span>24HourTime</span></li> */}
+                        <li>{prefs.showNameChanges+' '}<span>NameChanges</span></li>
+                        <li>{prefs.showColorChanges+' '}<span>ColorChanges</span></li>
+                        <li>{prefs.showUserJoins+' '}<span>UserJoins</span></li>
+                        <li>{prefs.showTimestamps+' '}<span>Timestamps</span></li>
+                        <li>{prefs.show24HourTime+' '}<span>24HourTime</span></li>
                     </ul>
                 </div>
                 <div>
@@ -472,18 +350,13 @@ export default function App ()
                         onKeyDown={on_dev_name}
                     />
                     <button onClick={on_dev_name2}>Name</button>
-                    {/* <button onClick={on_dev_color}>Color</button> */}
+                    <button onClick={on_dev_color}>Color</button>
                     {/* <button onClick={on_dev_user}>Fake User</button> */}
-                    {/* <div><input type='checkbox' className='showNameChanges' id='dev-name' onClick={on_dev_pref1}/>
-                    <label htmlFor='dev-name'>Name changes</label></div>
-                    <div><input type='checkbox' className='showColorChanges' id='dev-color' onClick={on_dev_pref5}/>
-                    <label htmlFor='dev-color'>ColorChanges</label></div>
-                    <div><input type='checkbox' className='showUserJoins' id='dev-user' onClick={on_dev_pref3}/>
-                    <label htmlFor='dev-user'>User joins</label></div>
-                    <div><input type='checkbox' className='showTimeStamps' id='dev-time' onClick={on_dev_pref2}/>
-                    <label htmlFor='dev-time'>Timestamps</label></div>
-                    <div><input type='checkbox' className='show24HourTime' id='dev-hour' onClick={on_dev_pref4}/>
-                    <label htmlFor='dev-hour'>24 hour time</label></div> */}
+                    <div><input type='checkbox' id='dev-name' onClick={on_dev_pref1}/><label htmlFor='dev-name'>Name changes</label></div>
+                    <div><input type='checkbox' id='dev-color' onClick={on_dev_pref2}/><label htmlFor='dev-color'>ColorChanges</label></div>
+                    <div><input type='checkbox' id='dev-user' onClick={on_dev_pref3}/><label htmlFor='dev-user'>User joins</label></div>
+                    <div><input type='checkbox' id='dev-time' onClick={on_dev_pref4}/><label htmlFor='dev-time'>Timestamps</label></div>
+                    <div><input type='checkbox' id='dev-hour' onClick={on_dev_pref5}/><label htmlFor='dev-hour'>24 hour time</label></div>
                 </div>
             </div>
         </main>

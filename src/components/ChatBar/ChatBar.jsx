@@ -1,11 +1,10 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-
-// >>> COMPONENTS
-
-// >>> CSS
 import './ChatBar.scss';
 
+/**
+ * @props send_message (function)
+ */
 
 export default function ChatBar ( props )
 {
@@ -13,7 +12,7 @@ export default function ChatBar ( props )
         ANCHOR: STATES
     ========================================*/
 
-    const userTotal = useSelector( ( state ) => { return state['userTotal'].userTotal; } );
+    const user = useSelector( ( state ) => { return state['user'].user; } );
 
     /*======================================
         ANCHOR: INTERACTIONS
@@ -25,9 +24,9 @@ export default function ChatBar ( props )
         {
             props.send_message({
                     type: 'message',
-                    name: props.user.name,
+                    name: user.name,
                     time: new Date().toGMTString(),
-                    color: props.user.color,
+                    color: user.color,
                     content: e.target.value,
                 });
             e.target.value = '';

@@ -2,12 +2,12 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 
 // COMPONENTS
-import User from '../User/User.jsx';
+import Channel from '../Channel/Channel.jsx';
 import Button from '../Button/Button.jsx';
 import IconSearch from '../../images/icons/search.svg';
 
 // CSS
-import './UserList.scss';
+import './ChannelList.scss';
 
 /**
  * @props click_name (function) Clicking on a user name

@@ -1,18 +1,22 @@
-// import React from 'react';
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import Message from '../Message/Message.jsx';
 import './MessageList.scss';
 
 /**
- * @props messages (array)      List of all messages
- * @props preferences (object)  App + Display info
  * @props click_name (function) Clicking on a user name
  */
 
 export default function MessageList ( props )
 {
+
+    /*======================================
+        ANCHOR: STATES
+    ========================================*/
+
+    const [messages, setMessages] = useState([]); // get from mongoDB based on channelID
+
     /*================================================
-        HOOKS
+        ANCHOR: HOOKS
     ==================================================*/
 
     const list = useRef(null);
@@ -31,15 +35,15 @@ export default function MessageList ( props )
 
     const display_messages = () =>
     {
-        if ( !( props.messages === undefined ) && ( props.messages.length ) )
+        if ( !( messages === undefined ) && ( messages.length ) )
         {
             let messageArray = [];
-            for (let i = props.messages.length-1; i > 0; i--)
+            for (let i = messages.length-1; i > 0; i--)
             {
                 messageArray.push(
                     <Message
                         key={i}
-                        message={props.messages[i]}
+                        message={messages[i]}
                         preferences={props.preferences}
                         click_name={props.click_name}
                     />

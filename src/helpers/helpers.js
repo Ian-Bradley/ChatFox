@@ -22,7 +22,7 @@ export const elper = {
         for(let i = 0; i < 6; i++)
         {randomColor += hexCharacters.charAt(Math.floor(Math.random() * hexCharacters.length));}
         if(this.isTooDark(randomColor))
-        {return generateRandomColor();}
+        {return this.generateRandomColor();}
         else
         {return randomColor;}
     },
