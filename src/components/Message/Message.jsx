@@ -12,7 +12,7 @@ import './Message.scss';
 export default function Message ( props )
 {
     /*================================================
-        ANCHOR: RENDER FUNCTIONS - Interactions
+        ANCHOR: INTERACTIONS
     ==================================================*/
 
     const on_click_name = e =>
@@ -23,7 +23,7 @@ export default function Message ( props )
     }
 
     /*================================================
-        ANCHOR: RENDER FUNCTIONS - Displaying
+        ANCHOR: DISPLAYING
     ==================================================*/
 
     // > Regular expression for image extensions

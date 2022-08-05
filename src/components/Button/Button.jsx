@@ -14,7 +14,7 @@ import './Button.scss';
 export default function Button ( props ) {
 
     /*======================================
-        RENDER FUNCTIONS - Interactions
+        ANCHOR: INTERACTIONS
     ========================================*/
 
     const on_button_click = e =>
@@ -30,7 +30,7 @@ export default function Button ( props ) {
     }
 
     /*======================================
-        RENDER FUNCTIONS - Displaying
+        ANCHOR: DISPLAYING
     ========================================*/
 
     const display_classes = () =>
@@ -75,7 +75,7 @@ export default function Button ( props ) {
     }
 
     /*======================================
-        COMPONENTS
+        ANCHOR: COMPONENTS
     ========================================*/
 
     return (

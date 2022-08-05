@@ -1,116 +1,32 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-// > REDUX ACTIONS
-import { set, increment, decrement } from '../redux/features/userTotal.feature.js';
+// >>> REDUX ACTIONS
+// import { set, increment, decrement } from '../redux/features/userTotal.feature.js';
+import { setID, setName, setColor } from '../redux/features/user.feature.js';
 
-// > COMPONENETS
-// import Nav from './Nav/Nav.jsx';
+// >>> COMPONENETS
+import Nav from './Nav/Nav.jsx';
 // import ChatBar from './ChatBar/ChatBar.jsx';
-// import UserList from './UserList/UserList.jsx';
+import UserList from './UserList/UserList.jsx';
 // import MessageList from './MessageList/MessageList.jsx';
 
-// > CSS & GLOBAL CONSTANTS
-import * as C from '../constants.js'
+// >>> CSS & GLOBAL CONSTANTS + HELPER FUNCTIONS
+import * as C from '../helpers/constants.js'
+import * as H from '../helpers/helpers.js'
 import './App.scss';
-
-
-
-/* TODO:
-NOW:
-> settings menu
-    - show name change notifications
-    - show user join notifications
-    - show timestamps
-    - change user color
-    - change user name
-    - 12/24 hours time
-    - alternate line shading
-    - messages come from top
-
-
-> searchbar for UserList
-> limit message to ~100 || ~50 then add "load more" button (only visible at top of list)
-> auto-shorten links
-> @user highlighting
-> Prevent dropping to bottom of message list while user is scrolling on it (or not at bottom, like twitch.tv chat)
-
-LATER:
-> whisper/dm system
-> tagging system
-> nickname system
-    - nicknames given to other users and only show up to by the current user
-    - nicknames show in the message list and user list, but not in the user panel (slide-out sidebar)
-*/
-
-/*======================================
-    ANCHOR: HELPER FUNCTIONS
-========================================*/
-
-const isTooDark = (hexStr) =>
-{
-    let c = hexStr.substring(1); // strip #
-    let rgb = parseInt(c, 16);   // convert rrggbb to decimal
-    let r = (rgb >> 16) & 0xff;  // extract red
-    let g = (rgb >>  8) & 0xff;  // extract green
-    let b = (rgb >>  0) & 0xff;  // extract blue
-    let luma = 0.2126 * r + 0.7152 * g + 0.0722 * b; // per ITU-R BT.709
-    if(luma < 50)
-    {return true;} // is too dark
-    else
-    {return false;} // is light enough
-}
-
-/*======================================*/
-/*======================================*/
-
-const generateRandomColor = () =>
-{
-    let randomColor = '#';
-    let hexCharacters = '0123456789ABCDEF';
-    for(let i = 0; i < 6; i++)
-    {randomColor += hexCharacters.charAt(Math.floor(Math.random() * hexCharacters.length));}
-    if(isTooDark(randomColor))
-    {return generateRandomColor();}
-    else
-    {return randomColor;}
-}
-
-/*======================================*/
-/*======================================*/
-
-const generateRandomName = () =>
-{
-    let randomName = ''
-    let randomNumber = '';
-    let numbers = '0123456789';
-    for (let i = 0; i < 7; i++)
-    {randomNumber += numbers.charAt(Math.floor(Math.random() * numbers.length));}
-    let names = C.onst.lotrNames;
-    randomName += names[(Math.floor(Math.random() * names.length))];
-    return (randomName + '-' + randomNumber);
-}
 
 /*======================================*/
 /*======================================*/
 
 export default function App ()
 {
-
     /*======================================
         ANCHOR: STATES
     ========================================*/
 
-    const userTotal = useSelector( (state) => { return state['userTotal'].userTotal; } );
-    // const [userTotal, setUserTotal] = useState(1);
-    // const [appTitle, setAppTitle]    = useState('ChattyFox');
-    // const [messages, setMessages]    = useState([]);
-    // const [users, setUsers]          = useState([]);
-    // const [user, setUser]            = useState({
-    //     id: 1,
-    //     name: generateRandomName(),
-    //     color: generateRandomColor(),
-    // });
+    const user = useSelector( ( state ) => { return state['user'].user; } );
+    // const [messages, setMessages] = useState([]);
     // const [preferences, setPreferences] = useState({
     //     showTimeStamps: false,
     //     showNameChanges: false,
@@ -118,20 +34,8 @@ export default function App ()
     //     showUserJoins: false,
     //     show24HourTime: false,
     // });
-    const dispatch = useDispatch();
 
-
-    const onClickIncrement = () =>
-    {
-        dispatch( increment() );
-    };
-
-
-    const onClickDecrement = () =>
-    {
-        dispatch( decrement() );
-    };
-
+    // dispatch( decrement() );
 
     /*======================================
         ANCHOR: METHOD BINDING
@@ -447,21 +351,21 @@ export default function App ()
     // }
 
     /*================================================
-        ANCHOR: FUNCTIONAL METHODS - User Interactions
+        ANCHOR: INTERACTIONS
     ==================================================*/
 
-    // click_name ( data )
-    // {
-    //     console.log('===> click_name');
-    //     console.log('data: ', data);
-    //     // TODO: name clicking
-    //     // --> open DM + Info sidebar (OVER player list)
-    //     // --> this sidebar will have a button to swap to DM Chat (new window, don't overwrite MessageList, just make a new one on top)
-    //     // --> "return to main chat" button
-    //     // --> maybe have a "close chat" option to reduce open windows
+    click_name ( data )
+    {
+        console.log('===> click_name');
+        console.log('data: ', data);
+        // TODO: name clicking
+        // --> open DM + Info sidebar (OVER player list)
+        // --> this sidebar will have a button to swap to DM Chat (new window, don't overwrite MessageList, just make a new one on top)
+        // --> "return to main chat" button
+        // --> maybe have a "close chat" option to reduce open windows
 
-    //     console.log('===> END - click_name');
-    // }
+        console.log('===> END - click_name');
+    }
 
     /*======================================*/
     /*======================================*/
@@ -492,13 +396,13 @@ export default function App ()
     // }
 
     /*================================================
-        ANCHOR: RENDER FUNCTIONS - Dev Tools
+        ANCHOR: DEV TOOLS
     ==================================================*/
 
-    // const on_dev_user = () => { this.user_add( { id: generateRandomName(), name: generateRandomName(), color: generateRandomColor() } ) }
-    // const on_dev_color = () => { this.send_user_color( this.state.user, generateRandomColor() ); }
-    // const on_dev_name = e => { if (e.keyCode === 13) { this.send_user_name( this.state.user, e.target.value ); e.target.value = ''; } }
-    // const on_dev_name2 = e => { this.send_user_name( this.state.user, generateRandomName() ); }
+    // const on_dev_user  = () => { this.user_add( { id: H.elper.generateRandomName(), name: H.elper.generateRandomName(), color: H.elper.generateRandomColor() } ) }
+    // const on_dev_color = () => { this.send_user_color( this.state.user, H.elper.generateRandomColor() ); }
+    const on_dev_name  = e => { if (e.keyCode === 13) { this.send_user_name( this.state.user, e.target.value ); e.target.value = ''; } }
+    const on_dev_name2 = e => { this.send_user_name( this.state.user, H.elper.generateRandomName() ); }
     // const on_dev_pref1 = e => { this.change_pref( e.target.className ) }
     // const on_dev_pref2 = e => { this.change_pref( e.target.className ) }
     // const on_dev_pref3 = e => { this.change_pref( e.target.className ) }
@@ -515,20 +419,16 @@ export default function App ()
 
 
             <div className='container-app'>
-                {/* <Nav
-                    user={this.state.user}
-                    appTitle={this.state.appTitle}
-                    change_pref={this.change_pref}
-                /> */}
+                <Nav
+                    // user={this.state.user}
+                    // appTitle={this.state.appTitle}
+                    // change_pref={this.change_pref}
+                />
                 <div className='container-body'>
                     <div className='container-channels'>
 
                     </div>
                     <div className='container-chat'>
-                        <span>{userTotal}</span>
-
-                        <button onClick={onClickIncrement}>Increment</button>
-                        <button onClick={onClickDecrement}>Decrement</button>
                         {/* <MessageList
                             messages={this.state.messages}
                             preferences={this.state.preferences}
@@ -540,27 +440,27 @@ export default function App ()
                         /> */}
                     </div>
                     <div className='container-users'>
-                        {/* <UserList
-                            usersTotal={this.state.usersTotal}
-                            users={this.state.users}
-                            click_name={this.click_name}
-                        /> */}
+                        <UserList
+                            // usersTotal={this.state.usersTotal}
+                            // users={this.state.users}
+                            // click_name={this.click_name}
+                        />
                     </div>
                 </div>
             </div>
 
-            {/* <div id='dev-tools'>
+            <div id='dev-tools'>
                 <div>
                     <ul>
                         <li><span>Current Player: </span></li>
-                        <li>{this.state.user.id+' '}<span>ID</span></li>
-                        <li>{this.state.user.name+' '}<span>Name</span></li>
-                        <li>{this.state.user.color+' '}<span>Color</span></li>
-                        <li>{this.state.preferences.showNameChanges+' '}<span>NameChanges</span></li>
+                        <li>{user.id+' '}<span>ID</span></li>
+                        <li>{user.name+' '}<span>Name</span></li>
+                        <li>{user.color+' '}<span>Color</span></li>
+                        {/* <li>{this.state.preferences.showNameChanges+' '}<span>NameChanges</span></li>
                         <li>{this.state.preferences.showColorChanges+' '}<span>ColorChanges</span></li>
                         <li>{this.state.preferences.showUserJoins+' '}<span>UserJoins</span></li>
                         <li>{this.state.preferences.showTimeStamps+' '}<span>Timestamps</span></li>
-                        <li>{this.state.preferences.show24HourTime+' '}<span>24HourTime</span></li>
+                        <li>{this.state.preferences.show24HourTime+' '}<span>24HourTime</span></li> */}
                     </ul>
                 </div>
                 <div>
@@ -572,9 +472,9 @@ export default function App ()
                         onKeyDown={on_dev_name}
                     />
                     <button onClick={on_dev_name2}>Name</button>
-                    <button onClick={on_dev_color}>Color</button>
-                    <button onClick={on_dev_user}>Fake User</button>
-                    <div><input type='checkbox' className='showNameChanges' id='dev-name' onClick={on_dev_pref1}/>
+                    {/* <button onClick={on_dev_color}>Color</button> */}
+                    {/* <button onClick={on_dev_user}>Fake User</button> */}
+                    {/* <div><input type='checkbox' className='showNameChanges' id='dev-name' onClick={on_dev_pref1}/>
                     <label htmlFor='dev-name'>Name changes</label></div>
                     <div><input type='checkbox' className='showColorChanges' id='dev-color' onClick={on_dev_pref5}/>
                     <label htmlFor='dev-color'>ColorChanges</label></div>
@@ -583,12 +483,11 @@ export default function App ()
                     <div><input type='checkbox' className='showTimeStamps' id='dev-time' onClick={on_dev_pref2}/>
                     <label htmlFor='dev-time'>Timestamps</label></div>
                     <div><input type='checkbox' className='show24HourTime' id='dev-hour' onClick={on_dev_pref4}/>
-                    <label htmlFor='dev-hour'>24 hour time</label></div>
+                    <label htmlFor='dev-hour'>24 hour time</label></div> */}
                 </div>
-            </div> */}
+            </div>
         </main>
     );
-
 }
 
 

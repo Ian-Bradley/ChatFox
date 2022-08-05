@@ -12,7 +12,7 @@ let userTotalSlice = createSlice({
 
         set: function (state, action)
         {
-            return action.payload
+            state.userTotal = action.payload
         },
 
         /*======================================*/

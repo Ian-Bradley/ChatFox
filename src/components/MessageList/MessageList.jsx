@@ -21,12 +21,12 @@ export default function MessageList ( props )
     });
 
     /*================================================
-        RENDER FUNCTIONS - Interactions
+        ANCHOR: INTERACTIONS
     ==================================================*/
 
 
     /*================================================
-        RENDER FUNCTIONS - Displaying
+        ANCHOR: DISPLAYING
     ==================================================*/
 
     const display_messages = () =>
@@ -50,7 +50,7 @@ export default function MessageList ( props )
     }
 
     /*================================================
-        COMPONENTS
+        ANCHOR: COMPONENTS
     ==================================================*/
 
     return (

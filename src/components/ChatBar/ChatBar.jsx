@@ -1,14 +1,22 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
+
+// >>> COMPONENTS
+
+// >>> CSS
 import './ChatBar.scss';
 
-/**
- * @props user (object) User info
- */
 
 export default function ChatBar ( props )
 {
     /*======================================
-        RENDER FUNCTIONS - Interactions
+        ANCHOR: STATES
+    ========================================*/
+
+    const userTotal = useSelector( ( state ) => { return state['userTotal'].userTotal; } );
+
+    /*======================================
+        ANCHOR: INTERACTIONS
     ========================================*/
 
     const on_typing_message = e =>
@@ -27,12 +35,12 @@ export default function ChatBar ( props )
     }
 
     /*======================================
-        RENDER FUNCTIONS - Displaying
+        ANCHOR: DISPLAYING
     ========================================*/
 
 
     /*======================================
-        COMPONENTS
+        ANCHOR: COMPONENTS
     ========================================*/
 
     return (

@@ -1,20 +1,31 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
+
+// >>> COMPONENTS
 import User from '../User/User.jsx';
-import Button from '../Button/Button.jsx';
+// import Button from '../Button/Button.jsx';
 // import IconSearch from '../../images/icons/search.svg';
+
+// >>> CSS
 import './UserList.scss';
 
 /**
- * @props usersTotal (number)   Total number of connected users
- * @props users (array)         List of all users
  * @props click_name (function) Clicking on a user name
  */
 
+/*======================================*/
+/*======================================*/
+
 export default function UserList ( props )
 {
+    /*======================================
+        ANCHOR: STATES
+    ========================================*/
+
+    const userTotal = useSelector( ( state ) => { return state['userTotal'].userTotal; } );
 
     /*=================================================
-        RENDER FUNCTIONS - Interactions
+        ANCHOR: INTERACTIONS
     ===================================================*/
 
     const on_search_button = e =>
@@ -25,37 +36,37 @@ export default function UserList ( props )
     }
 
     /*=================================================
-        RENDER FUNCTIONS - Displaying
+        ANCHOR: DISPLAYING
     ===================================================*/
 
     const display_users = () =>
     {
-        if ( !( props.users === undefined ) && ( props.users.length ) )
-        {
-            let usersArray = [];
-            for (let i = 0; i < props.users.length; i++)
-            {
-                usersArray.push(
-                    <User
-                        key={i}
-                        user={props.users[i]}
-                        click_name={props.click_name}
-                    />
-                );
-            }
-            return usersArray;
-        }
+        // if ( !( props.users === undefined ) && ( props.users.length ) )
+        // {
+        //     let usersArray = [];
+        //     for (let i = 0; i < props.users.length; i++)
+        //     {
+        //         usersArray.push(
+        //             <User
+        //                 key={i}
+        //                 user={props.users[i]}
+        //                 click_name={props.click_name}
+        //             />
+        //         );
+        //     }
+        //     return usersArray;
+        // }
     }
 
     /*=================================================
-        COMPONENTS
+        ANCHOR: COMPONENTS
     ===================================================*/
 
     return (
         <main className='user-list'>
             <div className='user-top'>
                 <span className='user-title'>Users</span>
-                <span className='user-total'>{props.usersTotal}</span>
+                <span className='user-total'>{userTotal}</span>
                 <div className='user-search-button'>
                     {/* <Button
                         btnClasses  ={'search-button'}

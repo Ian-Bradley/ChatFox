@@ -1,19 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
+
+// >>> COMPONENTS
 import Button from '../Button/Button.jsx';
 import IconUser from '../../images/icons/user.svg';
 // import IconSettings from '../../images/icons/settings.svg';
+
+// >>> CSS & GLOBAL CONSTANTS
+import * as C from '../../helpers/constants.js'
 import './Nav.scss';
 
-/**
- * @props user (object) User info
- * @props appTitle (string)
- */
+/*======================================*/
+/*======================================*/
 
 export default function Nav ( props )
 {
+    /*======================================
+        ANCHOR: STATES
+    ========================================*/
+
+    const user = useSelector( ( state ) => { return state['user'].user; } );
 
     /*================================================
-        ANCHOR: RENDER FUNCTIONS - Interactions
+        ANCHOR: INTERACTIONS
     ==================================================*/
 
     const on_user = () =>
@@ -23,19 +32,18 @@ export default function Nav ( props )
     }
 
     /*================================================
-        ANCHOR: RENDER FUNCTIONS - Displaying
+        ANCHOR: DISPLAYING
     ==================================================*/
 
 
     /*================================================
         ANCHOR: COMPONENTS
     ==================================================*/
-    //props.user.color
 
     return (
         <main className='container-nav'>
             <div className='container-title'>
-                <span>{props.appTitle}</span>
+                <span>{document.title}</span>
             </div>
             <nav>
                 {/* <Button
@@ -46,7 +54,7 @@ export default function Nav ( props )
                 <Button
                     btnClasses  ={'nav-user'}
                     btnFunction ={on_user}
-                    btnText     ={props.user.name}
+                    btnText     ={user.name}
                     btnIcon     ={IconUser}
                 />
             </nav>

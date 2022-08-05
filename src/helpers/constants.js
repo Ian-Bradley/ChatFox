@@ -1,9 +1,9 @@
 export const onst = {
+    classHidden: 'hidden',
+
     GMT_hrs: parseInt( new Date().toString().slice(29,31) ),
     GMT_min: parseInt( new Date().toString().slice(31,33) ),
     GMT_direction: new Date().toString().slice(28,29),
-
-    classHidden: 'hidden',
 
     lotrNames: [
         'Adalgrim Took','Adanedhel','Adanel','Adrahil','Adrahil II','Aegnor','Ælfwine','Aerin','Agarwaen','Aikanáro','Aiwendil','Alatar','Alatáriel','Aldamir','Aldaron',
