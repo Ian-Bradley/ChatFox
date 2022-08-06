@@ -1,5 +1,10 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
+import { useSelector } from 'react-redux';
+
+// COMPONENETS
 import Message from '../Message/Message.jsx';
+
+// CSS
 import './MessageList.scss';
 
 /**
@@ -13,7 +18,7 @@ export default function MessageList ( props )
         ANCHOR: STATES
     ========================================*/
 
-    const [messages, setMessages] = useState([]); // get from mongoDB based on channelID
+    const messages = useSelector( ( state ) => { return state['messages'].messages; } );
 
     /*================================================
         ANCHOR: HOOKS

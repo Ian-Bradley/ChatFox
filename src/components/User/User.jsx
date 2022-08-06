@@ -12,7 +12,7 @@ import './User.scss';
 export default function Message ( props )
 {
     /*================================================
-        RENDER FUNCTIONS - Interactions
+        ANCHOR: INTERACTIONS
     ==================================================*/
 
     const on_click_name = e =>
@@ -23,12 +23,12 @@ export default function Message ( props )
     }
 
     /*================================================
-        RENDER FUNCTIONS - Displaying
+        ANCHOR: DISPLAYING
     ==================================================*/
 
     
     /*================================================
-        COMPONENTS
+        ANCHOR: COMPONENTS
     ==================================================*/
     
     return (

@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit'
 import * as H from '../../helpers/helpers.js'
 
 const initialState = {
@@ -36,6 +36,6 @@ let userSlice = createSlice({
 
         /*======================================*/
     }
-});
-export const { setID, setName, setColor } = userSlice.actions;
-export default userSlice.reducer;
+})
+export const { setID, setName, setColor } = userSlice.actions
+export default userSlice.reducer

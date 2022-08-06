@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
     preferences: {
@@ -51,12 +51,12 @@ let preferencesSlice = createSlice({
 
         /*======================================*/
     }
-});
+})
 export const {
     toggleTimestamps,
     toggleNameChanges,
     toggleColorChanges,
     toggleUserJoins,
     toggle24HourTime
-} = preferencesSlice.actions;
-export default preferencesSlice.reducer;
+} = preferencesSlice.actions
+export default preferencesSlice.reducer

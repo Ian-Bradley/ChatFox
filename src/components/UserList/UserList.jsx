@@ -12,7 +12,6 @@ import './UserList.scss';
 /**
  * @props click_name (function) Clicking on a user name
  */
-{/* <FontAwesomeIcon icon='fa-solid fa-magnifying-glass' /> */}
 
 export default function UserList ( props )
 {
@@ -20,6 +19,7 @@ export default function UserList ( props )
         ANCHOR: STATES
     ========================================*/
 
+    const users     = useSelector( ( state ) => { return state['users'].users; } );
     const userTotal = useSelector( ( state ) => { return state['userTotal'].userTotal; } );
 
     /*=================================================
@@ -38,21 +38,21 @@ export default function UserList ( props )
 
     const display_users = () =>
     {
-        // if ( !( props.users === undefined ) && ( props.users.length ) )
-        // {
-        //     let usersArray = [];
-        //     for (let i = 0; i < props.users.length; i++)
-        //     {
-        //         usersArray.push(
-        //             <User
-        //                 key={i}
-        //                 user={props.users[i]}
-        //                 click_name={props.click_name}
-        //             />
-        //         );
-        //     }
-        //     return usersArray;
-        // }
+        if ( !( users === undefined ) && ( users.length ) )
+        {
+            let usersArray = [];
+            for (let i = 0; i < users.length; i++)
+            {
+                usersArray.push(
+                    <User
+                        key={i}
+                        user={users[i]}
+                        click_name={click_name}
+                    />
+                );
+            }
+            return usersArray;
+        }
     }
 
     /*=================================================

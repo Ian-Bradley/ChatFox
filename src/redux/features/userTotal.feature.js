@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit"
 
 const initialState = {
     userTotal: 1
@@ -19,18 +19,18 @@ let userTotalSlice = createSlice({
 
         increment: function (state, action)
         {
-            state.userTotal = state.userTotal + 1;
+            state.userTotal = state.userTotal + 1
         },
 
         /*======================================*/
 
         decrement: function (state, action)
         {
-            state.userTotal = state.userTotal - 1;
+            state.userTotal = state.userTotal - 1
         },
 
         /*======================================*/
     }
-});
-export const { set, increment, decrement } = userTotalSlice.actions;
-export default userTotalSlice.reducer;
+})
+export const { set, increment, decrement } = userTotalSlice.actions
+export default userTotalSlice.reducer

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import * as C from '../../helpers/constants.js'
 import './Message.scss';
 

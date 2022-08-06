@@ -10,6 +10,7 @@ import { toggle24HourTime, toggleColorChanges, toggleNameChanges, toggleTimestam
 import Nav from './Nav/Nav.jsx';
 import ChatBar from './ChatBar/ChatBar.jsx';
 import UserList from './UserList/UserList.jsx';
+import ChannelList from './ChannelList/ChannelList.jsx';
 import MessageList from './MessageList/MessageList.jsx';
 
 // CSS + GLOBAL CONSTANTS + HELPER FUNCTIONS
@@ -30,177 +31,15 @@ export default function App ()
     const prefs = useSelector( ( state ) => { return state['preferences'].preferences; } );
     const dispatch = useDispatch();
 
-    /*======================================
-        ANCHOR: METHOD BINDING
-    ========================================*/
+    // TODO: WS useEffect
+    // // WS Methods
+    // this.send_message    = this.send_message.bind(this);
+    // this.send_user_name  = this.send_user_name.bind(this);
+    // this.send_user_color = this.send_user_color.bind(this);
 
-// // State methods - Connection
-// this.socket = new WebSocket('ws://localhost:3001');
+    // // Functional methonds - User Interactions
+    // this.click_name  = this.click_name.bind(this);
 
-// // State methods - Users
-// this.set_users   = this.set_users.bind(this);
-// this.user_add    = this.user_add.bind(this);
-// this.user_remove = this.user_remove.bind(this);
-
-// // State methods - User Info
-// this.set_user_ID    = this.set_user_ID.bind(this);
-// this.set_user_name  = this.set_user_name.bind(this);
-// this.set_user_color = this.set_user_color.bind(this);
-
-// // State methods - Messages
-// this.set_messages = this.set_messages.bind(this);
-// this.message_add  = this.message_add.bind(this);
-
-// // WS Methods
-// this.send_message    = this.send_message.bind(this);
-// this.send_user_name  = this.send_user_name.bind(this);
-// this.send_user_color = this.send_user_color.bind(this);
-
-// // Functional methonds - User Interactions
-// this.click_name  = this.click_name.bind(this);
-
-    /*================================================
-        ANCHOR: STATE METHODS - Game States
-    ==================================================*/
-
-    // set_users ( usersArray )
-    // {
-    //     this.setState({ 
-    //         users: usersArray,
-    //         usersTotal: usersArray.length + 1,
-    //     });
-    //     // console.log('===> END - set_users');
-    // }
-
-    /*======================================*/
-    /*======================================*/
-
-    // user_add ( user )
-    // {
-    //     this.setState( prevState => ({
-    //         users: [ ...prevState.users, user ],
-    //         usersTotal: prevState.usersTotal + 1,
-    //     }));
-    //     // console.log('===> END - user_add');
-    // }
-
-    /*======================================*/
-    /*======================================*/
-
-    // user_remove ( userID )
-    // {
-    //     // console.log('===> user_remove');
-    //     this.setState( prevState => {
-    //         let users = prevState.users.filter( user => user.id !== userID );
-    //         return { users };
-    //     });
-    //     this.setState({ usersTotal: this.state.usersTotal - 1 });
-    //     // console.log('===> END - user_remove');
-    // }
-
-    /*================================================
-        ANCHOR: STATE METHODS - User Info
-    ==================================================*/
-
-    // set_user_ID ( ID )
-    // {
-    //     // console.log('===> set_user_ID');
-    //     this.setState(prevState => {
-    //         let user = { ...prevState.user };
-    //         user.id = ID;
-    //         return { user };
-    //     });
-    //     // console.log('===> END - set_user_ID');
-    // }
-
-    /*======================================*/
-    /*======================================*/
-
-    // set_user_name ( user, newName )
-    // {
-    //     // console.log('===> set_user_name');
-    //     if ( user.id === this.state.user.id )
-    //     {
-    //         // > Current user
-    //         this.setState(prevState => {
-    //             let user = { ...prevState.user };
-    //             user.name = newName;
-    //             return { user };
-    //         });
-    //     }
-    //     else
-    //     {
-    //         // > Other user
-    //         this.setState( prevState => {
-    //             let users = prevState.users;
-    //             for ( let i = 0; i < users.length; i++ )
-    //             {
-    //                 if ( users[i].id === user.id )
-    //                 {
-    //                     users[i].name = newName;
-    //                 }
-    //             }
-    //             return { users };
-    //         });
-    //     }
-    //     // console.log('===> END - set_user_name');
-    // }
-
-    /*======================================*/
-    /*======================================*/
-
-    // set_user_color ( user, newColor )
-    // {
-    //     // console.log('===> set_user_color');
-    //     if ( user.id === this.state.user.id )
-    //     {
-    //         // > Current user
-    //         this.setState(prevState => {
-    //             let user = { ...prevState.user };
-    //             user.color = newColor;
-    //             return { user };
-    //         });
-    //     }
-    //     else
-    //     {
-    //         // > Other user
-    //         this.setState( prevState => {
-    //             let users = prevState.users;
-    //             for ( let i = 0; i < users.length; i++ )
-    //             {
-    //                 if ( users[i].id === user.id )
-    //                 {
-    //                     users[i].color = newColor;
-    //                 }
-    //             }
-    //             return { users };
-    //         });
-    //     }
-    //     // console.log('===> END - set_user_color');
-    // }
-
-    /*================================================
-        ANCHOR: STATE METHODS - Messages
-    ==================================================*/
-
-    // set_messages( messagesArray )
-    // {
-    //     // console.log('===> set_messages');
-    //     this.setState({ messages: messagesArray });
-    //     // console.log('===> END - set_messages');
-    // }
-
-    /*======================================*/
-    /*======================================*/
-
-    // message_add ( message )
-    // {
-    //     // console.log('===> message_add');
-    //     this.setState( prevState => ({
-    //         messages: [ ...prevState.messages, message]
-    //     }));
-    //     // console.log('===> END - message_add');
-    // }
 
     /*================================================
         ANCHOR: WS METHODS
@@ -221,7 +60,7 @@ export default function App ()
     /*======================================*/
     /*======================================*/
 
-    send_user_name ( user, newName )
+    const send_user_name = ( user, newName ) =>
     {
         console.log('===> send_user_name');
     //     let newUpdate = {
@@ -244,7 +83,7 @@ export default function App ()
     /*======================================*/
     /*======================================*/
 
-    send_user_color ( user, newColor )
+    const send_user_color = ( user, newColor ) =>
     {
         console.log('===> send_user_color');
     //     let newUpdate = {
@@ -280,6 +119,15 @@ export default function App ()
         console.log('===> END - click_name');
     }
 
+    /*======================================*/
+    /*======================================*/
+
+    const click_channel = ( data ) =>
+    {
+        console.log('===> click_channel');
+        console.log('===> END - click_channel');
+    }
+
     /*================================================
         ANCHOR: DEV TOOLS
     ==================================================*/
@@ -307,7 +155,9 @@ export default function App ()
                 <Nav />
                 <div className='container-body'>
                     <div className='container-channels'>
-
+                        <ChannelList
+                            click_channel={click_channel}
+                        />
                     </div>
                     <div className='container-chat'>
                         <MessageList

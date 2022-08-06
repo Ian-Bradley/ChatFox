@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 
 // COMPONENTS
-import Channel from '../Channel/Channel.jsx';
+// import Channel from '../Channel/Channel.jsx';
 import Button from '../Button/Button.jsx';
 import IconSearch from '../../images/icons/search.svg';
 
@@ -10,7 +10,7 @@ import IconSearch from '../../images/icons/search.svg';
 import './ChannelList.scss';
 
 /**
- * @props click_name (function) Clicking on a user name
+ * @props click_channel (function) Clicking on a chat channel
  */
 {/* <FontAwesomeIcon icon='fa-solid fa-magnifying-glass' /> */}
 
@@ -20,7 +20,7 @@ export default function UserList ( props )
         ANCHOR: STATES
     ========================================*/
 
-    const userTotal = useSelector( ( state ) => { return state['userTotal'].userTotal; } );
+    const channels = useSelector( ( state ) => { return state['channels'].channels; } );
 
     /*=================================================
         ANCHOR: INTERACTIONS
@@ -36,22 +36,22 @@ export default function UserList ( props )
         ANCHOR: DISPLAYING
     ===================================================*/
 
-    const display_users = () =>
+    const display_channels = () =>
     {
-        // if ( !( props.users === undefined ) && ( props.users.length ) )
+        // if ( !( channels === undefined ) && ( channels.length ) )
         // {
-        //     let usersArray = [];
-        //     for (let i = 0; i < props.users.length; i++)
+        //     let channelsArray = [];
+        //     for (let i = 0; i < channels.length; i++)
         //     {
-        //         usersArray.push(
-        //             <User
+        //         channelsArray.push(
+        //             <Channel
         //                 key={i}
-        //                 user={props.users[i]}
-        //                 click_name={props.click_name}
+        //                 channel={channels[i]}
+        //                 click_channel={props.click_channel}
         //             />
         //         );
         //     }
-        //     return usersArray;
+        //     return channelsArray;
         // }
     }
 
@@ -63,7 +63,6 @@ export default function UserList ( props )
         <main className='user-list'>
             <div className='user-top'>
                 <span className='user-title'>Users</span>
-                <span className='user-total'>{userTotal}</span>
                 <div className='user-search-button'>
                     <Button
                         btnClasses  ={'search-button'}
@@ -73,7 +72,7 @@ export default function UserList ( props )
                 </div>
             </div>
             <div className='user-bottom'>
-                {display_users()}
+                {display_channels()}
             </div>
         </main>
     );
