@@ -13,8 +13,10 @@ import * as C from '../helpers/constants.js'
 import * as H from '../helpers/helpers.js'
 import './App.scss'
 
-// REDUX ACTIONS
-/*======================================*/
+/*================================================
+    ANCHOR: REDUX ACTIONS
+==================================================*/
+
 import {
     setUserTotal,
     incrementUserTotal,
@@ -83,7 +85,7 @@ export default function App ()
     ==================================================*/
 
     // Redux
-    const user = useSelector( ( state ) => { return state['user'].user } )
+    const user  = useSelector( ( state ) => { return state['user'].user } )
     const prefs = useSelector( ( state ) => { return state['preferences'].preferences } )
     const dispatch = useDispatch()
     // Hooks
@@ -498,10 +500,10 @@ export default function App ()
         color: H.elper.generateRandomColor()
     } ) ) }
     
-    const onDevcolor  = () => { sendUserColor( H.elper.generateRandomColor() ) }
-    const onDevname   = e  => { if (e.keyCode === 13) { sendUserNickname( e.target.value ); e.target.value = '' } }
-    const onDevname3  = e  => { if (e.keyCode === 13) { sendUserName( e.target.value ); e.target.value = '' } }
-    const onDevname2  = () => { sendUserNickname( H.elper.generateRandomName() ) }
+    const onDevcolor = () => { sendUserColor( H.elper.generateRandomColor() ) }
+    const onDevname  = e  => { if (e.keyCode === 13) { sendUserNickname( e.target.value ); e.target.value = '' } }
+    const onDevname3 = e  => { if (e.keyCode === 13) { sendUserName( e.target.value ); e.target.value = '' } }
+    const onDevname2 = () => { sendUserNickname( H.elper.generateRandomName() ) }
 
     const onDevpref4 = () => { dispatch( toggleTimestamps() ) }
     const onDevpref5 = () => { dispatch( toggle24HourTime() ) }

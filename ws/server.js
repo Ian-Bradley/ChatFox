@@ -1,6 +1,6 @@
-/*======================================
-    ANCHOR: SERVER CONFIGURATION
-========================================*/
+/*================================================
+    ANCHOR: CONFIGURATION
+==================================================*/
 
 const express = require('express')
 const SocketServer = require('ws')
@@ -12,9 +12,9 @@ const server = express()
     .listen(PORT, '0.0.0.0', 'localhost', () => console.log(`Listening on ${ PORT }`))
 const wss = new SocketServer.Server({ server })
 
-/*======================================
-    ANCHOR: CLASS
-========================================*/
+/*================================================
+    ANCHOR: TRACKING CLASS
+==================================================*/
 
 class DataTracker
 {
@@ -294,7 +294,7 @@ wss.on('connection', ( wsClient ) =>
         id:       uuidv4(), // message id
         type:     'clientConnected',
         users:    serverData.state.users,
-        userID:   uuidv4(), // id for disconnecting user removal (TODO: supply id on auth page)
+        userID:   uuidv4(), // id for disconnecting user removal - TODO: supply id on auth page
         messages: serverData.state.messages,
     }
     
@@ -506,7 +506,6 @@ wss.on('connection', ( wsClient ) =>
 
         // Disconnect message
         // TODO: error when refreshing?
-        // TODO: error - color being send instead of name?
         let disconnectMessage = {
             type:    'notification-disconnect',
             name:    serverData.state.users.find(user => user.id = userData.userID ).name,
