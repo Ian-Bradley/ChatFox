@@ -27,15 +27,16 @@ export const elper = {
         {return randomColor;}
     },
 
-    generateRandomName: function ()
+    generateRandomName: function ( withNumbers )
     {
         let randomName = ''
         let randomNumber = '';
         let numbers = '0123456789';
+        if(withNumbers) {
+        randomNumber += '-';
         for (let i = 0; i < 7; i++)
-        {randomNumber += numbers.charAt(Math.floor(Math.random() * numbers.length));}
-        let names = C.onst.lotrNames;
-        randomName += names[(Math.floor(Math.random() * names.length))];
-        return (randomName + '-' + randomNumber);
+        {randomNumber += numbers.charAt(Math.floor(Math.random() * numbers.length));} }
+        randomName += C.onst.lotrNames[(Math.floor(Math.random() * C.onst.lotrNames.length))];
+        return (randomName + randomNumber);
     },
 }

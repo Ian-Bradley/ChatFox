@@ -15,9 +15,9 @@ import './Nav.scss';
 
 export default function Nav ( props )
 {
-    /*======================================
+    /*================================================
         ANCHOR: STATES
-    ========================================*/
+    ==================================================*/
 
     const user = useSelector( ( state ) => { return state['user'].user; } );
 
@@ -63,7 +63,7 @@ export default function Nav ( props )
                 <Button
                     btnClasses  ={'nav-user'}
                     btnFunction ={on_user}
-                    btnText     ={user.name}
+                    btnText     ={user.nickname}
                     btnIcon     ={IconUser}
                 />
             </nav>

@@ -42,14 +42,29 @@ let usersSlice = createSlice({
 
         /*======================================*/
 
-        setUserNickname: function (state, action)
+        setUserName: function (state, action)
         {
             // action.payload = userData (Object {id: (String), name: (String)})
             state.users.map( ( user ) =>
                 {
                     if ( user.id === action.payload.id )
                     {
-                        user.nickname = action.payload.name
+                        user.name = action.payload.name
+                    }
+                }
+            )
+        },
+
+        /*======================================*/
+
+        setUserNickname: function (state, action)
+        {
+            // action.payload = userData (Object {id: (String), nickname: (String)})
+            state.users.map( ( user ) =>
+                {
+                    if ( user.id === action.payload.id )
+                    {
+                        user.nickname = action.payload.nickname
                     }
                 }
             )
@@ -77,6 +92,7 @@ export const {
     addUser,
     deleteUser,
     setUsers,
+    setUserName,
     setUserNickname,
     setUserColor,
 } = usersSlice.actions

@@ -1,4 +1,6 @@
 export const onst = {
+    appURL: 'ws://localhost:3001',
+
     classHidden: 'hidden',
 
     GMT_hrs: parseInt( new Date().toString().slice(29,31) ),

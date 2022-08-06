@@ -10,21 +10,22 @@ let userTotalSlice = createSlice({
     reducers: {
         /*======================================*/
 
-        set: function (state, action)
+        setUserTotal: function (state, action)
         {
+            // action.payload = amount/count/total (Number)
             state.userTotal = action.payload
         },
 
         /*======================================*/
 
-        increment: function (state, action)
+        incrementUserTotal: function (state, action)
         {
             state.userTotal = state.userTotal + 1
         },
 
         /*======================================*/
 
-        decrement: function (state, action)
+        decrementUserTotal: function (state, action)
         {
             state.userTotal = state.userTotal - 1
         },
@@ -32,5 +33,9 @@ let userTotalSlice = createSlice({
         /*======================================*/
     }
 })
-export const { set, increment, decrement } = userTotalSlice.actions
+export const {
+    setUserTotal,
+    incrementUserTotal,
+    decrementUserTotal
+} = userTotalSlice.actions
 export default userTotalSlice.reducer

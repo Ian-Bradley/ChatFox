@@ -1,146 +1,414 @@
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-
-// REDUX ACTIONS
-// import { set, increment, decrement } from '../redux/features/userTotal.feature.js';
-import { setID, setName, setColor } from '../redux/features/user.feature.js';
-import { toggle24HourTime, toggleColorChanges, toggleNameChanges, toggleTimestamps, toggleUserJoins } from '../redux/features/preferences.feature.js';
+import React, { useState, useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 
 // COMPONENETS
-import Nav from './Nav/Nav.jsx';
-import ChatBar from './ChatBar/ChatBar.jsx';
-import UserList from './UserList/UserList.jsx';
-import ChannelList from './ChannelList/ChannelList.jsx';
-import MessageList from './MessageList/MessageList.jsx';
+import Nav from './Nav/Nav.jsx'
+import ChatBar from './ChatBar/ChatBar.jsx'
+import UserList from './UserList/UserList.jsx'
+import ChannelList from './ChannelList/ChannelList.jsx'
+import MessageList from './MessageList/MessageList.jsx'
 
 // CSS + GLOBAL CONSTANTS + HELPER FUNCTIONS
-// import * as C from '../helpers/constants.js'
+import * as C from '../helpers/constants.js'
 import * as H from '../helpers/helpers.js'
-import './App.scss';
+import './App.scss'
 
+// REDUX ACTIONS
 /*======================================*/
+import {
+    setUserTotal,
+    incrementUserTotal,
+    decrementUserTotal
+} from '../redux/features/userTotal.feature.js'
+/*======================================*/
+import {
+    setID,
+    setName,
+    setNickname,
+    setColor
+} from '../redux/features/user.feature.js'
+/*======================================*/
+import {
+    addUser,
+    removeUser,
+    setUsers,
+    setUserName,
+    setUserNickname,
+    setUserColor,
+} from '../redux/features/users.feature.js'
+/*======================================*/
+import {
+    toggleTimestamps,
+    toggle24HourTime
+} from '../redux/features/preferences.feature.js'
+/*======================================*/
+import {
+    addChannel,
+    deleteChannel,
+    deleteAllChannels,
+    setChannels,
+    setChannelActive,
+    setChannelInctive,
+    setChannelPrivate,
+    setChannelPublic,
+} from '../redux/features/channels.feature.js'
+/*======================================*/
+import {
+    addMessage,
+    deleteMessage,
+    deleteAllMessages,
+    setMessages,
+} from '../redux/features/messages.feature.js'
+/*======================================*/
+import {
+    addLogItem,
+    deleteLogItem,
+    deleteAllLogItems,
+} from '../redux/features/log.feature.js'
 /*======================================*/
 
 export default function App ()
 {
-    /*======================================
-        ANCHOR: STATES
-    ========================================*/
-
-    const user = useSelector( ( state ) => { return state['user'].user; } );
-    const prefs = useSelector( ( state ) => { return state['preferences'].preferences; } );
-    const dispatch = useDispatch();
-
-    // TODO: WS useEffect
-    // // WS Methods
-    // this.send_message    = this.send_message.bind(this);
-    // this.send_user_name  = this.send_user_name.bind(this);
-    // this.send_user_color = this.send_user_color.bind(this);
-
-    // // Functional methonds - User Interactions
-    // this.click_name  = this.click_name.bind(this);
-
-
     /*================================================
-        ANCHOR: WS METHODS
+        ANCHOR: STATES
     ==================================================*/
 
-    const send_message = ( newMessage ) =>
+    // Redux
+    const user = useSelector( ( state ) => { return state['user'].user } )
+    const prefs = useSelector( ( state ) => { return state['preferences'].preferences } )
+    const dispatch = useDispatch()
+    // Hooks
+    const [WSReady, setWSReady] = useState(false)
+    const [WS, setWS] = useState(new WebSocket( C.onst.appURL ))
+
+    /*================================================
+        ANCHOR: HOOKS - WEBSOCKET COMMUNICATION
+    ==================================================*/
+
+    useEffect(() => {
+
+        /*================================================
+            ANCHOR: WS - ON OPEN
+        ==================================================*/
+
+        WS.onopen = ( e ) =>
+        {
+            setWSReady(true)
+            console.log('>>>>>>>>> WebSocket Client Connected >>>>>>>>>')
+        }
+
+        /*================================================
+            ANCHOR: WS - ON MESSAGE
+        ==================================================*/
+    
+        WS.onmessage = ( messageData ) =>
+        {
+            const updateData = JSON.parse( messageData.data )
+            console.log('>>>>>>>>> Message Recieved - ' + updateData.type + ' >>>>>>>>>')
+    
+            switch ( updateData.type )
+            {
+    
+                /*================================================
+                    ANCHOR: HANDLER - USER CONNECTIONS
+                ==================================================*/
+    
+                case 'clientConnected':
+                    {
+                        // > This handler is only fired ONCE when the CURRENT user joins
+                        console.log('======= HANDLER - clientConnected =======')
+    
+                        // > Set current user ID
+                        console.log('> Setting ID')
+                        if ( updateData.userID )
+                        { dispatch( setID( updateData.userID ) ) }
+    
+                        // > Set previous messages
+                        console.log('> Setting messages')
+                        if ( !( updateData.messages === undefined ) && ( updateData.messages.length ) )
+                        { dispatch( setMessages( updateData.messages ) ) }
+    
+                        // > Set users
+                        console.log('> Setting users')
+                        if ( !( updateData.users === undefined ) && ( updateData.users.length ) )
+                        { dispatch( setUsers( updateData.users ) )
+                          dispatch( setUserTotal( updateData.users.length + 1 ) ) }
+    
+                        // > Send current user (with new user message) information to server
+                        console.log('> Send userConnected')
+                        let newUpdate = {
+                            type: 'userConnected',
+                            user: user,
+                            message: {
+                                type:    'notification-connect',
+                                name:    user.name,
+                                time:    new Date().toGMTString(),
+                                color:   user.color,
+                            },
+                        }
+                        WS.send( JSON.stringify( newUpdate ) )
+                        console.log('>>>>>>>>> Message Sent - userConnected >>>>>>>>>')
+                        console.log('======= END - HANDLER - clientConnected =======')
+                        break
+                    }
+    
+                /*======================================*/
+                /*======================================*/
+    
+                case 'userConnected':
+                    {
+                        // > This handler is only fired when OTHER users join
+                        console.log('======= HANDLER - userConnected =======')
+                        dispatch( addUser( updateData.user ) )
+                        dispatch( addLogItem( updateData.message ) )
+                        dispatch( incrementUserTotal() )
+                        console.log('======= END - HANDLER - userConnected =======')
+                        break
+                    }
+    
+                /*======================================*/
+                /*======================================*/  
+    
+                case 'userDisconnected':
+                    {
+                        // This handler is only fired when OTHER users leave
+                        console.log('======= HANDLER - userDisconnected =======')
+                        dispatch( removeUser( updateData.userID ) )
+                        dispatch( addLogItem( updateData.message ) )
+                        dispatch( decrementUserTotal() )
+                        console.log('======= END - HANDLER - userDisconnected =======')
+                        // break
+                    }
+    
+                /*================================================
+                    ANCHOR: HANDLER - USER INFO
+                ==================================================*/
+    
+                case 'updateUserName':
+                    {
+                        console.log('======= HANDLER - updateUserName =======')
+                        if ( updateData.user.id === user.id )
+                        { dispatch( setName( updateData.newName ) ) }
+                        else
+                        { dispatch( setUserName( { id: updateData.user, name: updateData.newName } ) ) }
+                        dispatch( addLogItem( updateData.message ) )
+                        console.log('======= END - HANDLER - updateUserName =======')
+                        break
+                    }
+
+                /*======================================*/  
+                /*======================================*/  
+
+                case 'updateUserNickame':
+                    {
+                        console.log('======= HANDLER - updateUserNickname =======')
+                        if ( updateData.user.id === user.id )
+                        { dispatch( setNickname( updateData.newNickname ) ) }
+                        else
+                        { dispatch( setUserNickname( { id: updateData.user, nickname: updateData.newNickname } ) ) }
+                        dispatch( addLogItem( updateData.message ) )
+                        console.log('======= END - HANDLER - updateUserNickname =======')
+                        break
+                    }
+                
+                /*======================================*/  
+                /*======================================*/  
+    
+                case 'updateUserColor':
+                    {
+                        console.log('======= HANDLER - updateUserColor =======')
+                        if ( updateData.user.id === user.id )
+                        { dispatch( setColor( updateData.newColor ) ) }
+                        else
+                        { dispatch( setUserColor( { id: updateData.user, color: updateData.newColor } ) ) }
+                        dispatch( addLogItem( updateData.message ) )
+                        console.log('======= END - HANDLER - updateUserColor =======')
+                        break
+                    }
+    
+                /*================================================
+                    ANCHOR: HANDLER - MESSAGES
+                ==================================================*/
+    
+                case 'newMessage':
+                    {
+                        console.log('======= HANDLER - newMessage =======')
+                        dispatch( addMessage( updateData.message ) )
+                        console.log('======= END - HANDLER - newMessage =======')
+                        break
+                    }
+    
+                /*======================================*/
+                /*======================================*/
+    
+                default:
+            }
+        }
+
+        /*================================================
+            ANCHOR: WS - ON CLOSE
+        ==================================================*/
+    
+        WS.onclose = ( e ) =>
+        {
+            setWSReady(false)
+            // TODO: check if neeeded
+            setTimeout(() => {
+                setWS(new WebSocket( C.onst.appURL ))
+            }, 1000)
+        }
+
+        /*================================================
+            ANCHOR: WS - ON ERROR
+        ==================================================*/
+    
+        WS.onerror = ( err ) =>
+        {
+            console.log('WebSocket encountered error: ', err.message, ' --> Closing socket')
+            setWSReady(false)
+            WS.close()
+        }
+
+        /*================================================
+            ANCHOR: WS - COMPONENT UNMOUNTING
+        ==================================================*/
+    
+        return () =>
+        {
+            WS.close()
+        }
+    }, [WS])
+
+    /*================================================
+        ANCHOR: WS METHODS - SENDERS
+    ==================================================*/
+
+    const sendMessage = ( newMessage ) =>
     {
-        console.log('===> send_message');
-        // let newUpdate = {
-        //     type: 'newMessage',
-        //     message: newMessage,
-        // };
-        // this.socket.send( JSON.stringify( newUpdate ));
-        // console.log('>>>>>>>>> Message Sent - newMessage >>>>>>>>>');
-        console.log('===> END - send_message');
+        console.log('===> sendMessage')
+        let newUpdate = {
+            type: 'newMessage',
+            message: newMessage,
+        }
+        WS.send( JSON.stringify( newUpdate ))
+        console.log('>>>>>>>>> Message Sent - newMessage >>>>>>>>>')
+        console.log('===> END - sendMessage')
     }
 
     /*======================================*/
     /*======================================*/
 
-    const send_user_name = ( user, newName ) =>
+    const sendUserName = ( newName ) =>
     {
-        console.log('===> send_user_name');
-    //     let newUpdate = {
-    //         type: 'updateUserName',
-    //         user: user,
-    //         newName: newName,
-    //         message: {
-    //             type:     'notification-name',
-    //             name:     newName,
-    //             namePrev: user.name,
-    //             time:     new Date().toGMTString(),
-    //             color:    user.color,
-    //         },
-    //     };
-    //     this.socket.send( JSON.stringify( newUpdate ));
-    //     // console.log('>>>>>>>>> Message Sent - updateUserName >>>>>>>>>');
-        console.log('===> END - send_user_name');
+        console.log('===> sendUserName')
+        let newUpdate = {
+            type: 'updateUserName',
+            user: user,
+            newName: newName,
+            message: {
+                type:     'notification-name',
+                name:     newName,
+                namePrev: user.name,
+                time:     new Date().toGMTString(),
+                color:    user.color,
+            },
+        }
+        WS.send( JSON.stringify( newUpdate ))
+        console.log('>>>>>>>>> Message Sent - updateUserName >>>>>>>>>')
+        console.log('===> END - sendUserName')
     }
 
     /*======================================*/
     /*======================================*/
 
-    const send_user_color = ( user, newColor ) =>
+    const sendUserNickname = ( newNickname ) =>
     {
-        console.log('===> send_user_color');
-    //     let newUpdate = {
-    //         type: 'updateUserColor',
-    //         user: user,
-    //         newColor: newColor,
-    //         message: {
-    //             type:      'notification-color',
-    //             name:      user.name,
-    //             time:      new Date().toGMTString(),
-    //             color:     newColor,
-    //             colorPrev: user.color,
-    //         },
-    //     };
-    //     this.socket.send( JSON.stringify( newUpdate ));
-    //     // console.log('>>>>>>>>> Message Sent - updateUserColor >>>>>>>>>');
-        console.log('===> END - send_user_color');
+        console.log('===> sendUserNickname')
+        let newUpdate = {
+            type: 'updateUserNickname',
+            user: user,
+            newNickname: newNickname,
+            message: {
+                type:        'notification-nickname',
+                nickname:     newNickname,
+                nicknamePrev: user.nickname,
+                time:         new Date().toGMTString(),
+                color:        user.color,
+            },
+        }
+        WS.send( JSON.stringify( newUpdate ))
+        console.log('>>>>>>>>> Message Sent - updateUserNickname >>>>>>>>>')
+        console.log('===> END - sendUserNickname')
+    }
+
+    /*======================================*/
+    /*======================================*/
+
+    const sendUserColor = ( newColor ) =>
+    {
+        console.log('===> sendUserColor')
+        let newUpdate = {
+            type: 'updateUserColor',
+            user: user,
+            newColor: newColor,
+            message: {
+                type:      'notification-color',
+                name:      user.name,
+                time:      new Date().toGMTString(),
+                color:     newColor,
+                colorPrev: user.color,
+            },
+        }
+        WS.send( JSON.stringify( newUpdate ))
+        console.log('>>>>>>>>> Message Sent - updateUserColor >>>>>>>>>')
+        console.log('===> END - sendUserColor')
     }
 
     /*================================================
         ANCHOR: INTERACTIONS
     ==================================================*/
 
-    const click_name = ( data ) =>
+    const clickName = ( data ) =>
     {
-        console.log('===> click_name');
-        console.log('data: ', data);
+        console.log('===> clickName')
+        console.log('data: ', data)
         // TODO: name clicking
         // --> open DM + Info sidebar (OVER player list)
         // --> this sidebar will have a button to swap to DM Chat (new window, don't overwrite MessageList, just make a new one on top)
         // --> 'return to main chat' button
         // --> maybe have a 'close chat' option to reduce open windows
-        console.log('===> END - click_name');
+        console.log('===> END - clickName')
     }
 
     /*======================================*/
     /*======================================*/
 
-    const click_channel = ( data ) =>
+    const clickChannel = ( data ) =>
     {
-        console.log('===> click_channel');
-        console.log('===> END - click_channel');
+        console.log('===> clickChannel')
+        console.log('data: ', data)
+        // TODO: channel clicking
+        console.log('===> END - clickChannel')
     }
 
     /*================================================
         ANCHOR: DEV TOOLS
     ==================================================*/
 
-    // const on_dev_user  = () => { this.user_add( { id: H.elper.generateRandomName(), name: H.elper.generateRandomName(), color: H.elper.generateRandomColor() } ) }
-    const on_dev_color = () => { dispatch( setColor( H.elper.generateRandomColor() ) ); }
-    const on_dev_name  = e  => { if (e.keyCode === 13) { dispatch( setName( e.target.value ) ); e.target.value = ''; } }
-    const on_dev_name2 = () => { dispatch( setName( H.elper.generateRandomName() ) ); }
-    const on_dev_pref1 = () => { dispatch( toggleNameChanges() ); }
-    const on_dev_pref2 = () => { dispatch( toggleColorChanges() ); }
-    const on_dev_pref3 = () => { dispatch( toggleUserJoins() ); }
-    const on_dev_pref4 = () => { dispatch( toggleTimestamps() ); }
-    const on_dev_pref5 = () => { dispatch( toggle24HourTime() ); }
+    const onDevuser = () => { dispatch( addUser( {
+        id: H.elper.generateRandomName(),
+        name: H.elper.generateRandomName(true),
+        nickname: H.elper.generateRandomName(false),
+        color: H.elper.generateRandomColor()
+    } ) ) }
+    
+    const onDevcolor  = () => { sendUserColor( H.elper.generateRandomColor() ) }
+    const onDevname   = e  => { if (e.keyCode === 13) { sendUserNickname( e.target.value ); e.target.value = '' } }
+    const onDevname3  = e  => { if (e.keyCode === 13) { sendUserName( e.target.value ); e.target.value = '' } }
+    const onDevname2  = () => { sendUserNickname( H.elper.generateRandomName() ) }
+
+    const onDevpref4 = () => { dispatch( toggleTimestamps() ) }
+    const onDevpref5 = () => { dispatch( toggle24HourTime() ) }
 
     /*================================================
         ANCHOR: COMPONENTS
@@ -150,28 +418,25 @@ export default function App ()
         <main className='app'>
             {/* <span className='close' onClick={onClose}>+</span> */}
 
-
             <div className='container-app'>
                 <Nav />
                 <div className='container-body'>
                     <div className='container-channels'>
                         <ChannelList
-                            click_channel={click_channel}
+                            clickChannel={clickChannel}
                         />
                     </div>
                     <div className='container-chat'>
                         <MessageList
-                            // messages={this.state.messages}
-                            click_name={click_name}
+                            clickName={clickName}
                         />
                         <ChatBar
-                            send_message={send_message}
+                            sendMessage={sendMessage}
                         />
                     </div>
                     <div className='container-users'>
                         <UserList
-                            // users={this.state.users}
-                            click_name={click_name}
+                            clickName={clickName}
                         />
                     </div>
                 </div>
@@ -183,193 +448,25 @@ export default function App ()
                         <li><span>Current Player: </span></li>
                         <li>{user.id+' '}<span>ID</span></li>
                         <li>{user.name+' '}<span>Name</span></li>
+                        <li>{user.nickname+' '}<span>Nickname</span></li>
                         <li>{user.color+' '}<span>Color</span></li>
-                        <li>{prefs.showNameChanges+' '}<span>NameChanges</span></li>
-                        <li>{prefs.showColorChanges+' '}<span>ColorChanges</span></li>
-                        <li>{prefs.showUserJoins+' '}<span>UserJoins</span></li>
                         <li>{prefs.showTimestamps+' '}<span>Timestamps</span></li>
                         <li>{prefs.show24HourTime+' '}<span>24HourTime</span></li>
                     </ul>
                 </div>
                 <div>
-                    <input
-                        type='text'
-                        className='name-input'
-                        placeholder='Specific name'
-                        defaultValue=''
-                        onKeyDown={on_dev_name}
-                    />
-                    <button onClick={on_dev_name2}>Name</button>
-                    <button onClick={on_dev_color}>Color</button>
-                    {/* <button onClick={on_dev_user}>Fake User</button> */}
-                    <div><input type='checkbox' id='dev-name' onClick={on_dev_pref1}/><label htmlFor='dev-name'>Name changes</label></div>
-                    <div><input type='checkbox' id='dev-color' onClick={on_dev_pref2}/><label htmlFor='dev-color'>ColorChanges</label></div>
-                    <div><input type='checkbox' id='dev-user' onClick={on_dev_pref3}/><label htmlFor='dev-user'>User joins</label></div>
-                    <div><input type='checkbox' id='dev-time' onClick={on_dev_pref4}/><label htmlFor='dev-time'>Timestamps</label></div>
-                    <div><input type='checkbox' id='dev-hour' onClick={on_dev_pref5}/><label htmlFor='dev-hour'>24 hour time</label></div>
+                    <input type='text' className='name-input' placeholder='Specific name'     defaultValue='' onKeyDown={onDevname3} />
+                    <input type='text' className='name-input' placeholder='Specific nickname' defaultValue='' onKeyDown={onDevname}  />
+                    <button onClick={onDevname2}>Name</button>
+                    <button onClick={onDevcolor}>Color</button>
+                    <button onClick={onDevuser}>Fake User</button>
+                    <div><input type='checkbox' id='dev-name'  onClick={onDevpref1}/><label htmlFor='dev-name' >Name changes</label></div>
+                    <div><input type='checkbox' id='dev-color' onClick={onDevpref2}/><label htmlFor='dev-color'>ColorChanges</label></div>
+                    <div><input type='checkbox' id='dev-user'  onClick={onDevpref3}/><label htmlFor='dev-user' >User joins</label></div>
+                    <div><input type='checkbox' id='dev-time'  onClick={onDevpref4}/><label htmlFor='dev-time' >Timestamps</label></div>
+                    <div><input type='checkbox' id='dev-hour'  onClick={onDevpref5}/><label htmlFor='dev-hour' >24 hour time</label></div>
                 </div>
             </div>
         </main>
-    );
+    )
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// export default class App extends Component {
-
-
-//     /*================================================
-//         ANCHOR: COMPONENT ACTIONS
-//     ==================================================*/
-
-//     componentDidMount()
-//     {
-
-//         /*================================================
-//             ANCHOR: WEBSOCKET COMMUNICATION
-//         ==================================================*/
-
-//         const ws = this.socket;
-
-//         ws.onopen = function ( e )
-//         {
-//             console.log('>>>>>>>>> WebSocket Client Connected >>>>>>>>>');
-//             // ws.send(JSON.stringify( e ));
-//         };
-
-//         ws.onmessage = ( messageData ) =>
-//         {
-//             let updateData = JSON.parse( messageData.data );
-//             console.log('>>>>>>>>> Message Recieved - ' + updateData.type + ' >>>>>>>>>');
-
-//             /*================================================
-//                 HANDLERS
-//             ==================================================*/
-
-//             switch ( updateData.type )
-//             {
-
-//                 /*================================================
-//                     ANCHOR: HANDLER - USER CONNECTIONS
-//                 ==================================================*/
-
-//                 case 'clientConnected':
-//                     {
-//                         // > This handler is only fired ONCE when the CURRENT user joins
-//                         // console.log('======= HANDLER - clientConnected =======');
-
-//                         // > Set current user ID
-//                         // console.log('> Setting ID');
-//                         if ( updateData.userID )
-//                         { this.set_user_ID( updateData.userID ); }
-
-//                         // > Set previous messages
-//                         // console.log('> Setting messages');
-//                         if ( !( updateData.messages === undefined ) && ( updateData.messages.length ) )
-//                         { this.set_messages( updateData.messages ); }
-
-//                         // > Set users
-//                         // console.log('> Setting users');
-//                         if ( !( updateData.users === undefined ) && ( updateData.users.length ) )
-//                         { this.set_users( updateData.users ); }
-
-//                         // > Send current user (with new user message) information to server
-//                         // console.log('> Send userConnected');
-//                         let newUpdate = {
-//                             type: 'userConnected',
-//                             user: this.state.user,
-//                             message: {
-//                                 type:    'notification-connect',
-//                                 name:    this.state.user.name,
-//                                 time:    new Date().toGMTString(),
-//                                 color:   this.state.user.color,
-//                             },
-//                         };
-//                         ws.send( JSON.stringify( newUpdate ) );
-//                         // console.log('>>>>>>>>> Message Sent - userConnected >>>>>>>>>');
-//                         // console.log('======= END - HANDLER - clientConnected =======');
-//                         break;
-//                     }
-
-//                 /*======================================*/
-//                 /*======================================*/
-
-//                 case 'userConnected':
-//                     {
-//                         // > This handler is only fired when OTHER users join
-//                         // console.log('======= HANDLER - userConnected =======');
-//                         this.user_add( updateData.user );
-//                         this.message_add( updateData.message );
-//                         // console.log('======= END - HANDLER - userConnected =======');
-//                         break;
-//                     }
-
-//                 /*======================================*/
-//                 /*======================================*/  
-
-//                 case 'userDisconnected':
-//                     {
-//                         // This handler is only fired when OTHER users leave
-//                         // console.log('======= HANDLER - userDisconnected =======');
-//                         this.user_remove( updateData.userID );
-//                         this.message_add( updateData.message );
-//                         // console.log('======= END - HANDLER - userDisconnected =======');
-//                         break;
-//                     }
-
-//                 /*================================================
-//                     ANCHOR: HANDLER - USER INFO
-//                 ==================================================*/
-
-//                 case 'updateUserName':
-//                     {
-//                         // console.log('======= HANDLER - updateUserName =======');
-//                         this.set_user_name( updateData.user, updateData.newName );
-//                         this.message_add( updateData.message );
-//                         // console.log('======= END - HANDLER - updateUserName =======');
-//                         break;
-//                     }
-                
-//                 /*======================================*/  
-//                 /*======================================*/  
-
-//                 case 'updateUserColor':
-//                     {
-//                         // console.log('======= HANDLER - updateUserColor =======');
-//                         this.set_user_color( updateData.user, updateData.newColor );
-//                         this.message_add( updateData.message );
-//                         // console.log('======= END - HANDLER - updateUserColor =======');
-//                         break;
-//                     }
-
-//                 /*================================================
-//                     ANCHOR: HANDLER - MESSAGES
-//                 ==================================================*/
-
-//                 case 'newMessage':
-//                     {
-//                         // console.log('======= HANDLER - newMessage =======');
-//                         this.message_add( updateData.message );
-//                         // console.log('======= END - HANDLER - newMessage =======');
-//                         break;
-//                     }
-
-//                 /*======================================*/
-//                 /*======================================*/
-
-//                 default:
-//             }
-//         };
-//     }
-// }

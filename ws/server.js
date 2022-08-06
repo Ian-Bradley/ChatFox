@@ -2,92 +2,94 @@
     ANCHOR: SERVER CONFIGURATION
 ========================================*/
 
-const express = require('express');
-const SocketServer = require('ws');
-const { v4: uuidv4 } = require('uuid');
+const express = require('express')
+const SocketServer = require('ws')
+const { v4: uuidv4 } = require('uuid')
 
-const PORT = 3001;
+const PORT = 3001
 const server = express()
     .use(express.static('public'))
-    .listen(PORT, '0.0.0.0', 'localhost', () => console.log(`Listening on ${ PORT }`));
-const wss = new SocketServer.Server({ server });
-
-/*======================================
-    ANCHOR: FUNCTIONAL METHODS
-========================================*/
-
+    .listen(PORT, '0.0.0.0', 'localhost', () => console.log(`Listening on ${ PORT }`))
+const wss = new SocketServer.Server({ server })
 
 /*======================================
     ANCHOR: CLASS
 ========================================*/
 
-class Chat
+class DataTracker
 {
     constructor()
     {
         this.state = {
+            // TODO: convert to MongoDB
             users: [],
             messages: [],
-        };
+            log: [],
+        }
 
         /*======================================*/
         /*======================================*/
 
         // State methods - Users
-        this.user_add       = this.user_add.bind(this);
-        this.user_remove    = this.user_remove.bind(this);
+        this.addUser    = this.addUser.bind(this)
+        this.removeUser = this.removeUser.bind(this)
 
         // State methods - User Info
-        this.set_user_name  = this.set_user_name.bind(this);
-        this.set_user_color = this.set_user_color.bind(this);
+        this.setUserName     = this.setUserName.bind(this)
+        this.setUserNickname = this.setUserNickname.bind(this)
+        this.setUserColor    = this.setUserColor.bind(this)
 
         // State methods - Messages
-        this.message_add    = this.message_add.bind(this);
+        this.addMessage = this.addMessage.bind(this)
+
+        // State methods - Dev Log
+        this.addLogItem = this.addLogItem.bind(this)
+
     }
 
-    /*======================================
+    /*================================================
         ANCHOR: STATE METHODS - Users
-    ========================================*/
+    ==================================================*/
 
-    user_add ( user )
+    addUser ( user )
     {
-        this.state.users.push( user );
+        this.state.users.push( user )
     }
 
     /*======================================*/
     /*======================================*/
 
-    user_remove ( userID )
+    removeUser ( userID )
     {
-        console.log('userID: ', userID);
-        console.log('typeof userID: ', typeof userID);
-        console.log('FIND USER: ', this.state.users.find( user => ( user.id === userID ) ));
+        console.log('userID: ', userID)
+        console.log('typeof userID: ', typeof userID)
+        console.log('FIND USER: ', this.state.users.find( user => ( user.id === userID ) ))
         if ( this.state.users.find( user => ( user.id === userID ) ) )
         {
             // > User exists in array
-            console.log('User exists in array');
-            console.log('this.state.users: ', this.state.users);
-            this.state.users = this.state.users.filter( user => ( user.id !== userID ) );
-            console.log('this.state.users: ', this.state.users);
+            console.log('User exists in array')
+            console.log('this.state.users: ', this.state.users)
+            this.state.users = this.state.users.filter( user => ( user.id !== userID ) )
+            console.log('this.state.users: ', this.state.users)
         }
         else
         {
             // > No user!!
-            console.log('No user!!');
+            console.log('No user!!')
         }
     }
 
-    /*======================================
+    /*================================================
         ANCHOR: STATE METHODS - User Info
-    ========================================*/
+    ==================================================*/
 
-    set_user_name ( user, newName )
+    setUserName ( user, newName )
     {
         for ( let i = 0; i < this.state.users.length; i++ )
         {
             if ( this.state.users[i].id === user.id )
             {
-                this.state.users[i].name = newName;
+                this.state.users[i].name = newName
             }
         }
     }
@@ -95,36 +97,59 @@ class Chat
     /*======================================*/
     /*======================================*/
 
-    set_user_color ( user, newColor )
+    setUserNickname ( user, newNickname )
     {
         for ( let i = 0; i < this.state.users.length; i++ )
         {
             if ( this.state.users[i].id === user.id )
             {
-                this.state.users[i].color = newColor;
+                this.state.users[i].nickname = newNickname
             }
         }
     }
 
-    /*======================================
+    /*======================================*/
+    /*======================================*/
+
+    setUserColor ( user, newColor )
+    {
+        for ( let i = 0 ;i < this.state.users.length; i++ )
+        {
+            if ( this.state.users[i].id === user.id )
+            {
+                this.state.users[i].color = newColor
+            }
+        }
+    }
+
+    /*================================================
         ANCHOR: STATE METHODS - Messages
-    ========================================*/
+    ==================================================*/
 
-    message_add ( message )
+    addMessage ( message )
     {
-        this.state.messages.push( message );
+        this.state.messages.push( message )
+    }
+
+    /*================================================
+        ANCHOR: STATE METHODS - Dev Log
+    ==================================================*/
+
+    addLogItem ( logItem )
+    {
+        this.state.log.push( logItem )
     }
 }
 
-/*======================================
+/*================================================
     ANCHOR: CLASS INITIATION
-========================================*/
+==================================================*/
 
-let chat = new Chat();
+const serverData = new DataTracker()
 
-/*======================================
+/*================================================
     ANCHOR: WS SERVER FUNCTIONS
-========================================*/
+==================================================*/
 
 wss.broadcast = ( data, wsClient ) =>
 {
@@ -132,103 +157,118 @@ wss.broadcast = ( data, wsClient ) =>
     {
         if ( ( client.readyState === SocketServer.OPEN ) && ( wsClient !== client ) )
         {
-            client.send( data );
+            client.send( data )
         }
-    });
-};
+    })
+}
 
-wss.broadcast_client = ( data, wsClient ) =>
+wss.broadcastClient = ( data, wsClient ) =>
 {
     if ( wsClient.readyState === SocketServer.OPEN )
     {
-        wsClient.send( data );
+        wsClient.send( data )
     }
     
-};
+}
 
-wss.broadcast_all = ( data ) =>
+wss.broadcastAll = ( data ) =>
 {
     wss.clients.forEach( client =>
     {
         if ( client.readyState === SocketServer.OPEN )
         {
-            client.send( data );
+            client.send( data )
         }
-    });
-};
+    })
+}
 
-/*======================================
+/*================================================
     ANCHOR: WS SERVER
-========================================*/
+==================================================*/
 
 wss.on('connection', ( wsClient ) =>
 {
 
-    /*======================================
+    /*================================================
         ANCHOR: INITIAL CONNECTION TO CLIENT
-    ========================================*/
+    ==================================================*/
 
-    console.log('======= Client Connected =======');
+    console.log('======= Client Connected =======')
  
     // Set initial client data
     let userData = {
         id:       uuidv4(), // message id
         type:     'clientConnected',
-        users:    chat.state.users,
+        users:    serverData.state.users,
         userID:   uuidv4(), // id for disconnecting user removal (TODO: supply id on auth page)
-        messages: chat.state.messages,
-    };
+        messages: serverData.state.messages,
+    }
     
     // Send id, users, and message to connecting client
-    wss.broadcast_client( JSON.stringify( userData ), wsClient );
-    console.log('>>>>>>>>> Message Sent - Client Data >>>>>>>>>');
-    console.log('======= END - Client Connected =======');
+    wss.broadcastClient( JSON.stringify( userData ), wsClient )
+    console.log('>>>>>>>>> Message Sent - Client Data >>>>>>>>>')
+    console.log('======= END - Client Connected =======')
 
-    /*======================================
+    /*================================================
         ANCHOR: HANDLERS
-    ========================================*/
+    ==================================================*/
 
     wsClient.on('message', function incoming( data )
     {
-        console.log('>>>>>>>>> Message Recieved >>>>>>>>>');
-        let updateData = JSON.parse( data );
-        console.log('type: ', updateData.type);
+        console.log('>>>>>>>>> Message Recieved >>>>>>>>>')
+        let updateData = JSON.parse( data )
+        console.log('type: ', updateData.type)
 
         switch ( updateData.type )
         {
 
-            /*======================================
+            /*================================================
                 ANCHOR: HANDLER - USER CONNECTION
-            ========================================*/
+            ==================================================*/
 
             case 'userConnected':
                 {
                     // > Send new user data to all other users
-                    console.log('======= HANDLER - userConnected =======');
-                    updateData.id = uuidv4();
+                    console.log('======= HANDLER - userConnected =======')
+                    updateData.id = uuidv4()
                     userData.userID = updateData.user.id // set id for disconnecting user removal
-                    chat.user_add( updateData.user );
-                    chat.message_add( updateData.message );
-                    wss.broadcast( JSON.stringify( updateData ), wsClient );
-                    console.log('>>>>>>>>> Message Sent - userConnected >>>>>>>>>');
-                    console.log('======= END HANDLER - userConnected =======');
-                    break;
+                    serverData.addUser( updateData.user )
+                    serverData.addLogItem( updateData.message )
+                    wss.broadcast( JSON.stringify( updateData ), wsClient )
+                    console.log('>>>>>>>>> Message Sent - userConnected >>>>>>>>>')
+                    console.log('======= END HANDLER - userConnected =======')
+                    break
                 }  
             
-            /*======================================
+            /*================================================
                 ANCHOR: HANDLER - USER INFO
-            ========================================*/
+            ==================================================*/
 
             case 'updateUserName':
                 {
-                    console.log('======= HANDLER - updateUserName =======');
-                    updateData.id = uuidv4();
-                    chat.set_user_name( updateData.user, updateData.newName );
-                    chat.message_add( updateData.message );
-                    wss.broadcast_all( JSON.stringify( updateData ) );
-                    console.log('>>>>>>>>> Message Sent - updateUserName >>>>>>>>>');
-                    console.log('======= END HANDLER - updateUserName =======');
-                    break;
+                    console.log('======= HANDLER - updateUserName =======')
+                    updateData.id = uuidv4()
+                    serverData.setUserName( updateData.user, updateData.newName )
+                    serverData.addLogItem( updateData.message )
+                    wss.broadcastAll( JSON.stringify( updateData ) )
+                    console.log('>>>>>>>>> Message Sent - updateUserName >>>>>>>>>')
+                    console.log('======= END HANDLER - updateUserName =======')
+                    break
+                }
+
+            /*======================================*/
+            /*======================================*/
+
+            case 'updateUserNickname':
+                {
+                    console.log('======= HANDLER - updateUserNickname =======')
+                    updateData.id = uuidv4()
+                    serverData.setUserNickname( updateData.user, updateData.newNickname )
+                    serverData.addLogItem( updateData.message )
+                    wss.broadcastAll( JSON.stringify( updateData ) )
+                    console.log('>>>>>>>>> Message Sent - updateUserNickname >>>>>>>>>')
+                    console.log('======= END HANDLER - updateUserNickname =======')
+                    break
                 }
 
             /*======================================*/
@@ -236,29 +276,29 @@ wss.on('connection', ( wsClient ) =>
 
             case 'updateUserColor':
                 {
-                    console.log('======= HANDLER - updateUserColor =======');
-                    updateData.id = uuidv4();
-                    chat.set_user_color( updateData.user, updateData.newColor );
-                    chat.message_add( updateData.message );
-                    wss.broadcast_all( JSON.stringify( updateData ) );
-                    console.log('>>>>>>>>> Message Sent - updateUserColor >>>>>>>>>');
-                    console.log('======= END HANDLER - updateUserColor =======');
-                    break;
+                    console.log('======= HANDLER - updateUserColor =======')
+                    updateData.id = uuidv4()
+                    serverData.setUserColor( updateData.user, updateData.newColor )
+                    serverData.addLogItem( updateData.message )
+                    wss.broadcastAll( JSON.stringify( updateData ) )
+                    console.log('>>>>>>>>> Message Sent - updateUserColor >>>>>>>>>')
+                    console.log('======= END HANDLER - updateUserColor =======')
+                    break
                 }
 
-            /*======================================
+            /*================================================
                 ANCHOR: HANDLER - MESSAGES
-            ========================================*/
+            ==================================================*/
 
-            case "newMessage":
+            case 'newMessage':
                 {
-                    console.log('======= HANDLER - newMessage =======');
-                    updateData.id = uuidv4();
-                    chat.message_add( updateData.message );
-                    wss.broadcast_all( JSON.stringify( updateData ) );
-                    console.log('>>>>>>>>> Message Sent - newMessage >>>>>>>>>');
-                    console.log('======= END - HANDLER - newMessage =======');
-                    break;
+                    console.log('======= HANDLER - newMessage =======')
+                    updateData.id = uuidv4()
+                    serverData.addMessage( updateData.message )
+                    wss.broadcastAll( JSON.stringify( updateData ) )
+                    console.log('>>>>>>>>> Message Sent - newMessage >>>>>>>>>')
+                    console.log('======= END - HANDLER - newMessage =======')
+                    break
                 }
 
             /*======================================*/
@@ -266,29 +306,29 @@ wss.on('connection', ( wsClient ) =>
 
             default:
         }
-    });
+    })
 
-    /*======================================
+    /*================================================
         ANCHOR: CLOSING CONNECTION
-    ========================================*/
+    ==================================================*/
     
     wsClient.on('close', ( wsClient ) =>
     {
-        console.log('======= Client Disonnected =======');
+        console.log('======= Client Disonnected =======')
 
-        console.log('find user: ', chat.state.users.find(user => user.id = userData.userID ));
+        console.log('find user: ', serverData.state.users.find(user => user.id = userData.userID ))
 
         // > Disconnect message
         // TODO: error when refreshing?
         // TODO: error - color being send instead of name?
         let disconnectMessage = {
             type:    'notification-disconnect',
-            name:    chat.state.users.find(user => user.id = userData.userID ).name,
+            name:    serverData.state.users.find(user => user.id = userData.userID ).name,
             time:    new Date().toGMTString(),
-            color:   chat.state.users.find(user => user.id = userData.userID ).color,
-        };
-        console.log('disconnectMessage: ', disconnectMessage);
-        chat.message_add( disconnectMessage );
+            color:   serverData.state.users.find(user => user.id = userData.userID ).color,
+        }
+        console.log('disconnectMessage: ', disconnectMessage)
+        serverData.addMessage( disconnectMessage )
 
         // > Disconnect data for other users
         let updateData = {
@@ -296,14 +336,14 @@ wss.on('connection', ( wsClient ) =>
             type:    'userDisconnected',
             userID:  userData.userID, // user removal id
             message: disconnectMessage,
-        };
-        console.log('updateData: ', updateData);
-        wss.broadcast( JSON.stringify( updateData ), wsClient );
-        console.log('>>>>>>>>> Message Sent - userDisconnected >>>>>>>>>');
+        }
+        console.log('updateData: ', updateData)
+        wss.broadcast( JSON.stringify( updateData ), wsClient )
+        console.log('>>>>>>>>> Message Sent - userDisconnected >>>>>>>>>')
 
         // > Remove user
-        chat.user_remove( userData.userID );  
+        serverData.removeUser( userData.userID )  
 
-        console.log('======= END - Client Disonnected =======');
-    });
-});
+        console.log('======= END - Client Disonnected =======')
+    })
+})

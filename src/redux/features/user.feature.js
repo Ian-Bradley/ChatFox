@@ -4,7 +4,8 @@ import * as H from '../../helpers/helpers.js'
 const initialState = {
     user: {
         id: '1',
-        name: H.elper.generateRandomName(),
+        name: H.elper.generateRandomName(true),
+        nickname: H.elper.generateRandomName(false),
         color: H.elper.generateRandomColor(),
     }
 }
@@ -13,10 +14,9 @@ let userSlice = createSlice({
     name: 'user',
     initialState: initialState,
     reducers: {
-        /*======================================*/
-
         setID: function (state, action)
         {
+            // action.payload = id (String)
             state.user.id = action.payload
         },
 
@@ -24,18 +24,34 @@ let userSlice = createSlice({
 
         setName: function (state, action)
         {
+            // action.payload = name (String)
             state.user.name = action.payload
+        },
+
+
+        /*======================================*/
+
+        setNickname: function (state, action)
+        {
+            // action.payload = nickname (String)
+            state.user.nickname = action.payload
         },
 
         /*======================================*/
 
         setColor: function (state, action)
         {
+            // action.payload = color (String [HEX])
             state.user.color = action.payload
         },
 
         /*======================================*/
     }
 })
-export const { setID, setName, setColor } = userSlice.actions
+export const {
+    setID,
+    setName,
+    setNickname,
+    setColor
+} = userSlice.actions
 export default userSlice.reducer

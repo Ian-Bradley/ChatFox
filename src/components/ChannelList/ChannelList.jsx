@@ -1,26 +1,26 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React from 'react'
+import { useSelector } from 'react-redux'
 
 // COMPONENTS
-// import Channel from '../Channel/Channel.jsx';
-import Button from '../Button/Button.jsx';
-import IconSearch from '../../images/icons/search.svg';
+import Channel from '../Channel/Channel.jsx'
+import Button from '../Button/Button.jsx'
+import IconSearch from '../../images/icons/search.svg'
 
 // CSS
-import './ChannelList.scss';
+import './ChannelList.scss'
 
 /**
- * @props click_channel (function) Clicking on a chat channel
+ * @props clickChannel (Function) Clicking on a chat channel
  */
 {/* <FontAwesomeIcon icon='fa-solid fa-magnifying-glass' /> */}
 
 export default function UserList ( props )
 {
-    /*======================================
+    /*================================================
         ANCHOR: STATES
-    ========================================*/
+    ==================================================*/
 
-    const channels = useSelector( ( state ) => { return state['channels'].channels; } );
+    const channels = useSelector( ( state ) => { return state['channels'].channels } )
 
     /*=================================================
         ANCHOR: INTERACTIONS
@@ -28,8 +28,8 @@ export default function UserList ( props )
 
     const on_search_button = e =>
     {
-        console.log('===> on_search_button');
-        console.log('===> END - on_search_button');
+        console.log('===> on_search_button')
+        console.log('===> END - on_search_button')
     }
 
     /*=================================================
@@ -38,21 +38,21 @@ export default function UserList ( props )
 
     const display_channels = () =>
     {
-        // if ( !( channels === undefined ) && ( channels.length ) )
-        // {
-        //     let channelsArray = [];
-        //     for (let i = 0; i < channels.length; i++)
-        //     {
-        //         channelsArray.push(
-        //             <Channel
-        //                 key={i}
-        //                 channel={channels[i]}
-        //                 click_channel={props.click_channel}
-        //             />
-        //         );
-        //     }
-        //     return channelsArray;
-        // }
+        if ( !( channels === undefined ) && ( channels.length ) )
+        {
+            let channelsArray = []
+            for (let i = 0; i < channels.length; i++)
+            {
+                channelsArray.push(
+                    <Channel
+                        key={i}
+                        channel={channels[i]}
+                        clickChannel={props.clickChannel}
+                    />
+                )
+            }
+            return channelsArray
+        }
     }
 
     /*=================================================
@@ -60,10 +60,9 @@ export default function UserList ( props )
     ===================================================*/
 
     return (
-        <main className='user-list'>
-            <div className='user-top'>
-                <span className='user-title'>Users</span>
-                <div className='user-search-button'>
+        <main className='channel-list'>
+            <div className='channel-top'>
+                <div className='channel-search-button'>
                     <Button
                         btnClasses  ={'search-button'}
                         btnFunction ={on_search_button}
@@ -71,9 +70,9 @@ export default function UserList ( props )
                     />
                 </div>
             </div>
-            <div className='user-bottom'>
+            <div className='channel-bottom'>
                 {display_channels()}
             </div>
         </main>
-    );
+    )
 }

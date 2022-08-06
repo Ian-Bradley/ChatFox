@@ -6,8 +6,16 @@ const initialState = {
 
 /*
 message (Object)
-    id: (Number)
+    id: (String)
     data: (Object)
+        type (String)
+        time (String)
+        name (String)
+        namePrev (String)
+        nickname (String)
+        nicknamePrev (String)
+        color (String)
+        colorPrev (String)
     content: (String)
 */
 
@@ -27,7 +35,7 @@ let messagesSlice = createSlice({
 
         deleteMessage: function (state, action)
         {
-            // action.payload = id (Number)
+            // action.payload = id (String)
             state.messages.filter( message => message.id !== action.payload )
         },
 

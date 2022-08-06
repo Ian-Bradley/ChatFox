@@ -22,27 +22,6 @@ let preferencesSlice = createSlice({
         },
 
         /*======================================*/
-
-        toggleNameChanges: function (state, action)
-        {
-            state.preferences.showNameChanges = !state.preferences.showNameChanges
-        },
-
-        /*======================================*/
-
-        toggleColorChanges: function (state, action)
-        {
-            state.preferences.showColorChanges = !state.preferences.showColorChanges
-        },
-
-        /*======================================*/
-        
-        toggleUserJoins: function (state, action)
-        {
-            state.preferences.showUserJoins = !state.preferences.showUserJoins
-        },
-
-        /*======================================*/
         
         toggle24HourTime: function (state, action)
         {
@@ -54,9 +33,6 @@ let preferencesSlice = createSlice({
 })
 export const {
     toggleTimestamps,
-    toggleNameChanges,
-    toggleColorChanges,
-    toggleUserJoins,
     toggle24HourTime
 } = preferencesSlice.actions
 export default preferencesSlice.reducer
