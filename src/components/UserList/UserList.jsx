@@ -26,17 +26,17 @@ export default function UserList ( props )
         ANCHOR: INTERACTIONS
     ===================================================*/
 
-    const on_search_button = e =>
+    const onSearchButton = e =>
     {
-        console.log('===> on_search_button')
-        console.log('===> END - on_search_button')
+        console.log('===> onSearchButton')
+        console.log('===> END - onSearchButton')
     }
 
     /*=================================================
         ANCHOR: DISPLAYING
     ===================================================*/
 
-    const display_users = () =>
+    const displayUsers = () =>
     {
         if ( !( users === undefined ) && ( users.length ) )
         {
@@ -66,13 +66,13 @@ export default function UserList ( props )
                 <div className='user-search-button'>
                     <Button
                         btnClasses  ={'search-button'}
-                        btnFunction ={on_search_button}
+                        btnFunction ={onSearchButton}
                         btnIcon     ={IconSearch}
                     />
                 </div>
             </div>
             <div className='user-bottom'>
-                {display_users()}
+                {displayUsers()}
             </div>
         </main>
     )

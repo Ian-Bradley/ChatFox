@@ -18,7 +18,7 @@ export default function ChatBar ( props )
         ANCHOR: INTERACTIONS
     ==================================================*/
 
-    const on_typing_message = e =>
+    const onTypingMessage = e =>
     {
         if ( ( e.keyCode === 13 ) && ( e.target.value !== '' ) )
         {
@@ -47,7 +47,7 @@ export default function ChatBar ( props )
             <div className='chatbar'>
                 <input
                     className='chatbar-input'
-                    onKeyUp={on_typing_message}
+                    onKeyUp={onTypingMessage}
                     placeholder='Type your message here'
                 />
             </div>    

@@ -1,5 +1,5 @@
 export const onst = {
-    appURL: 'ws://localhost:3001',
+    wsURL: 'ws://localhost:3001',
 
     classHidden: 'hidden',
 

@@ -38,7 +38,7 @@ export default function MessageList ( props )
         ANCHOR: DISPLAYING
     ==================================================*/
 
-    const display_messages = () =>
+    const displayMessages = () =>
     {
         if ( !( messages === undefined ) && ( messages.length ) )
         {
@@ -66,7 +66,7 @@ export default function MessageList ( props )
             className='message-list'
             ref={list}
         >
-            {display_messages()}
+            {displayMessages()}
         </main>
     )
 }

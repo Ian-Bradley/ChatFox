@@ -111,6 +111,21 @@ let channelsSlice = createSlice({
         },
 
         /*======================================*/
+
+        setChannelPassword: function (state, action)
+        {
+            // action.payload = lockData (Object {id: (String), password: (String)})
+            state.channels.map( ( channel ) =>
+                {
+                    if ( channel.id === action.payload.id )
+                    {
+                        channel.password = action.payload.password
+                    }
+                }
+            )
+        },
+
+        /*======================================*/
     }
 })
 export const {
@@ -122,5 +137,6 @@ export const {
     setChannelInctive,
     setChannelPrivate,
     setChannelPublic,
+    setChannelPassword,
 } = channelsSlice.actions
 export default channelsSlice.reducer

@@ -17,11 +17,11 @@ export default function Message ( props )
         ANCHOR: INTERACTIONS
     ==================================================*/
 
-    const on_clickChannel = e =>
+    const onClickChannel = e =>
     {
-        console.log('===> on_clickChannel')
+        console.log('===> onClickChannel')
         props.clickChannel(e)
-        console.log('===> END - on_clickChannel')
+        console.log('===> END - onClickChannel')
     }
 
     /*================================================
@@ -37,7 +37,7 @@ export default function Message ( props )
     return (
         <main className='container-channel'>
             <div className='channel'>
-                <span className={'channel-name'} onClick={on_clickChannel}>
+                <span className={'channel-name'} onClick={onClickChannel}>
                     {props.channel.name}
                 </span>
             </div>

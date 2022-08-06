@@ -34,11 +34,11 @@ export default function Message ( props )
         ANCHOR: DISPLAYING
     ==================================================*/
 
-    // > Regular expression for image extensions
+    // Regular expression for image extensions
     // TODO: Switch to checking in ChatBar and storing URL to message object
     const imageExtensionRegex = ( /\.( gif|jp?g|png|svg|bmp|tiff|bat )$/i )
 
-    const display_timestamp = () =>
+    const displayTimestamp = () =>
     {
         if ( prefs.showTimeStamps )
         {
@@ -52,7 +52,7 @@ export default function Message ( props )
             // console.log('BEFORE > minutes: ', timeStamp_min)
             // console.log('BEFORE > seconds: ', timeStamp_sec)
 
-            // > Initial addition/subtraction
+            // Initial addition/subtraction
             if ( C.onst.GMT_direction === '-' )
             {
                 timeStamp_hrs -= C.onst.GMT_hrs
@@ -68,7 +68,7 @@ export default function Message ( props )
             // console.log('ADD/SUB > minutes: ', timeStamp_min)
             // console.log('ADD/SUB > seconds: ', timeStamp_sec)
 
-            // > Deal with negative times
+            // Deal with negative times
             if ( timeStamp_hrs < 0 )
             { timeStamp_hrs = 24 - Math.abs(timeStamp_hrs) }
             if ( timeStamp_min < 0 )
@@ -78,7 +78,7 @@ export default function Message ( props )
             // console.log('NEGATIVES > minutes: ', timeStamp_min)
             // console.log('NEGATIVES > seconds: ', timeStamp_sec)
 
-            // > Convert to 12-hours time
+            // Convert to 12-hours time
             if ( !prefs.show24HourTime && ( timeStamp_hrs > 12 ) )
             { timeStamp_hrs -= 12 }
 
@@ -86,12 +86,12 @@ export default function Message ( props )
             // console.log('24HOUR > minutes: ', timeStamp_min)
             // console.log('24HOUR > seconds: ', timeStamp_sec)
 
-            // > String conversion
+            // String conversion
             timeStamp_hrs = timeStamp_hrs.toString()
             timeStamp_min = timeStamp_min.toString()
             timeStamp_sec = timeStamp_sec.toString()
 
-            // > Add leading '0'
+            // Add leading '0'
             if ( timeStamp_hrs.length === 1 )
             { timeStamp_hrs = '0' + timeStamp_hrs }
             if ( timeStamp_min.length === 1 )
@@ -103,7 +103,7 @@ export default function Message ( props )
             // console.log('LEADING-0 > minutes: ', timeStamp_min)
             // console.log('LEADING-0 > seconds: ', timeStamp_sec)
 
-            // > Remove leading '0'
+            // Remove leading '0'
             // if ( timeStamp_hrs.slice(0,1) === '0' )
             // { timeStamp_hrs = timeStamp_hrs.slice(1,2) }
 
@@ -134,7 +134,7 @@ export default function Message ( props )
                     return (
                         <main className='container-message'>
                             <div className='message'>
-                                {display_timestamp()}
+                                {displayTimestamp()}
                                 <span
                                     className={'message-name'}
                                     style={{color: props.message.color}}
@@ -158,7 +158,7 @@ export default function Message ( props )
                     return (
                         <main className='container-message'>
                             <div className='message'>
-                                {display_timestamp()}
+                                {displayTimestamp()}
                                 <span
                                     className={'message-name'}
                                     style={{color: props.message.color}}
@@ -187,7 +187,7 @@ export default function Message ( props )
                 return (
                     <main className='container-message'>
                         <div className='message notification'>
-                            {display_timestamp()}
+                            {displayTimestamp()}
                             <span
                                 className={'message-name'}
                                 style={{color: props.message.color}}
@@ -210,7 +210,7 @@ export default function Message ( props )
                 return (
                     <main className='container-message'>
                         <div className='message notification'>
-                            {display_timestamp()}
+                            {displayTimestamp()}
                             <span
                                 className={'message-name'}
                                 style={{color: props.message.color}}
@@ -233,7 +233,7 @@ export default function Message ( props )
                 return (
                     <main className='container-message'>
                         <div className='message notification'>
-                            {display_timestamp()}
+                            {displayTimestamp()}
                             <span
                                 className={'message-name'}
                                 style={{color: props.message.color}}
@@ -263,7 +263,7 @@ export default function Message ( props )
                 return (
                     <main className='container-message'>
                         <div className='message notification'>
-                            {display_timestamp()}
+                            {displayTimestamp()}
                             <span
                                 className={'message-name'}
                                 style={{color: props.message.color}}
@@ -293,7 +293,7 @@ export default function Message ( props )
                 return (
                     <main className='container-message'>
                         <div className='message notification'>
-                            {display_timestamp()}
+                            {displayTimestamp()}
                             <span
                                 className={'message-name'}
                                 style={{color: props.message.color}}

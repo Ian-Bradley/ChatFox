@@ -25,6 +25,7 @@ class DataTracker
             users: [],
             messages: [],
             log: [],
+            channels: [],
         }
 
         /*======================================*/
@@ -39,12 +40,19 @@ class DataTracker
         this.setUserNickname = this.setUserNickname.bind(this)
         this.setUserColor    = this.setUserColor.bind(this)
 
+        // State methods - Channels
+        this.addChannel         = this.addChannel.bind(this)
+        this.deleteChannel      = this.deleteChannel.bind(this)
+        this.setChannelName     = this.setChannelName.bind(this)
+        this.setChannelPublic   = this.setChannelPublic.bind(this)
+        this.setChannelPrivate  = this.setChannelPrivate.bind(this)
+        this.setChannelPassword = this.setChannelPassword.bind(this)
+
         // State methods - Messages
         this.addMessage = this.addMessage.bind(this)
 
         // State methods - Dev Log
         this.addLogItem = this.addLogItem.bind(this)
-
     }
 
     /*================================================
@@ -66,7 +74,7 @@ class DataTracker
         console.log('FIND USER: ', this.state.users.find( user => ( user.id === userID ) ))
         if ( this.state.users.find( user => ( user.id === userID ) ) )
         {
-            // > User exists in array
+            // User exists in array
             console.log('User exists in array')
             console.log('this.state.users: ', this.state.users)
             this.state.users = this.state.users.filter( user => ( user.id !== userID ) )
@@ -74,7 +82,7 @@ class DataTracker
         }
         else
         {
-            // > No user!!
+            // No user!!
             console.log('No user!!')
         }
     }
@@ -118,6 +126,92 @@ class DataTracker
             if ( this.state.users[i].id === user.id )
             {
                 this.state.users[i].color = newColor
+            }
+        }
+    }
+
+    /*================================================
+        ANCHOR: STATE METHODS - Channels
+    ==================================================*/
+
+    addChannel ( channel )
+    {
+        this.state.channels.push( channel )
+    }
+
+    /*======================================*/
+    /*======================================*/
+
+    deleteChannel ( channelID )
+    {
+        console.log('channelID: ', channelID)
+        console.log('typeof channelID: ', typeof channelID)
+        console.log('FIND CHANNEL: ', this.state.channels.find( channel => ( channel.id === channelID ) ))
+        if ( this.state.channels.find( user => ( user.id === channelID ) ) )
+        {
+            console.log('Channel exists in array')
+            console.log('this.state.channels: ', this.state.channels)
+            this.state.channels = this.state.channels.filter( channel => ( channel.id !== channelID ) )
+            console.log('this.state.channels: ', this.state.channels)
+        }
+        else
+        {
+            console.log('No channel!!')
+        }
+    }
+
+    /*======================================*/
+    /*======================================*/
+
+    setChannelName ( channel, name )
+    {
+        for ( let i = 0; i < this.state.channels.length; i++ )
+        {
+            if ( this.state.channels[i].id === channel.id )
+            {
+                this.state.channels[i].nickname = name
+            }
+        }
+    }
+    
+    /*======================================*/
+    /*======================================*/
+
+    setChannelPublic ( channel )
+    {
+        for ( let i = 0; i < this.state.channels.length; i++ )
+        {
+            if ( this.state.channels[i].id === channel.id )
+            {
+                this.state.channels[i].locked = false
+            }
+        }
+    }
+
+    /*======================================*/
+    /*======================================*/
+
+    setChannelPrivate ( channel )
+    {
+        for ( let i = 0; i < this.state.channels.length; i++ )
+        {
+            if ( this.state.channels[i].id === channel.id )
+            {
+                this.state.channels[i].locked = true
+            }
+        }
+    }
+
+    /*======================================*/
+    /*======================================*/
+
+    setChannelPassword ( channel, password )
+    {
+        for ( let i = 0; i < this.state.channels.length; i++ )
+        {
+            if ( this.state.channels[i].id === channel.id )
+            {
+                this.state.channels[i].password = password
             }
         }
     }
@@ -228,7 +322,7 @@ wss.on('connection', ( wsClient ) =>
 
             case 'userConnected':
                 {
-                    // > Send new user data to all other users
+                    // Send new user data to all other users
                     console.log('======= HANDLER - userConnected =======')
                     updateData.id = uuidv4()
                     userData.userID = updateData.user.id // set id for disconnecting user removal
@@ -287,6 +381,98 @@ wss.on('connection', ( wsClient ) =>
                 }
 
             /*================================================
+                ANCHOR: HANDLER - CHANNELS
+            ==================================================*/
+
+            case 'updateAddChannel':
+                {
+                    console.log('======= HANDLER - updateAddChannel =======')
+                    updateData.id = uuidv4()
+                    serverData.addChannel( updateData.channel )
+                    serverData.addLogItem( updateData.message )
+                    wss.broadcastAll( JSON.stringify( updateData ) )
+                    console.log('>>>>>>>>> Message Sent - updateAddChannel >>>>>>>>>')
+                    console.log('======= END HANDLER - updateAddChannel =======')
+                    break
+                }
+
+            /*======================================*/
+            /*======================================*/
+
+            case 'updateDeleteChannel':
+                {
+                    console.log('======= HANDLER - updateDeleteChannel =======')
+                    updateData.id = uuidv4()
+                    serverData.deleteChannel( updateData.channelID )
+                    serverData.addLogItem( updateData.message )
+                    wss.broadcastAll( JSON.stringify( updateData ) )
+                    console.log('>>>>>>>>> Message Sent - updateDeleteChannel >>>>>>>>>')
+                    console.log('======= END HANDLER - updateDeleteChannel =======')
+                    break
+                }
+
+            /*======================================*/
+            /*======================================*/
+
+            case 'updateChannelName':
+                {
+                    console.log('======= HANDLER - updateChannelName =======')
+                    updateData.id = uuidv4()
+                    serverData.setChannelName( updateData.channel, updateData.newName )
+                    serverData.addLogItem( updateData.message )
+                    wss.broadcastAll( JSON.stringify( updateData ) )
+                    console.log('>>>>>>>>> Message Sent - updateChannelName >>>>>>>>>')
+                    console.log('======= END HANDLER - updateChannelName =======')
+                    break
+                }
+
+            /*======================================*/
+            /*======================================*/
+
+            case 'updateChannelPublic':
+                {
+                    console.log('======= HANDLER - updateChannelPublic =======')
+                    updateData.id = uuidv4()
+                    serverData.setChannelPublic( updateData.channel )
+                    serverData.addLogItem( updateData.message )
+                    wss.broadcastAll( JSON.stringify( updateData ) )
+                    console.log('>>>>>>>>> Message Sent - updateChannelPublic >>>>>>>>>')
+                    console.log('======= END HANDLER - updateChannelPublic =======')
+                    break
+                }
+
+            /*======================================*/
+            /*======================================*/
+
+            case 'updateChannelPrivate':
+                {
+                    console.log('======= HANDLER - updateChannelPrivate =======')
+                    updateData.id = uuidv4()
+                    serverData.setChannelPrivate( updateData.channel )
+                    serverData.setChannelPassword( updateData.channel, updateData.password )
+                    serverData.addLogItem( updateData.message )
+                    wss.broadcastAll( JSON.stringify( updateData ) )
+                    console.log('>>>>>>>>> Message Sent - updateChannelPrivate >>>>>>>>>')
+                    console.log('======= END HANDLER - updateChannelPrivate =======')
+                    break
+                }
+
+            /*======================================*/
+            /*======================================*/
+
+            case 'updateChannelPassword':
+                {
+                    console.log('======= HANDLER - updateChannelPassword =======')
+                    updateData.id = uuidv4()
+                    serverData.setChannelPassword( updateData.channel, updateData.password )
+                    serverData.addLogItem( updateData.message )
+                    wss.broadcastAll( JSON.stringify( updateData ) )
+                    console.log('>>>>>>>>> Message Sent - updateChannelPassword >>>>>>>>>')
+                    console.log('======= END HANDLER - updateChannelPassword =======')
+                    break
+                }
+
+            /*================================================
                 ANCHOR: HANDLER - MESSAGES
             ==================================================*/
 
@@ -318,7 +504,7 @@ wss.on('connection', ( wsClient ) =>
 
         console.log('find user: ', serverData.state.users.find(user => user.id = userData.userID ))
 
-        // > Disconnect message
+        // Disconnect message
         // TODO: error when refreshing?
         // TODO: error - color being send instead of name?
         let disconnectMessage = {
@@ -330,7 +516,7 @@ wss.on('connection', ( wsClient ) =>
         console.log('disconnectMessage: ', disconnectMessage)
         serverData.addMessage( disconnectMessage )
 
-        // > Disconnect data for other users
+        // Disconnect data for other users
         let updateData = {
             id:      uuidv4(), // message id
             type:    'userDisconnected',
@@ -341,7 +527,7 @@ wss.on('connection', ( wsClient ) =>
         wss.broadcast( JSON.stringify( updateData ), wsClient )
         console.log('>>>>>>>>> Message Sent - userDisconnected >>>>>>>>>')
 
-        // > Remove user
+        // Remove user
         serverData.removeUser( userData.userID )  
 
         console.log('======= END - Client Disonnected =======')

@@ -43,6 +43,14 @@ import {
 } from '../redux/features/preferences.feature.js'
 /*======================================*/
 import {
+    setChannel,
+    setName,
+    setPublic,
+    setPrivate,
+    setPassword,
+} from '../redux/features/channel.feature.js'
+/*======================================*/
+import {
     addChannel,
     deleteChannel,
     deleteAllChannels,
@@ -51,6 +59,7 @@ import {
     setChannelInctive,
     setChannelPrivate,
     setChannelPublic,
+    setChannelPassword,
 } from '../redux/features/channels.feature.js'
 /*======================================*/
 import {
@@ -79,13 +88,13 @@ export default function App ()
     const dispatch = useDispatch()
     // Hooks
     const [WSReady, setWSReady] = useState(false)
-    const [WS, setWS] = useState(new WebSocket( C.onst.appURL ))
+    const [WS, setWS] = useState(new WebSocket( C.onst.wsURL ))
 
     /*================================================
         ANCHOR: HOOKS - WEBSOCKET COMMUNICATION
     ==================================================*/
 
-    useEffect(() => {
+    useEffect( () => {
 
         /*================================================
             ANCHOR: WS - ON OPEN
@@ -115,26 +124,26 @@ export default function App ()
     
                 case 'clientConnected':
                     {
-                        // > This handler is only fired ONCE when the CURRENT user joins
+                        // This handler is only fired ONCE when the CURRENT user joins
                         console.log('======= HANDLER - clientConnected =======')
     
-                        // > Set current user ID
+                        // Set current user ID
                         console.log('> Setting ID')
                         if ( updateData.userID )
                         { dispatch( setID( updateData.userID ) ) }
     
-                        // > Set previous messages
+                        // Set previous messages
                         console.log('> Setting messages')
                         if ( !( updateData.messages === undefined ) && ( updateData.messages.length ) )
                         { dispatch( setMessages( updateData.messages ) ) }
     
-                        // > Set users
+                        // Set users
                         console.log('> Setting users')
                         if ( !( updateData.users === undefined ) && ( updateData.users.length ) )
                         { dispatch( setUsers( updateData.users ) )
-                          dispatch( setUserTotal( updateData.users.length + 1 ) ) }
+                          dispatch( setUserTotal( updateData.users.length + 1 ) ) } // + 1 for current user
     
-                        // > Send current user (with new user message) information to server
+                        // Send current user (with new user message) information to server
                         console.log('> Send userConnected')
                         let newUpdate = {
                             type: 'userConnected',
@@ -157,7 +166,7 @@ export default function App ()
     
                 case 'userConnected':
                     {
-                        // > This handler is only fired when OTHER users join
+                        // This handler is only fired when OTHER users join
                         console.log('======= HANDLER - userConnected =======')
                         dispatch( addUser( updateData.user ) )
                         dispatch( addLogItem( updateData.message ) )
@@ -227,6 +236,93 @@ export default function App ()
                     }
     
                 /*================================================
+                    ANCHOR: HANDLER - CHANNELS
+                ==================================================*/
+
+                case 'updateAddChannel':
+                    {
+                        console.log('======= HANDLER - updateAddChannel =======')
+                        updateData.id = uuidv4()
+                        // dispatch(  )
+                        // serverData.addChannel( updateData.channel )
+                        dispatch( addLogItem( updateData.message ) )
+                        console.log('>>>>>>>>> Message Sent - updateAddChannel >>>>>>>>>')
+                        console.log('======= END HANDLER - updateAddChannel =======')
+                        break
+                    }
+
+                /*======================================*/
+                /*======================================*/
+
+                case 'updateDeleteChannel':
+                    {
+                        console.log('======= HANDLER - updateDeleteChannel =======')
+                        updateData.id = uuidv4()
+                        // serverData.deleteChannel( updateData.channelID )
+                        dispatch( addLogItem( updateData.message ) )
+                        console.log('>>>>>>>>> Message Sent - updateDeleteChannel >>>>>>>>>')
+                        console.log('======= END HANDLER - updateDeleteChannel =======')
+                        break
+                    }
+
+                /*======================================*/
+                /*======================================*/
+
+                case 'updateChannelName':
+                    {
+                        console.log('======= HANDLER - updateChannelName =======')
+                        updateData.id = uuidv4()
+                        // serverData.setChannelName( updateData.channel, updateData.newName )
+                        dispatch( addLogItem( updateData.message ) )
+                        console.log('>>>>>>>>> Message Sent - updateChannelName >>>>>>>>>')
+                        console.log('======= END HANDLER - updateChannelName =======')
+                        break
+                    }
+
+                /*======================================*/
+                /*======================================*/
+
+                case 'updateChannelPublic':
+                    {
+                        console.log('======= HANDLER - updateChannelPublic =======')
+                        updateData.id = uuidv4()
+                        // serverData.setChannelPublic( updateData.channel )
+                        dispatch( addLogItem( updateData.message ) )
+                        console.log('>>>>>>>>> Message Sent - updateChannelPublic >>>>>>>>>')
+                        console.log('======= END HANDLER - updateChannelPublic =======')
+                        break
+                    }
+
+                /*======================================*/
+                /*======================================*/
+
+                case 'updateChannelPrivate':
+                    {
+                        console.log('======= HANDLER - updateChannelPrivate =======')
+                        updateData.id = uuidv4()
+                        // serverData.setChannelPrivate( updateData.channel )
+                        // serverData.setChannelPassword( updateData.channel, updateData.password )
+                        dispatch( addLogItem( updateData.message ) )
+                        console.log('>>>>>>>>> Message Sent - updateChannelPrivate >>>>>>>>>')
+                        console.log('======= END HANDLER - updateChannelPrivate =======')
+                        break
+                    }
+
+                /*======================================*/
+                /*======================================*/
+
+                case 'updateChannelPassword':
+                    {
+                        console.log('======= HANDLER - updateChannelPassword =======')
+                        updateData.id = uuidv4()
+                        // serverData.setChannelPassword( updateData.channel, updateData.password )
+                        dispatch( addLogItem( updateData.message ) )
+                        console.log('>>>>>>>>> Message Sent - updateChannelPassword >>>>>>>>>')
+                        console.log('======= END HANDLER - updateChannelPassword =======')
+                        break
+                    }
+
+                /*================================================
                     ANCHOR: HANDLER - MESSAGES
                 ==================================================*/
     
@@ -254,7 +350,7 @@ export default function App ()
             setWSReady(false)
             // TODO: check if neeeded
             setTimeout(() => {
-                setWS(new WebSocket( C.onst.appURL ))
+                setWS(new WebSocket( C.onst.wsURL ))
             }, 1000)
         }
 

@@ -16,11 +16,11 @@ export default function Message ( props )
         ANCHOR: INTERACTIONS
     ==================================================*/
 
-    const on_clickName = e =>
+    const onClickName = e =>
     {
-        console.log('===> on_clickName')
+        console.log('===> onClickName')
         props.clickName(e)
-        console.log('===> END - on_clickName')
+        console.log('===> END - onClickName')
     }
 
     /*================================================
@@ -35,7 +35,7 @@ export default function Message ( props )
     return (
         <main className='container-user'>
             <div className='user'>
-                <span className={'user-name'} style={{color: props.user.color}} onClick={on_clickName}>
+                <span className={'user-name'} style={{color: props.user.color}} onClick={onClickName}>
                     {props.user.nickname}
                 </span>
             </div>

@@ -1,5 +1,5 @@
-import React from 'react';
-import './Button.scss';
+import React from 'react'
+import './Button.scss'
 
 /**
  * @props btnIcon (string)           File destinaton to find image
@@ -17,15 +17,15 @@ export default function Button ( props ) {
         ANCHOR: INTERACTIONS
     ========================================*/
 
-    const on_button_click = e =>
+    const onButtonClick = e =>
     {
         if( e.target.getAttribute('data-value') )
         {
-            props.btnFunction( e.target.getAttribute('data-value') );
+            props.btnFunction( e.target.getAttribute('data-value') )
         }
         else
         {
-            props.btnFunction();
+            props.btnFunction()
         }
     }
 
@@ -33,43 +33,43 @@ export default function Button ( props ) {
         ANCHOR: DISPLAYING
     ========================================*/
 
-    const display_classes = () =>
+    const displayClasses = () =>
     {
-        let displayClasses = 'button-container';
+        let displayClasses = 'button-container'
         if ( props.btnDisplayClasses )
         {
-            displayClasses += ' ' + props.btnDisplayClasses;
+            displayClasses += ' ' + props.btnDisplayClasses
         }
-        return displayClasses;
+        return displayClasses
     }
 
     /*======================================*/
     /*======================================*/
 
-    const display_button_classes = () =>
+    const displayButtonClasses = () =>
     {
-        let buttonClasses = 'button';
+        let buttonClasses = 'button'
         if ( props.btnIcon && ( !props.btnText && !props.btnData ) )
         {
-            buttonClasses += ' btn-icon-only';
+            buttonClasses += ' btn-icon-only'
         }
         if ( props.btnClasses )
         {
-            buttonClasses += ' ' + props.btnClasses;
+            buttonClasses += ' ' + props.btnClasses
         }
-        return buttonClasses;
+        return buttonClasses
     }
 
     /*======================================*/
     /*======================================*/
 
-    const display_button_icon = () =>
+    const displayButtonIcon = () =>
     {
         if ( props.btnIcon )
         {
-            let iconClasses = 'btn-icon';
-            if ( props.btnText ) { iconClasses += ' btn-m-left'; }
-            if ( props.btnData ) { iconClasses += ' btn-m-right'; }
+            let iconClasses = 'btn-icon'
+            if ( props.btnText ) { iconClasses += ' btn-m-left' }
+            if ( props.btnData ) { iconClasses += ' btn-m-right' }
             return <img src={props.btnIcon} className={iconClasses}/>
         }
     }
@@ -79,14 +79,14 @@ export default function Button ( props ) {
     ========================================*/
 
     return (
-        <div className={display_classes()}>
+        <div className={displayClasses()}>
             <button
                 type       ='button'
                 data-value ={props.btnValue}
-                className  ={display_button_classes()}
-                onClick    ={on_button_click}>
-                {props.btnText} {display_button_icon()} {props.btnData}
+                className  ={displayButtonClasses()}
+                onClick    ={onButtonClick}>
+                {props.btnText} {displayButtonIcon()} {props.btnData}
             </button>
         </div>
-    );
+    )
 }

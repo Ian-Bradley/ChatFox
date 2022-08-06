@@ -1,13 +1,13 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React from 'react'
+import { useSelector } from 'react-redux'
 
 // COMPONENTS
-import Button from '../Button/Button.jsx';
-import IconUser from '../../images/icons/user.svg';
-import IconSettings from '../../images/icons/settings.svg';
+import Button from '../Button/Button.jsx'
+import IconUser from '../../images/icons/user.svg'
+import IconSettings from '../../images/icons/settings.svg'
 
 // CSS
-import './Nav.scss';
+import './Nav.scss'
 
 /**
  * @props 
@@ -19,25 +19,25 @@ export default function Nav ( props )
         ANCHOR: STATES
     ==================================================*/
 
-    const user = useSelector( ( state ) => { return state['user'].user; } );
+    const user = useSelector( ( state ) => { return state['user'].user } )
 
     /*================================================
         ANCHOR: INTERACTIONS
     ==================================================*/
 
-    const on_user = () =>
+    const onUser = () =>
     {
-        console.log('===> on_user');
-        console.log('===> END - on_user');
+        console.log('===> onUser')
+        console.log('===> END - onUser')
     }
 
     /*======================================*/
     /*======================================*/
 
-    const on_settings = () =>
+    const onSettings = () =>
     {
-        console.log('===> on_settings');
-        console.log('===> END - on_settings');
+        console.log('===> onSettings')
+        console.log('===> END - onSettings')
     }
 
     /*================================================
@@ -57,16 +57,16 @@ export default function Nav ( props )
             <nav>
                 <Button
                     btnClasses  ={'nav-settings'}
-                    btnFunction ={on_settings}
+                    btnFunction ={onSettings}
                     btnIcon     ={IconSettings}
                 />
                 <Button
                     btnClasses  ={'nav-user'}
-                    btnFunction ={on_user}
+                    btnFunction ={onUser}
                     btnText     ={user.nickname}
                     btnIcon     ={IconUser}
                 />
             </nav>
         </main>
-    );
+    )
 }
