@@ -3,23 +3,13 @@
 Chattr is a React.js & WebSocket based messaging / chat application.
 
 ### Stack
-Frontend
---------
-Javascript
-React.js
-Redux
-SCSS/SASS
+Frontend:
+Javascript, React.js, Redux, SCSS/SASS
 
 Server:
---------
-Node
-Express
-WebSockets
-Webpack
-Babel
+Node, Express, WebSockets, Webpack, Babel
 
 ### Final Product
-
 <!-- !["Screenshot of Chattr"](https://raw.githubusercontent.com/IA-n7/Chattr/master/build/Chattr.gif) -->
 
 ### Dependencies

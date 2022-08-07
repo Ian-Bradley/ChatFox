@@ -10,7 +10,7 @@ import MessageList from './MessageList/MessageList.jsx'
 
 // CSS + GLOBAL CONSTANTS + HELPER FUNCTIONS
 import * as C from '../helpers/constants.js'
-import * as H from '../helpers/helpers.js'
+import * as H from '../helpers/functions.js'
 import './App.scss'
 
 /*================================================
@@ -81,7 +81,7 @@ import {
 export default function App ()
 {
     /*================================================
-        ANCHOR: STATES
+        ANCHOR: STATE
     ==================================================*/
 
     // Redux
@@ -91,6 +91,19 @@ export default function App ()
     // Hooks
     const [WSReady, setWSReady] = useState(false)
     const [WS, setWS] = useState(new WebSocket( C.onst.wsURL ))
+
+    /*================================================
+        ANCHOR: HOOKS - USER INFO
+    ==================================================*/
+
+    useEffect( () =>
+    {
+        // TODO: Cookies
+        // Get current userID (and maybe name/team/color) from cookies
+        // If ID is not present, auth page has failed to store cookie
+        // let userID = this.getCookie('user-id')
+        // this.set_user_ID( userID )
+    })
 
     /*================================================
         ANCHOR: HOOKS - WEBSOCKET COMMUNICATION
@@ -378,23 +391,8 @@ export default function App ()
     }, [WS])
 
     /*================================================
-        ANCHOR: WS METHODS - SENDERS
+        ANCHOR: WS SENDERS - USER INFO
     ==================================================*/
-
-    const sendMessage = ( newMessage ) =>
-    {
-        console.log('===> sendMessage')
-        let newUpdate = {
-            type: 'newMessage',
-            message: newMessage,
-        }
-        WS.send( JSON.stringify( newUpdate ))
-        console.log('>>>>>>>>> Message Sent - newMessage >>>>>>>>>')
-        console.log('===> END - sendMessage')
-    }
-
-    /*======================================*/
-    /*======================================*/
 
     const sendUserName = ( newName ) =>
     {
@@ -463,8 +461,23 @@ export default function App ()
     }
 
     /*================================================
-        ANCHOR: INTERACTIONS
+        ANCHOR: WS SENDERS - INTERACTIONS
     ==================================================*/
+
+    const sendMessage = ( newMessage ) =>
+    {
+        console.log('===> sendMessage')
+        let newUpdate = {
+            type: 'newMessage',
+            message: newMessage,
+        }
+        WS.send( JSON.stringify( newUpdate ))
+        console.log('>>>>>>>>> Message Sent - newMessage >>>>>>>>>')
+        console.log('===> END - sendMessage')
+    }
+
+    /*======================================*/
+    /*======================================*/
 
     const clickName = ( data ) =>
     {
@@ -543,7 +556,7 @@ export default function App ()
             <div id='dev-tools'>
                 <div>
                     <ul>
-                        <li><span>Current Player: </span></li>
+                        <li><span>Current User: </span></li>
                         <li>{user.id+' '}<span>ID</span></li>
                         <li>{user.name+' '}<span>Name</span></li>
                         <li>{user.nickname+' '}<span>Nickname</span></li>

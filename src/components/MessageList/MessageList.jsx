@@ -25,7 +25,8 @@ export default function MessageList ( props )
     ==================================================*/
 
     const list = useRef(null)
-    useEffect(() => {
+    useEffect( () =>
+    {
         list.current.scrollTop = list.current.scrollHeight
     })
 

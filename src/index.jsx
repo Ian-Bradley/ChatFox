@@ -7,8 +7,6 @@ import store from './redux/store.js'
 import App from './components/App.jsx';
 import './styles/index.scss';
 
-// ReactDOM.render(<App />, document.getElementById('root'));
-
 ReactDOM.render(
     <Provider store={store}>
         <App />

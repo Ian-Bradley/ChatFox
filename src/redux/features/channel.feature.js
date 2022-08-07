@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import * as H from '../../helpers/helpers.js'
+import * as H from '../../helpers/functions.js'
 
 const initialState = {
     channel: {
