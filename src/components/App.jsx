@@ -143,11 +143,13 @@ export default function App ()
                         console.log('======= HANDLER - clientConnected =======')
     
                         // Set current user ID
+                        // TODO: returning users will not do this
+                        // they will get id/name from cookies/localStorage OR from here on "return check" (create a new variable)
                         console.log('> Setting ID')
                         if ( updateData.userID )
                         { dispatch( setID( updateData.userID ) ) }
     
-                        // Set previous messages
+                        // Set messages
                         console.log('> Setting messages')
                         if ( !( updateData.messages === undefined ) && ( updateData.messages.length ) )
                         { dispatch( setMessages( updateData.messages ) ) }
