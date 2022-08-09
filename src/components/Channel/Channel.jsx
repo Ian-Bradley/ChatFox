@@ -1,5 +1,5 @@
-import React from 'react'
-import './Channel.scss'
+import React from 'react';
+import './Channel.scss';
 
 /**
  * @props channel (Object)
@@ -11,29 +11,27 @@ import './Channel.scss'
  * @props clickChannel (Function) Clicking on a chat channel
  */
 
-export default function Message ( props )
-{
+export default function Message(props) {
     /*================================================
-        ANCHOR: INTERACTIONS
+        BLOCK: INTERACTIONS
     ==================================================*/
 
-    const onClickChannel = e =>
-    {
-        console.log('===> onClickChannel')
-        props.clickChannel(e)
-        console.log('===> END - onClickChannel')
-    }
+    const onClickChannel = (e) => {
+        console.log('===> onClickChannel');
+        props.clickChannel(e);
+        console.log('===> END - onClickChannel');
+    };
 
     /*================================================
-        ANCHOR: DISPLAYING
+        BLOCK: DISPLAYING
     ==================================================*/
 
     // TODO: display classes for active and locked
 
     /*================================================
-        ANCHOR: COMPONENTS
+        BLOCK: COMPONENTS
     ==================================================*/
-    
+
     return (
         <main className='container-channel'>
             <div className='channel'>
@@ -42,5 +40,5 @@ export default function Message ( props )
                 </span>
             </div>
         </main>
-    )
+    );
 }

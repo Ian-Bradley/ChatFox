@@ -1,8 +1,8 @@
-import { createSlice } from "@reduxjs/toolkit"
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-    userTotal: 1
-}
+    userTotal: 1,
+};
 
 let userTotalSlice = createSlice({
     name: 'userTotal',
@@ -10,32 +10,25 @@ let userTotalSlice = createSlice({
     reducers: {
         /*======================================*/
 
-        setUserTotal: function (state, action)
-        {
+        setUserTotal: function (state, action) {
             // action.payload = amount/count/total (Number)
-            state.userTotal = action.payload
+            state.userTotal = action.payload;
         },
 
         /*======================================*/
 
-        incrementUserTotal: function (state, action)
-        {
-            state.userTotal = state.userTotal + 1
+        incrementUserTotal: function (state, action) {
+            state.userTotal = state.userTotal + 1;
         },
 
         /*======================================*/
 
-        decrementUserTotal: function (state, action)
-        {
-            state.userTotal = state.userTotal - 1
+        decrementUserTotal: function (state, action) {
+            state.userTotal = state.userTotal - 1;
         },
 
         /*======================================*/
-    }
-})
-export const {
-    setUserTotal,
-    incrementUserTotal,
-    decrementUserTotal
-} = userTotalSlice.actions
-export default userTotalSlice.reducer
+    },
+});
+export const { setUserTotal, incrementUserTotal, decrementUserTotal } = userTotalSlice.actions;
+export default userTotalSlice.reducer;

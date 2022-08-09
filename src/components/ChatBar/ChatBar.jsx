@@ -1,45 +1,43 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
-import './ChatBar.scss'
+import React from 'react';
+import { useSelector } from 'react-redux';
+import './ChatBar.scss';
 
 /**
  * @props sendMessage (function)
  */
 
-export default function ChatBar ( props )
-{
+export default function ChatBar(props) {
     /*================================================
-        ANCHOR: STATES
+        BLOCK: STATES
     ==================================================*/
 
-    const user = useSelector( ( state ) => { return state['user'].user } )
+    const user = useSelector((state) => {
+        return state['user'].user;
+    });
 
     /*================================================
-        ANCHOR: INTERACTIONS
+        BLOCK: INTERACTIONS
     ==================================================*/
 
-    const onTypingMessage = e =>
-    {
-        if ( ( e.keyCode === 13 ) && ( e.target.value !== '' ) )
-        {
+    const onTypingMessage = (e) => {
+        if (e.keyCode === 13 && e.target.value !== '') {
             props.sendMessage({
-                    type: 'message',
-                    name: user.name,
-                    time: new Date().toGMTString(),
-                    color: user.color,
-                    content: e.target.value,
-                })
-            e.target.value = ''
+                type: 'message',
+                name: user.name,
+                time: new Date().toGMTString(),
+                color: user.color,
+                content: e.target.value,
+            });
+            e.target.value = '';
         }
-    }
+    };
 
     /*================================================
-        ANCHOR: DISPLAYING
+        BLOCK: DISPLAYING
     ==================================================*/
 
-
     /*================================================
-        ANCHOR: COMPONENTS
+        BLOCK: COMPONENTS
     ==================================================*/
 
     return (
@@ -50,8 +48,7 @@ export default function ChatBar ( props )
                     onKeyUp={onTypingMessage}
                     placeholder='Type your message here'
                 />
-            </div>    
+            </div>
         </main>
-    )
-    
+    );
 }

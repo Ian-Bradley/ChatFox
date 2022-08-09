@@ -1,8 +1,8 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-    users: []
-}
+    users: [],
+};
 
 /*
 user (Object)
@@ -18,82 +18,61 @@ let usersSlice = createSlice({
     reducers: {
         /*======================================*/
 
-        addUser: function (state, action)
-        {
+        addUser: function (state, action) {
             // action.payload = user (Object)
-            state.users.push( action.payload )
+            state.users.push(action.payload);
         },
 
         /*======================================*/
 
-        removeUser: function (state, action)
-        {
+        removeUser: function (state, action) {
             // action.payload = ID (Number)
-            state.users.filter( user => user.id !== action.payload )
+            state.users.filter((user) => user.id !== action.payload);
         },
 
         /*======================================*/
 
-        setUsers: function (state, action)
-        {
+        setUsers: function (state, action) {
             // action.payload = users (Array of user Objects)
-            state.users = action.payload
+            state.users = action.payload;
         },
 
         /*======================================*/
 
-        setUserName: function (state, action)
-        {
+        setUserName: function (state, action) {
             // action.payload = userData (Object {id: (String), name: (String)})
-            state.users.map( ( user ) =>
-                {
-                    if ( user.id === action.payload.id )
-                    {
-                        user.name = action.payload.name
-                    }
+            state.users.map((user) => {
+                if (user.id === action.payload.id) {
+                    user.name = action.payload.name;
                 }
-            )
+            });
         },
 
         /*======================================*/
 
-        setUserNickname: function (state, action)
-        {
+        setUserNickname: function (state, action) {
             // action.payload = userData (Object {id: (String), nickname: (String)})
-            state.users.map( ( user ) =>
-                {
-                    if ( user.id === action.payload.id )
-                    {
-                        user.nickname = action.payload.nickname
-                    }
+            state.users.map((user) => {
+                if (user.id === action.payload.id) {
+                    user.nickname = action.payload.nickname;
                 }
-            )
+            });
         },
 
         /*======================================*/
 
-        setUserColor: function (state, action)
-        {
+        setUserColor: function (state, action) {
             // action.payload = userData (Object {id: (String), color: (String [HEX])})
-            state.users.map( ( user ) =>
-                {
-                    if ( user.id === action.payload.id )
-                    {
-                        user.color = action.payload.color
-                    }
+            state.users.map((user) => {
+                if (user.id === action.payload.id) {
+                    user.color = action.payload.color;
                 }
-            )
+            });
         },
 
         /*======================================*/
-    }
-})
-export const {
-    addUser,
-    deleteUser,
-    setUsers,
-    setUserName,
-    setUserNickname,
-    setUserColor,
-} = usersSlice.actions
-export default usersSlice.reducer
+    },
+});
+export const { addUser, removeUser, setUsers, setUserName, setUserNickname, setUserColor } =
+    usersSlice.actions;
+export default usersSlice.reducer;

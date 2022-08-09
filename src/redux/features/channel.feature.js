@@ -1,5 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit'
-import * as H from '../../helpers/functions.js'
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
     channel: {
@@ -8,8 +7,8 @@ const initialState = {
         active: false,
         locked: false,
         password: '',
-    }
-}
+    },
+};
 
 let channelSlice = createSlice({
     name: 'channel',
@@ -17,53 +16,42 @@ let channelSlice = createSlice({
     reducers: {
         /*======================================*/
 
-        setChannel: function (state, action)
-        {
+        setChannel: function (state, action) {
             // action.payload = channel (Object)
-            state.channel = action.payload
+            state.channel = action.payload;
         },
 
         /*======================================*/
 
-        setName: function (state, action)
-        {
+        setName: function (state, action) {
             // action.payload = name (String)
-            state.channel.name = action.payload
+            state.channel.name = action.payload;
         },
 
         /*======================================*/
 
-        setPublic: function (state, action)
-        {
-            state.channel.locked   = false
-            state.channel.password = ''
+        setPublic: function (state, action) {
+            state.channel.locked = false;
+            state.channel.password = '';
         },
 
         /*======================================*/
 
-        setPrivate: function (state, action)
-        {
+        setPrivate: function (state, action) {
             // action.payload = password (String)
-            state.channel.locked   = true
-            state.channel.password = action.payload
+            state.channel.locked = true;
+            state.channel.password = action.payload;
         },
 
         /*======================================*/
 
-        setPassword: function (state, action)
-        {
+        setPassword: function (state, action) {
             // action.payload = password (String)
-            state.channel.password = action.payload
+            state.channel.password = action.payload;
         },
 
         /*======================================*/
-    }
-})
-export const {
-    setChannel,
-    setName,
-    setPublic,
-    setPrivate,
-    setPassword,
-} = channelSlice.actions
-export default channelSlice.reducer
+    },
+});
+export const { setChannel, setName, setPublic, setPrivate, setPassword } = channelSlice.actions;
+export default channelSlice.reducer;

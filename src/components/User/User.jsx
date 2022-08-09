@@ -1,5 +1,5 @@
-import React from 'react'
-import './User.scss'
+import React from 'react';
+import './User.scss';
 
 /**
  * @props user (Object)
@@ -10,35 +10,36 @@ import './User.scss'
  * @props clickName (Function) Clicking on a user name
  */
 
-export default function Message ( props )
-{
+export default function Message(props) {
     /*================================================
-        ANCHOR: INTERACTIONS
+        BLOCK: INTERACTIONS
     ==================================================*/
 
-    const onClickName = e =>
-    {
-        console.log('===> onClickName')
-        props.clickName(e)
-        console.log('===> END - onClickName')
-    }
+    const onClickName = (e) => {
+        console.log('===> onClickName');
+        props.clickName(e);
+        console.log('===> END - onClickName');
+    };
 
     /*================================================
-        ANCHOR: DISPLAYING
+        BLOCK: DISPLAYING
     ==================================================*/
 
-    
     /*================================================
-        ANCHOR: COMPONENTS
+        BLOCK: COMPONENTS
     ==================================================*/
-    
+
     return (
         <main className='container-user'>
             <div className='user'>
-                <span className={'user-name'} style={{color: props.user.color}} onClick={onClickName}>
+                <span
+                    className={'user-name'}
+                    style={{ color: props.user.color }}
+                    onClick={onClickName}
+                >
                     {props.user.nickname}
                 </span>
             </div>
         </main>
-    )
+    );
 }

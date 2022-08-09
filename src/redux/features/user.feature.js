@@ -1,57 +1,47 @@
-import { createSlice } from '@reduxjs/toolkit'
-import * as H from '../../helpers/functions.js'
+import { createSlice } from '@reduxjs/toolkit';
+import { generateRandomName, generateRandomColor } from '../util/functions.js';
 
 const initialState = {
     user: {
         id: '1',
-        name: H.elper.generateRandomName(true),
-        nickname: H.elper.generateRandomName(false),
-        color: H.elper.generateRandomColor(),
-    }
-}
+        name: generateRandomName(true),
+        nickname: generateRandomName(false),
+        color: generateRandomColor(),
+    },
+};
 
 let userSlice = createSlice({
     name: 'user',
     initialState: initialState,
     reducers: {
-        setID: function (state, action)
-        {
+        setID: function (state, action) {
             // action.payload = id (String)
-            state.user.id = action.payload
+            state.user.id = action.payload;
         },
 
         /*======================================*/
 
-        setName: function (state, action)
-        {
+        setName: function (state, action) {
             // action.payload = name (String)
-            state.user.name = action.payload
+            state.user.name = action.payload;
         },
-
 
         /*======================================*/
 
-        setNickname: function (state, action)
-        {
+        setNickname: function (state, action) {
             // action.payload = nickname (String)
-            state.user.nickname = action.payload
+            state.user.nickname = action.payload;
         },
 
         /*======================================*/
 
-        setColor: function (state, action)
-        {
+        setColor: function (state, action) {
             // action.payload = color (String [HEX])
-            state.user.color = action.payload
+            state.user.color = action.payload;
         },
 
         /*======================================*/
-    }
-})
-export const {
-    setID,
-    setName,
-    setNickname,
-    setColor
-} = userSlice.actions
-export default userSlice.reducer
+    },
+});
+export const { setID, setName, setNickname, setColor } = userSlice.actions;
+export default userSlice.reducer;

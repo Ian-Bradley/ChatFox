@@ -1,8 +1,8 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-    log: []
-}
+    log: [],
+};
 
 /*
 logItem (Object)
@@ -24,33 +24,26 @@ let logSlice = createSlice({
     reducers: {
         /*======================================*/
 
-        addLogItem: function (state, action)
-        {
+        addLogItem: function (state, action) {
             // action.payload = log (Object)
-            state.log.push( action.payload )
+            state.log.push(action.payload);
         },
 
         /*======================================*/
 
-        deleteLogItem: function (state, action)
-        {
+        deleteLogItem: function (state, action) {
             // action.payload = id (String)
-            state.log.filter( logItem => logItem.id !== action.payload )
+            state.log.filter((logItem) => logItem.id !== action.payload);
         },
 
         /*======================================*/
 
-        deleteAllLogItems: function (state, action)
-        {
-            state.log = []
+        deleteAllLogItems: function (state, action) {
+            state.log = [];
         },
 
         /*======================================*/
-    }
-})
-export const {
-    addLogItem,
-    deleteLogItem,
-    deleteAllLogItems,
-} = logSlice.actions
-export default logSlice.reducer
+    },
+});
+export const { addLogItem, deleteLogItem, deleteAllLogItems } = logSlice.actions;
+export default logSlice.reducer;

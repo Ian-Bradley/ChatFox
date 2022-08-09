@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
     preferences: {
@@ -7,8 +7,8 @@ const initialState = {
         showColorChanges: false,
         showUserJoins: false,
         show24HourTime: false,
-    }
-}
+    },
+};
 
 let preferencesSlice = createSlice({
     name: 'preferences',
@@ -16,23 +16,18 @@ let preferencesSlice = createSlice({
     reducers: {
         /*======================================*/
 
-        toggleTimestamps: function (state, action)
-        {
-            state.preferences.showTimestamps = !state.preferences.showTimestamps
+        toggleTimestamps: function (state, action) {
+            state.preferences.showTimestamps = !state.preferences.showTimestamps;
         },
 
         /*======================================*/
-        
-        toggle24HourTime: function (state, action)
-        {
-            state.preferences.show24HourTime = !state.preferences.show24HourTime
+
+        toggle24HourTime: function (state, action) {
+            state.preferences.show24HourTime = !state.preferences.show24HourTime;
         },
 
         /*======================================*/
-    }
-})
-export const {
-    toggleTimestamps,
-    toggle24HourTime
-} = preferencesSlice.actions
-export default preferencesSlice.reducer
+    },
+});
+export const { toggleTimestamps, toggle24HourTime } = preferencesSlice.actions;
+export default preferencesSlice.reducer;

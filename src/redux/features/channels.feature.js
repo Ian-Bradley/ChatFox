@@ -1,8 +1,8 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-    channels: []
-}
+    channels: [],
+};
 
 /*
 channel (Object)
@@ -19,115 +19,91 @@ let channelsSlice = createSlice({
     reducers: {
         /*======================================*/
 
-        addChannel: function (state, action)
-        {
+        addChannel: function (state, action) {
             // action.payload = channel (Object)
-            state.channels.push( action.payload )
+            state.channels.push(action.payload);
         },
 
         /*======================================*/
 
-        deleteChannel: function (state, action)
-        {
+        deleteChannel: function (state, action) {
             // action.payload = ID (String)
-            state.channels.filter( channel => channel.id !== action.payload )
+            state.channels.filter((channel) => channel.id !== action.payload);
         },
 
         /*======================================*/
 
-        deleteAllChannels: function (state, action)
-        {
-            state.channels = []
+        deleteAllChannels: function (state, action) {
+            state.channels = [];
         },
 
         /*======================================*/
 
-        setChannels: function (state, action)
-        {
+        setChannels: function (state, action) {
             // action.payload = channels (Array of channel Objects)
-            state.channels = action.payload
+            state.channels = action.payload;
         },
 
         /*======================================*/
 
-        setChannelActive: function (state, action)
-        {
+        setChannelActive: function (state, action) {
             // action.payload = id (String)
-            state.channels.map( ( channel ) =>
-                {
-                    if ( channel.id === action.payload.id )
-                    {
-                        channel.locked = true
-                    }
+            state.channels.map((channel) => {
+                if (channel.id === action.payload.id) {
+                    channel.locked = true;
                 }
-            )
+            });
         },
 
         /*======================================*/
 
-        setChannelInactive: function (state, action)
-        {
+        setChannelInactive: function (state, action) {
             // action.payload = id (String)
-            state.channels.map( ( channel ) =>
-                {
-                    if ( channel.id === action.payload.id )
-                    {
-                        channel.locked = false
-                    }
+            state.channels.map((channel) => {
+                if (channel.id === action.payload.id) {
+                    channel.locked = false;
                 }
-            )
+            });
         },
 
         /*======================================*/
 
-        setChannelPrivate: function (state, action)
-        {
+        setChannelPrivate: function (state, action) {
             // action.payload = lockData (Object {id: (String), password: (String)})
-            state.channels.map( ( channel ) =>
-                {
-                    if ( channel.id === action.payload.id )
-                    {
-                        channel.locked   = true
-                        channel.password = action.payload.password
-                    }
+            state.channels.map((channel) => {
+                if (channel.id === action.payload.id) {
+                    channel.locked = true;
+                    channel.password = action.payload.password;
                 }
-            )
+            });
         },
 
         /*======================================*/
 
-        setChannelPublic: function (state, action)
-        {
+        setChannelPublic: function (state, action) {
             // action.payload = id (String)
-            state.channels.map( ( channel ) =>
-                {
-                    if ( channel.id === action.payload )
-                    {
-                        channel.locked   = false
-                        channel.password = ''
-                    }
+            state.channels.map((channel) => {
+                if (channel.id === action.payload) {
+                    channel.locked = false;
+                    channel.password = '';
                 }
-            )
+            });
         },
 
         /*======================================*/
 
-        setChannelPassword: function (state, action)
-        {
+        setChannelPassword: function (state, action) {
             // action.payload = lockData (Object {id: (String), password: (String)})
-            state.channels.map( ( channel ) =>
-                {
-                    if ( channel.id === action.payload.id )
-                    {
-                        channel.password = action.payload.password
-                    }
+            state.channels.map((channel) => {
+                if (channel.id === action.payload.id) {
+                    channel.password = action.payload.password;
                 }
-            )
+            });
         },
 
         /*======================================*/
-    }
-})
+    },
+});
 export const {
     addChannel,
     deleteChannel,
@@ -138,5 +114,5 @@ export const {
     setChannelPrivate,
     setChannelPublic,
     setChannelPassword,
-} = channelsSlice.actions
-export default channelsSlice.reducer
+} = channelsSlice.actions;
+export default channelsSlice.reducer;

@@ -1,52 +1,50 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
+import React from 'react';
+import { useSelector } from 'react-redux';
 
 // COMPONENTS
-import Button from '../Button/Button.jsx'
-import IconUser from '../../images/icons/user.svg'
-import IconSettings from '../../images/icons/settings.svg'
+import Button from '../Button/Button.jsx';
+import IconUser from '../../images/icons/user.svg';
+import IconSettings from '../../images/icons/settings.svg';
 
 // CSS
-import './Nav.scss'
+import './Nav.scss';
 
 /**
- * @props 
+ * @props
  */
 
-export default function Nav ( props )
-{
+export default function Nav(props) {
     /*================================================
-        ANCHOR: STATES
+        BLOCK: STATES
     ==================================================*/
 
-    const user = useSelector( ( state ) => { return state['user'].user } )
+    const user = useSelector((state) => {
+        return state['user'].user;
+    });
 
     /*================================================
-        ANCHOR: INTERACTIONS
+        BLOCK: INTERACTIONS
     ==================================================*/
 
-    const onUser = () =>
-    {
-        console.log('===> onUser')
-        console.log('===> END - onUser')
-    }
+    const onUser = () => {
+        console.log('===> onUser');
+        console.log('===> END - onUser');
+    };
 
     /*======================================*/
     /*======================================*/
 
-    const onSettings = () =>
-    {
-        console.log('===> onSettings')
-        console.log('===> END - onSettings')
-    }
+    const onSettings = () => {
+        console.log('===> onSettings');
+        console.log('===> END - onSettings');
+    };
 
     /*================================================
-        ANCHOR: DISPLAYING
+        BLOCK: DISPLAYING
     ==================================================*/
 
-
     /*================================================
-        ANCHOR: COMPONENTS
+        BLOCK: COMPONENTS
     ==================================================*/
 
     return (
@@ -56,17 +54,17 @@ export default function Nav ( props )
             </div>
             <nav>
                 <Button
-                    btnClasses  ={'nav-settings'}
-                    btnFunction ={onSettings}
-                    btnIcon     ={IconSettings}
+                    btnClasses={'nav-settings'}
+                    btnFunction={onSettings}
+                    btnIcon={IconSettings}
                 />
                 <Button
-                    btnClasses  ={'nav-user'}
-                    btnFunction ={onUser}
-                    btnText     ={user.nickname}
-                    btnIcon     ={IconUser}
+                    btnClasses={'nav-user'}
+                    btnFunction={onUser}
+                    btnText={user.nickname}
+                    btnIcon={IconUser}
                 />
             </nav>
         </main>
-    )
+    );
 }

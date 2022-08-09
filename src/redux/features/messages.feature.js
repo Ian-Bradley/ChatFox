@@ -1,8 +1,8 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-    messages: []
-}
+    messages: [],
+};
 
 /*
 message (Object)
@@ -25,42 +25,33 @@ let messagesSlice = createSlice({
     reducers: {
         /*======================================*/
 
-        addMessage: function (state, action)
-        {
+        addMessage: function (state, action) {
             // action.payload = message (Object)
-            state.messages.push( action.payload )
+            state.messages.push(action.payload);
         },
 
         /*======================================*/
 
-        deleteMessage: function (state, action)
-        {
+        deleteMessage: function (state, action) {
             // action.payload = id (String)
-            state.messages.filter( message => message.id !== action.payload )
+            state.messages.filter((message) => message.id !== action.payload);
         },
 
         /*======================================*/
 
-        deleteAllMessages: function (state, action)
-        {
-            state.messages = []
+        deleteAllMessages: function (state, action) {
+            state.messages = [];
         },
 
         /*======================================*/
 
-        setMessages: function (state, action)
-        {
+        setMessages: function (state, action) {
             // action.payload = messages (Array of message Objects)
-            state.messages = action.payload
+            state.messages = action.payload;
         },
 
         /*======================================*/
-    }
-})
-export const {
-    addMessage,
-    deleteMessage,
-    deleteAllMessages,
-    setMessages,
-} = messagesSlice.actions
-export default messagesSlice.reducer
+    },
+});
+export const { addMessage, deleteMessage, deleteAllMessages, setMessages } = messagesSlice.actions;
+export default messagesSlice.reducer;

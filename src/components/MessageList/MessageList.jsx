@@ -1,73 +1,61 @@
-import React, { useEffect, useRef } from 'react'
-import { useSelector } from 'react-redux'
+import React, { useEffect, useRef } from 'react';
+import { useSelector } from 'react-redux';
 
 // COMPONENETS
-import Message from '../Message/Message.jsx'
+import Message from '../Message/Message.jsx';
 
 // CSS
-import './MessageList.scss'
+import './MessageList.scss';
 
 /**
  * @props clickName (function) Clicking on a user name
  */
 
-export default function MessageList ( props )
-{
-
+export default function MessageList(props) {
     /*================================================
-        ANCHOR: STATES
+        BLOCK: STATES
     ==================================================*/
 
-    const messages = useSelector( ( state ) => { return state['messages'].messages } )
+    const messages = useSelector((state) => {
+        return state['messages'].messages;
+    });
 
     /*================================================
-        ANCHOR: HOOKS
+        BLOCK: HOOKS
     ==================================================*/
 
-    const list = useRef(null)
-    useEffect( () =>
-    {
-        list.current.scrollTop = list.current.scrollHeight
-    })
+    const list = useRef(null);
+    useEffect(() => {
+        list.current.scrollTop = list.current.scrollHeight;
+    });
 
     /*================================================
-        ANCHOR: INTERACTIONS
+        BLOCK: INTERACTIONS
     ==================================================*/
-
 
     /*================================================
-        ANCHOR: DISPLAYING
+        BLOCK: DISPLAYING
     ==================================================*/
 
-    const displayMessages = () =>
-    {
-        if ( !( messages === undefined ) && ( messages.length ) )
-        {
-            let messageArray = []
-            for (let i = messages.length-1; i > 0; i--)
-            {
+    const displayMessages = () => {
+        if (!(messages === undefined) && messages.length) {
+            let messageArray = [];
+            for (let i = messages.length - 1; i > 0; i--) {
                 messageArray.push(
-                    <Message
-                        key={i}
-                        message={messages[i]}
-                        clickName={props.clickName}
-                    />
-                )
+                    <Message key={i} message={messages[i]} clickName={props.clickName} />
+                );
             }
-            return messageArray
+            return messageArray;
         }
-    }
+    };
 
     /*================================================
-        ANCHOR: COMPONENTS
+        BLOCK: COMPONENTS
     ==================================================*/
 
     return (
-        <main
-            className='message-list'
-            ref={list}
-        >
+        <main className='message-list' ref={list}>
             {displayMessages()}
         </main>
-    )
+    );
 }
