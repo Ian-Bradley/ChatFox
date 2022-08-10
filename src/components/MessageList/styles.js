@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { STYLE_LIST_SCROLLBAR } from '../../styles/commons.js';
 import { APP_HEIGHT_MESSAGES } from '../../styles/constants.js';
 /*======================================*/
 export const MessageListContainer = styled.div`
@@ -9,6 +10,7 @@ export const MessageListContainer = styled.div`
 
     width: 100%;
     height: ${APP_HEIGHT_MESSAGES};
-    overflow-y: scroll;
+
+    ${STYLE_LIST_SCROLLBAR}
 `;
 /*======================================*/

@@ -50,6 +50,7 @@ module.exports = class DataTracker {
 
     // FUNCTION: => addUser
     addUser(user) {
+        console.log('user: ', user);
         this.state.users.push(user);
     }
 

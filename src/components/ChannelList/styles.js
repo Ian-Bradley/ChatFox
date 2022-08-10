@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { STYLE_LIST_SCROLLBAR } from '../../styles/commons.js';
 import {
     APP_SPACING,
     APP_BG_MAIN_2,
@@ -15,7 +16,8 @@ export const ChannelListContainer = styled.div`
 
     width: 100%;
     height: 100%;
-    overflow-y: scroll;
+
+    ${STYLE_LIST_SCROLLBAR}
 `;
 /*======================================*/
 export const ChannelTop = styled.div`

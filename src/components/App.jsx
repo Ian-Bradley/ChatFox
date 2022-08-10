@@ -16,6 +16,12 @@ import {
     ContainerBody,
     ContainerChat,
     ContainerSidebar,
+    Dev,
+    DevInfo,
+    DevTools,
+    DevList,
+    DevListItem,
+    DevTitle,
 } from './styles.js';
 
 // GLOBAL CONSTANTS + UTILS
@@ -365,11 +371,11 @@ export default function App() {
         ==================================================*/
 
         WS.onclose = (e) => {
-            setWSReady(false);
+            // setWSReady(false);
             // TODO: check if neeeded
-            setTimeout(() => {
-                setWS(new WebSocket(WS_URL));
-            }, 1000);
+            // setTimeout(() => {
+            //     setWS(new WebSocket(WS_URL));
+            // }, 1000);
         };
 
         /*================================================
@@ -462,7 +468,7 @@ export default function App() {
     };
 
     /*================================================
-        BLOCK: WS SENDERS - INTERACTIONS
+        BLOCK: WS SENDERS - EVENTS
     ==================================================*/
 
     // FUNCTION: => sendMessage
@@ -541,47 +547,6 @@ export default function App() {
     const onDevpref5 = () => {
         dispatch(toggle24HourTime());
     };
-    const devStyles = () => {
-        return `
-            #dev-tools {
-                position: fixed;
-                top: 0;
-                right: 267px;
-                z-index: 1000;
-                display: flex;
-                flex-flow: column nowrap;
-            
-                & > div:nth-child(1) {
-                    width: auto;
-                    white-space: nowrap;
-            
-                    & ul {
-                        list-style: none;
-                        padding: 0;
-                        margin: 0 0 20px 0;
-                        display: flex;
-                        flex-flow: column nowrap;
-                        align-items: flex-end;
-            
-                        & li {
-                            margin-top: 6px;
-                        }
-                
-                        & span {
-                            font-weight: 800;
-                            border: 2px solid black;
-                            padding: 0px 2px;
-                        }
-                    }
-                }
-            
-                & > div:nth-child(2) {
-                    display: flex;
-                    flex-flow: column nowrap;
-                }
-            }
-        `;
-    }
 
     /*================================================
         BLOCK: COMPONENTS
@@ -589,8 +554,6 @@ export default function App() {
 
     return (
         <MainApp>
-            {/* <span className='close' onClick={onClose}>+</span> */}
-
             <ContainerApp>
                 <NavBar />
                 <ContainerBody>
@@ -607,39 +570,39 @@ export default function App() {
                 </ContainerBody>
             </ContainerApp>
 
-            <div id='dev-tools'>
-                <div>
-                    <ul>
-                        <li>
-                            <span>Current User: </span>
-                        </li>
-                        <li>
+            <Dev>
+                <DevInfo>
+                    <DevList>
+                        <DevListItem>
+                            <DevTitle>Current User: </DevTitle>
+                        </DevListItem>
+                        <DevListItem>
+                            <DevTitle>ID</DevTitle>
                             {user.id + ' '}
-                            <span>ID</span>
-                        </li>
-                        <li>
+                        </DevListItem>
+                        <DevListItem>
+                            <DevTitle>Name</DevTitle>
                             {user.name + ' '}
-                            <span>Name</span>
-                        </li>
-                        <li>
+                        </DevListItem>
+                        <DevListItem>
+                            <DevTitle>Nickname</DevTitle>
                             {user.nickname + ' '}
-                            <span>Nickname</span>
-                        </li>
-                        <li>
+                        </DevListItem>
+                        <DevListItem>
+                            <DevTitle>Color</DevTitle>
                             {user.color + ' '}
-                            <span>Color</span>
-                        </li>
-                        <li>
+                        </DevListItem>
+                        <DevListItem>
+                            <DevTitle>Timestamps</DevTitle>
                             {prefs.showTimestamps + ' '}
-                            <span>Timestamps</span>
-                        </li>
-                        <li>
+                        </DevListItem>
+                        <DevListItem>
+                            <DevTitle>24HourTime</DevTitle>
                             {prefs.show24HourTime + ' '}
-                            <span>24HourTime</span>
-                        </li>
-                    </ul>
-                </div>
-                <div>
+                        </DevListItem>
+                    </DevList>
+                </DevInfo>
+                <DevTools>
                     <input
                         type='text'
                         className='name-input'
@@ -658,18 +621,6 @@ export default function App() {
                     <button onClick={onDevcolor}>Color</button>
                     <button onClick={onDevuser}>Fake User</button>
                     <div>
-                        <input type='checkbox' id='dev-name' onClick={onDevpref1} />
-                        <label htmlFor='dev-name'>Name changes</label>
-                    </div>
-                    <div>
-                        <input type='checkbox' id='dev-color' onClick={onDevpref2} />
-                        <label htmlFor='dev-color'>ColorChanges</label>
-                    </div>
-                    <div>
-                        <input type='checkbox' id='dev-user' onClick={onDevpref3} />
-                        <label htmlFor='dev-user'>User joins</label>
-                    </div>
-                    <div>
                         <input type='checkbox' id='dev-time' onClick={onDevpref4} />
                         <label htmlFor='dev-time'>Timestamps</label>
                     </div>
@@ -677,10 +628,8 @@ export default function App() {
                         <input type='checkbox' id='dev-hour' onClick={onDevpref5} />
                         <label htmlFor='dev-hour'>24 hour time</label>
                     </div>
-                </div>
-
-                {devStyles()}
-            </div>
+                </DevTools>
+            </Dev>
         </MainApp>
     );
 }

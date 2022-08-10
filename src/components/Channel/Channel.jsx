@@ -17,7 +17,7 @@ import {
 
 export default function Message(props) {
     /*================================================
-        BLOCK: INTERACTIONS
+        BLOCK: EVENTS
     ==================================================*/
 
     const onClickChannel = (e) => {
@@ -27,7 +27,7 @@ export default function Message(props) {
     };
 
     /*================================================
-        BLOCK: DISPLAYING
+        BLOCK: RENDERING
     ==================================================*/
 
     // TODO: display classes for active and locked

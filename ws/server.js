@@ -16,10 +16,10 @@ const { v4: uuidv4 } = require('uuid');
 
 const PORT = 3001;
 const server = express()
+    .use(cors())
     .use(express.static('public'))
     .listen(PORT, '0.0.0.0', 'localhost', () => console.log(`Listening on ${PORT}`));
 const WSS = new SocketServer.Server({ server });
-server.use(cors());
 
 /*================================================
     BLOCK: CLASS INITIATION

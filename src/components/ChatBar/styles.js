@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import {
+    CHATBAR_HEIGHT,
     APP_BG_MAIN_2,
     CHATBAR_WIDTH,
     CHATBAR_COLOR,
@@ -14,7 +15,7 @@ import {
 /*======================================*/
 export const ChatBarContainer = styled.div`
     width: 100%;
-    height: ${APP_HEIGHT_CHATBAR};
+    height: ${CHATBAR_HEIGHT};
 
     background: ${APP_BG_MAIN_2};
 `;

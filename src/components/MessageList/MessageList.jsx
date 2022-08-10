@@ -30,14 +30,14 @@ export default function MessageList(props) {
     });
 
     /*================================================
-        BLOCK: INTERACTIONS
+        BLOCK: EVENTS
     ==================================================*/
 
     /*================================================
-        BLOCK: DISPLAYING
+        BLOCK: RENDERING
     ==================================================*/
 
-    const displayMessages = () => {
+    const renderMessages = () => {
         if (!(messages === undefined) && messages.length) {
             let messageArray = [];
             for (let i = messages.length - 1; i > 0; i--) {
@@ -55,7 +55,7 @@ export default function MessageList(props) {
 
     return (
         <MessageListContainer ref={list}>
-            {displayMessages()}
+            {renderMessages()}
         </MessageListContainer>
     );
 }

@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import {
     USER_SPACING,
     USER_NAME_FONT_WEIGHT,
-} from '../styles/constants.js';
+} from '../../styles/constants.js';
 /*======================================*/
 export const UserContainer = styled.div`
     width: 100%;

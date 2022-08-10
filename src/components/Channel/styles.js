@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import {
     USER_SPACING,
-} from '../styles/constants.js';
+} from '../../styles/constants.js';
 /*======================================*/
 export const ChannelContainer = styled.div`
     width: 100%;

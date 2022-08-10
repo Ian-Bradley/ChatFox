@@ -6,7 +6,7 @@ import {
     MESSAGE_SPACING,
     MESSAGE_TIME_FONT_SIZE,
     USER_NAME_FONT_WEIGHT,
-} from '../styles/constants.js';
+} from '../../styles/constants.js';
 /*======================================*/
 export const MessageContainer = styled.div`
     padding: ${MESSAGE_PADDING};

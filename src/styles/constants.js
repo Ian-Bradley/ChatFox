@@ -114,6 +114,7 @@ export const MESSAGE_TIME_FONT_SIZE = '0.7rem';
 ========================================*/
 
 export const CHATBAR_WIDTH = '100%';
+export const CHATBAR_HEIGHT = '60px';
 export const CHATBAR_PADDING = '0.2rem 0.6rem';
 
 export const CHATBAR_COLOR = '#000';

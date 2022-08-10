@@ -11,10 +11,9 @@ import {
     UserListContainer,
     UserListTop,
     UserListBottom,
-    UserTotal,
-    UserSearchButton,
+    UserListTotal,
+    UserListSearch,
 } from './styles.js';
-
 /**
  * @props clickName (function) Clicking on a user name
  */
@@ -32,7 +31,7 @@ export default function UserList(props) {
     });
 
     /*=================================================
-        BLOCK: INTERACTIONS
+        BLOCK: EVENTS
     ===================================================*/
 
     const onSearchButton = (e) => {
@@ -41,10 +40,10 @@ export default function UserList(props) {
     };
 
     /*=================================================
-        BLOCK: DISPLAYING
+        BLOCK: RENDERING
     ===================================================*/
 
-    const displayUsers = () => {
+    const renderUsers = () => {
         if (!(users === undefined) && users.length) {
             let usersArray = [];
             for (let i = 0; i < users.length; i++) {
@@ -61,16 +60,16 @@ export default function UserList(props) {
     return (
         <UserListContainer>
             <UserListTop>
-                <UserTotal>{userTotal}</UserTotal>
-                <UserSearchButton>
+                <UserListTotal>{userTotal}</UserListTotal>
+                <UserListSearch>
                     <Button
                         btnClasses={'search-button'}
                         btnFunction={onSearchButton}
                         btnIcon={IconSearch}
                     />
-                </UserSearchButton>
+                </UserListSearch>
             </UserListTop>
-            <UserListBottom>{displayUsers()}</UserListBottom>
+            <UserListBottom>{renderUsers()}</UserListBottom>
         </UserListContainer>
     );
 }

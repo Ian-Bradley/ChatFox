@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 import {
-    NAV_HEIGHT,
+    APP_HEIGHT_NAV,
     APP_SPACING,
     TITLE_FONT_SIZE,
     TITLE_FONT_WEIGHT,
-} from '../styles/constants.js';
+} from '../../styles/constants.js';
 /*======================================*/
 export const NavContainer = styled.div`
     position: relative;

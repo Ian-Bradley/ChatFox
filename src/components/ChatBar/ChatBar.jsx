@@ -15,7 +15,7 @@ export default function ChatBar(props) {
     });
 
     /*================================================
-        BLOCK: INTERACTIONS
+        BLOCK: EVENTS
     ==================================================*/
 
     const onTypingMessage = (e) => {
@@ -30,10 +30,6 @@ export default function ChatBar(props) {
             e.target.value = '';
         }
     };
-
-    /*================================================
-        BLOCK: DISPLAYING
-    ==================================================*/
 
     /*================================================
         BLOCK: COMPONENTS

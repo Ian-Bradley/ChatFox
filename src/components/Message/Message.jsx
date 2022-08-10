@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 
 // GLOBAL CONSTANTS
-import { GMT_MINUTES, GMT_HOURS, GMT_DIRECTION } from '../util/constants.js';
+import { GMT_MINUTES, GMT_HOURS, GMT_DIRECTION } from '../../util/constants.js';
 
 // CSS COMPONENTS
 import {
@@ -31,7 +31,7 @@ export default function Message(props) {
     });
 
     /*================================================
-        BLOCK: INTERACTIONS
+        BLOCK: EVENTS
     ==================================================*/
 
     const onclickName = (e) => {
@@ -41,14 +41,14 @@ export default function Message(props) {
     };
 
     /*================================================
-        BLOCK: DISPLAYING
+        BLOCK: RENDERING
     ==================================================*/
 
     // Regular expression for image extensions
     // TODO: Switch to checking in ChatBar and storing URL to message object
     const imageExtensionRegex = /\.( gif|jp?g|png|svg|bmp|tiff|bat )$/i;
 
-    const displayTimestamp = () => {
+    const renderTimestamp = () => {
         if (prefs.showTimeStamps) {
             // Mon, 01 Aug 2022 02:38:32 GMT
             let hours = parseInt(props.message.time.slice(17, 19));
@@ -121,7 +121,7 @@ export default function Message(props) {
                 return (
                     <MessageContainer>
                         <MessageDiv>
-                            {displayTimestamp()}
+                            {renderTimestamp()}
                             <MessageName
                                 style={{ color: props.message.color }}
                                 onClick={onclickName}
@@ -142,7 +142,7 @@ export default function Message(props) {
                 return (
                     <MessageContainer>
                         <MessageDiv>
-                            {displayTimestamp()}
+                            {renderTimestamp()}
                             <MessageName
                                 className={'message-name'}
                                 style={{ color: props.message.color }}
@@ -174,7 +174,7 @@ export default function Message(props) {
             return (
                 <main className='container-message'>
                     <div className='message notification'>
-                        {displayTimestamp()}
+                        {renderTimestamp()}
                         <span
                             className={'message-name'}
                             style={{ color: props.message.color }}
@@ -196,7 +196,7 @@ export default function Message(props) {
             return (
                 <main className='container-message'>
                     <div className='message notification'>
-                        {displayTimestamp()}
+                        {renderTimestamp()}
                         <span
                             className={'message-name'}
                             style={{ color: props.message.color }}
@@ -218,7 +218,7 @@ export default function Message(props) {
             return (
                 <main className='container-message'>
                     <div className='message notification'>
-                        {displayTimestamp()}
+                        {renderTimestamp()}
                         <span
                             className={'message-name'}
                             style={{ color: props.message.color }}
@@ -247,7 +247,7 @@ export default function Message(props) {
             return (
                 <main className='container-message'>
                     <div className='message notification'>
-                        {displayTimestamp()}
+                        {renderTimestamp()}
                         <span
                             className={'message-name'}
                             style={{ color: props.message.color }}
@@ -276,7 +276,7 @@ export default function Message(props) {
             return (
                 <main className='container-message'>
                     <div className='message notification'>
-                        {displayTimestamp()}
+                        {renderTimestamp()}
                         <span
                             className={'message-name'}
                             style={{ color: props.message.color }}

@@ -28,7 +28,7 @@ export default function NavBar(props) {
     });
 
     /*================================================
-        BLOCK: INTERACTIONS
+        BLOCK: EVENTS
     ==================================================*/
 
     const onUser = () => {
@@ -43,11 +43,7 @@ export default function NavBar(props) {
         console.log('===> onSettings');
         console.log('===> END - onSettings');
     };
-
-    /*================================================
-        BLOCK: DISPLAYING
-    ==================================================*/
-
+    
     /*================================================
         BLOCK: COMPONENTS
     ==================================================*/

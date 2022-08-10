@@ -23,7 +23,7 @@ export default function UserList(props) {
     });
 
     /*=================================================
-        BLOCK: INTERACTIONS
+        BLOCK: EVENTS
     ===================================================*/
 
     const onSearchButton = (e) => {
@@ -32,10 +32,10 @@ export default function UserList(props) {
     };
 
     /*=================================================
-        BLOCK: DISPLAYING
+        BLOCK: RENDERING
     ===================================================*/
 
-    const displayChannels = () => {
+    const renderChannels = () => {
         if (!(channels === undefined) && channels.length) {
             let channelsArray = [];
             for (let i = 0; i < channels.length; i++) {
@@ -62,7 +62,7 @@ export default function UserList(props) {
                     />
                 </ChannelSearch>
             </ChannelTop>
-            <ChannelBottom>{displayChannels()}</ChannelBottom>
+            <ChannelBottom>{renderChannels()}</ChannelBottom>
         </ChannelListContainer>
     );
 }

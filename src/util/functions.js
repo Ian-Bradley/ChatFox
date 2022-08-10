@@ -24,8 +24,8 @@ export const generateRandomColor = () => {
     for (let i = 0; i < 6; i++) {
         randomColor += hexCharacters.charAt(Math.floor(Math.random() * hexCharacters.length));
     }
-    if (this.isTooDark(randomColor)) {
-        return this.generateRandomColor();
+    if (isTooDark(randomColor)) {
+        return generateRandomColor();
     } else {
         return randomColor;
     }

@@ -16,7 +16,7 @@ import {
 
 export default function User(props) {
     /*================================================
-        BLOCK: INTERACTIONS
+        BLOCK: EVENTS
     ==================================================*/
 
     const onClickName = (e) => {
@@ -24,10 +24,6 @@ export default function User(props) {
         props.clickName(e);
         console.log('===> END - onClickName');
     };
-
-    /*================================================
-        BLOCK: DISPLAYING
-    ==================================================*/
 
     /*================================================
         BLOCK: COMPONENTS
