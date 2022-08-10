@@ -6,8 +6,8 @@ import Channel from '../Channel/Channel.jsx';
 import Button from '../Button/Button.jsx';
 import IconSearch from '../../images/icons/search.svg';
 
-// CSS
-import './ChannelList.scss';
+// CSS COMPONENTS
+import { ChannelListContainer, ChannelTop, ChannelBottom, ChannelSearch } from './styles.js';
 
 /**
  * @props clickChannel (Function) Clicking on a chat channel
@@ -52,17 +52,17 @@ export default function UserList(props) {
     ===================================================*/
 
     return (
-        <main className='channel-list'>
-            <div className='channel-top'>
-                <div className='channel-search-button'>
+        <ChannelListContainer>
+            <ChannelTop>
+                <ChannelSearch>
                     <Button
                         btnClasses={'search-button'}
                         btnFunction={onSearchButton}
                         btnIcon={IconSearch}
                     />
-                </div>
-            </div>
-            <div className='channel-bottom'>{displayChannels()}</div>
-        </main>
+                </ChannelSearch>
+            </ChannelTop>
+            <ChannelBottom>{displayChannels()}</ChannelBottom>
+        </ChannelListContainer>
     );
 }

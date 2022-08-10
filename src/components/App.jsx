@@ -1,18 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-const WS = new WebSocket(WS_URL);
+const WS = new WebSocket(WS_URL); // TODO: move to context layer provider
 
 // COMPONENETS
-import Nav from './Nav/Nav.jsx';
+import NavBar from './NavBar/NavBar.jsx';
 import ChatBar from './ChatBar/ChatBar.jsx';
 import UserList from './UserList/UserList.jsx';
 import ChannelList from './ChannelList/ChannelList.jsx';
 import MessageList from './MessageList/MessageList.jsx';
 
-// CSS + GLOBAL CONSTANTS + UTILS
+// CSS COMPONENTS
+import {
+    MainApp,
+    ContainerApp,
+    ContainerBody,
+    ContainerChat,
+    ContainerSidebar,
+} from './styles.js';
+
+// GLOBAL CONSTANTS + UTILS
 import { WS_URL } from '../util/constants.js';
 import { generateRandomName, generateRandomColor } from '../util/functions.js';
-import './App.scss';
 
 /*================================================
     BLOCK: REDUX ACTIONS
@@ -39,7 +47,7 @@ import { toggleTimestamps, toggle24HourTime } from '../redux/features/preference
 /*======================================*/
 import {
     setChannel,
-    setName,
+    // setName,
     setPublic,
     setPrivate,
     setPassword,
@@ -149,7 +157,7 @@ export default function App() {
                         dispatch(setUserTotal(updateData.users.length + 1)); // + 1 for current user
                     }
 
-                    // TODO: =>>>>> AWAIT/ASYNC DISPATCHES BEFORE SENDING THIS
+                    // TODO: =>>>>> MOVE USER ID AND USERCONNECTD TO NON-WS SERVER CODE
                     // ==> Send current user (with new user message) information to server
                     let newUpdate = {
                         type: 'userConnected',
@@ -509,7 +517,6 @@ export default function App() {
             })
         );
     };
-
     const onDevcolor = () => {
         sendUserColor(generateRandomColor());
     };
@@ -528,37 +535,77 @@ export default function App() {
     const onDevname2 = () => {
         sendUserNickname(generateRandomName());
     };
-
     const onDevpref4 = () => {
         dispatch(toggleTimestamps());
     };
     const onDevpref5 = () => {
         dispatch(toggle24HourTime());
     };
+    const devStyles = () => {
+        return `
+            #dev-tools {
+                position: fixed;
+                top: 0;
+                right: 267px;
+                z-index: 1000;
+                display: flex;
+                flex-flow: column nowrap;
+            
+                & > div:nth-child(1) {
+                    width: auto;
+                    white-space: nowrap;
+            
+                    & ul {
+                        list-style: none;
+                        padding: 0;
+                        margin: 0 0 20px 0;
+                        display: flex;
+                        flex-flow: column nowrap;
+                        align-items: flex-end;
+            
+                        & li {
+                            margin-top: 6px;
+                        }
+                
+                        & span {
+                            font-weight: 800;
+                            border: 2px solid black;
+                            padding: 0px 2px;
+                        }
+                    }
+                }
+            
+                & > div:nth-child(2) {
+                    display: flex;
+                    flex-flow: column nowrap;
+                }
+            }
+        `;
+    }
 
     /*================================================
         BLOCK: COMPONENTS
     ==================================================*/
 
     return (
-        <main className='app'>
+        <MainApp>
             {/* <span className='close' onClick={onClose}>+</span> */}
 
-            <div className='container-app'>
-                <Nav />
-                <div className='container-body'>
-                    <div className='container-channels'>
+            <ContainerApp>
+                <NavBar />
+                <ContainerBody>
+                    <ContainerSidebar>
                         <ChannelList clickChannel={clickChannel} />
-                    </div>
-                    <div className='container-chat'>
+                    </ContainerSidebar>
+                    <ContainerChat>
                         <MessageList clickName={clickName} />
                         <ChatBar sendMessage={sendMessage} />
-                    </div>
-                    <div className='container-users'>
+                    </ContainerChat>
+                    <ContainerSidebar>
                         <UserList clickName={clickName} />
-                    </div>
-                </div>
-            </div>
+                    </ContainerSidebar>
+                </ContainerBody>
+            </ContainerApp>
 
             <div id='dev-tools'>
                 <div>
@@ -631,7 +678,9 @@ export default function App() {
                         <label htmlFor='dev-hour'>24 hour time</label>
                     </div>
                 </div>
+
+                {devStyles()}
             </div>
-        </main>
+        </MainApp>
     );
 }

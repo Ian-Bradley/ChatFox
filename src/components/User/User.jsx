@@ -1,5 +1,9 @@
 import React from 'react';
-import './User.scss';
+import {
+    UserContainer,
+    UserName,
+    UserDiv,
+} from './styles.js';
 
 /**
  * @props user (Object)
@@ -10,7 +14,7 @@ import './User.scss';
  * @props clickName (Function) Clicking on a user name
  */
 
-export default function Message(props) {
+export default function User(props) {
     /*================================================
         BLOCK: INTERACTIONS
     ==================================================*/
@@ -30,16 +34,15 @@ export default function Message(props) {
     ==================================================*/
 
     return (
-        <main className='container-user'>
-            <div className='user'>
-                <span
-                    className={'user-name'}
+        <UserContainer>
+            <UserDiv>
+                <UserName
                     style={{ color: props.user.color }}
                     onClick={onClickName}
                 >
                     {props.user.nickname}
-                </span>
-            </div>
-        </main>
+                </UserName>
+            </UserDiv>
+        </UserContainer>
     );
 }

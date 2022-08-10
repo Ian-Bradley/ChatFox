@@ -6,14 +6,19 @@ import Button from '../Button/Button.jsx';
 import IconUser from '../../images/icons/user.svg';
 import IconSettings from '../../images/icons/settings.svg';
 
-// CSS
-import './Nav.scss';
+// CSS COMPONENTS
+import {
+    NavContainer,
+    NavTitleContainer,
+    NavTitle,
+    Nav,
+} from './styles.js';
 
 /**
  * @props
  */
 
-export default function Nav(props) {
+export default function NavBar(props) {
     /*================================================
         BLOCK: STATES
     ==================================================*/
@@ -46,13 +51,13 @@ export default function Nav(props) {
     /*================================================
         BLOCK: COMPONENTS
     ==================================================*/
-
+    // TODO: change to nav-left and nav-right
     return (
-        <main className='container-nav'>
-            <div className='container-title'>
-                <span>{document.title}</span>
-            </div>
-            <nav>
+        <NavContainer>
+            <NavTitleContainer>
+                <NavTitle>{document.title}</NavTitle>
+            </NavTitleContainer>
+            <Nav>
                 <Button
                     btnClasses={'nav-settings'}
                     btnFunction={onSettings}
@@ -64,7 +69,7 @@ export default function Nav(props) {
                     btnText={user.nickname}
                     btnIcon={IconUser}
                 />
-            </nav>
-        </main>
+            </Nav>
+        </NavContainer>
     );
 }

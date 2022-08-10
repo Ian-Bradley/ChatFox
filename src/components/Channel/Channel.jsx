@@ -1,5 +1,9 @@
 import React from 'react';
-import './Channel.scss';
+import {
+    ChannelContainer,
+    ChannelName,
+    ChannelDiv,
+} from './styles.js';
 
 /**
  * @props channel (Object)
@@ -33,12 +37,12 @@ export default function Message(props) {
     ==================================================*/
 
     return (
-        <main className='container-channel'>
-            <div className='channel'>
-                <span className={'channel-name'} onClick={onClickChannel}>
+        <ChannelContainer>
+            <ChannelDiv>
+                <ChannelName onClick={onClickChannel}>
                     {props.channel.name}
-                </span>
-            </div>
-        </main>
+                </ChannelName>
+            </ChannelDiv>
+        </ChannelContainer>
     );
 }

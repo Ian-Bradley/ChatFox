@@ -9,6 +9,7 @@
     BLOCK: CONFIGURATION
 ==================================================*/
 
+const cors = require('cors');
 const express = require('express');
 const SocketServer = require('ws');
 const { v4: uuidv4 } = require('uuid');
@@ -18,6 +19,7 @@ const server = express()
     .use(express.static('public'))
     .listen(PORT, '0.0.0.0', 'localhost', () => console.log(`Listening on ${PORT}`));
 const WSS = new SocketServer.Server({ server });
+server.use(cors());
 
 /*================================================
     BLOCK: CLASS INITIATION
@@ -27,7 +29,30 @@ const DataTracker = require('./DataTracker.js');
 const ServerData = new DataTracker();
 
 /*================================================
-    BLOCK: WS SERVER FUNCTIONS
+    BLOCK: ROUTES
+==================================================*/
+
+// app.get('/room', function (req, res, next) {
+// 	const room = {
+// 		name: req.query.name,
+// 		id: uuidv4()
+// 	};
+// 	rooms[room.id] = room;
+// 	chatLogs[room.id] = [];
+// 	res.json(room);
+// });
+
+// app.get('/room/:roomId', function (req, res, next) {
+// 	const roomId = req.params.roomId;
+// 	const response = {
+// 		...rooms[roomId],
+// 		chats: chatLogs[roomId]
+// 	};
+// 	res.json(response);
+// });
+
+/*================================================
+    BLOCK: WS FUNCTIONS
 ==================================================*/
 
 WSS.broadcast = (data, wsClient) => {

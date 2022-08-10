@@ -6,8 +6,14 @@ import User from '../User/User.jsx';
 import Button from '../Button/Button.jsx';
 import IconSearch from '../../images/icons/search.svg';
 
-// CSS
-import './UserList.scss';
+// CSS COMPONENTS
+import {
+    UserListContainer,
+    UserListTop,
+    UserListBottom,
+    UserTotal,
+    UserSearchButton,
+} from './styles.js';
 
 /**
  * @props clickName (function) Clicking on a user name
@@ -53,18 +59,18 @@ export default function UserList(props) {
     ===================================================*/
 
     return (
-        <main className='user-list'>
-            <div className='user-top'>
-                <span className='user-total'>{userTotal}</span>
-                <div className='user-search-button'>
+        <UserListContainer>
+            <UserListTop>
+                <UserTotal>{userTotal}</UserTotal>
+                <UserSearchButton>
                     <Button
                         btnClasses={'search-button'}
                         btnFunction={onSearchButton}
                         btnIcon={IconSearch}
                     />
-                </div>
-            </div>
-            <div className='user-bottom'>{displayUsers()}</div>
-        </main>
+                </UserSearchButton>
+            </UserListTop>
+            <UserListBottom>{displayUsers()}</UserListBottom>
+        </UserListContainer>
     );
 }
