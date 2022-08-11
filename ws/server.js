@@ -1,31 +1,26 @@
-/*======================================
-    BLOCK: REQUIRES
-========================================*/
-
-// const C = require('./lib/util/constants.js');
-// const F = require('./lib/util/functions.js');
-
 /*================================================
     BLOCK: CONFIGURATION
 ==================================================*/
 
 const cors = require('cors');
+// const db = require('./db/db');
+const config = require('./config');
 const express = require('express');
 const SocketServer = require('ws');
 const { v4: uuidv4 } = require('uuid');
-
-const PORT = 3001;
 const server = express()
     .use(cors())
     .use(express.static('public'))
-    .listen(PORT, '0.0.0.0', 'localhost', () => console.log(`Listening on ${PORT}`));
+    .listen(config.server.port, config.server.ip, config.server.domain, () =>
+        console.log(`Listening on ${config.server.domain}:${config.server.port}`)
+    );
 const WSS = new SocketServer.Server({ server });
 
 /*================================================
     BLOCK: CLASS INITIATION
 ==================================================*/
 
-const DataTracker = require('./DataTracker.js');
+const DataTracker = require('./lib/DataTracker.js');
 const ServerData = new DataTracker();
 
 /*================================================

@@ -1,5 +1,5 @@
 {
-    "name": "chatfoxeserver",
+    "name": "chattrserver",
     "version": "1.0.0",
     "description": "websocket server for ChatFox",
     "main": "server.js",
@@ -10,7 +10,10 @@
     "license": "MIT",
     "dependencies": {
         "cors": "^2.8.5",
+        "dotenv": "^16.0.1",
         "express": "^4.17.1",
+        "mongodb": "^4.8.1",
+        "pg": "^8.7.3",
         "uuid": "^8.3.2",
         "ws": "^8.3.0"
     }
