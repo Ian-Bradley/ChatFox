@@ -1,17 +1,19 @@
-const config = require('../config');
-const { Client } = require('pg');
-const client = new Client({
-    host: config.db.host,
-    port: config.db.port,
-    name: config.db.name,
-    user: config.db.user,
-    password: config.db.password,
-});
+/*================================================
+    BLOCK: IMPORTS
+==================================================*/
 
-client
-    .connect()
-    .then(() => console.log('Connected'))
-    .then(() => client.query('SELECT name FROM users'))
-    .then((res) => console.table(res.rows))
-    .catch((err) => console.log(err))
-    .finally(() => client.end());
+const users = require('./queries/users.query.js');
+const rooms = require('./queries/rooms.query.js');
+const channels = require('./queries/channels.query.js');
+
+/*================================================
+    BLOCK: DATABASE DECLARATION
+==================================================*/
+
+const db = {
+    users,
+    rooms,
+    channels,
+};
+// console.log('db ==> db = ', db);
+module.exports = db;

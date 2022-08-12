@@ -2,23 +2,19 @@
     BLOCK: CONFIGURATION
 ==================================================*/
 
-const cors = require('cors');
-// const db = require('./db/db');
 const config = require('./config');
-const express = require('express');
-const SocketServer = require('ws');
 const { v4: uuidv4 } = require('uuid');
+
+const cors = require('cors');
+const express = require('express');
 const server = express()
     .use(cors())
     .use(express.static('public'))
     .listen(config.server.port, config.server.ip, config.server.domain, () =>
         console.log(`Listening on ${config.server.domain}:${config.server.port}`)
     );
+const SocketServer = require('ws');
 const WSS = new SocketServer.Server({ server });
-
-/*================================================
-    BLOCK: CLASS INITIATION
-==================================================*/
 
 const DataTracker = require('./lib/DataTracker.js');
 const ServerData = new DataTracker();

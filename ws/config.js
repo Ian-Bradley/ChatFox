@@ -1,6 +1,6 @@
 require('dotenv').config({ path: '../.env' });
 const ENV = process.env.NODE_ENV;
-console.log(process.env.NODE_ENV);
+// console.log('/config.js: NODE_ENV = ', process.env.NODE_ENV);
 /*================================================*/
 const dev = {
     server: {
@@ -10,10 +10,10 @@ const dev = {
     },
     db: {
         host: process.env.DEV_DB_HOST || 'localhost',
-        port: parseInt(process.env.DEV_DB_PORT) || 27017,
-        name: process.env.DEV_DB_NAME || 'db',
-        user: process.env.DEV_DB_USER || '',
-        password: process.env.DEV_DB_PASSWORD || '',
+        port: parseInt(process.env.DEV_DB_PORT) || 5432,
+        name: process.env.DEV_DB_NAME || 'postgres',
+        user: process.env.DEV_DB_USER || 'postgres',
+        password: process.env.DEV_DB_PASSWORD || '123',
     },
 };
 /*================================================*/
@@ -25,10 +25,10 @@ const test = {
     },
     db: {
         host: process.env.TEST_DB_HOST || 'localhost',
-        port: parseInt(process.env.TEST_DB_PORT) || 27017,
-        name: process.env.TEST_DB_NAME || 'test',
-        user: process.env.TEST_DB_USER || '',
-        password: process.env.TEST_DB_PASSWORD || '',
+        port: parseInt(process.env.TEST_DB_PORT) || 5432,
+        name: process.env.TEST_DB_NAME || 'postgres',
+        user: process.env.TEST_DB_USER || 'postgres',
+        password: process.env.TEST_DB_PASSWORD || '123',
     },
 };
 /*================================================*/
@@ -40,10 +40,10 @@ const prod = {
     },
     db: {
         host: process.env.PROD_DB_HOST || 'localhost',
-        port: parseInt(process.env.PROD_DB_PORT) || 27017,
-        name: process.env.PROD_DB_NAME || 'dbch',
-        user: process.env.PROD_DB_USER || '',
-        password: process.env.PROD_DB_PASSWORD || '',
+        port: parseInt(process.env.PROD_DB_PORT) || 5432,
+        name: process.env.PROD_DB_NAME || 'postgres',
+        user: process.env.PROD_DB_USER || 'postgres',
+        password: process.env.PROD_DB_PASSWORD || '123',
     },
 };
 /*================================================*/

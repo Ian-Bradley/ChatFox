@@ -14,6 +14,8 @@ let userSlice = createSlice({
     name: 'user',
     initialState: initialState,
     reducers: {
+        /*======================================*/
+
         setID: function (state, action) {
             // action.payload = id (String)
             state.user.id = action.payload;

@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-    preferences: {
+    prefs: {
         showTimestamps: false,
         showNameChanges: false,
         showColorChanges: false,
@@ -11,19 +11,19 @@ const initialState = {
 };
 
 let preferencesSlice = createSlice({
-    name: 'preferences',
+    name: 'prefs',
     initialState: initialState,
     reducers: {
         /*======================================*/
 
         toggleTimestamps: function (state, action) {
-            state.preferences.showTimestamps = !state.preferences.showTimestamps;
+            state.prefs.showTimestamps = !state.prefs.showTimestamps;
         },
 
         /*======================================*/
 
         toggle24HourTime: function (state, action) {
-            state.preferences.show24HourTime = !state.preferences.show24HourTime;
+            state.prefs.show24HourTime = !state.prefs.show24HourTime;
         },
 
         /*======================================*/

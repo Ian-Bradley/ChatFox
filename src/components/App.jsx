@@ -36,10 +36,10 @@ import {
     setUserTotal,
     incrementUserTotal,
     decrementUserTotal,
-} from '../redux/features/userTotal.feature.js';
+} from '../redux/slices/userTotal.slice.js';
 /*======================================*/
-import { setID, setName, setNickname, setColor } from '../redux/features/user.feature.js';
-/*======================================*/
+import { setID, setName, setNickname, setColor } from '../redux/slices/user.slice.js';
+/*================================================*/
 import {
     addUser,
     removeUser,
@@ -47,18 +47,18 @@ import {
     setUserName,
     setUserNickname,
     setUserColor,
-} from '../redux/features/users.feature.js';
-/*======================================*/
-import { toggleTimestamps, toggle24HourTime } from '../redux/features/preferences.feature.js';
-/*======================================*/
+} from '../redux/slices/users.slice.js';
+/*================================================*/
+import { toggleTimestamps, toggle24HourTime } from '../redux/slices/prefs.slice.js';
+/*================================================*/
 import {
     setChannel,
     // setName,
     setPublic,
     setPrivate,
     setPassword,
-} from '../redux/features/channel.feature.js';
-/*======================================*/
+} from '../redux/slices/channel.slice.js';
+/*================================================*/
 import {
     addChannel,
     deleteChannel,
@@ -69,17 +69,17 @@ import {
     setChannelPrivate,
     setChannelPublic,
     setChannelPassword,
-} from '../redux/features/channels.feature.js';
-/*======================================*/
+} from '../redux/slices/channels.slice.js';
+/*================================================*/
 import {
     addMessage,
     deleteMessage,
     deleteAllMessages,
     setMessages,
-} from '../redux/features/messages.feature.js';
-/*======================================*/
-import { addLogItem, deleteLogItem, deleteAllLogItems } from '../redux/features/log.feature.js';
-/*======================================*/
+} from '../redux/slices/messages.slice.js';
+/*================================================*/
+import { addLogItem, deleteLogItem, deleteAllLogItems } from '../redux/slices/log.slice.js';
+/*================================================*/
 
 export default function App() {
     /*================================================
@@ -93,7 +93,7 @@ export default function App() {
         return state['user'].user;
     });
     const prefs = useSelector((state) => {
-        return state['preferences'].preferences;
+        return state['prefs'].prefs;
     });
 
     // Hooks
@@ -508,7 +508,7 @@ export default function App() {
         // TODO: channel clicking
         console.log('===> END - clickChannel');
     };
-
+    
     /*================================================
         BLOCK: DEV TOOLS
     ==================================================*/

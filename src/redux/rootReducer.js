@@ -1,20 +1,20 @@
-import logReducer from './features/log.feature.js';
-import userReducer from './features/user.feature.js';
-import usersReducer from './features/users.feature.js';
-import channelReducer from './features/channel.feature.js';
-import channelsReducer from './features/channels.feature.js';
-import messagesReducer from './features/messages.feature.js';
-import userTotalReducer from './features/userTotal.feature.js';
-import preferencesReducer from './features/preferences.feature.js';
+import logReducer from './slices/log.slice.js';
+import userReducer from './slices/user.slice.js';
+import usersReducer from './slices/users.slice.js';
+import prefsReducer from './slices/prefs.slice.js';
+import channelReducer from './slices/channel.slice.js';
+import channelsReducer from './slices/channels.slice.js';
+import messagesReducer from './slices/messages.slice.js';
+import userTotalReducer from './slices/userTotal.slice.js';
 
 const rootReducer = {
     log: logReducer,
     user: userReducer,
     users: usersReducer,
-    messages: messagesReducer,
+    prefs: prefsReducer,
     channel: channelReducer,
+    messages: messagesReducer,
     channels: channelsReducer,
     userTotal: userTotalReducer,
-    preferences: preferencesReducer,
 };
 export default rootReducer;

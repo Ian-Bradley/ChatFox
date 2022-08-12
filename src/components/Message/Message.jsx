@@ -27,7 +27,7 @@ export default function Message(props) {
     ==================================================*/
 
     const prefs = useSelector((state) => {
-        return state['preferences'].preferences;
+        return state['prefs'].prefs;
     });
 
     /*================================================
