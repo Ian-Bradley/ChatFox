@@ -2,15 +2,17 @@ import styled from 'styled-components';
 import {
     APP_HEIGHT_NAV,
     APP_SPACING,
-    TITLE_FONT_SIZE,
-    TITLE_FONT_WEIGHT,
+    APP_TITLE_FONT_SIZE,
+    APP_TITLE_FONT_WEIGHT,
 } from '../../styles/constants.js';
+/*======================================*/
 /*======================================*/
 export const NavContainer = styled.div`
     position: relative;
     width: 100%;
     height: ${APP_HEIGHT_NAV};
 `;
+/*======================================*/
 /*======================================*/
 export const NavTitleContainer = styled.div`
     position: fixed;
@@ -24,10 +26,12 @@ export const NavTitleContainer = styled.div`
     width: 100%;
 `;
 /*======================================*/
+/*======================================*/
 export const NavTitle = styled.span`
-    font-size: ${TITLE_FONT_SIZE};
-    font-weight: ${TITLE_FONT_WEIGHT};
+    font-size: ${APP_TITLE_FONT_SIZE};
+    font-weight: ${APP_TITLE_FONT_WEIGHT};
 `;
+/*======================================*/
 /*======================================*/
 export const Nav = styled.nav`
     position: fixed;
@@ -37,4 +41,5 @@ export const Nav = styled.nav`
     padding: 0;
     margin: 0;
 `;
+/*======================================*/
 /*======================================*/

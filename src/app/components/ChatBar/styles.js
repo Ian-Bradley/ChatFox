@@ -13,12 +13,14 @@ import {
     CHATBAR_PADDING,
 } from '../../styles/constants.js';
 /*======================================*/
+/*======================================*/
 export const ChatBarContainer = styled.div`
     width: 100%;
     height: ${CHATBAR_HEIGHT};
 
     background: ${APP_BG_MAIN_2};
 `;
+/*======================================*/
 /*======================================*/
 export const ChatBarInputContainer = styled.div`
     display: flex;
@@ -29,6 +31,7 @@ export const ChatBarInputContainer = styled.div`
     width: ${CHATBAR_WIDTH};
     height: 100%;
 `;
+/*======================================*/
 /*======================================*/
 export const ChatBarInput = styled.input`
     width: 100%;
@@ -45,4 +48,5 @@ export const ChatBarInput = styled.input`
     line-height: ${CHATBAR_LINE_HEIGHT};
     padding: ${CHATBAR_PADDING};
 `;
+/*======================================*/
 /*======================================*/

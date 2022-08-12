@@ -3,10 +3,11 @@ import { generateRandomName, generateRandomColor } from '../../util/functions.js
 
 const initialState = {
     user: {
-        id: '1',
+        id: 0,
         name: generateRandomName(true),
         nickname: generateRandomName(false),
         color: generateRandomColor(),
+        loggedIn: false,
     },
 };
 
@@ -40,6 +41,13 @@ let userSlice = createSlice({
         setColor: function (state, action) {
             // action.payload = color (String [HEX])
             state.user.color = action.payload;
+        },
+
+        /*======================================*/
+
+        setLoggedIn: function (state, action) {
+            // action.payload = logged in status (Boolean)
+            state.user.loggedIn = action.payload;
         },
 
         /*======================================*/

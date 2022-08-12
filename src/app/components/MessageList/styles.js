@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { STYLE_LIST_SCROLLBAR } from '../../styles/commons.js';
 import { APP_HEIGHT_MESSAGES } from '../../styles/constants.js';
 /*======================================*/
+/*======================================*/
 export const MessageListContainer = styled.div`
     display: flex;
     flex-flow: column-reverse nowrap;
@@ -13,4 +14,5 @@ export const MessageListContainer = styled.div`
 
     ${STYLE_LIST_SCROLLBAR}
 `;
+/*======================================*/
 /*======================================*/

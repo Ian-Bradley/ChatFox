@@ -3,11 +3,11 @@ import { useSelector, useDispatch } from 'react-redux';
 const WS = new WebSocket(WS_URL); // TODO: move to context layer provider
 
 // COMPONENETS
-import NavBar from './NavBar/NavBar.jsx';
-import ChatBar from './ChatBar/ChatBar.jsx';
-import UserList from './UserList/UserList.jsx';
-import ChannelList from './ChannelList/ChannelList.jsx';
-import MessageList from './MessageList/MessageList.jsx';
+import NavBar from './components/NavBar/NavBar.jsx';
+import ChatBar from './components/ChatBar/ChatBar.jsx';
+import UserList from './components/UserList/UserList.jsx';
+import ChannelList from './components/ChannelList/ChannelList.jsx';
+import MessageList from './components/MessageList/MessageList.jsx';
 
 // CSS COMPONENTS
 import {
@@ -38,7 +38,7 @@ import {
     decrementUserTotal,
 } from '../redux/slices/userTotal.slice.js';
 /*======================================*/
-import { setID, setName, setNickname, setColor } from '../redux/slices/user.slice.js';
+import { setID, setName, setNickname, setColor, setLoggedIn } from '../redux/slices/user.slice.js';
 /*================================================*/
 import {
     addUser,
@@ -81,7 +81,7 @@ import {
 import { addLogItem, deleteLogItem, deleteAllLogItems } from '../redux/slices/log.slice.js';
 /*================================================*/
 
-export default function App() {
+export default function App(props) {
     /*================================================
         BLOCK: STATE
     ==================================================*/
@@ -100,20 +100,7 @@ export default function App() {
     const [WSReady, setWSReady] = useState(false);
 
     /*================================================
-        BLOCK: HOOKS - USER INFO
-    ==================================================*/
-
-    useEffect(() => {
-        console.log('---------- USE-EFFECT - User Info ----------');
-        // TODO: Cookies
-        // Get current userID (and maybe name/team/color) from cookies
-        // If ID is not present, auth page has failed to store cookie
-        // let userID = this.getCookie('user-id')
-        // this.set_user_ID( userID )
-    });
-
-    /*================================================
-        BLOCK: HOOKS - WEBSOCKET COMMUNICATION
+        BLOCK: HOOK - WEBSOCKET COMMUNICATION
     ==================================================*/
 
     useEffect(() => {
@@ -421,8 +408,8 @@ export default function App() {
         console.log('===> END - sendUserName');
     };
 
-    /*======================================*/
-    /*======================================*/
+    /*================================================*/
+    /*================================================*/
 
     // FUNCTION: => sendUserNickname
     const sendUserNickname = (newNickname) => {
@@ -444,8 +431,8 @@ export default function App() {
         console.log('===> END - sendUserNickname');
     };
 
-    /*======================================*/
-    /*======================================*/
+    /*================================================*/
+    /*================================================*/
 
     // FUNCTION: => sendUserColor
     const sendUserColor = (newColor) => {
@@ -483,8 +470,8 @@ export default function App() {
         console.log('===> END - sendMessage');
     };
 
-    /*======================================*/
-    /*======================================*/
+    /*================================================*/
+    /*================================================*/
 
     // FUNCTION: => clickName
     const clickName = (data) => {
@@ -498,8 +485,8 @@ export default function App() {
         console.log('===> END - clickName');
     };
 
-    /*======================================*/
-    /*======================================*/
+    /*================================================*/
+    /*================================================*/
 
     // FUNCTION: => clickChannel
     const clickChannel = (data) => {
@@ -508,7 +495,7 @@ export default function App() {
         // TODO: channel clicking
         console.log('===> END - clickChannel');
     };
-    
+
     /*================================================
         BLOCK: DEV TOOLS
     ==================================================*/

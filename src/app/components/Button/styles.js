@@ -4,6 +4,7 @@ import {
 
 } from '../../styles/constants.js';
 /*======================================*/
+/*======================================*/
 export const Button = styled.div`
     position: relative;
     cursor: pointer;
@@ -40,6 +41,7 @@ export const Button = styled.div`
     }
 `;
 /*======================================*/
+/*======================================*/
 export const ButtonIcon = styled.div`
     width: $button-icon-size;
     height: $button-icon-size;
@@ -55,4 +57,5 @@ export const ButtonIcon = styled.div`
         margin-right: 4px;
     }
 `;
+/*======================================*/
 /*======================================*/

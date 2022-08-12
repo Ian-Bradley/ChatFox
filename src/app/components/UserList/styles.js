@@ -8,6 +8,7 @@ import {
     USER_TOTAL_FONT_WEIGHT,
 } from '../../styles/constants.js';
 /*======================================*/
+/*======================================*/
 export const UserListContainer = styled.div`
     position: relative;
 
@@ -22,6 +23,7 @@ export const UserListContainer = styled.div`
     ${STYLE_LIST_SCROLLBAR}
 `;
 /*======================================*/
+/*======================================*/
 export const UserListTop = styled.div`
     display: flex;
     flex-flow: row nowrap;
@@ -33,6 +35,7 @@ export const UserListTop = styled.div`
     width: 100%;
 `;
 /*======================================*/
+/*======================================*/
 export const UserListTotal = styled.span`
     position: absolute;
     top: ${APP_SPACING};
@@ -42,11 +45,13 @@ export const UserListTotal = styled.span`
     font-weight: ${USER_TOTAL_FONT_WEIGHT};
 `;
 /*======================================*/
+/*======================================*/
 export const UserListSearch = styled.div`
     position: absolute;
     bottom: ${APP_SPACING};
     right: ${APP_SPACING};
 `;
+/*======================================*/
 /*======================================*/
 export const UserListBottom = styled.div`
     background: ${APP_BG_MAIN_2};
@@ -54,4 +59,5 @@ export const UserListBottom = styled.div`
     width: 100%;
     height: 100%;
 `;
+/*======================================*/
 /*======================================*/

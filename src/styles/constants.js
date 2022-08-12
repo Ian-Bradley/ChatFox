@@ -37,15 +37,28 @@ The Sweetest Chill
 */
 
 /*======================================
-    BLOCK: TITLE
+    BLOCK: AUTH
 ========================================*/
 
-export const TITLE_FONT_SIZE = '4rem';
-export const TITLE_FONT_WEIGHT = '800';
+export const AUTH_FORM_WIDTH = '400px';
+export const AUTH_FORM_HEIGHT = '80%';
 
-export const TITLE_COLOR_1 = '#C3FBF4';
-export const TITLE_COLOR_2 = '#5684AE';
-export const TITLE_COLOR_3 = '#000000';
+export const AUTH_TITLE_FONT_SIZE = '1.6rem';
+export const AUTH_TITLE_FONT_WEIGHT = '600';
+
+export const AUTH_FORM_BORDER = '1px solid #605aa0';
+export const AUTH_FORM_BORDER_RADIUS = '0.3rem';
+
+/*======================================
+    BLOCK: APP TITLE
+========================================*/
+
+export const APP_TITLE_FONT_SIZE = '4rem';
+export const APP_TITLE_FONT_WEIGHT = '800';
+
+export const APP_TITLE_COLOR_1 = '#C3FBF4';
+export const APP_TITLE_COLOR_2 = '#5684AE';
+export const APP_TITLE_COLOR_3 = '#000000';
 
 /*
 #FFFF14 dodgy-yellow 

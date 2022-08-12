@@ -39,6 +39,7 @@ export default function ChatBar(props) {
         <ChatBarContainer>
             <ChatBarInputContainer>
                 <ChatBarInput
+                    type='text'
                     onKeyUp={onTypingMessage}
                     placeholder='Type your message here'
                 />

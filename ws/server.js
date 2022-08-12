@@ -2,6 +2,7 @@
     BLOCK: CONFIGURATION
 ==================================================*/
 
+const db = require('../db/db.js');
 const config = require('./config');
 const { v4: uuidv4 } = require('uuid');
 

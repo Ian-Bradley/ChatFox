@@ -8,6 +8,7 @@ import {
     APP_WIDTH_SIDEBAR,
 } from '../styles/constants.js';
 /*======================================*/
+/*======================================*/
 export const MainApp = styled.div`
     width: 100%;
     height: 100%;
@@ -20,6 +21,7 @@ export const MainApp = styled.div`
     color: ${APP_FONT_COLOR};
 `;
 /*======================================*/
+/*======================================*/
 export const ContainerApp = styled.div`
     width: 100%;
     height: 100%;
@@ -30,6 +32,7 @@ export const ContainerApp = styled.div`
     align-items: flex-start;
     justify-content: flex-start;
 `;
+/*======================================*/
 /*======================================*/
 export const ContainerBody = styled.div`
     width: 100%;
@@ -42,6 +45,7 @@ export const ContainerBody = styled.div`
     justify-content: flex-start;
 `;
 /*======================================*/
+/*======================================*/
 export const ContainerChat = styled.div`
     display: flex;
     flex-flow: column nowrap;
@@ -52,6 +56,7 @@ export const ContainerChat = styled.div`
     height: 100%;
 `;
 /*======================================*/
+/*======================================*/
 export const ContainerSidebar = styled.div`
     width: ${APP_WIDTH_SIDEBAR};
     height: 100%;
@@ -59,10 +64,12 @@ export const ContainerSidebar = styled.div`
     background: ${APP_BG_MAIN_2};
 `;
 /*======================================*/
+/*======================================*/
 
 /*
 DEV TOOLS
 */
+/*======================================*/
 /*======================================*/
 export const Dev = styled.div`
     position: fixed;
@@ -73,10 +80,12 @@ export const Dev = styled.div`
     flex-flow: column nowrap;
 `;
 /*======================================*/
+/*======================================*/
 export const DevInfo = styled.div`
     width: auto;
     white-space: nowrap;
 `;
+/*======================================*/
 /*======================================*/
 export const DevList = styled.ul`
     list-style: none;
@@ -87,9 +96,11 @@ export const DevList = styled.ul`
     align-items: flex-end;
 `;
 /*======================================*/
+/*======================================*/
 export const DevListItem = styled.li`
     margin-top: 6px;
 `;
+/*======================================*/
 /*======================================*/
 export const DevTitle = styled.span`
     font-weight: 800;
@@ -97,8 +108,10 @@ export const DevTitle = styled.span`
     padding: 0px 2px;
 `;
 /*======================================*/
+/*======================================*/
 export const DevTools = styled.div`
     display: flex;
     flex-flow: column nowrap;
 `;
+/*======================================*/
 /*======================================*/

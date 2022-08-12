@@ -6,6 +6,7 @@ import {
     APP_BG_MAIN_4,
 } from '../../styles/constants.js';
 /*======================================*/
+/*======================================*/
 export const ChannelListContainer = styled.div`
     position: relative;
 
@@ -20,6 +21,7 @@ export const ChannelListContainer = styled.div`
     ${STYLE_LIST_SCROLLBAR}
 `;
 /*======================================*/
+/*======================================*/
 export const ChannelTop = styled.div`
     display: flex;
     flex-flow: row nowrap;
@@ -31,6 +33,7 @@ export const ChannelTop = styled.div`
     width: 100%;
 `;
 /*======================================*/
+/*======================================*/
 export const ChannelBottom = styled.div`
     background: ${APP_BG_MAIN_2};
     padding: ${APP_SPACING};
@@ -38,9 +41,11 @@ export const ChannelBottom = styled.div`
     height: 100%;
 `;
 /*======================================*/
+/*======================================*/
 export const ChannelSearch = styled.div`
     position: absolute;
     bottom: ${APP_SPACING};
     right: ${APP_SPACING};
 `;
+/*======================================*/
 /*======================================*/
