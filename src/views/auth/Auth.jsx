@@ -1,15 +1,22 @@
 import React, { useState, useEffect } from 'react';
+// import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+
+// COMPONENTS
+import ImageLogo from '../../images/sharechatfake.png';
+
+// CSS COMPONENTS
 import {
-    AuthContainer,
-    AuthFormContainer,
-    AuthImage,
-    AuthForm,
-    AuthInput,
-    AuthLabel,
-    AuthChecbox,
-    AuthTitleContainer,
-    AuthTitle,
+    Container,
+    FormContainer,
+    ImageContainer,
+    Image,
+    Form,
+    Input,
+    Label,
+    Checbox,
+    TitleContainer,
+    Title,
 } from './styles.js';
 
 export default function Auth(props) {
@@ -62,7 +69,7 @@ export default function Auth(props) {
         console.log('===> onRememberMe');
         console.log('===> END - onRememberMe');
     };
-    
+
     /*=================================================
         BLOCK: RENDERING
     ===================================================*/
@@ -72,22 +79,25 @@ export default function Auth(props) {
     ==================================================*/
 
     return (
-        <AuthContainer>
-            <AuthFormContainer>
-                <AuthImage src='' alt='logo'/>
-                <AuthForm>
-                    <AuthTitleContainer>
-                        <AuthTitle>Sign In</AuthTitle>
-                    </AuthTitleContainer>
-                    <AuthInput type='text' onKeyUp={onUserName} placeholder='User name' />
-                    <AuthInput type='text' onKeyUp={onPassword} placeholder='Passworde' />
+        <Container>
+            <FormContainer>
+                <ImageContainer>
+                    <Image src={ImageLogo} alt='logo' />
+                </ImageContainer>
+                <TitleContainer>
+                    <Title>Chattr</Title>
+                </TitleContainer>
+                <Form>
+                    <Input type='text' onKeyUp={onUserName} placeholder='User name' />
+                    <Input type='text' onKeyUp={onPassword} placeholder='Passworde' />
                     <div>
-                        <AuthChecbox id='remember-me' type='checkbox' onKeyUp={onRememberMe} />
-                        <AuthLabel htmlFor='remember-me'></AuthLabel>
+                        <Checbox id='remember-me' type='checkbox' onClick={onRememberMe} />
+                        <Label htmlFor='remember-me'>Remember me</Label>
                     </div>
-                    <Link to='/room'>test</Link>
-                </AuthForm>
-            </AuthFormContainer>
-        </AuthContainer>
+                    <Link to='/room'>room</Link>
+                    <Link to='/eeeeeeeee'>error</Link>
+                </Form>
+            </FormContainer>
+        </Container>
     );
 }

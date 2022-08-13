@@ -3,17 +3,16 @@ import { useSelector } from 'react-redux';
 
 // COMPONENTS
 import Channel from '../Channel/Channel.jsx';
-import Button from '../Button/Button.jsx';
-import IconSearch from '../../images/icons/search.svg';
+import IconSearch from '../../../images/icons/search.svg';
 
 // CSS COMPONENTS
-import { ChannelListContainer, ChannelTop, ChannelBottom, ChannelSearch } from './styles.js';
+import { Container, Top, Bottom, Search, SearchButton } from './styles.js';
 
 /**
  * @props clickChannel (Function) Clicking on a chat channel
  */
 
-export default function UserList(props) {
+export default function ChannelList(props) {
     /*================================================
         BLOCK: STATES
     ==================================================*/
@@ -52,17 +51,13 @@ export default function UserList(props) {
     ===================================================*/
 
     return (
-        <ChannelListContainer>
-            <ChannelTop>
-                <ChannelSearch>
-                    <Button
-                        btnClasses={'search-button'}
-                        btnFunction={onSearchButton}
-                        btnIcon={IconSearch}
-                    />
-                </ChannelSearch>
-            </ChannelTop>
-            <ChannelBottom>{renderChannels()}</ChannelBottom>
-        </ChannelListContainer>
+        <Container>
+            <Top>
+                <Search>
+                    <SearchButton onclick={onSearchButton}>{IconSearch}</SearchButton>
+                </Search>
+            </Top>
+            <Bottom>{renderChannels()}</Bottom>
+        </Container>
     );
 }

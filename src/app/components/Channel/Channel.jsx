@@ -1,9 +1,5 @@
 import React from 'react';
-import {
-    ChannelContainer,
-    ChannelName,
-    ChannelDiv,
-} from './styles.js';
+import { Container, Name } from './styles.js';
 
 /**
  * @props channel (Object)
@@ -15,7 +11,7 @@ import {
  * @props clickChannel (Function) Clicking on a chat channel
  */
 
-export default function Message(props) {
+export default function Channel(props) {
     /*================================================
         BLOCK: EVENTS
     ==================================================*/
@@ -37,12 +33,8 @@ export default function Message(props) {
     ==================================================*/
 
     return (
-        <ChannelContainer>
-            <ChannelDiv>
-                <ChannelName onClick={onClickChannel}>
-                    {props.channel.name}
-                </ChannelName>
-            </ChannelDiv>
-        </ChannelContainer>
+        <Container>
+            <Name onClick={onClickChannel}>{props.channel.name}</Name>
+        </Container>
     );
 }

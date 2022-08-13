@@ -20,7 +20,7 @@ export default function Error(props) {
 
     return (
         <div>
-            test
+            error
         </div>
     );
 }

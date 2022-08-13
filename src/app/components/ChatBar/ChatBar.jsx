@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { ChatBarContainer, ChatBarInputContainer, ChatBarInput } from './styles.js';
+import { Container, InputContainer, Input } from './styles.js';
 /**
  * @props sendMessage (function)
  */
@@ -36,14 +36,14 @@ export default function ChatBar(props) {
     ==================================================*/
 
     return (
-        <ChatBarContainer>
-            <ChatBarInputContainer>
-                <ChatBarInput
+        <Container>
+            <InputContainer>
+                <Input
                     type='text'
                     onKeyUp={onTypingMessage}
                     placeholder='Type your message here'
                 />
-            </ChatBarInputContainer>
-        </ChatBarContainer>
+            </InputContainer>
+        </Container>
     );
 }

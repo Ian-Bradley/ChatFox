@@ -4,17 +4,17 @@ import {
     APP_SPACING,
     APP_TITLE_FONT_SIZE,
     APP_TITLE_FONT_WEIGHT,
-} from '../../styles/constants.js';
+} from '../../../styles/constants.js';
 /*======================================*/
 /*======================================*/
-export const NavContainer = styled.div`
+export const Container = styled.div`
     position: relative;
     width: 100%;
     height: ${APP_HEIGHT_NAV};
 `;
 /*======================================*/
 /*======================================*/
-export const NavTitleContainer = styled.div`
+export const TitleContainer = styled.div`
     position: fixed;
     top: ${APP_SPACING};
     left: ${APP_SPACING};
@@ -27,7 +27,7 @@ export const NavTitleContainer = styled.div`
 `;
 /*======================================*/
 /*======================================*/
-export const NavTitle = styled.span`
+export const Title = styled.span`
     font-size: ${APP_TITLE_FONT_SIZE};
     font-weight: ${APP_TITLE_FONT_WEIGHT};
 `;
@@ -40,6 +40,11 @@ export const Nav = styled.nav`
 
     padding: 0;
     margin: 0;
+`;
+/*======================================*/
+/*======================================*/
+export const Button = styled.button`
+
 `;
 /*======================================*/
 /*======================================*/

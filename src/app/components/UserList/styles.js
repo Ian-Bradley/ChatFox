@@ -1,60 +1,62 @@
 import styled from 'styled-components';
-import { STYLE_LIST_SCROLLBAR } from '../../styles/commons.js';
+import { FULL_SIZE, STYLE_LIST_SCROLLBAR } from '../../../styles/common.js';
 import {
-    APP_BG_MAIN_2,
-    APP_BG_MAIN_4,
     APP_SPACING,
     USER_TOTAL_FONT_SIZE,
     USER_TOTAL_FONT_WEIGHT,
-} from '../../styles/constants.js';
+} from '../../../styles/constants.js';
 /*======================================*/
 /*======================================*/
-export const UserListContainer = styled.div`
+export const Container = styled.div`
     position: relative;
 
     display: flex;
     flex-flow: column nowrap;
     align-items: flex-start;
     justify-content: flex-start;
-
-    width: 100%;
-    height: 100%;
-
+    
+    ${FULL_SIZE}
     ${STYLE_LIST_SCROLLBAR}
 `;
 /*======================================*/
 /*======================================*/
-export const UserListTop = styled.div`
+export const Top = styled.div`
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
     justify-content: space-between;
 
-    background: ${APP_BG_MAIN_4};
+    background: ${({ theme }) => theme.color.bg.main_4};
     padding: ${APP_SPACING};
     width: 100%;
 `;
 /*======================================*/
 /*======================================*/
-export const UserListTotal = styled.span`
+export const Total = styled.span`
     position: absolute;
     top: ${APP_SPACING};
     right: ${APP_SPACING};
 
+    font-family: ${({ theme }) => theme.font.subtitle};
     font-size: ${USER_TOTAL_FONT_SIZE};
     font-weight: ${USER_TOTAL_FONT_WEIGHT};
 `;
 /*======================================*/
 /*======================================*/
-export const UserListSearch = styled.div`
+export const Search = styled.div`
     position: absolute;
     bottom: ${APP_SPACING};
     right: ${APP_SPACING};
 `;
 /*======================================*/
 /*======================================*/
-export const UserListBottom = styled.div`
-    background: ${APP_BG_MAIN_2};
+export const SearchButton = styled.div`
+
+`;
+/*======================================*/
+/*======================================*/
+export const Bottom = styled.div`
+    background: ${({ theme }) => theme.color.bg.main_2};
     padding: ${APP_SPACING};
     width: 100%;
     height: 100%;

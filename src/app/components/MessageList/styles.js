@@ -1,9 +1,9 @@
 import styled from 'styled-components';
-import { STYLE_LIST_SCROLLBAR } from '../../styles/commons.js';
-import { APP_HEIGHT_MESSAGES } from '../../styles/constants.js';
+import { STYLE_LIST_SCROLLBAR } from '../../../styles/common.js';
+import { APP_HEIGHT_MESSAGES } from '../../../styles/constants.js';
 /*======================================*/
 /*======================================*/
-export const MessageListContainer = styled.div`
+export const Container = styled.div`
     display: flex;
     flex-flow: column-reverse nowrap;
     align-items: flex-start;

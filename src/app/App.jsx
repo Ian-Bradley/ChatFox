@@ -11,7 +11,6 @@ import MessageList from './components/MessageList/MessageList.jsx';
 
 // CSS COMPONENTS
 import {
-    MainApp,
     ContainerApp,
     ContainerBody,
     ContainerChat,
@@ -540,22 +539,20 @@ export default function App(props) {
     ==================================================*/
 
     return (
-        <MainApp>
-            <ContainerApp>
-                <NavBar />
-                <ContainerBody>
-                    <ContainerSidebar>
-                        <ChannelList clickChannel={clickChannel} />
-                    </ContainerSidebar>
-                    <ContainerChat>
-                        <MessageList clickName={clickName} />
-                        <ChatBar sendMessage={sendMessage} />
-                    </ContainerChat>
-                    <ContainerSidebar>
-                        <UserList clickName={clickName} />
-                    </ContainerSidebar>
-                </ContainerBody>
-            </ContainerApp>
+        <ContainerApp>
+            <NavBar />
+            <ContainerBody>
+                <ContainerSidebar>
+                    <ChannelList clickChannel={clickChannel} />
+                </ContainerSidebar>
+                <ContainerChat>
+                    <MessageList clickName={clickName} />
+                    <ChatBar sendMessage={sendMessage} />
+                </ContainerChat>
+                <ContainerSidebar>
+                    <UserList clickName={clickName} />
+                </ContainerSidebar>
+            </ContainerBody>
 
             <Dev>
                 <DevInfo>
@@ -617,6 +614,6 @@ export default function App(props) {
                     </div>
                 </DevTools>
             </Dev>
-        </MainApp>
+        </ContainerApp>
     );
 }

@@ -2,16 +2,10 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 
 // GLOBAL CONSTANTS
-import { GMT_MINUTES, GMT_HOURS, GMT_DIRECTION } from '../../util/constants.js';
+import { GMT_MINUTES, GMT_HOURS, GMT_DIRECTION } from '../../../util/constants.js';
 
 // CSS COMPONENTS
-import {
-    MessageContainer,
-    MessageDiv,
-    MessageTime,
-    MessageName,
-    MessageContent,
-} from './styles.js';
+import { Container, Div, Time, Name, Content } from './styles.js';
 
 /**
  * @props message (object)
@@ -100,9 +94,9 @@ export default function Message(props) {
             // }
 
             return (
-                <MessageTime className='message-time'>
+                <Time className='message-time'>
                     {'[' + hours + ':' + minutes + ':' + seconds + ']'}
-                </MessageTime>
+                </Time>
             );
         }
     };
@@ -119,20 +113,20 @@ export default function Message(props) {
                 ==================================================*/
 
                 return (
-                    <MessageContainer>
-                        <MessageDiv>
+                    <Container>
+                        <Div>
                             {renderTimestamp()}
-                            <MessageName
+                            <Name
                                 style={{ color: props.message.color }}
                                 onClick={onclickName}
                             >
                                 {props.message.name}:
-                            </MessageName>
-                            <MessageContent className='message-content'>
+                            </Name>
+                            <Content className='message-content'>
                                 {props.message.content}
-                            </MessageContent>
-                        </MessageDiv>
-                    </MessageContainer>
+                            </Content>
+                        </Div>
+                    </Container>
                 );
             } else {
                 /*================================================
@@ -140,16 +134,16 @@ export default function Message(props) {
                 ==================================================*/
 
                 return (
-                    <MessageContainer>
-                        <MessageDiv>
+                    <Container>
+                        <Div>
                             {renderTimestamp()}
-                            <MessageName
+                            <Name
                                 className={'message-name'}
                                 style={{ color: props.message.color }}
                                 onClick={onclickName}
                             >
                                 {props.message.name}
-                            </MessageName>
+                            </Name>
                             {/* <div className='message-image-container'>
                                 <img
                                     className='message-image'
@@ -160,8 +154,8 @@ export default function Message(props) {
                                     {props.message.content}
                                 </span>
                             </div> */}
-                        </MessageDiv>
-                    </MessageContainer>
+                        </Div>
+                    </Container>
                 );
             }
         }

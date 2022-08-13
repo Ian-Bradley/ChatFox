@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import Message from '../Message/Message.jsx';
 
 // CSS
-import { MessageListContainer } from './styles.js';
+import { Container } from './styles.js';
 
 /**
  * @props clickName (function) Clicking on a user name
@@ -54,8 +54,8 @@ export default function MessageList(props) {
     ==================================================*/
 
     return (
-        <MessageListContainer ref={list}>
+        <Container ref={list}>
             {renderMessages()}
-        </MessageListContainer>
+        </Container>
     );
 }

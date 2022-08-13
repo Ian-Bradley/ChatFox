@@ -1,28 +1,23 @@
 import styled from 'styled-components';
 import {
     CHATBAR_HEIGHT,
-    APP_BG_MAIN_2,
     CHATBAR_WIDTH,
-    CHATBAR_COLOR,
-    CHATBAR_COLOR_BG,
     CHATBAR_BORDER,
     CHATBAR_BORDER_RADIUS,
-    CHATBAR_FONT_SIZE,
-    CHATBAR_FONT_WEIGHT,
     CHATBAR_LINE_HEIGHT,
     CHATBAR_PADDING,
-} from '../../styles/constants.js';
+} from '../../../styles/constants.js';
 /*======================================*/
 /*======================================*/
-export const ChatBarContainer = styled.div`
+export const Container = styled.div`
     width: 100%;
     height: ${CHATBAR_HEIGHT};
 
-    background: ${APP_BG_MAIN_2};
+    background: ${({ theme }) => theme.color.bg.main_2};
 `;
 /*======================================*/
 /*======================================*/
-export const ChatBarInputContainer = styled.div`
+export const InputContainer = styled.div`
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
@@ -33,17 +28,12 @@ export const ChatBarInputContainer = styled.div`
 `;
 /*======================================*/
 /*======================================*/
-export const ChatBarInput = styled.input`
+export const Input = styled.input`
     width: 100%;
-
-    color: ${CHATBAR_COLOR};
-    background-color: ${CHATBAR_COLOR_BG};
+    background-color: ${({ theme }) => theme.color.bg.main_2};
 
     border: ${CHATBAR_BORDER};
     border-radius: ${CHATBAR_BORDER_RADIUS};
-
-    font-size: ${CHATBAR_FONT_SIZE};
-    font-weight: ${CHATBAR_FONT_WEIGHT};
 
     line-height: ${CHATBAR_LINE_HEIGHT};
     padding: ${CHATBAR_PADDING};

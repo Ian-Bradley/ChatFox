@@ -1,19 +1,27 @@
 # Chattr
 
-Chattr is a React.js & WebSocket based messaging / chat application.
-
-### Stack
-Frontend:
-Javascript, React.js, Redux, SCSS/SASS
-
-Server:
-Node, Express, WebSockets, Webpack, Babel
+Chattr is a React.js/Node.js & WebSocket based chat application.
 
 ### Final Product
 <!-- !["Screenshot of Chattr"](https://raw.githubusercontent.com/IA-n7/Chattr/master/build/Chattr.gif) -->
 
-### Dependencies
+### Major Dependencies
 
+FRONTEND:
+React.js
+React Router
+Redux (@reduxjs/toolkit)
+Styled Components
+Babel // Dev
+ESLint // Dev
+WebPack // Dev
+
+BACKEND:
+Node.js
+Dotenv
+Express
+PostgreSQL
+WebSockets (ws)
 
 ### Setup
 
@@ -31,7 +39,11 @@ React ESLint
 npm run lint
 ```
 
-### Function Credits
+### Credits
 
 Luminosity Calculator for Hex Codes:
 https://stackoverflow.com/questions/12043187/how-to-check-if-hex-color-is-too-black
+https://en.wikipedia.org/wiki/Rec._709#Luma_coefficients
+
+Other possibilities for luminosity:
+https://github.com/bgrins/TinyColor || https://bgrins.github.io/TinyColor/

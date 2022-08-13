@@ -3,17 +3,10 @@ import { useSelector } from 'react-redux';
 
 // COMPONENTS
 import User from '../User/User.jsx';
-import Button from '../Button/Button.jsx';
-import IconSearch from '../../images/icons/search.svg';
+import IconSearch from '../../../images/icons/search.svg';
 
 // CSS COMPONENTS
-import {
-    UserListContainer,
-    UserListTop,
-    UserListBottom,
-    UserListTotal,
-    UserListSearch,
-} from './styles.js';
+import { Container, Top, Bottom, Total, Search, SearchButton } from './styles.js';
 /**
  * @props clickName (function) Clicking on a user name
  */
@@ -58,18 +51,14 @@ export default function UserList(props) {
     ===================================================*/
 
     return (
-        <UserListContainer>
-            <UserListTop>
-                <UserListTotal>{userTotal}</UserListTotal>
-                <UserListSearch>
-                    <Button
-                        btnClasses={'search-button'}
-                        btnFunction={onSearchButton}
-                        btnIcon={IconSearch}
-                    />
-                </UserListSearch>
-            </UserListTop>
-            <UserListBottom>{renderUsers()}</UserListBottom>
-        </UserListContainer>
+        <Container>
+            <Top>
+                <Total>{userTotal}</Total>
+                <Search>
+                    <SearchButton onClick={onSearchButton}>{IconSearch}</SearchButton>
+                </Search>
+            </Top>
+            <Bottom>{renderUsers()}</Bottom>
+        </Container>
     );
 }

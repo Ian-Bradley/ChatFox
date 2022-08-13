@@ -11,7 +11,13 @@ export const STYLE_LIST_SCROLLBAR = `
 
 export const FLEX_CENTER = `
     display: flex;
-    flex-flow: column, no-wrap;
+    flex-flow: column nowrap;
     justify-content: center;
     align-items: center;
+`;
+
+export const FULL_SIZE = `
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
 `;

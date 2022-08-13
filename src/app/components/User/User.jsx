@@ -1,9 +1,5 @@
 import React from 'react';
-import {
-    UserContainer,
-    UserName,
-    UserDiv,
-} from './styles.js';
+import { Container, Name } from './styles.js';
 
 /**
  * @props user (Object)
@@ -30,15 +26,10 @@ export default function User(props) {
     ==================================================*/
 
     return (
-        <UserContainer>
-            <UserDiv>
-                <UserName
-                    style={{ color: props.user.color }}
-                    onClick={onClickName}
-                >
-                    {props.user.nickname}
-                </UserName>
-            </UserDiv>
-        </UserContainer>
+        <Container>
+            <Name style={{ color: props.user.color }} onClick={onClickName}>
+                {props.user.nickname}
+            </Name>
+        </Container>
     );
 }
