@@ -1,4 +1,3 @@
-
 /*======================================
     BLOCK: APP GENERAL
 ========================================*/
@@ -19,10 +18,13 @@ export const AUTH_FORM_SPACING = '100px';
 export const AUTH_TITLE_FONT_SIZE = '1.6rem';
 export const AUTH_TITLE_FONT_WEIGHT = '600';
 
-export const AUTH_FORM_BORDER = '1px solid';
+export const AUTH_FORM_BORDER = '10px solid';
 export const AUTH_FORM_BORDER_RADIUS = '0.3rem';
 
-export const AUTH_INPUT_BORDER = '1px solid';
+export const AUTH_INPUT_BORDER = '2px solid';
+
+export const AUTH_LOGO_HEIGHT = '150px'
+export const AUTH_LOGO_WIDTH = '150px'
 
 /*======================================
     BLOCK: APP TITLE
@@ -37,7 +39,6 @@ export const APP_TITLE_FONT_WEIGHT = '800';
 
 export const USER_TOTAL_FONT_SIZE = '0.7rem';
 export const USER_TOTAL_FONT_WEIGHT = '400';
-
 export const USER_SPACING = '2px';
 export const USER_NAME_FONT_WEIGHT = '700';
 
@@ -62,7 +63,6 @@ export const USER_NAME_FONT_WEIGHT = '700';
 
 export const MESSAGE_PADDING = '5px';
 export const MESSAGE_SPACING = '4px';
-
 export const MESSAGE_FONT_WEIGHT = '400';
 export const MESSAGE_FONT_SIZE = '0.9rem';
 export const MESSAGE_TIME_FONT_SIZE = '0.7rem';
@@ -74,10 +74,8 @@ export const MESSAGE_TIME_FONT_SIZE = '0.7rem';
 export const CHATBAR_WIDTH = '100%';
 export const CHATBAR_HEIGHT = '60px';
 export const CHATBAR_PADDING = '0.2rem 0.6rem';
-
 export const CHATBAR_BORDER = '1px solid';
 export const CHATBAR_BORDER_RADIUS = '6px';
-
 export const CHATBAR_FONT_SIZE = '1.4rem';
 export const CHATBAR_FONT_WEIGHT = '500';
 export const CHATBAR_LINE_HEIGHT = '1rem';

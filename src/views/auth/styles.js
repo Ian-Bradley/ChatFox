@@ -6,9 +6,12 @@ import {
     AUTH_FORM_SPACING,
     AUTH_FORM_BORDER,
     AUTH_FORM_BORDER_RADIUS,
+    AUTH_LOGO_WIDTH,
+    AUTH_LOGO_HEIGHT,
     AUTH_TITLE_FONT_SIZE,
     AUTH_TITLE_FONT_WEIGHT,
     AUTH_INPUT_BORDER,
+    AUTH_INPUT_SPACING,
 } from '../../styles/constants.js';
 /*======================================*/
 /*======================================*/
@@ -53,8 +56,8 @@ export const ImageContainer = styled.div`
 /*======================================*/
 /*======================================*/
 export const Image = styled.img`
-    width: 150px;
-    height: 150px;
+    width: ${AUTH_LOGO_WIDTH};
+    height: ${AUTH_LOGO_HEIGHT};
 `;
 /*======================================*/
 /*======================================*/
@@ -72,15 +75,34 @@ export const Title = styled.span`
 `;
 /*======================================*/
 /*======================================*/
+export const InputContainer = styled.label`
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justifty-content: center;
+`;
+/*======================================*/
+/*======================================*/
 export const Input = styled.input`
     background: none;
     outline: none;
     border: none;
-    border-bottom: ${AUTH_INPUT_BORDER};
+    border-bottom: ${AUTH_INPUT_BORDER} ${({ theme }) => theme.color.text.light};
+    margin-bottom: ${APP_SPACING};
 `;
 /*======================================*/
 /*======================================*/
-export const Label = styled.label``;
+export const RememberContainer = styled.label`
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justifty-content: center;
+`;
+/*======================================*/
+/*======================================*/
+export const Label = styled.label`
+    padding-left: ${APP_SPACING};
+`;
 /*======================================*/
 /*======================================*/
 export const Checbox = styled.input``;

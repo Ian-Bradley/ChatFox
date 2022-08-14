@@ -54,6 +54,7 @@
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
     <li><a href="#acknowledgments">Acknowledgments</a></li>
+    <li><a href="#folder-tree">Acknowledgments</a></li>
   </ol>
 </details>
 
@@ -81,8 +82,6 @@ Head on down to <a href="#getting-started">Getting Started</a> to begin!
 
 
 ### Built With
-
-This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
 
 * [![Node][Node.js]][Node-url]
 * [![React][React.js]][React-url]
@@ -114,8 +113,6 @@ WebSockets (ws)
 * Node.js
 
 ### Installation
-
-_Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
 
 1. Clone the repo
    ```sh
@@ -152,7 +149,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Ian Bradley - [@gmail](https://github.com/Ian-Bradley/Chattr) - ian.tech@proton.me
+Ian Bradley - [GitHub](https://github.com/Ian-Bradley/Chattr) - [LinkedIn](https://linkedin.com/in/ian-bradley-418505159/) - ian.tech@proton.me
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -169,6 +166,46 @@ Ian Bradley - [@gmail](https://github.com/Ian-Bradley/Chattr) - ian.tech@proton.
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
+
+## File Tree
+
+Front-end: 
+src
+  >assets
+    >fonts
+    >images
+      >icons
+  >components
+    >Example
+      >Example.jsx
+      >styles.js
+  >redux
+  >styles
+  >util
+  >views
+    >auth
+    >chat
+    >error
+  App.jsx
+  index.html
+  index.jsx
+  styles.js
+
+Back-end:
+server
+  >db
+    >queries
+    >database.js
+  >handlers
+  >lib
+    >modules
+    >util
+    DataTracker.js
+  config.js
+  server.js
+
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- [contributors-shield]: https://img.shields.io/github/contributors/Ian-Bradley/Chattr?style=plastic

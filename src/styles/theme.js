@@ -14,13 +14,6 @@ The Sweetest Chill
 // background: ${({ theme }) => theme.color.bg.main_1};
 // color: ${({ theme }) => theme.color.text.light};
 const theme = {
-    font: {
-        main: 'OpenSans',
-        title: 'Roboto',
-        subtitle: 'Roboto-condensed',
-        weight: '400',
-        size: '14px',
-    },
     color: {
         border: {
             black: '#000000',

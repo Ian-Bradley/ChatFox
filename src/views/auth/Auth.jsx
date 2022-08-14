@@ -3,27 +3,29 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 // IMAGE COMPONENTS
-import ImageLogo from '../../images/sharechatfake.png';
+import ImageLogo from '../../assets/images/sharechatfake.png';
 
 // STYLED COMPONENTS
 import {
-    Container,
-    FormContainer,
-    ImageContainer,
-    Image,
     Form,
     Input,
     Label,
-    Checbox,
-    TitleContainer,
     Title,
+    Image,
+    Checbox,
+    Container,
+    FormContainer,
+    ImageContainer,
+    TitleContainer,
+    InputContainer,
+    RememberContainer,
 } from './styles.js';
 
 export default function Auth(props) {
     /*================================================
         BLOCK: STATE
     ==================================================*/
-    
+
     // Redux
     // const dispatch = useDispatch();
     const user = useSelector((state) => {
@@ -58,6 +60,13 @@ export default function Auth(props) {
 
     /*================================================*/
 
+    const onEmail = (e) => {
+        console.log('===> onEmail');
+        console.log('===> END - onEmail');
+    };
+
+    /*================================================*/
+
     const onPassword = (e) => {
         console.log('===> onPassword');
         console.log('===> END - onPassword');
@@ -88,12 +97,15 @@ export default function Auth(props) {
                     <Title>Chattr</Title>
                 </TitleContainer>
                 <Form>
-                    <Input type='text' onKeyUp={onUserName} placeholder='User name' />
-                    <Input type='text' onKeyUp={onPassword} placeholder='Passworde' />
-                    <div>
+                    <InputContainer>
+                        <Input type='text' onKeyUp={onUserName} placeholder='User name' />
+                        <Input type='password' onKeyUp={onPassword} placeholder='Password' />
+                        <Input type='email' onKeyUp={onEmail} placeholder='Email' />
+                    </InputContainer>
+                    <RememberContainer>
                         <Checbox id='remember-me' type='checkbox' onClick={onRememberMe} />
                         <Label htmlFor='remember-me'>Remember me</Label>
-                    </div>
+                    </RememberContainer>
                     <Link to='/room'>room</Link>
                     <Link to='/eeeeeeeee'>error</Link>
                 </Form>
