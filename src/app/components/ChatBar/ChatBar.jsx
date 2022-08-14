@@ -1,15 +1,14 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { useSocket } from '../../../util/websocket.js';
 import { Container, InputContainer, Input } from './styles.js';
-/**
- * @props sendMessage (function)
- */
 
 export default function ChatBar(props) {
     /*================================================
         BLOCK: STATES
     ==================================================*/
 
+    const socket = useSocket();
     const user = useSelector((state) => {
         return state['user'].user;
     });
@@ -20,14 +19,20 @@ export default function ChatBar(props) {
 
     const onTypingMessage = (e) => {
         if (e.keyCode === 13 && e.target.value !== '') {
-            props.sendMessage({
-                type: 'message',
-                name: user.name,
-                time: new Date().toGMTString(),
-                color: user.color,
-                content: e.target.value,
-            });
+            console.log('===> sendMessage');
+            let newUpdate = {
+                type: 'newMessage',
+                message: {
+                    name: user.name,
+                    time: new Date().toGMTString(),
+                    color: user.color,
+                    content: e.target.value,
+                },
+            };
+            socket.send(JSON.stringify(newUpdate));
             e.target.value = '';
+            console.log('>>>>>>>>> MESSAGE SENT - newMessage >>>>>>>>>');
+            console.log('===> END - sendMessage');
         }
     };
 
@@ -38,11 +43,7 @@ export default function ChatBar(props) {
     return (
         <Container>
             <InputContainer>
-                <Input
-                    type='text'
-                    onKeyUp={onTypingMessage}
-                    placeholder='Type your message here'
-                />
+                <Input type='text' onKeyUp={onTypingMessage} placeholder='Type your message here' />
             </InputContainer>
         </Container>
     );

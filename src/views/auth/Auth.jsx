@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-// import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-// COMPONENTS
+// IMAGE COMPONENTS
 import ImageLogo from '../../images/sharechatfake.png';
 
-// CSS COMPONENTS
+// STYLED COMPONENTS
 import {
     Container,
     FormContainer,
@@ -23,12 +23,12 @@ export default function Auth(props) {
     /*================================================
         BLOCK: STATE
     ==================================================*/
-
+    
     // Redux
     // const dispatch = useDispatch();
-    // const user = useSelector((state) => {
-    //     return state['user'].user;
-    // });
+    const user = useSelector((state) => {
+        return state['user'].user;
+    });
 
     // Hooks
     const [checked, setChecked] = useState('');

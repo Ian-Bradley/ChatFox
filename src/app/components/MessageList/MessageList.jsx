@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 
 // COMPONENETS
@@ -37,7 +37,19 @@ export default function MessageList(props) {
         BLOCK: RENDERING
     ==================================================*/
 
-    const renderMessages = () => {
+    // const renderMessages = () => {
+    //     if (!(messages === undefined) && messages.length) {
+    //         let messageArray = [];
+    //         for (let i = messages.length - 1; i > 0; i--) {
+    //             messageArray.push(
+    //                 <Message key={i} message={messages[i]} clickName={props.clickName} />
+    //             );
+    //         }
+    //         return messageArray;
+    //     }
+    // };
+    // NOTE: testing
+    const renderMessages = useCallback(() => {
         if (!(messages === undefined) && messages.length) {
             let messageArray = [];
             for (let i = messages.length - 1; i > 0; i--) {
@@ -47,15 +59,11 @@ export default function MessageList(props) {
             }
             return messageArray;
         }
-    };
+    });
 
     /*================================================
         BLOCK: COMPONENTS
     ==================================================*/
 
-    return (
-        <Container ref={list}>
-            {renderMessages()}
-        </Container>
-    );
+    return <Container ref={list}>{renderMessages()}</Container>;
 }

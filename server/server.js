@@ -2,18 +2,20 @@
     BLOCK: CONFIGURATION
 ==================================================*/
 
-const db = require('../db/db.js');
+// const db = require('./db/db.js');
+const path = require('path');
+const cors = require('cors');
 const config = require('./config');
+const express = require('express');
 const { v4: uuidv4 } = require('uuid');
 
-const cors = require('cors');
-const express = require('express');
-const server = express()
-    .use(cors())
-    .use(express.static('public'))
-    .listen(config.server.port, config.server.ip, config.server.domain, () =>
-        console.log(`Listening on ${config.server.domain}:${config.server.port}`)
-    );
+const server = express();
+server.use(cors());
+server.use(express.static(path.join(__dirname, '..', 'dist')));
+server.listen(config.server.port, config.server.ip, config.server.domain, () => {
+    console.log(`Listening on ${config.server.domain}:${config.server.port}`);
+});
+
 const SocketServer = require('ws');
 const WSS = new SocketServer.Server({ server });
 
@@ -24,23 +26,15 @@ const ServerData = new DataTracker();
     BLOCK: ROUTES
 ==================================================*/
 
-// app.get('/room', function (req, res, next) {
-// 	const room = {
-// 		name: req.query.name,
-// 		id: uuidv4()
-// 	};
-// 	rooms[room.id] = room;
-// 	chatLogs[room.id] = [];
-// 	res.json(room);
+// server.get('/', function (req, res) {
+//     // res.sendFile('index.html', {
+//     //     root: path.join(__dirname, '..', 'dist'),
+//     // });
+//     res.render('index.html');
 // });
 
-// app.get('/room/:roomId', function (req, res, next) {
-// 	const roomId = req.params.roomId;
-// 	const response = {
-// 		...rooms[roomId],
-// 		chats: chatLogs[roomId]
-// 	};
-// 	res.json(response);
+// server.get('*', function (req, res) {
+//     res.redirect('/');
 // });
 
 /*================================================

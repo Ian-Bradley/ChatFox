@@ -42,6 +42,7 @@ export default function Message(props) {
     // TODO: Switch to checking in ChatBar and storing URL to message object
     const imageExtensionRegex = /\.( gif|jp?g|png|svg|bmp|tiff|bat )$/i;
 
+    // TODO: add as util function, will be needed in log
     const renderTimestamp = () => {
         if (prefs.showTimeStamps) {
             // Mon, 01 Aug 2022 02:38:32 GMT
@@ -105,201 +106,44 @@ export default function Message(props) {
         BLOCK: COMPONENTS
     ==================================================*/
 
-    switch (props.message.type) {
-        case 'message': {
-            if (!imageExtensionRegex.test(props.message.content)) {
-                /*================================================
-                    INNERBLOCK: MESSAGE - Regular
-                ==================================================*/
-
-                return (
-                    <Container>
-                        <Div>
-                            {renderTimestamp()}
-                            <Name
-                                style={{ color: props.message.color }}
-                                onClick={onclickName}
-                            >
-                                {props.message.name}:
-                            </Name>
-                            <Content className='message-content'>
-                                {props.message.content}
-                            </Content>
-                        </Div>
-                    </Container>
-                );
-            } else {
-                /*================================================
-                    INNERBLOCK: MESSAGE - Image
-                ==================================================*/
-
-                return (
-                    <Container>
-                        <Div>
-                            {renderTimestamp()}
-                            <Name
-                                className={'message-name'}
-                                style={{ color: props.message.color }}
-                                onClick={onclickName}
-                            >
-                                {props.message.name}
-                            </Name>
-                            {/* <div className='message-image-container'>
-                                <img
-                                    className='message-image'
-                                    src={props.message.content}
-                                    alt='Image'
-                                />
-                                <span className='message-content image-caption'>
-                                    {props.message.content}
-                                </span>
-                            </div> */}
-                        </Div>
-                    </Container>
-                );
-            }
-        }
-
-        /*================================================
-            INNERBLOCK: NOTIFICATION - Connection
-        ==================================================*/
-
-        case 'notification-connect': {
-            return (
-                <main className='container-message'>
-                    <div className='message notification'>
-                        {renderTimestamp()}
-                        <span
-                            className={'message-name'}
-                            style={{ color: props.message.color }}
-                            onClick={onclickName}
-                        >
-                            {props.message.name}
+    if (!imageExtensionRegex.test(props.message.content)) {
+        // NOTE: MESSAGE - Regular
+        return (
+            <Container>
+                <Div>
+                    {renderTimestamp()}
+                    <Name style={{ color: props.message.color }} onClick={onclickName}>
+                        {props.message.name}:
+                    </Name>
+                    <Content className='message-content'>{props.message.content}</Content>
+                </Div>
+            </Container>
+        );
+    } else {
+        // NOTE: MESSAGE - Image
+        return (
+            <Container>
+                <Div>
+                    {renderTimestamp()}
+                    <Name
+                        className={'message-name'}
+                        style={{ color: props.message.color }}
+                        onClick={onclickName}
+                    >
+                        {props.message.name}
+                    </Name>
+                    {/* <div className='message-image-container'>
+                        <img
+                            className='message-image'
+                            src={props.message.content}
+                            alt='Image'
+                        />
+                        <span className='message-content image-caption'>
+                            {props.message.content}
                         </span>
-                        <span className='message-content'> connected</span>
-                    </div>
-                </main>
-            );
-        }
-
-        /*================================================
-            INNERBLOCK: NOTIFICATION - Disconnection
-        ==================================================*/
-
-        case 'notification-disconnect': {
-            return (
-                <main className='container-message'>
-                    <div className='message notification'>
-                        {renderTimestamp()}
-                        <span
-                            className={'message-name'}
-                            style={{ color: props.message.color }}
-                            onClick={onclickName}
-                        >
-                            {props.message.name}
-                        </span>
-                        <span className='message-content'> disconnected</span>
-                    </div>
-                </main>
-            );
-        }
-
-        /*================================================
-            INNERBLOCK: NOTIFICATION - Name change
-        ==================================================*/
-
-        case 'notification-name': {
-            return (
-                <main className='container-message'>
-                    <div className='message notification'>
-                        {renderTimestamp()}
-                        <span
-                            className={'message-name'}
-                            style={{ color: props.message.color }}
-                            onClick={onclickName}
-                        >
-                            {props.message.namePrev}
-                        </span>
-                        <span className='message-content'> changed their name to </span>
-                        <span
-                            className={'message-name'}
-                            style={{ color: props.message.color }}
-                            onClick={onclickName}
-                        >
-                            {props.message.name}
-                        </span>
-                    </div>
-                </main>
-            );
-        }
-
-        /*================================================
-            INNERBLOCK: NOTIFICATION - Nickname change
-        ==================================================*/
-
-        case 'notification-nickname': {
-            return (
-                <main className='container-message'>
-                    <div className='message notification'>
-                        {renderTimestamp()}
-                        <span
-                            className={'message-name'}
-                            style={{ color: props.message.color }}
-                            onClick={onclickName}
-                        >
-                            {props.message.nicknamePrev}
-                        </span>
-                        <span className='message-content'> changed their nickname to </span>
-                        <span
-                            className={'message-name'}
-                            style={{ color: props.message.color }}
-                            onClick={onclickName}
-                        >
-                            {props.message.nickname}
-                        </span>
-                    </div>
-                </main>
-            );
-        }
-
-        /*================================================
-            INNERBLOCK: NOTIFICATION - Color change
-        ==================================================*/
-
-        case 'notification-color': {
-            return (
-                <main className='container-message'>
-                    <div className='message notification'>
-                        {renderTimestamp()}
-                        <span
-                            className={'message-name'}
-                            style={{ color: props.message.color }}
-                            onClick={onclickName}
-                        >
-                            {props.message.name}
-                        </span>
-                        <span className='message-content'> changed their color from </span>
-                        <span
-                            className={'message-color'}
-                            style={{ color: props.message.colorPrev }}
-                        >
-                            {props.message.colorPrev}
-                        </span>
-                        <span className='message-content'> to </span>
-                        <span className={'message-color'} style={{ color: props.message.color }}>
-                            {props.message.color}
-                        </span>
-                    </div>
-                </main>
-            );
-        }
-
-        /*======================================*/
-        /*======================================*/
-
-        default: {
-            console.log('Message.jsx - Error: Unrecognized message type');
-            return null;
-        }
+                    </div> */}
+                </Div>
+            </Container>
+        );
     }
 }

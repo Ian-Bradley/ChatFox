@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-const WS = new WebSocket(WS_URL); // TODO: move to context layer provider
+import { useSocket } from '../util/websocket.js';
 
 // COMPONENETS
 import NavBar from './components/NavBar/NavBar.jsx';
@@ -9,7 +9,7 @@ import UserList from './components/UserList/UserList.jsx';
 import ChannelList from './components/ChannelList/ChannelList.jsx';
 import MessageList from './components/MessageList/MessageList.jsx';
 
-// CSS COMPONENTS
+// STYLED COMPONENTS
 import {
     ContainerApp,
     ContainerBody,
@@ -23,8 +23,7 @@ import {
     DevTitle,
 } from './styles.js';
 
-// GLOBAL CONSTANTS + UTILS
-import { WS_URL } from '../util/constants.js';
+// UTILS - DEV
 import { generateRandomName, generateRandomColor } from '../util/functions.js';
 
 /*================================================
@@ -87,6 +86,7 @@ export default function App(props) {
 
     // Redux
     const dispatch = useDispatch();
+    const socket = useSocket();
 
     const user = useSelector((state) => {
         return state['user'].user;
@@ -109,7 +109,7 @@ export default function App(props) {
             INNERBLOCK: > WS - ON OPEN
         ==================================================*/
 
-        WS.onopen = (e) => {
+        socket.onopen = (e) => {
             console.log('>>>>>>>>> WebSocket Client Connected >>>>>>>>>');
             // setWSReady(true);
         };
@@ -118,7 +118,7 @@ export default function App(props) {
             INNERBLOCK: > WS - ON MESSAGE
         ==================================================*/
 
-        WS.onmessage = (messageData) => {
+        socket.onmessage = (messageData) => {
             const updateData = JSON.parse(messageData.data);
             console.log('>>>>>>>>> MESSAGE RECIEVED - ' + updateData.type + ' >>>>>>>>>');
 
@@ -161,7 +161,7 @@ export default function App(props) {
                             color: user.color,
                         },
                     };
-                    WS.send(JSON.stringify(newUpdate));
+                    socket.send(JSON.stringify(newUpdate));
                     console.log('>>>>>>>>> MESSAGE SENT - userConnected >>>>>>>>>');
                     console.log('======= END - MESSAGE - clientConnected =======');
                     break;
@@ -356,7 +356,7 @@ export default function App(props) {
             INNERBLOCK: > WS - ON CLOSE
         ==================================================*/
 
-        WS.onclose = (e) => {
+        socket.onclose = (e) => {
             // setWSReady(false);
             // TODO: check if neeeded
             // setTimeout(() => {
@@ -368,10 +368,10 @@ export default function App(props) {
             INNERBLOCK: > WS - ON ERROR
         ==================================================*/
 
-        WS.onerror = (err) => {
+        socket.onerror = (err) => {
             console.log('WebSocket encountered error: ', err.message, ' --> Closing socket');
             setWSReady(false);
-            WS.close();
+            socket.close();
         };
 
         /*================================================
@@ -379,9 +379,9 @@ export default function App(props) {
         ==================================================*/
 
         return () => {
-            WS.close();
+            socket.close();
         };
-    }, [WS]);
+    }, [socket]);
 
     /*================================================
         BLOCK: WS SENDERS - USER INFO
@@ -402,7 +402,7 @@ export default function App(props) {
                 color: user.color,
             },
         };
-        WS.send(JSON.stringify(newUpdate));
+        socket.send(JSON.stringify(newUpdate));
         console.log('>>>>>>>>> MESSAGE SENT - updateUserName >>>>>>>>>');
         console.log('===> END - sendUserName');
     };
@@ -425,7 +425,7 @@ export default function App(props) {
                 color: user.color,
             },
         };
-        WS.send(JSON.stringify(newUpdate));
+        socket.send(JSON.stringify(newUpdate));
         console.log('>>>>>>>>> MESSAGE SENT - updateUserNickname >>>>>>>>>');
         console.log('===> END - sendUserNickname');
     };
@@ -448,29 +448,14 @@ export default function App(props) {
                 colorPrev: user.color,
             },
         };
-        WS.send(JSON.stringify(newUpdate));
+        socket.send(JSON.stringify(newUpdate));
         console.log('>>>>>>>>> MESSAGE SENT - updateUserColor >>>>>>>>>');
         console.log('===> END - sendUserColor');
     };
 
     /*================================================
-        BLOCK: WS SENDERS - EVENTS
+        BLOCK: USER EVENTS
     ==================================================*/
-
-    // FUNCTION: => sendMessage
-    const sendMessage = (newMessage) => {
-        console.log('===> sendMessage');
-        let newUpdate = {
-            type: 'newMessage',
-            message: newMessage,
-        };
-        WS.send(JSON.stringify(newUpdate));
-        console.log('>>>>>>>>> MESSAGE SENT - newMessage >>>>>>>>>');
-        console.log('===> END - sendMessage');
-    };
-
-    /*================================================*/
-    /*================================================*/
 
     // FUNCTION: => clickName
     const clickName = (data) => {
@@ -547,7 +532,7 @@ export default function App(props) {
                 </ContainerSidebar>
                 <ContainerChat>
                     <MessageList clickName={clickName} />
-                    <ChatBar sendMessage={sendMessage} />
+                    <ChatBar />
                 </ContainerChat>
                 <ContainerSidebar>
                     <UserList clickName={clickName} />

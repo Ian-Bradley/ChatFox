@@ -27,9 +27,7 @@ export default function User(props) {
 
     return (
         <Container>
-            <Name style={{ color: props.user.color }} onClick={onClickName}>
-                {props.user.nickname}
-            </Name>
+            <Name onClick={onClickName}>{props.user.nickname}</Name>
         </Container>
     );
 }
