@@ -1,35 +1,131 @@
-# Chattr
+<a name="readme-top"></a>
 
-Chattr is a React.js/Node.js & WebSocket based chat application.
 
-### Final Product
-<!-- !["Screenshot of Chattr"](https://raw.githubusercontent.com/IA-n7/Chattr/master/build/Chattr.gif) -->
+<!-- PROJECT SHIELD -->
+<!-- [![Contributors][contributors-shield]][contributors-url]
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url] -->
+[![MIT License][license-shield]][license-url]
+[![LinkedIn][linkedin-shield]][linkedin-url]
 
-### Major Dependencies
 
-FRONTEND:
-React.js
+<br />
+
+
+<!-- PROJECT LOGO -->
+<div align="center">
+  <a href="https://github.com/Ian-Bradley/Chattr">
+    <!-- <img src="images/logo.png" alt="Logo" width="80" height="80"> -->
+  </a>
+  <h3 align="center">Chattr</h3>
+  <p align="center">
+    A ReactJS + WebSocket chat app!
+    <!-- <br /> -->
+    <!-- <a href=""><strong>Explore the docs »</strong></a> -->
+    <br />
+    <br />
+    <!-- <a href="">View Demo</a> -->
+    <!-- · -->
+    <a href="https://github.com/Ian-Bradley/Chattr/issues">Report Bug</a>
+    <!-- · -->
+    <!-- <a href="https://github.com/Ian-Bradley/Chattr/issues">Request Feature</a> -->
+  </p>
+</div>
+
+
+<!-- TABLE OF CONTENTS -->
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+      <ul>
+        <li><a href="#built-with">Built With</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#getting-started">Getting Started</a>
+      <ul>
+        <li><a href="#prerequisites">Prerequisites</a></li>
+        <li><a href="#installation">Installation</a></li>
+      </ul>
+    </li>
+    <li><a href="#license">License</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#acknowledgments">Acknowledgments</a></li>
+  </ol>
+</details>
+
+
+<!-- ABOUT THE PROJECT -->
+## About The Project
+
+<!-- [![Product Name Screen Shot][product-screenshot]](https://example.com) -->
+
+Need to practice React.js and WebSockets? Build a chat application! Here's an attempt at that. This project is for practice and learning only, not meant for commercial use.
+
+You should consider hiring me, here's why:
+* High quality project architecture!
+* Excellent list making skills! Either in README's or Array.map()
+* Long interest in programming! (made pong in Macromedia Flash in high school)
+* These are supposed to be about the project, aren't they?
+
+Not all chat apps are right for you! Try `Chattr`! The lite, ReactJS + NodeJS chat application that most certainly isn't a rip-off of Dicord.gg and other 2/3-Panel chat rooms
+
+
+Head on down to <a href="#getting-started">Getting Started</a> to begin!
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+
+### Built With
+
+This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
+
+* [![Node][Node.js]][Node-url]
+* [![React][React.js]][React-url]
+
+### Other Dependencies
+
 React Router
 Redux (@reduxjs/toolkit)
 Styled Components
-Babel // Dev
-ESLint // Dev
-WebPack // Dev
-
-BACKEND:
-Node.js
+Babel
+ESLint
+WebPack
 Dotenv
 Express
-PostgreSQL
+PostgreSQL (pg)
 WebSockets (ws)
 
-### Setup
 
-1. Install all dependencies (using the `npm install` command).
-2. Run the development web server using `npm start`
-3. Go to <http://localhost:3000/> in your browser.
-4. Install server dependencies in the ws folder (using the `npm install` command).
-5. Run the Webpack Socket sever in the ws folder using `npm start`
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+
+<!-- GETTING STARTED -->
+## Getting Started
+
+
+### Prerequisites
+
+* Node.js
+
+### Installation
+
+_Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
+
+1. Clone the repo
+   ```sh
+   git clone https://github.com/Ian-Bradley/Chattr.git
+   ```
+2. Install NPM packages in root folder and server folder (`./server`)
+   ```sh
+   npm install
+   ```
+3. Enter your connection information in `config.js` and your environment file as necessary
 
 ### Linting
 
@@ -39,11 +135,59 @@ React ESLint
 npm run lint
 ```
 
-### Credits
 
-Luminosity Calculator for Hex Codes:
-https://stackoverflow.com/questions/12043187/how-to-check-if-hex-color-is-too-black
-https://en.wikipedia.org/wiki/Rec._709#Luma_coefficients
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-Other possibilities for luminosity:
-https://github.com/bgrins/TinyColor || https://bgrins.github.io/TinyColor/
+
+
+<!-- LICENSE -->
+## License
+
+Distributed under the MIT License. See `LICENSE.txt` for more information.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+
+<!-- CONTACT -->
+## Contact
+
+Ian Bradley - [@gmail](https://github.com/Ian-Bradley/Chattr) - ian.tech@proton.me
+
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+
+<!-- ACKNOWLEDGMENTS -->
+## Acknowledgments
+
+* [Luminosity calculator](https://react-icons.github.io/react-icons/search) [More info](https://en.wikipedia.org/wiki/Rec._709#Luma_coefficients)
+* [Other possibility for luminosity](https://github.com/bgrins/TinyColor)
+
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- [contributors-shield]: https://img.shields.io/github/contributors/Ian-Bradley/Chattr?style=plastic
+[contributors-url]: https://github.com/Ian-Bradley/Chattr/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/Ian-Bradley/Chattr?style=plastic
+[forks-url]: https://github.com/Ian-Bradley/Chattr/network/members
+[stars-shield]: https://img.shields.io/github/stars/Ian-Bradley/Chattr?style=plastic
+[stars-url]: https://github.com/Ian-Bradley/Chattr/stargazers
+[issues-shield]: https://img.shields.io/github/issues/Ian-Bradley/Chattr?style=plastic
+[issues-url]: https://github.com/Ian-Bradley/Chattr/issues -->
+[license-shield]: https://img.shields.io/github/license/Ian-Bradley/Chattr?style=plastic
+[license-url]: https://github.com/Ian-Bradley/Chattr/blob/master/LICENSE.txt
+[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black?style=plastic&logo=linkedin&colorB=555
+[linkedin-url]: https://linkedin.com/in/ian-bradley-418505159/
+
+<!-- [product-screenshot]: images/screenshot.png -->
+
+[React.js]: https://img.shields.io/badge/React-20232A?style=plastic&logo=react&logoColor=61DAFB
+[React-url]: https://reactjs.org/
+[Node.js]: https://img.shields.io/badge/Node-20232A?style=plastic&logo=node&logoColor=61DAFB
+[Node-url]: https://nodejs.org/
+
