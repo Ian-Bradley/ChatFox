@@ -7,7 +7,7 @@ import store from './redux/store';
 import { SocketProvider } from './util/websocket.js';
 
 import { ThemeProvider } from 'styled-components';
-import { FontProvider } from './assets/fonts/fonts.js';
+import GlobalStyles from './styles/global.js';
 import theme from './styles/theme.js';
 import './styles/normalize.css';
 
@@ -17,6 +17,7 @@ ReactDOM.render(
     <ThemeProvider theme={theme}>
         <Provider store={store}>
             <SocketProvider>
+                <GlobalStyles></GlobalStyles>
                 <App />
             </SocketProvider>
         </Provider>

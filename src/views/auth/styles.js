@@ -1,23 +1,10 @@
 import styled from 'styled-components';
-import { FULL_SIZE, FLEX_CENTER, STYLE_LIST_SCROLLBAR } from '../../styles/common.js';
-import {
-    APP_SPACING,
-    AUTH_FORM_WIDTH,
-    AUTH_FORM_SPACING,
-    AUTH_FORM_BORDER,
-    AUTH_FORM_BORDER_RADIUS,
-    AUTH_LOGO_WIDTH,
-    AUTH_LOGO_HEIGHT,
-    AUTH_TITLE_FONT_SIZE,
-    AUTH_TITLE_FONT_WEIGHT,
-    AUTH_INPUT_BORDER,
-    AUTH_INPUT_SPACING,
-} from '../../styles/constants.js';
+import sizes, { USE_FULL_AREA, FLEX_CENTER } from '../../styles/common.js';
 /*======================================*/
 /*======================================*/
 export const Container = styled.div`
     background: ${({ theme }) => theme.color.bg.main_1};
-    ${FULL_SIZE}
+    ${USE_FULL_AREA}
     ${FLEX_CENTER}
 `;
 /*======================================*/
@@ -28,15 +15,14 @@ export const FormContainer = styled.div`
     justify-content: flex-start;
     align-items: center;
 
-    width: ${AUTH_FORM_WIDTH};
+    width: 400px;
     height: auto;
-    padding: ${AUTH_FORM_SPACING} ${APP_SPACING};
+    padding: 80px ${sizes.spacing.app};
 
     background: ${({ theme }) => theme.color.bg.main_2};
-    border: ${AUTH_FORM_BORDER} ${({ theme }) => theme.color.border.highlight};
-    border-radius: ${AUTH_FORM_BORDER_RADIUS};
+    border: 5px solid ${({ theme }) => theme.color.border.highlight};
+    border-radius: 0rem;
 `;
-// ${STYLE_LIST_SCROLLBAR}
 /*======================================*/
 /*======================================*/
 export const Form = styled.form`
@@ -44,8 +30,8 @@ export const Form = styled.form`
     flex-flow: column nowrap;
     justify-content: flex-start;
     align-items: center;
-    padding: ${APP_SPACING};
-    ${FULL_SIZE}
+    padding: ${sizes.spacing.app};
+    ${USE_FULL_AREA}
 `;
 /*======================================*/
 /*======================================*/
@@ -56,22 +42,23 @@ export const ImageContainer = styled.div`
 /*======================================*/
 /*======================================*/
 export const Image = styled.img`
-    width: ${AUTH_LOGO_WIDTH};
-    height: ${AUTH_LOGO_HEIGHT};
+    width: 150px;
+    height: 150px;
 `;
 /*======================================*/
 /*======================================*/
 export const TitleContainer = styled.div`
     width: 100%;
     height: auto;
-    padding: ${APP_SPACING};
+    padding: ${sizes.spacing.app};
     ${FLEX_CENTER}
 `;
 /*======================================*/
 /*======================================*/
-export const Title = styled.span`
-    font-size: ${AUTH_TITLE_FONT_SIZE};
-    font-weight: ${AUTH_TITLE_FONT_WEIGHT};
+export const Title = styled.h1`
+    font-size: 3rem;
+    font-weight: 600;
+    margin: 0;
 `;
 /*======================================*/
 /*======================================*/
@@ -80,6 +67,7 @@ export const InputContainer = styled.label`
     flex-flow: column nowrap;
     align-items: center;
     justifty-content: center;
+    margin-bottom: 1rem;
 `;
 /*======================================*/
 /*======================================*/
@@ -87,8 +75,8 @@ export const Input = styled.input`
     background: none;
     outline: none;
     border: none;
-    border-bottom: ${AUTH_INPUT_BORDER} ${({ theme }) => theme.color.text.light};
-    margin-bottom: ${APP_SPACING};
+    border-bottom: 2px solid ${({ theme }) => theme.color.text.light};
+    margin-bottom: 8px;
 `;
 /*======================================*/
 /*======================================*/
@@ -101,7 +89,7 @@ export const RememberContainer = styled.label`
 /*======================================*/
 /*======================================*/
 export const Label = styled.label`
-    padding-left: ${APP_SPACING};
+    padding-left: ${sizes.spacing.app};
 `;
 /*======================================*/
 /*======================================*/

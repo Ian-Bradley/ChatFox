@@ -1,11 +1,10 @@
 import styled from 'styled-components';
-import { FULL_SIZE } from '../../styles/common.js';
-import { APP_WIDTH_SIDEBAR, APP_HEIGHT_NAV } from '../../styles/constants.js';
+import sizes, { USE_FULL_AREA } from '../../styles/common.js';
 /*======================================*/
 /*======================================*/
 export const ContainerNav = styled.div`
     width: 100%;
-    height: ${APP_HEIGHT_NAV};
+    height: ${sizes.height.nav};
 `;
 /*======================================*/
 /*======================================*/
@@ -14,7 +13,7 @@ export const ContainerBody = styled.div`
     flex-flow: row nowrap;
     align-items: flex-start;
     justify-content: flex-start;
-    ${FULL_SIZE}
+    ${USE_FULL_AREA}
 `;
 /*======================================*/
 /*======================================*/
@@ -23,12 +22,12 @@ export const ContainerChat = styled.div`
     flex-flow: column nowrap;
     align-items: flex-start;
     justify-content: flex-start;
-    ${FULL_SIZE}
+    ${USE_FULL_AREA}
 `;
 /*======================================*/
 /*======================================*/
 export const ContainerSidebar = styled.div`
-    width: ${APP_WIDTH_SIDEBAR};
+    width: ${sizes.width.sidebar};
     height: 100%;
 
     background: ${({ theme }) => theme.color.bg.main_2};

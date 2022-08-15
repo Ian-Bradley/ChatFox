@@ -1,15 +1,14 @@
 import styled from 'styled-components';
-import { USER_SPACING, USER_NAME_FONT_WEIGHT } from '../../styles/constants.js';
 /*======================================*/
 /*======================================*/
 export const Container = styled.div`
     width: 100%;
-    margin-bottom: ${USER_SPACING};
+    margin-bottom: 2px;
 `;
 /*======================================*/
 /*======================================*/
 export const Name = styled.span`
-    font-weight: ${USER_NAME_FONT_WEIGHT};
+    font-weight: 700;
 `;
 /*======================================*/
 /*======================================*/

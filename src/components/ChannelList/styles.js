@@ -1,6 +1,5 @@
 import styled from 'styled-components';
-import { STYLE_LIST_SCROLLBAR } from '../../styles/common.js';
-import { APP_SPACING } from '../../styles/constants.js';
+import sizes, { STYLE_LIST_SCROLLBAR } from '../../styles/common.js';
 /*======================================*/
 /*======================================*/
 export const Container = styled.div`
@@ -25,14 +24,14 @@ export const Top = styled.div`
     justify-content: space-between;
 
     background: ${({ theme }) => theme.color.bg.main_4};
-    padding: ${APP_SPACING};
+    padding: ${sizes.spacing.app};
     width: 100%;
 `;
 /*======================================*/
 /*======================================*/
 export const Bottom = styled.div`
     background: ${({ theme }) => theme.color.bg.main_2};
-    padding: ${APP_SPACING};
+    padding: ${sizes.spacing.app};
     width: 100%;
     height: 100%;
 `;
@@ -40,8 +39,8 @@ export const Bottom = styled.div`
 /*======================================*/
 export const Search = styled.div`
     position: absolute;
-    bottom: ${APP_SPACING};
-    right: ${APP_SPACING};
+    bottom: ${sizes.spacing.app};
+    right: ${sizes.spacing.app};
 `;
 /*======================================*/
 /*======================================*/

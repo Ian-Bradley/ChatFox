@@ -1,18 +1,3 @@
-// import fonts from '../fonts/';
-
-/*
-The Sweetest Chill
-#343635 (52,54,53)
-#605aa0 (96,90,160)
-#8c80c2 (140,128,194)
-#c6a9e1 (198,169,225)
-#e1ebe2 (225,235,226)
-*/
-// font-family: 'Open Sans', sans-serif;
-// font-size: ${({ theme }) => theme.font.size};
-
-// background: ${({ theme }) => theme.color.bg.main_1};
-// color: ${({ theme }) => theme.color.text.light};
 const theme = {
     color: {
         border: {
@@ -26,6 +11,10 @@ const theme = {
             light: '#e1ebe2',
             dark: '#343635',
             link: '#605aa0',
+
+            material: 'rgba(255,255,255, .87)',
+            material_dark: 'rgba(255,255,255, .60)',
+            material_disabled: 'rgba(255,255,255, .38)',
         },
         bg: {
             main_1: '#121212',
@@ -42,13 +31,14 @@ const theme = {
 };
 export default theme;
 
-// export const APP_FONT_COLOR = 'rgba(255,255,255, .87)';
-// export const APP_FONT_COLOR_DARK = 'rgba(255,255,255, .60)';
-// export const APP_FONT_COLOR_DISABLED = 'rgba(255,255,255, .38)';
-
-// export const APP_TITLE_COLOR_1 = '#C3FBF4';
-// export const APP_TITLE_COLOR_2 = '#5684AE';
-// export const APP_TITLE_COLOR_3 = '#000000';
+/*
+The Sweetest Chill
+#343635 (52,54,53)
+#605aa0 (96,90,160)
+#8c80c2 (140,128,194)
+#c6a9e1 (198,169,225)
+#e1ebe2 (225,235,226)
+*/
 
 /*
 #FFFF14 dodgy-yellow 

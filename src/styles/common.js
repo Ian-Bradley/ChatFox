@@ -1,4 +1,26 @@
 /*======================================
+    BLOCK: APP GENERAL SIZING
+========================================*/
+
+const sizes = {
+    spacing: {
+        app: '6px',
+        lists: '3px',
+    },
+
+    width: {
+        sidebar: '325px',
+    },
+
+    height: {
+        nav: '80px',
+        chatbar: '60px',
+        messages: 'calc(100% - 60px)',
+    },
+};
+export default sizes;
+
+/*======================================
     BLOCK: COMMON STYLES
 ========================================*/
 
@@ -16,7 +38,7 @@ export const FLEX_CENTER = `
     align-items: center;
 `;
 
-export const FULL_SIZE = `
+export const USE_FULL_AREA = `
     width: 100%;
     height: 100%;
     overflow: hidden;

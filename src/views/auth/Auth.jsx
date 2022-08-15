@@ -60,10 +60,10 @@ export default function Auth(props) {
 
     /*================================================*/
 
-    const onEmail = (e) => {
-        console.log('===> onEmail');
-        console.log('===> END - onEmail');
-    };
+    // const onEmail = (e) => {
+    //     console.log('===> onEmail');
+    //     console.log('===> END - onEmail');
+    // };
 
     /*================================================*/
 
@@ -100,14 +100,14 @@ export default function Auth(props) {
                     <InputContainer>
                         <Input type='text' onKeyUp={onUserName} placeholder='User name' />
                         <Input type='password' onKeyUp={onPassword} placeholder='Password' />
-                        <Input type='email' onKeyUp={onEmail} placeholder='Email' />
+                        {/* <Input type='email' onKeyUp={onEmail} placeholder='Email' /> */}
                     </InputContainer>
+                    <Link to='/room'>room</Link>
+                    <Link to='/eeeeeeeee'>error</Link>
                     <RememberContainer>
                         <Checbox id='remember-me' type='checkbox' onClick={onRememberMe} />
                         <Label htmlFor='remember-me'>Remember me</Label>
                     </RememberContainer>
-                    <Link to='/room'>room</Link>
-                    <Link to='/eeeeeeeee'>error</Link>
                 </Form>
             </FormContainer>
         </Container>

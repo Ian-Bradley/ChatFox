@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { FULL_SIZE } from './styles/common.js';
+import { USE_FULL_AREA } from './styles/common.js';
 /*======================================*/
 /*======================================*/
 export const ContainerApp = styled.div`
@@ -7,22 +7,7 @@ export const ContainerApp = styled.div`
     flex-flow: column nowrap;
     align-items: flex-start;
     justify-content: flex-start;
-    ${FULL_SIZE}
-    
-    & div, & span, & p, & a {
-        font-family: 'OpenSans', sans-serif;
-        font-size: '14px',
-        weight: 400;
-    }
-
-    & * {
-        color: ${({ theme }) => theme.color.text.light};
-        
-
-        & a {
-            color: ${({ theme }) => theme.color.text.link};
-        }
-    }
+    ${USE_FULL_AREA}
 `;
 /*======================================*/
 /*======================================*/

@@ -1,16 +1,8 @@
 import styled from 'styled-components';
-import {
-    MESSAGE_PADDING,
-    MESSAGE_FONT_SIZE,
-    MESSAGE_FONT_WEIGHT,
-    MESSAGE_SPACING,
-    MESSAGE_TIME_FONT_SIZE,
-    USER_NAME_FONT_WEIGHT,
-} from '../../styles/constants.js';
 /*======================================*/
 /*======================================*/
 export const Container = styled.div`
-    padding: ${MESSAGE_PADDING};
+    padding: 5px;
     width: 100%;
 `;
 /*======================================*/
@@ -22,23 +14,23 @@ export const Div = styled.div`
     justify-content: flex-start;
 
     white-space: nowrap;
-    font-size: ${MESSAGE_FONT_SIZE};
-    font-weight: ${MESSAGE_FONT_WEIGHT};
+    font-size: 0.9rem;
+    font-weight: 400;
 
     & span {
-        margin-right: ${MESSAGE_SPACING};
+        margin-right: 4px;
     }
 `;
 /*======================================*/
 /*======================================*/
 export const Time = styled.span`
-    font-size: ${MESSAGE_TIME_FONT_SIZE};
+    font-size: 0.7rem;
     font-style: normal;
 `;
 /*======================================*/
 /*======================================*/
 export const Name = styled.span`
-    font-weight: ${USER_NAME_FONT_WEIGHT};
+    font-weight: 500;
     cursor: pointer;
 
     &:hover {

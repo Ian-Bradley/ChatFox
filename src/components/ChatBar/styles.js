@@ -1,17 +1,9 @@
 import styled from 'styled-components';
-import {
-    CHATBAR_HEIGHT,
-    CHATBAR_WIDTH,
-    CHATBAR_BORDER,
-    CHATBAR_BORDER_RADIUS,
-    CHATBAR_LINE_HEIGHT,
-    CHATBAR_PADDING,
-} from '../../styles/constants.js';
 /*======================================*/
 /*======================================*/
 export const Container = styled.div`
     width: 100%;
-    height: ${CHATBAR_HEIGHT};
+    height: 60px;
 
     background: ${({ theme }) => theme.color.bg.main_2};
 `;
@@ -23,7 +15,7 @@ export const InputContainer = styled.div`
     align-items: center;
     justify-content: center;
 
-    width: ${CHATBAR_WIDTH};
+    width: 100%;
     height: 100%;
 `;
 /*======================================*/
@@ -32,11 +24,11 @@ export const Input = styled.input`
     width: 100%;
     background-color: ${({ theme }) => theme.color.bg.main_2};
 
-    border: ${CHATBAR_BORDER};
-    border-radius: ${CHATBAR_BORDER_RADIUS};
+    border: 1px solid;
+    border-radius: 6px;
 
-    line-height: ${CHATBAR_LINE_HEIGHT};
-    padding: ${CHATBAR_PADDING};
+    line-height: 1rem;
+    padding: 0.2rem 0.6rem;
 `;
 /*======================================*/
 /*======================================*/

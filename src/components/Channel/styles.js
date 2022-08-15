@@ -1,7 +1,5 @@
 import styled from 'styled-components';
-import {
-    USER_SPACING,
-} from '../../styles/constants.js';
+import sizes from '../../styles/common.js';
 /*======================================*/
 /*======================================*/
 export const Container = styled.div`
@@ -11,12 +9,10 @@ export const Container = styled.div`
     align-items: flex-start;
 
     width: 100%;
-    margin-bottom: ${USER_SPACING};
+    margin-bottom: ${sizes.spacing.lists};
 `;
 /*======================================*/
 /*======================================*/
-export const Name = styled.span`
-    
-`;
+export const Name = styled.span``;
 /*======================================*/
 /*======================================*/

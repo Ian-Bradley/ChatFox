@@ -1,18 +1,17 @@
 import styled from 'styled-components';
-import { FULL_SIZE } from '../../styles/common.js';
-import { APP_SPACING, APP_TITLE_FONT_SIZE, APP_TITLE_FONT_WEIGHT } from '../../styles/constants.js';
+import sizes, { USE_FULL_AREA } from '../../styles/common.js';
 /*======================================*/
 /*======================================*/
 export const Container = styled.div`
     position: relative;
-    ${FULL_SIZE}
+    ${USE_FULL_AREA}
 `;
 /*======================================*/
 /*======================================*/
 export const TitleContainer = styled.div`
     position: fixed;
-    top: ${APP_SPACING};
-    left: ${APP_SPACING};
+    top: ${sizes.spacing.app};
+    left: ${sizes.spacing.app};
 
     display: flex;
     flex-flow: row nowrap;
@@ -23,15 +22,15 @@ export const TitleContainer = styled.div`
 /*======================================*/
 /*======================================*/
 export const Title = styled.span`
-    font-size: ${APP_TITLE_FONT_SIZE};
-    font-weight: ${APP_TITLE_FONT_WEIGHT};
+    font-size: 4rem;
+    font-weight: 800;
 `;
 /*======================================*/
 /*======================================*/
 export const Nav = styled.nav`
     position: fixed;
-    top: ${APP_SPACING};
-    right: ${APP_SPACING};
+    top: ${sizes.spacing.app};
+    right: ${sizes.spacing.app};
 
     padding: 0;
     margin: 0;

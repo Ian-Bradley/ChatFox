@@ -1,6 +1,5 @@
 import styled from 'styled-components';
-import { STYLE_LIST_SCROLLBAR } from '../../styles/common.js';
-import { APP_HEIGHT_MESSAGES } from '../../styles/constants.js';
+import sizes, { STYLE_LIST_SCROLLBAR } from '../../styles/common.js';
 /*======================================*/
 /*======================================*/
 export const Container = styled.div`
@@ -10,7 +9,7 @@ export const Container = styled.div`
     justify-content: initial;
 
     width: 100%;
-    height: ${APP_HEIGHT_MESSAGES};
+    height: ${sizes.height.messages};
 
     ${STYLE_LIST_SCROLLBAR}
 `;
