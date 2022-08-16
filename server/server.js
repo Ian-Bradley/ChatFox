@@ -25,7 +25,7 @@ server.use('/api/user', userAPI);
 server.use('/api/users', usersAPI);
 server.use('/api/room', roomAPI);
 server.use('/api/rooms', roomsAPI);
-server.use('/', routes);
+// server.use('/', routes);
 
 // Initiating
 server.listen(config.server.port, config.server.ip, config.server.domain, () => {

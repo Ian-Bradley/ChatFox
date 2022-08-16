@@ -1,6 +1,6 @@
 import { LOTR_NAMES } from './constants.js';
-/*======================================*/
-/*======================================*/
+/*================================================*/
+/*================================================*/
 // FUNCTION: => isTooDark
 export const isTooDark = (hexStr) => {
     let c = hexStr.substring(1); // strip #
@@ -15,8 +15,8 @@ export const isTooDark = (hexStr) => {
         return false; // is light enough
     }
 };
-/*======================================*/
-/*======================================*/
+/*================================================*/
+/*================================================*/
 // FUNCTION: => generateRandomColor
 export const generateRandomColor = () => {
     let randomColor = '#';
@@ -30,8 +30,8 @@ export const generateRandomColor = () => {
         return randomColor;
     }
 };
-/*======================================*/
-/*======================================*/
+/*================================================*/
+/*================================================*/
 // FUNCTION: => generateRandomName
 export const generateRandomName = (withNumbers) => {
     let randomName = '';
@@ -46,8 +46,8 @@ export const generateRandomName = (withNumbers) => {
     randomName += LOTR_NAMES[Math.floor(Math.random() * LOTR_NAMES.length)];
     return randomName + randomNumber;
 };
-/*======================================*/
-/*======================================*/
+/*================================================*/
+/*================================================*/
 // FUNCTION: => debounce
 export const debounce = (func, wait, immediate) => {
     let timeout;
@@ -64,8 +64,8 @@ export const debounce = (func, wait, immediate) => {
         if (callNow) func.apply(context, args);
     };
 };
-/*======================================*/
-/*======================================*/
+/*================================================*/
+/*================================================*/
 // FUNCTION: => setCookie
 export const setCookie = (name, value, days) => {
     let expires = '';
@@ -76,8 +76,8 @@ export const setCookie = (name, value, days) => {
     }
     document.cookie = name + '=' + (value || '') + expires + ' path=/';
 };
-/*======================================*/
-/*======================================*/
+/*================================================*/
+/*================================================*/
 // FUNCTION: => getCookie
 export const getCookie = (name) => {
     let nameEQ = name + '=';
@@ -93,5 +93,5 @@ export const getCookie = (name) => {
     }
     return null;
 };
-/*======================================*/
-/*======================================*/
+/*================================================*/
+/*================================================*/

@@ -1,24 +1,22 @@
 const pool = require('../../db.js');
-
 const room = {
     /*================================================*/
     /*================================================*/
     getRoom: async function (value) {
         try {
             const client = await pool.connect();
-            let column = '';
+            let query = '';
             if (parseInt(value)) {
-                column = 'id';
+                query = `SELECT * FROM rooms WHERE id = ${value}`;
             } else {
-                column = 'name';
+                query = `SELECT * FROM rooms WHERE UPPER(name) = UPPER('${value}')`;
             }
-            const results = await client.query(`SELECT * FROM rooms WHERE ${column}='${value}'`);
+            const results = await client.query(query);
             client.release();
             return results.rows;
         } catch (error) {
             console.error(error);
-            return error;
-            // return [];
+            return [error.severity + ': ' + error.routine];
         }
     },
     /*================================================*/

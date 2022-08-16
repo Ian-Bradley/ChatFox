@@ -1,5 +1,4 @@
 const pool = require('../../db.js');
-
 const users = {
     /*================================================*/
     /*================================================*/
@@ -11,8 +10,7 @@ const users = {
             return results.rows;
         } catch (error) {
             console.error(error);
-            return error;
-            // return [];
+            return [error.severity + ': ' + error.routine];
         }
     },
     /*================================================*/
@@ -20,19 +18,12 @@ const users = {
     getUsersByRoomID: async function (value) {
         try {
             const client = await pool.connect();
-            let column = '';
-            if (parseInt(value)) {
-                column = 'roomID';
-            } else {
-                column = 'name';
-            }
-            const results = await client.query(`SELECT * FROM users WHERE ${column}=${value}`);
+            const results = await client.query(`SELECT * FROM users WHERE room_id = ${value}`);
             client.release();
             return results.rows;
         } catch (error) {
             console.error(error);
-            return error;
-            // return [];
+            return [error.severity + ': ' + error.routine];
         }
     },
     /*================================================*/

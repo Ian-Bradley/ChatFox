@@ -54,7 +54,6 @@
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
     <li><a href="#acknowledgments">Acknowledgments</a></li>
-    <li><a href="#folder-tree">Acknowledgments</a></li>
   </ol>
 </details>
 
@@ -166,51 +165,6 @@ Ian Bradley - [GitHub](https://github.com/Ian-Bradley/) - [LinkedIn](https://lin
 
 * [Luminosity calculator](https://react-icons.github.io/react-icons/search) [More info](https://en.wikipedia.org/wiki/Rec._709#Luma_coefficients)
 * [Other possibility for luminosity](https://github.com/bgrins/TinyColor)
-
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
-## File Tree
-
-Front-end:  
->src  
-  >assets  
-    >fonts  
-    >images  
-      >icons  
-  >components  
-    >Example  
-      >Example.jsx  
-      >styles.js  
-  >redux  
-    >sagas  
-    >slices  
-  >styles  
-  >util  
-  >views  
-    >auth  
-    >chat  
-    >error  
-  App.jsx  
-  index.html  
-  index.jsx  
-  styles.js  
-
-Back-end:  
->server  
-  >lib  
-    >api  
-      >users  
-      >rooms  
-    >db  
-      >queries  
-    >handlers  
-    >modules  
-    >routes  
-    >util  
-
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>

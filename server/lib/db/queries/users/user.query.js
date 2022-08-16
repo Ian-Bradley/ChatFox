@@ -1,24 +1,22 @@
 const pool = require('../../db.js');
-
 const user = {
     /*================================================*/
     /*================================================*/
     getUser: async function (value) {
         try {
             const client = await pool.connect();
-            let column = '';
+            let query = '';
             if (parseInt(value)) {
-                column = 'id';
+                query = `SELECT * FROM users WHERE id = ${value}`;
             } else {
-                column = 'name';
+                query = `SELECT * FROM users WHERE UPPER(name) = UPPER('${value}')`;
             }
-            const results = await client.query(`SELECT * FROM users WHERE ${column}='${value}'`);
+            const results = await client.query(query);
             client.release();
             return results.rows;
         } catch (error) {
             console.error(error);
-            return error;
-            // return [];
+            return [error.severity + ': ' + error.routine];
         }
     },
     /*================================================*/

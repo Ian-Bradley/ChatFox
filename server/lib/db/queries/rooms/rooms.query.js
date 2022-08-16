@@ -1,5 +1,4 @@
 const pool = require('../../db.js');
-
 const rooms = {
     /*================================================*/
     /*================================================*/
@@ -11,8 +10,7 @@ const rooms = {
             return results.rows;
         } catch (error) {
             console.error(error);
-            return error;
-            // return [];
+            return [error.severity + ': ' + error.routine];
         }
     },
     /*================================================*/
