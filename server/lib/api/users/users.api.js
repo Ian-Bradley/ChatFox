@@ -4,22 +4,20 @@ const router = express.Router();
 /*================================================*/
 /*================================================*/
 
-// ROUTE: => GET users
+// ROUTE: => GET users (all - use with caution)
 router.get('/', async function (req, res) {
     console.log('GET: users');
     let output = await dbQuery.users.getUsers();
-    // console.log('server.js ==> GET:/api/users = ', output);
     res.send(output);
 });
 
 /*================================================*/
 /*================================================*/
 
-// ROUTE: => GET users for room
-router.get('/:room', async function (req, res) {
-    console.log('GET: users:room');
-    let output = await dbQuery.users.getUsersForRoom(req.params.room);
-    // console.log('server.js ==> GET:/api/users/:room = ', output);
+// ROUTE: => GET users for room (by room id - FOREIGN KEY)
+router.get('/:id', async function (req, res) {
+    console.log('GET: users:id');
+    let output = await dbQuery.users.getUsersByRoomID(req.params.id);
     res.send(output);
 });
 

@@ -88,17 +88,21 @@ Head on down to <a href="#getting-started">Getting Started</a> to begin!
 
 ### Other Dependencies
 
-* React Router
-* Redux (@reduxjs/toolkit)
+* Redux (react-redux, @reduxjs/toolkit)
+* React Router (react-router-dom)
 * Styled Components
-* Babel
-* ESLint
-* WebPack
-* Dotenv
-* Express
 * PostgreSQL (pg)
 * WebSockets (ws)
-
+* Redux Persist
+* Redux Sagas
+* Express
+* WebPack
+* Dotenv
+* ESLint
+* Babel
+* Axios
+* uuid
+* Cors
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -171,7 +175,7 @@ Ian Bradley - [GitHub](https://github.com/Ian-Bradley/) - [LinkedIn](https://lin
 ## File Tree
 
 Front-end:  
-src  
+>src  
   >assets  
     >fonts  
     >images  
@@ -181,6 +185,8 @@ src
       >Example.jsx  
       >styles.js  
   >redux  
+    >sagas  
+    >slices  
   >styles  
   >util  
   >views  
@@ -193,17 +199,18 @@ src
   styles.js  
 
 Back-end:  
-server  
-  >db  
-    >queries  
-    >database.js  
-  >handlers  
+>server  
   >lib  
+    >api  
+      >users  
+      >rooms  
+    >db  
+      >queries  
+    >handlers  
     >modules  
+    >routes  
     >util  
-    DataTracker.js  
-  config.js  
-  server.js  
+
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>

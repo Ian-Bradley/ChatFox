@@ -1,19 +1,6 @@
-const pool = require('../db.js');
+const pool = require('../../db.js');
 
 const users = {
-    /*================================================*/
-    /*================================================*/
-    getUser: async function (userName) {
-        try {
-            const client = await pool.connect();
-            const results = await client.query(`SELECT * FROM users WHERE name='${userName}'`);
-            client.release();
-            return results.rows;
-        } catch (error) {
-            console.error(error);
-            return [];
-        }
-    },
     /*================================================*/
     /*================================================*/
     getUsers: async function () {
@@ -24,20 +11,28 @@ const users = {
             return results.rows;
         } catch (error) {
             console.error(error);
-            return [];
+            return error;
+            // return [];
         }
     },
     /*================================================*/
     /*================================================*/
-    getUsersForRoom: async function (roomID) {
+    getUsersByRoomID: async function (value) {
         try {
             const client = await pool.connect();
-            const results = await client.query(`SELECT * FROM users WHERE roomID = ${roomID}`);
+            let column = '';
+            if (parseInt(value)) {
+                column = 'roomID';
+            } else {
+                column = 'name';
+            }
+            const results = await client.query(`SELECT * FROM users WHERE ${column}=${value}`);
             client.release();
             return results.rows;
         } catch (error) {
             console.error(error);
-            return [];
+            return error;
+            // return [];
         }
     },
     /*================================================*/

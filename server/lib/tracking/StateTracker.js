@@ -1,14 +1,8 @@
 /*================================================
-    BLOCK: IMPORTS
-==================================================*/
-
-// const db = require('../db/db.js');
-
-/*================================================
     BLOCK: TRACKING CLASS
 ==================================================*/
 
-module.exports = class DataTracker {
+module.exports = class StateTracker {
     constructor() {
         /*================================================
             INNERBLOCK: STATE
