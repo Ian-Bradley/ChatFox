@@ -1,17 +1,13 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-
-import { Provider } from 'react-redux';
-import store from './redux/store';
-
-import { SocketProvider } from './util/websocket.js';
-
-import { ThemeProvider } from 'styled-components';
-import GlobalStyles from './styles/global.js';
-import theme from './styles/theme.js';
-import './styles/normalize.css';
-
 import App from './App.jsx';
+import './styles/normalize.css';
+import ReactDOM from 'react-dom';
+import store from './redux/store';
+import theme from './styles/theme.js';
+import { Provider } from 'react-redux';
+import GlobalStyles from './styles/global.js';
+import { ThemeProvider } from 'styled-components';
+import { SocketProvider } from './util/websocket.js';
 
 ReactDOM.render(
     <ThemeProvider theme={theme}>

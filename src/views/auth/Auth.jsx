@@ -33,7 +33,7 @@ export default function Auth(props) {
     });
 
     // Hooks
-    const [checked, setChecked] = useState('');
+    // const [checked, setChecked] = useState(false);
 
     /*================================================
         BLOCK: HOOK - USER INFO

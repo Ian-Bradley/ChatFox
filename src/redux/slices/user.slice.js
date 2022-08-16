@@ -9,12 +9,33 @@ const initialState = {
         color: generateRandomColor(),
         loggedIn: false,
     },
+    isLoading: false,
 };
 
 let userSlice = createSlice({
     name: 'user',
     initialState: initialState,
     reducers: {
+        /*======================================*/
+
+        getUserFetch: function (state, action) {
+            state.isLoading = true;
+        },
+
+        /*======================================*/
+
+        getUserSuccess: function (state, action) {
+            // action.payload = user (Object)
+            state.user = action.payload;
+            state.isLoading = false;
+        },
+
+        /*======================================*/
+
+        getUserFailure: function (state, action) {
+            state.isLoading = false;
+        },
+
         /*======================================*/
 
         setID: function (state, action) {
@@ -53,5 +74,13 @@ let userSlice = createSlice({
         /*======================================*/
     },
 });
-export const { setID, setName, setNickname, setColor } = userSlice.actions;
+export const {
+    getUserFetch,
+    getUserSuccess,
+    getUserFailure,
+    setID,
+    setName,
+    setNickname,
+    setColor,
+} = userSlice.actions;
 export default userSlice.reducer;

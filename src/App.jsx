@@ -378,7 +378,7 @@ export default function App(props) {
 
     // FUNCTION: => sendUserName
     const sendUserName = (newName) => {
-        console.log('===> sendUserName');
+        console.log('===> START - sendUserName');
         let newUpdate = {
             type: 'updateUserName',
             userID: user.id,
@@ -401,7 +401,7 @@ export default function App(props) {
 
     // FUNCTION: => sendUserNickname
     const sendUserNickname = (newNickname) => {
-        console.log('===> sendUserNickname');
+        console.log('===> START - sendUserNickname');
         let newUpdate = {
             type: 'updateUserNickname',
             userID: user.id,
@@ -424,7 +424,7 @@ export default function App(props) {
 
     // FUNCTION: => sendUserColor
     const sendUserColor = (newColor) => {
-        console.log('===> sendUserColor');
+        console.log('===> START - sendUserColor');
         let newUpdate = {
             type: 'updateUserColor',
             userID: user.id,

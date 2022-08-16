@@ -1,8 +1,8 @@
 /*================================================
-    BLOCK: POOLS
+    BLOCK: CONFIGS
 ==================================================*/
 
-const config = require('../config');
+const config = require('../../config.env');
 const { Pool } = require('pg');
 
 const pool = new Pool({
@@ -16,12 +16,7 @@ const pool = new Pool({
     idleTimeoutMillis: 10000, // default 10000
     allowExitOnIdle: false, // default false - (true) allow the node event loop to exit as soon as all clients in the pool are idle, even if their socket is still open
 });
-// console.log('pool ==> pool = ', pool);
 module.exports = pool;
-
-/*================================================
-    BLOCK: CLIENTS
-==================================================*/
 
 // const config = require('../config');
 // const { Client } = require('pg');
@@ -42,6 +37,11 @@ module.exports = pool;
 //     // types?: any, // custom type parsers
 // };
 // const client = new Client(configClient);
+
+/*================================================
+    BLOCK: CALLS
+==================================================*/
+
 
 // pool.connect((err, client, release) => {
 //     if (err) {

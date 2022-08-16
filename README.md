@@ -81,23 +81,23 @@ Head on down to <a href="#getting-started">Getting Started</a> to begin!
 
 
 
-### Built With
+## Built With
 
 * [![Node][Node.js]][Node-url]
 * [![React][React.js]][React-url]
 
 ### Other Dependencies
 
-React Router
-Redux (@reduxjs/toolkit)
-Styled Components
-Babel
-ESLint
-WebPack
-Dotenv
-Express
-PostgreSQL (pg)
-WebSockets (ws)
+* React Router
+* Redux (@reduxjs/toolkit)
+* Styled Components
+* Babel
+* ESLint
+* WebPack
+* Dotenv
+* Express
+* PostgreSQL (pg)
+* WebSockets (ws)
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -111,6 +111,7 @@ WebSockets (ws)
 ### Prerequisites
 
 * Node.js
+* PostgresQL
 
 ### Installation
 
@@ -149,7 +150,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Ian Bradley - [GitHub](https://github.com/Ian-Bradley/Chattr) - [LinkedIn](https://linkedin.com/in/ian-bradley-418505159/) - ian.tech@proton.me
+Ian Bradley - [GitHub](https://github.com/Ian-Bradley/) - [LinkedIn](https://linkedin.com/in/ian-bradley-418505159/) - ian.tech@proton.me
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -169,40 +170,40 @@ Ian Bradley - [GitHub](https://github.com/Ian-Bradley/Chattr) - [LinkedIn](https
 
 ## File Tree
 
-Front-end: 
-src
-  >assets
-    >fonts
-    >images
-      >icons
-  >components
-    >Example
-      >Example.jsx
-      >styles.js
-  >redux
-  >styles
-  >util
-  >views
-    >auth
-    >chat
-    >error
-  App.jsx
-  index.html
-  index.jsx
-  styles.js
+Front-end:  
+src  
+  >assets  
+    >fonts  
+    >images  
+      >icons  
+  >components  
+    >Example  
+      >Example.jsx  
+      >styles.js  
+  >redux  
+  >styles  
+  >util  
+  >views  
+    >auth  
+    >chat  
+    >error  
+  App.jsx  
+  index.html  
+  index.jsx  
+  styles.js  
 
-Back-end:
-server
-  >db
-    >queries
-    >database.js
-  >handlers
-  >lib
-    >modules
-    >util
-    DataTracker.js
-  config.js
-  server.js
+Back-end:  
+server  
+  >db  
+    >queries  
+    >database.js  
+  >handlers  
+  >lib  
+    >modules  
+    >util  
+    DataTracker.js  
+  config.js  
+  server.js  
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>

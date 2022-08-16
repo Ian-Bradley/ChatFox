@@ -4,6 +4,7 @@ export const GMT_DIRECTION = new Date().toString().slice(28,29);
 
 export const MODE_DEV = true;
 export const WS_URL = 'ws://localhost:3001';
+export const SERVER_URL = 'localhost:3000';
 
 export const DEBOUNCE_DELAY = 200;
 
