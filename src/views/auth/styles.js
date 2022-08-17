@@ -114,3 +114,11 @@ export const Label = styled.label`
 export const Checbox = styled.input``;
 /*======================================*/
 /*======================================*/
+export const Swapper = styled.a`
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: center;
+`;
+/*======================================*/
+/*======================================*/

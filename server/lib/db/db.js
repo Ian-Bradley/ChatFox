@@ -37,29 +37,3 @@ module.exports = pool;
 //     // types?: any, // custom type parsers
 // };
 // const client = new Client(configClient);
-
-/*================================================
-    BLOCK: CALLS
-==================================================*/
-
-
-// pool.connect((err, client, release) => {
-//     if (err) {
-//         return console.error('Error acquiring client', err.stack);
-//     }
-//     client.query('SELECT NOW()', (err, result) => {
-//         release();
-//         if (err) {
-//             return console.error('Error executing query', err.stack);
-//         }
-//         console.log(result.rows);
-//     });
-// });
-
-// const { Pool } = require('pg');
-// const pool = new Pool();
-// (async function () {
-//     const client = await pool.connect();
-//     await client.query('SELECT NOW()');
-//     client.release();
-// })();

@@ -7,9 +7,10 @@ import { useSocket } from './util/websocket.js';
 import Auth from './views/auth/Auth.jsx';
 import Chat from './views/chat/Chat.jsx';
 import Error from './views/error/Error.jsx';
+import Dev from './components/Dev/Dev.jsx';
 
 // STYLED COMPONENTS
-import { ContainerApp, Dev, DevInfo, DevTools, DevList, DevListItem, DevTitle } from './styles.js';
+import { ContainerApp } from './styles.js';
 
 // UTILS - DEV
 import { generateRandomName, generateRandomColor } from './util/functions.js';
@@ -79,9 +80,6 @@ export default function App(props) {
 
     const user = useSelector((state) => {
         return state['user'].user;
-    });
-    const prefs = useSelector((state) => {
-        return state['prefs'].prefs;
     });
 
     // Hooks
@@ -443,8 +441,9 @@ export default function App(props) {
     };
 
     /*================================================
-        BLOCK: DEV TOOLS
+        BLOCK: DEV FUNCTIONS
     ==================================================*/
+    // NOTE: to be moved (send functions are the issue)
 
     const onDevuser = () => {
         dispatch(
@@ -498,66 +497,15 @@ export default function App(props) {
                 </Router>
             </ContainerApp>
 
-            <Dev>
-                <DevInfo>
-                    <DevList>
-                        <DevListItem>
-                            <DevTitle>Current User: </DevTitle>
-                        </DevListItem>
-                        <DevListItem>
-                            <DevTitle>ID</DevTitle>
-                            {user.id + ' '}
-                        </DevListItem>
-                        <DevListItem>
-                            <DevTitle>Name</DevTitle>
-                            {user.name + ' '}
-                        </DevListItem>
-                        <DevListItem>
-                            <DevTitle>Nickname</DevTitle>
-                            {user.nickname + ' '}
-                        </DevListItem>
-                        <DevListItem>
-                            <DevTitle>Color</DevTitle>
-                            {user.color + ' '}
-                        </DevListItem>
-                        <DevListItem>
-                            <DevTitle>Timestamps</DevTitle>
-                            {prefs.showTimestamps + ' '}
-                        </DevListItem>
-                        <DevListItem>
-                            <DevTitle>24HourTime</DevTitle>
-                            {prefs.show24HourTime + ' '}
-                        </DevListItem>
-                    </DevList>
-                </DevInfo>
-                <DevTools>
-                    <input
-                        type='text'
-                        className='name-input'
-                        placeholder='Specific name'
-                        defaultValue=''
-                        onKeyDown={onDevname3}
-                    />
-                    <input
-                        type='text'
-                        className='name-input'
-                        placeholder='Specific nickname'
-                        defaultValue=''
-                        onKeyDown={onDevname}
-                    />
-                    <button onClick={onDevname2}>Name</button>
-                    <button onClick={onDevcolor}>Color</button>
-                    <button onClick={onDevuser}>Fake User</button>
-                    <div>
-                        <input type='checkbox' id='dev-time' onClick={onDevpref4} />
-                        <label htmlFor='dev-time'>Timestamps</label>
-                    </div>
-                    <div>
-                        <input type='checkbox' id='dev-hour' onClick={onDevpref5} />
-                        <label htmlFor='dev-hour'>24 hour time</label>
-                    </div>
-                </DevTools>
-            </Dev>
+            <Dev
+                onDevuser={onDevuser}
+                onDevcolor={onDevcolor}
+                onDevname={onDevname}
+                onDevname2={onDevname2}
+                onDevname3={onDevname3}
+                onDevpref4={onDevpref4}
+                onDevpref5={onDevpref5}
+            />
         </>
     );
 }

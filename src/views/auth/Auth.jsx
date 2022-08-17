@@ -1,5 +1,4 @@
 import { useNavigate, Link } from 'react-router-dom';
-import { useSocket } from '../../util/websocket.js';
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
@@ -15,6 +14,7 @@ import {
     Title,
     Image,
     Button,
+    Swapper,
     Checbox,
     Container,
     FormContainer,
@@ -39,8 +39,8 @@ export default function Auth(props) {
     const [hasPassword, setHasPassword] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [isChecked, setIsChecked] = useState(false);
+    const [form, setform] = useState('login');
     const navigate = useNavigate();
-    const socket = useSocket();
 
     /*================================================
         BLOCK: HOOK - USER INFO
@@ -48,6 +48,7 @@ export default function Auth(props) {
 
     useEffect(() => {
         console.log('---------- USE-EFFECT - Login check and user info ----------');
+        // TODO: maybe use JWT validation
         if (user.loggedIn) {
             navigate('/room', { replace: true });
         }
@@ -61,26 +62,26 @@ export default function Auth(props) {
 
     // FUNCTION: => handleLogin
     const handleLogin = async () => {
+        // TODO: password must be 3 characters min
         console.log('===> START - handleLogin');
         if (hasUserName && hasPassword) {
             try {
                 // ==> QUERY
-                const res = await axios.get(`http://localhost:3001/api/user/1`); // change to auth route
+                const res = await axios.get(`http://localhost:3001/login/`);
                 console.log(res);
                 console.log(res.data);
 
-
-                // ==> 
-
+                // ==>
 
                 // ==> STORAGE
                 if (isChecked) {
+                    console.log('isChecked = true');
                     // TODO: store in cookies/local
                 }
 
                 // ==> END
                 console.log('===> END - handleLogin');
-                navigate('/room', { replace: false }); // DEV
+                // navigate('/room', { replace: false }); // DEV
                 // navigate('/room', { replace: true }); // PROD
             } catch (error) {
                 console.error(error);
@@ -100,10 +101,8 @@ export default function Auth(props) {
 
     // FUNCTION: => onSubmitForm
     const onSubmitForm = (e) => {
-        console.log('===> START - onSubmitForm');
         e.preventDefault();
         handleLogin();
-        console.log('===> END - onSubmitForm');
     };
 
     /*================================================*/
@@ -114,10 +113,8 @@ export default function Auth(props) {
         if (e.target.value && e.target.value.length) {
             setHasUserName(true);
             if (e.keyCode === 13) {
-                console.log('===> START - onNameInput');
                 e.preventDefault();
                 handleLogin();
-                console.log('===> END - onNameInput');
             }
         } else {
             setHasUserName(false);
@@ -132,10 +129,8 @@ export default function Auth(props) {
         if (e.target.value && e.target.value.length) {
             setHasPassword(true);
             if (e.keyCode === 13) {
-                console.log('===> START - onPasswordInput');
                 e.preventDefault();
                 handleLogin();
-                console.log('===> END - onPasswordInput');
             }
         } else {
             setHasPassword(false);
@@ -147,10 +142,8 @@ export default function Auth(props) {
 
     // FUNCTION: => onLoginButton
     const onLoginButton = (e) => {
-        console.log('===> START - onLoginButton');
         e.preventDefault();
         handleLogin();
-        console.log('===> END - onLoginButton');
     };
 
     /*================================================*/
@@ -158,13 +151,11 @@ export default function Auth(props) {
 
     // FUNCTION: => onRememberMe
     const onRememberMe = (e) => {
-        console.log('===> START - onRememberMe');
         if (e.target.checked) {
             setIsChecked(true);
         } else {
             setIsChecked(false);
         }
-        console.log('===> END - onRememberMe');
     };
 
     /*================================================*/
@@ -172,10 +163,14 @@ export default function Auth(props) {
 
     // FUNCTION: => onFormSwap
     const onFormSwap = (e) => {
-        console.log('===> START - onFormSwap');
         e.preventDefault();
+        if (form === 'login') {
+            setform('register');
+        }
+        if (form === 'register') {
+            setform('login');
+        }
         // TODO: swap form functionality (post instead of get)
-        console.log('===> END - onFormSwap');
     };
 
     /*================================================
@@ -202,11 +197,10 @@ export default function Auth(props) {
                         <Checbox id='remember-me' type='checkbox' onClick={onRememberMe} />
                         <Label htmlFor='remember-me'>Remember me</Label>
                     </RememberContainer>
-                    <a href='javascript:void(0);' onClick={onFormSwap}>
-                        Already have an account?
-                        <br />
-                        Click Here!
-                    </a>
+                    <Swapper href='' onClick={onFormSwap}>
+                        <span>Don't have an account?</span>
+                        <span>Click Here!</span>
+                    </Swapper>
                     <br />
                     TESTING:
                     <Link to='/room'>room</Link>

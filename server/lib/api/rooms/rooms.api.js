@@ -6,9 +6,14 @@ const router = express.Router();
 
 // ROUTE: => GET rooms (all - use with caution)
 router.get('/', async function (req, res) {
-    console.log('GET: rooms');
-    let output = await dbQuery.rooms.getRooms();
-    res.send(output);
+    try {
+        console.log('GET: rooms');
+        let output = await dbQuery.rooms.getRooms();
+        res.status(200).json(output);
+    } catch (err) {
+        res.status(400).send(err);
+        console.log(err);
+    }
 });
 
 /*================================================*/

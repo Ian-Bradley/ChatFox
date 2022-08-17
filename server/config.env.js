@@ -1,6 +1,5 @@
 require('dotenv').config({ path: '../.env' });
 const ENV = process.env.NODE_ENV;
-// console.log('/config.js: NODE_ENV = ', process.env.NODE_ENV);
 /*================================================*/
 /*================================================*/
 const development = {
@@ -15,6 +14,11 @@ const development = {
         name: process.env.DEV_DB_NAME || 'postgres',
         user: process.env.DEV_DB_USER || 'postgres',
         password: process.env.DEV_DB_PASSWORD || '123',
+    },
+    jwtKey: {
+        key: process.env.JWT_KEY,
+        expire: process.env.JWT_EXPIRE,
+        alg: process.env.JWT_ALG,
     },
 };
 /*================================================*/
@@ -31,6 +35,12 @@ const production = {
         name: process.env.PROD_DB_NAME || 'postgres',
         user: process.env.PROD_DB_USER || 'postgres',
         password: process.env.PROD_DB_PASSWORD || '123',
+    },
+    jwtKey: {
+        key_private: process.env.JWT_KEY_PRIVATE,
+        key_public: process.env.JWT_KEY_PUBLIC,
+        expire: process.env.JWT_EXPIRE,
+        alg: process.env.JWT_ALG,
     },
 };
 /*================================================*/
