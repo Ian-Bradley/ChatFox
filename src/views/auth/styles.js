@@ -17,12 +17,14 @@ export const FormContainer = styled.div`
 
     width: 400px;
     height: auto;
+
+    overflow: hidden;
     padding: 80px ${sizes.spacing.app};
 
     background: ${({ theme }) => theme.color.bg.main_2};
-    border: 5px solid ${({ theme }) => theme.color.border.highlight};
     border-radius: 0rem;
 `;
+// border: 5px solid ${({ theme }) => theme.color.border.highlight};
 /*======================================*/
 /*======================================*/
 export const Form = styled.form`
@@ -30,8 +32,9 @@ export const Form = styled.form`
     flex-flow: column nowrap;
     justify-content: flex-start;
     align-items: center;
-    padding: ${sizes.spacing.app};
-    ${USE_FULL_AREA}
+
+    width: 60%;
+    padding: 0;
 `;
 /*======================================*/
 /*======================================*/
@@ -50,7 +53,10 @@ export const Image = styled.img`
 export const TitleContainer = styled.div`
     width: 100%;
     height: auto;
+
     padding: ${sizes.spacing.app};
+    margin-bottom: 15px;
+
     ${FLEX_CENTER}
 `;
 /*======================================*/
@@ -62,29 +68,41 @@ export const Title = styled.h1`
 `;
 /*======================================*/
 /*======================================*/
-export const InputContainer = styled.label`
-    display: flex;
-    flex-flow: column nowrap;
-    align-items: center;
-    justifty-content: center;
-    margin-bottom: 1rem;
-`;
-/*======================================*/
-/*======================================*/
 export const Input = styled.input`
-    background: none;
+    width: 100%;
+    height: 30px;
+
+    padding: 0 ${sizes.spacing.app};
+    margin-bottom: 12px;
+
+    box-sizing: border-box;
     outline: none;
     border: none;
-    border-bottom: 2px solid ${({ theme }) => theme.color.text.light};
-    margin-bottom: 8px;
+
+    background: ${({ theme }) => theme.color.text.light};
+    color: ${({ theme }) => theme.color.text.dark};
 `;
 /*======================================*/
 /*======================================*/
-export const RememberContainer = styled.label`
+export const Button = styled.button`
+    width: 100%;
+    height: 30px;
+
+    outline: none;
+    border: none;
+
+    background: ${({ theme }) => theme.color.text.link};
+    color: ${({ theme }) => theme.color.text.black};
+`;
+/*======================================*/
+/*======================================*/
+export const RememberContainer = styled.div`
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
     justifty-content: center;
+
+    margin-top: 20px;
 `;
 /*======================================*/
 /*======================================*/

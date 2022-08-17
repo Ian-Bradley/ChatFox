@@ -14,17 +14,22 @@ const server = express();
 server.use(cors());
 server.use(express.static(path.join(__dirname, '..', 'dist')));
 
-// API + Routes
+// API
 const userAPI = require('./lib/api/users/user.api.js');
 const usersAPI = require('./lib/api/users/users.api.js');
 const roomAPI = require('./lib/api/rooms/room.api.js');
 const roomsAPI = require('./lib/api/rooms/rooms.api.js');
-const routes = require('./lib/routes/routes.js');
 
 server.use('/api/user', userAPI);
 server.use('/api/users', usersAPI);
 server.use('/api/room', roomAPI);
 server.use('/api/rooms', roomsAPI);
+
+// Routes
+const auth = require('./lib/routes/auth.js');
+const routes = require('./lib/routes/routes.js');
+
+server.use('/auth', auth);
 // server.use('/', routes);
 
 // Initiating
@@ -82,7 +87,7 @@ WSS.broadcastAll = (data) => {
 
 WSS.on('connection', (wsClient) => {
     /*================================================
-        INNERBLOCK: > INITIAL CONNECTION
+        INNER: > INITIAL CONNECTION
     ==================================================*/
 
     console.log('======= START - Client Connected =======');
@@ -102,7 +107,7 @@ WSS.on('connection', (wsClient) => {
     console.log('======= END - Client Connected =======');
 
     /*================================================
-        INNERBLOCK: > HANDLERS
+        INNER: > HANDLERS
     ==================================================*/
 
     wsClient.on('message', function incoming(data) {
@@ -286,7 +291,7 @@ WSS.on('connection', (wsClient) => {
     });
 
     /*================================================
-        INNERBLOCK: > CLOSING CONNECTION
+        INNER: > CLOSING CONNECTION
     ==================================================*/
 
     wsClient.on('close', (wsClient) => {

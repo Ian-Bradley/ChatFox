@@ -17,6 +17,23 @@ export default function Chat(props) {
         BLOCK: STATES
     ==================================================*/
 
+    // Redux
+    const user = useSelector((state) => {
+        return state['user'].user;
+    });
+
+    /*================================================
+        BLOCK: HOOKS
+    ==================================================*/
+
+    useEffect(() => {
+        console.log('---------- USE-EFFECT - Logged-In Redirect ----------');
+        if(!user.loggedIn) {
+            navigate('/', { replace: true });
+        }
+
+    });
+
     /*================================================
         BLOCK: EVENTS
     ==================================================*/

@@ -4,8 +4,8 @@
 
 const sizes = {
     spacing: {
-        app: '6px',
-        lists: '3px',
+        app: '0.4rem',
+        lists: '0.2rem',
     },
 
     width: {

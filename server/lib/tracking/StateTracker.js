@@ -5,7 +5,7 @@
 module.exports = class StateTracker {
     constructor() {
         /*================================================
-            INNERBLOCK: STATE
+            INNER: STATE
         ==================================================*/
 
         this.state = {
@@ -17,7 +17,7 @@ module.exports = class StateTracker {
         };
 
         /*================================================
-            INNERBLOCK: STATE METHODS - Binding
+            INNER: STATE METHODS - Binding
         ==================================================*/
 
         // State methods - Users
@@ -45,7 +45,7 @@ module.exports = class StateTracker {
     }
 
     /*================================================
-        INNERBLOCK: STATE METHODS - Users
+        INNER: STATE METHODS - Users
     ==================================================*/
 
     // FUNCTION: => addUser
@@ -76,7 +76,7 @@ module.exports = class StateTracker {
     }
 
     /*================================================
-        INNERBLOCK: STATE METHODS - User Info
+        INNER: STATE METHODS - User Info
     ==================================================*/
 
     // FUNCTION: => setUserName
@@ -113,7 +113,7 @@ module.exports = class StateTracker {
     }
 
     /*================================================
-        INNERBLOCK: STATE METHODS - Channels
+        INNER: STATE METHODS - Channels
     ==================================================*/
 
     // FUNCTION: => addChannel
@@ -189,7 +189,7 @@ module.exports = class StateTracker {
     }
 
     /*================================================
-        INNERBLOCK: STATE METHODS - Messages
+        INNER: STATE METHODS - Messages
     ==================================================*/
 
     // FUNCTION: => addMessage
@@ -198,7 +198,7 @@ module.exports = class StateTracker {
     }
 
     /*================================================
-        INNERBLOCK: STATE METHODS - Dev Log
+        INNER: STATE METHODS - Dev Log
     ==================================================*/
 
     // FUNCTION: => addLogItem

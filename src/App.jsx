@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { useSocket } from './util/websocket.js';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useSocket } from './util/websocket.js';
 
 // PAGE COMPONENTS
 import Auth from './views/auth/Auth.jsx';
@@ -95,7 +95,7 @@ export default function App(props) {
         console.log('---------- USE-EFFECT - WebSocket ----------');
 
         /*================================================
-            INNERBLOCK: > WS - ON OPEN
+            INNER: > WS - ON OPEN
         ==================================================*/
 
         socket.onopen = (e) => {
@@ -104,7 +104,7 @@ export default function App(props) {
         };
 
         /*================================================
-            INNERBLOCK: > WS - ON MESSAGE
+            INNER: > WS - ON MESSAGE
         ==================================================*/
 
         socket.onmessage = (messageData) => {
@@ -342,7 +342,7 @@ export default function App(props) {
         };
 
         /*================================================
-            INNERBLOCK: > WS - ON CLOSE
+            INNER: > WS - ON CLOSE
         ==================================================*/
 
         socket.onclose = (e) => {
@@ -354,7 +354,7 @@ export default function App(props) {
         };
 
         /*================================================
-            INNERBLOCK: > WS - ON ERROR
+            INNER: > WS - ON ERROR
         ==================================================*/
 
         socket.onerror = (err) => {
@@ -364,7 +364,7 @@ export default function App(props) {
         };
 
         /*================================================
-            INNERBLOCK: > WS - COMPONENT UNMOUNTING
+            INNER: > WS - COMPONENT UNMOUNTING
         ==================================================*/
 
         return () => {

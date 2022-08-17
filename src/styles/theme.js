@@ -2,14 +2,16 @@ const theme = {
     color: {
         border: {
             black: '#000000',
+            dark: '#343635',
+            light: '#e1ebe2',
             white: '#FFFFFF',
             highlight: '#605aa0',
-            light: '#e1ebe2',
-            dark: '#343635',
         },
         text: {
-            light: '#e1ebe2',
+            black: '#000000',
             dark: '#343635',
+            light: '#e1ebe2',
+            white: '#FFFFFF',
             link: '#605aa0',
 
             material: 'rgba(255,255,255, .87)',

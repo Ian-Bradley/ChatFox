@@ -8,10 +8,12 @@ export default function ChatBar(props) {
         BLOCK: STATES
     ==================================================*/
 
-    const socket = useSocket();
+    // Redux
     const user = useSelector((state) => {
         return state['user'].user;
     });
+    // Hooks
+    const socket = useSocket();
 
     /*================================================
         BLOCK: EVENTS
