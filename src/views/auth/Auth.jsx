@@ -3,6 +3,9 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
 
+// COMPONENTS
+import FormButton from '../../components/Buttons/FormButton.jsx';
+
 // IMAGE COMPONENTS
 import ImageLogo from '../../assets/images/sharechatfake.png';
 
@@ -13,7 +16,6 @@ import {
     Label,
     Title,
     Image,
-    Button,
     Swapper,
     Checbox,
     Container,
@@ -39,7 +41,7 @@ export default function Auth(props) {
     const [hasPassword, setHasPassword] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [isChecked, setIsChecked] = useState(false);
-    const [form, setform] = useState('login');
+    const [formType, setFormType] = useState('login');
     const navigate = useNavigate();
 
     /*================================================
@@ -67,7 +69,7 @@ export default function Auth(props) {
         if (hasUserName && hasPassword) {
             try {
                 // ==> QUERY
-                const res = await axios.get(`http://localhost:3001/login/`);
+                const res = await axios.get(`http://localhost:3001/${formType}/`);
                 console.log(res);
                 console.log(res.data);
 
@@ -99,7 +101,7 @@ export default function Auth(props) {
         BLOCK: EVENTS
     ==================================================*/
 
-    // FUNCTION: => onSubmitForm
+    // EVENT: => onSubmitForm
     const onSubmitForm = (e) => {
         e.preventDefault();
         handleLogin();
@@ -108,7 +110,7 @@ export default function Auth(props) {
     /*================================================*/
     /*================================================*/
 
-    // FUNCTION: => onNameInput
+    // EVENT: => onNameInput
     const onNameInput = (e) => {
         if (e.target.value && e.target.value.length) {
             setHasUserName(true);
@@ -124,7 +126,7 @@ export default function Auth(props) {
     /*================================================*/
     /*================================================*/
 
-    // FUNCTION: => onPasswordInput
+    // EVENT: => onPasswordInput
     const onPasswordInput = (e) => {
         if (e.target.value && e.target.value.length) {
             setHasPassword(true);
@@ -140,7 +142,7 @@ export default function Auth(props) {
     /*================================================*/
     /*================================================*/
 
-    // FUNCTION: => onLoginButton
+    // EVENT: => onLoginButton
     const onLoginButton = (e) => {
         e.preventDefault();
         handleLogin();
@@ -149,7 +151,7 @@ export default function Auth(props) {
     /*================================================*/
     /*================================================*/
 
-    // FUNCTION: => onRememberMe
+    // EVENT: => onRememberMe
     const onRememberMe = (e) => {
         if (e.target.checked) {
             setIsChecked(true);
@@ -161,14 +163,14 @@ export default function Auth(props) {
     /*================================================*/
     /*================================================*/
 
-    // FUNCTION: => onFormSwap
+    // EVENT: => onFormSwap
     const onFormSwap = (e) => {
         e.preventDefault();
-        if (form === 'login') {
-            setform('register');
+        if (formType === 'login') {
+            setFormType('register');
         }
-        if (form === 'register') {
-            setform('login');
+        if (formType === 'register') {
+            setFormType('login');
         }
         // TODO: swap form functionality (post instead of get)
     };
@@ -190,9 +192,7 @@ export default function Auth(props) {
                     <Input type='text' onKeyUp={onNameInput} placeholder='User name' />
                     <Input type='password' onKeyUp={onPasswordInput} placeholder='Password' />
                     {/* <Input type='email' onKeyUp={onEmail} placeholder='Email' /> */}
-                    <Button type='button' onClick={onLoginButton}>
-                        Sign In
-                    </Button>
+                    <FormButton onClick={onLoginButton} text={'Sign In'} />
                     <RememberContainer>
                         <Checbox id='remember-me' type='checkbox' onClick={onRememberMe} />
                         <Label htmlFor='remember-me'>Remember me</Label>
@@ -201,7 +201,6 @@ export default function Auth(props) {
                         <span>Don't have an account?</span>
                         <span>Click Here!</span>
                     </Swapper>
-                    <br />
                     TESTING:
                     <Link to='/room'>room</Link>
                     <Link to='/eeeeeeeee'>error</Link>

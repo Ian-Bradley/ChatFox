@@ -76,32 +76,39 @@ Not all chat apps are right for you! Try `Chattr`! The lite, ReactJS + NodeJS ch
 
 Head on down to <a href="#getting-started">Getting Started</a> to begin!
 
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 
 ## Built With
 
-* [![Node][Node.js]][Node-url]
-* [![React][React.js]][React-url]
+* [![Node][Node-icon]][Node-url]
+* [![React][React-icon]][React-url]
 
 ### Other Dependencies
 
-* Redux (react-redux, @reduxjs/toolkit)
-* React Router (react-router-dom)
-* Styled Components
-* PostgreSQL (pg)
-* WebSockets (ws)
-* Redux Persist
-* Redux Sagas
-* Express
-* WebPack
-* Dotenv
 * ESLint
-* Babel
-* Axios
-* uuid
-* Cors
+* [![React Router][React Router-icon]][React Router-url] || [![React Router][React Router-icon]][React Router-url2]
+* [![Styled-components][Styled-components-icon]][Styled-components-url]
+* [![Redux (@reduxjs/toolkit)][Redux-icon]][Redux-url]
+* [![Redux Persist][Redux Persist-icon]][Redux Persist-url]
+* [![Jsonwebtoken][Jsonwebtoken-icon]][Jsonwebtoken-url]
+* [![@fortawesome][@fortawesome-icon]][@fortawesome-url]
+* [![WebSockets][WebSockets-icon]][WebSockets-url]
+* [![PostgreSQL][PostgreSQL-icon]][PostgreSQL-url]
+* [![Redux-Saga][Redux-Saga-icon]][Redux-Saga-url]
+* [![Bcryptjs][Bcryptjs-icon]][Bcryptjs-url]
+* [![Express][Express-icon]][Express-url]
+* [![Webpack][Webpack-icon]][Webpack-url]
+* [![@Axios][@Axios-icon]][@Axios-url]
+* [![Dotenv][Dotenv-icon]][Dotenv-url]
+* [![ESLint][ESLint-icon]][ESLint-url]
+* [![Babel][Babel-icon]][Babel-url]
+* [![Uuid][Uuid-icon]][Uuid-url]
+* [![Cors][Cors-icon]][Cors-url]
+* [![Ajv][Ajv-icon]][Ajv-url]
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -185,8 +192,47 @@ Ian Bradley - [GitHub](https://github.com/Ian-Bradley/) - [LinkedIn](https://lin
 
 <!-- [product-screenshot]: images/screenshot.png -->
 
-[React.js]: https://img.shields.io/badge/React-20232A?style=plastic&logo=react&logoColor=61DAFB
+[React-icon]: https://img.shields.io/badge/React-20232A?style=plastic&logo=react&logoColor=61DAFB
 [React-url]: https://reactjs.org/
-[Node.js]: https://img.shields.io/badge/Node-20232A?style=plastic&logo=node&logoColor=61DAFB
+<!-- [Node-icon]: -->
 [Node-url]: https://nodejs.org/
 
+<!-- [Ajv-icon]: ICONURL -->
+[Ajv-url]: https://ajv.js.org/
+<!-- [Axios-icon]: ICONURL -->
+[Axios-url]: https://axios-http.com/
+<!-- [Babel-icon]: ICONURL -->
+[Babel-url]: https://babeljs.io/
+<!-- [Bcryptjs-icon]: ICONURL -->
+[Bcryptjs-url]: https://github.com/dcodeIO/bcrypt.js#readme
+<!-- [Cors-icon]: ICONURL -->
+[Cors-url]: https://github.com/expressjs/cors#readme
+<!-- [Dotenv-icon]: ICONURL -->
+[Dotenv-url]: https://github.com/motdotla/dotenv#readme
+<!-- [WebSESLintoESLintckets-icon]: ICONURL -->
+[ESLint-url]: https://eslint.org/
+<!-- [Express-icon]: ICONURL -->
+[Express-url]: https://expressjs.com/
+<!-- [@fortawesome-icon]: ICONURL -->
+[@fortawesome-url]: https://fortawesome.com/
+<!-- [Jsonwebtoken-icon]: ICONURL -->
+[Jsonwebtoken-url]: https://github.com/auth0/node-jsonwebtoken#readme
+<!-- [PostgreSQL-icon]: ICONURL -->
+[PostgreSQL-url]: https://github.com/brianc/node-postgres
+<!-- [React Router-icon]: ICONURL -->
+[React Router-url]: https://reactrouter.com/
+[React Router-url2]: https://github.com/remix-run/react-router#readme
+<!-- [Redux-icon]: ICONURL -->
+[Redux-url]: https://redux.js.org/
+<!-- [Redux Persist-icon]: ICONURL -->
+[Redux Persist-url]: https://github.com/rt2zz/redux-persist#readme
+<!-- [Redux-Saga-icon]: ICONURL -->
+[Redux-Saga-url]: https://redux-saga.js.org/
+<!-- [Styled-components-icon]: ICONURL -->
+[Styled-components-url]: https://styled-components.com/
+<!-- [Uuid-icon]: ICONURL -->
+[Uuid-url]: https://github.com/uuidjs/uuid#readme
+<!-- [Webpack-icon]: ICONURL -->
+[Webpack-url]: https://webpack.js.org/
+<!-- [WebSockets-icon]: ICONURL -->
+[WebSockets-url]: https://github.com/websockets/ws

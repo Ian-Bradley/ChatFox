@@ -17,6 +17,10 @@ const GlobalStyles = createGlobalStyle`
     
         & a {
             color: ${({ theme }) => theme.color.text.link};
+
+            &:hover {
+                color: ${({ theme }) => theme.color.text.link_hover};
+            }
         }
     }
 `;

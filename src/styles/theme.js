@@ -7,12 +7,19 @@ const theme = {
             white: '#FFFFFF',
             highlight: '#605aa0',
         },
+        button: {
+            text: '#000000',
+            bg: '#605aa0',
+            bg_hover: '#8c80c2',
+            bg_disabled: 'rgba(96,90,160, .38)',
+        },
         text: {
             black: '#000000',
             dark: '#343635',
             light: '#e1ebe2',
             white: '#FFFFFF',
             link: '#605aa0',
+            link_hover: '#8c80c2',
 
             material: 'rgba(255,255,255, .87)',
             material_dark: 'rgba(255,255,255, .60)',

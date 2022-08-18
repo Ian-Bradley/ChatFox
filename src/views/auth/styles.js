@@ -22,7 +22,7 @@ export const FormContainer = styled.div`
     padding: 80px ${sizes.spacing.app};
 
     background: ${({ theme }) => theme.color.bg.main_2};
-    border-radius: 0rem;
+    border-radius: 0;
 `;
 // border: 5px solid ${({ theme }) => theme.color.border.highlight};
 /*======================================*/
@@ -84,25 +84,13 @@ export const Input = styled.input`
 `;
 /*======================================*/
 /*======================================*/
-export const Button = styled.button`
-    width: 100%;
-    height: 30px;
-
-    outline: none;
-    border: none;
-
-    background: ${({ theme }) => theme.color.text.link};
-    color: ${({ theme }) => theme.color.text.black};
-`;
-/*======================================*/
-/*======================================*/
 export const RememberContainer = styled.div`
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
-    justifty-content: center;
+    justify-content: center;
 
-    margin-top: 20px;
+    margin-bottom: 20px;
 `;
 /*======================================*/
 /*======================================*/
