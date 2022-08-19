@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-// import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 // import { useSocket } from '../util/websocket.js';
+import { useNavigate } from 'react-router-dom';
 
 // COMPONENETS
 import NavBar from '../../components/NavBar/NavBar.jsx';
@@ -21,6 +22,9 @@ export default function Chat(props) {
     const user = useSelector((state) => {
         return state['user'].user;
     });
+    
+    // Hooks
+    const navigate = useNavigate();
 
     /*================================================
         BLOCK: HOOKS
@@ -29,7 +33,8 @@ export default function Chat(props) {
     useEffect(() => {
         console.log('---------- USE-EFFECT - Logged-In Redirect ----------');
         if(!user.loggedIn) {
-            navigate('/', { replace: true });
+            console.log('NOT LOGGED IN');
+            // navigate('/', { replace: true });
         }
 
     });

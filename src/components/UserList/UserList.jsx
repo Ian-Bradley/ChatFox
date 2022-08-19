@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 
 // COMPONENTS
 import User from '../User/User.jsx';
-import IconSearch from '../../assets/images/icons/search.svg';
+// import IconSearch from '../../assets/icons/search.svg';
 
 // CSS COMPONENTS
 import { Container, Top, Bottom, Total, Search, SearchButton } from './styles.js';
@@ -55,7 +55,7 @@ export default function UserList(props) {
             <Top>
                 <Total>{userTotal}</Total>
                 <Search>
-                    <SearchButton onClick={onSearchButton}>{IconSearch}</SearchButton>
+                    {/* <SearchButton onClick={onSearchButton}>{IconSearch}</SearchButton> */}
                 </Search>
             </Top>
             <Bottom>{renderUsers()}</Bottom>

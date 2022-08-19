@@ -13,6 +13,13 @@ const theme = {
             bg_hover: '#8c80c2',
             bg_disabled: 'rgba(96,90,160, .38)',
         },
+        button_icon: {
+            text: '#343635',
+            text_hover: '#e1ebe2',
+            bg: 'none',
+            bg_hover: 'none',
+            bg_disabled: 'none',
+        },
         text: {
             black: '#000000',
             dark: '#343635',
@@ -47,27 +54,20 @@ The Sweetest Chill
 #8c80c2 (140,128,194)
 #c6a9e1 (198,169,225)
 #e1ebe2 (225,235,226)
-*/
 
-/*
-#FFFF14 dodgy-yellow 
-#CB0162 sporocystic-deep-pink 
-#062E03 battailous-very-dark-green 
-
-#FF6163 smeared-coral-pink
-#137E6D midland-blue-green
-#CFFDBC uncloistered-very-pale-green
-
-#C3FBF4 annihilating-duck-egg-blue
-#5684AE abstemious-off-blue
-#000000 divorced-black
+#665FD1 strobilaceous-dark-periwinkle
+#8AB8FE subarachnoid-carolina-blue
+#FFFF7E fixative-banana
 
 #1B2431 blocky-dark
-#016795 inhaling-peacock-blue
 #1E488F ordained-cobalt
+#016795 inhaling-peacock-blue
 
-#FFFF7E fixative-banana
-#8AB8FE subarachnoid-carolina-blue
-#665FD1 strobilaceous-dark-periwinkle
+#062E03 battailous-very-dark-green 
+#CB0162 sporocystic-deep-pink 
+#FFFF14 dodgy-yellow 
 
+#000000 divorced-black || #e1ebe2 (225,235,226)
+#5684AE abstemious-off-blue
+#C3FBF4 annihilating-duck-egg-blue
 */

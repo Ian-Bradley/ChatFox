@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import sizes, { USE_FULL_AREA, STYLE_LIST_SCROLLBAR } from '../../styles/common.js';
+import { sizes, USE_FULL_AREA, STYLE_LIST_SCROLLBAR } from '../../styles/common.js';
 /*======================================*/
 /*======================================*/
 export const Container = styled.div`
@@ -32,7 +32,7 @@ export const Total = styled.span`
     top: ${sizes.spacing.app};
     right: ${sizes.spacing.app};
 
-    font-family: font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto', sans-serif;
     font-size: 0.7rem;
     font-weight: 400;
 `;

@@ -49,6 +49,7 @@ export default function MessageList(props) {
     //     }
     // };
     // NOTE: testing
+    // TODO: convert to map()
     const renderMessages = useCallback(() => {
         if (!(messages === undefined) && messages.length) {
             let messageArray = [];

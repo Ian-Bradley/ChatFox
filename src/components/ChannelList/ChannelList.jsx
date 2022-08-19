@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 
 // COMPONENTS
 import Channel from '../Channel/Channel.jsx';
-import IconSearch from '../../assets/images/icons/search.svg';
+// import IconSearch from '../../assets/icons/search.svg';
 
 // CSS COMPONENTS
 import { Container, Top, Bottom, Search, SearchButton } from './styles.js';
@@ -54,7 +54,7 @@ export default function ChannelList(props) {
         <Container>
             <Top>
                 <Search>
-                    <SearchButton onclick={onSearchButton}>{IconSearch}</SearchButton>
+                    {/* <SearchButton onclick={onSearchButton}>{IconSearch}</SearchButton> */}
                 </Search>
             </Top>
             <Bottom>{renderChannels()}</Bottom>

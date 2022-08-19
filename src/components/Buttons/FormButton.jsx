@@ -9,7 +9,11 @@ import React from 'react';
 export default function FormButton(props) {
     return (
         <>
-            <StyledFormButton type='button' props>
+            <StyledFormButton
+                type='button'
+                onClick={props.onClick}
+                data-value={props.data ? props.data : ''}
+            >
                 {props.text}
             </StyledFormButton>
         </>

@@ -1,17 +1,17 @@
 import styled from 'styled-components';
-import sizes, { USE_FULL_AREA, FLEX_CENTER } from '../../styles/common.js';
+import { sizes, USE_FULL_AREA, FLEX_CENTER_COL, FLEX_CENTER_ROW } from '../../styles/common.js';
 /*======================================*/
 /*======================================*/
 export const Container = styled.div`
     ${USE_FULL_AREA}
-    ${FLEX_CENTER}
+    ${FLEX_CENTER_COL}
 `;
 /*======================================*/
 /*======================================*/
 export const ErrorContainer = styled.div`
     width: 20%;
     height: 20%;
-    
+
     background: ${({ theme }) => theme.color.bg.main_2};
 `;
 /*======================================*/
@@ -34,7 +34,7 @@ export const TitleContainer = styled.div`
     padding: ${sizes.spacing.app};
     margin-bottom: 15px;
 
-    ${FLEX_CENTER}
+    ${FLEX_CENTER_ROW}
 `;
 /*======================================*/
 /*======================================*/

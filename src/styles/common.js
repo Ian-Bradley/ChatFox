@@ -1,8 +1,8 @@
 /*======================================
-    BLOCK: APP GENERAL SIZING
+    BLOCK: GENERAL SIZING
 ========================================*/
 
-const sizes = {
+export const sizes = {
     spacing: {
         app: '0.4rem',
         lists: '0.2rem',
@@ -18,7 +18,16 @@ const sizes = {
         messages: 'calc(100% - 60px)',
     },
 };
-export default sizes;
+
+/*======================================
+    BLOCK: TRANSITIONS
+========================================*/
+
+export const transition = {
+    fade: '200ms',
+    transform: '200ms',
+    hover: '200ms',
+};
 
 /*======================================
     BLOCK: COMMON STYLES
@@ -31,9 +40,16 @@ export const STYLE_LIST_SCROLLBAR = `
     padding-right: 17px;
 `;
 
-export const FLEX_CENTER = `
+export const FLEX_CENTER_COL = `
     display: flex;
     flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+`;
+
+export const FLEX_CENTER_ROW = `
+    display: flex;
+    flex-flow: row nowrap;
     justify-content: center;
     align-items: center;
 `;

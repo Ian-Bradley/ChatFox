@@ -2,8 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 
 // COMPONENTS
-import IconUser from '../../assets/images/icons/user.svg';
-import IconSettings from '../../assets/images/icons/settings.svg';
+// import IconSettings from '../../assets/icons/settings.svg';
 
 // CSS COMPONENTS
 import { Container, TitleContainer, Title, Nav, Button } from './styles.js';
@@ -48,11 +47,8 @@ export default function NavBar(props) {
                 <Title>{document.title}</Title>
             </TitleContainer>
             <Nav>
-                <Button onClick={onSettings}>{IconSettings}</Button>
-                <Button onClick={onUser}>
-                    {IconUser}
-                    {user.nickname}
-                </Button>
+                {/* <Button onClick={onSettings}>{IconSettings}</Button> */}
+                <Button onClick={onUser}>{user.nickname}</Button>
             </Nav>
         </Container>
     );

@@ -1,13 +1,22 @@
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
 
-// COMPONENTS
+// ICON COMPONENTS
+import IconButton from '../../components/Buttons/IconButton.jsx';
 import FormButton from '../../components/Buttons/FormButton.jsx';
+import LeftSVG from '../../assets/icons/left.svg.js';
+import RightSVG from '../../assets/icons/right.svg.js';
+import UpSVG from '../../assets/icons/up.svg.js';
+import DownSVG from '../../assets/icons/down.svg.js';
 
-// IMAGE COMPONENTS
-import ImageLogo from '../../assets/images/sharechatfake.png';
+// LOGO COMPONENTS
+import ImageLogo_1a from '../../assets/logos/logo_1a.png';
+import ImageLogo_1b from '../../assets/logos/logo_1b.png';
+import ImageLogo_1c from '../../assets/logos/logo_1c.png';
+import ImageLogo_1d from '../../assets/logos/logo_1d.png';
+import ImageLogo_1e from '../../assets/logos/logo_1e.png';
 
 // STYLED COMPONENTS
 import {
@@ -23,6 +32,8 @@ import {
     ImageContainer,
     TitleContainer,
     RememberContainer,
+    FunContainerLeft,
+    FunContainerRight,
 } from './styles.js';
 
 export default function Auth(props) {
@@ -44,6 +55,10 @@ export default function Auth(props) {
     const [formType, setFormType] = useState('login');
     const navigate = useNavigate();
 
+    // Hooks - Fun
+    const [currentLogo, setCurrentLogo] = useState(1);
+    const [borderWidth, setBorderWidth] = useState(0);
+
     /*================================================
         BLOCK: HOOK - USER INFO
     ==================================================*/
@@ -62,9 +77,13 @@ export default function Auth(props) {
         // ==>
     });
 
+    /*================================================
+        BLOCK: AUTH
+    ==================================================*/
+
     // FUNCTION: => handleLogin
     const handleLogin = async () => {
-        // TODO: password must be 3 characters min
+        // TODO: password and name must be 3 characters min
         console.log('===> START - handleLogin');
         if (hasUserName && hasPassword) {
             try {
@@ -176,22 +195,73 @@ export default function Auth(props) {
     };
 
     /*================================================
+        BLOCK: EVENTS - FUN
+    ==================================================*/
+
+    // EVENT: => onLogoSwap
+    const onLogoSwap = (e) => {
+        e.preventDefault();
+        if (currentLogo > 1 && e.target.dataset.value === 'left') {
+            setCurrentLogo(currentLogo - 1);
+        }
+        if (currentLogo < 5 && e.target.dataset.value === 'right') {
+            setCurrentLogo(currentLogo + 1);
+        }
+    };
+
+    /*================================================*/
+    /*================================================*/
+
+    // EVENT: => onBorderGrow
+    const onBorderGrow = (e) => {
+        e.preventDefault();
+        if (borderWidth > 0 && e.target.dataset.value === 'shrink') {
+            setBorderWidth(borderWidth - 1);
+        }
+        if (borderWidth < 50 && e.target.dataset.value === 'grow') {
+            setBorderWidth(borderWidth + 1);
+        }
+    };
+
+    /*================================================
+        BLOCK: RENDERING - FUN
+    ==================================================*/
+
+    // RENDER: => renderLogos
+    const renderLogos = useCallback(() => {
+        return (
+            <>
+                <Image src={ImageLogo_1a} alt='logo-1' position={1 - currentLogo} />
+                <Image src={ImageLogo_1b} alt='logo-2' position={2 - currentLogo} />
+                <Image src={ImageLogo_1c} alt='logo-3' position={3 - currentLogo} />
+                <Image src={ImageLogo_1d} alt='logo-4' position={4 - currentLogo} />
+                <Image src={ImageLogo_1e} alt='logo-5' position={5 - currentLogo} />
+            </>
+        );
+    });
+
+    /*================================================
         BLOCK: COMPONENTS
     ==================================================*/
 
     return (
         <Container>
-            <FormContainer>
-                <ImageContainer>
-                    <Image src={ImageLogo} alt='logo' />
-                </ImageContainer>
+            <FormContainer borderWidth={borderWidth}>
+                <FunContainerLeft>
+                    <IconButton onClick={onBorderGrow} data={'grow'} icon={UpSVG} />
+                    <IconButton onClick={onBorderGrow} data={'shrink'} icon={DownSVG} />
+                </FunContainerLeft>
+                <FunContainerRight>
+                    <IconButton onClick={onLogoSwap} data={'left'} icon={LeftSVG} />
+                    <IconButton onClick={onLogoSwap} data={'right'} icon={RightSVG} />
+                </FunContainerRight>
+                <ImageContainer>{renderLogos()}</ImageContainer>
                 <TitleContainer>
                     <Title>Chattr</Title>
                 </TitleContainer>
                 <Form onSubmit={onSubmitForm}>
                     <Input type='text' onKeyUp={onNameInput} placeholder='User name' />
                     <Input type='password' onKeyUp={onPasswordInput} placeholder='Password' />
-                    {/* <Input type='email' onKeyUp={onEmail} placeholder='Email' /> */}
                     <FormButton onClick={onLoginButton} text={'Sign In'} />
                     <RememberContainer>
                         <Checbox id='remember-me' type='checkbox' onClick={onRememberMe} />
