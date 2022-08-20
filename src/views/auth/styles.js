@@ -1,10 +1,4 @@
-import {
-    sizes,
-    transition,
-    USE_FULL_AREA,
-    FLEX_CENTER_COL,
-    FLEX_CENTER_ROW,
-} from '../../styles/common.js';
+import { sizes, USE_FULL_AREA, FLEX_CENTER_COL } from '../../styles/common.js';
 import styled from 'styled-components';
 /*======================================*/
 /*======================================*/
@@ -23,7 +17,7 @@ export const FormContainer = styled.div`
     justify-content: flex-start;
     align-items: center;
 
-    width: 400px;
+    width: ${window.innerWidth < 400 ? window.innerWidth : '400px'};
     height: auto;
 
     overflow: hidden;
@@ -44,148 +38,6 @@ export const Form = styled.form`
 
     width: 60%;
     padding: 0;
-`;
-/*======================================*/
-/*======================================*/
-export const ImageContainer = styled.div`
-    position: relative;
-    width: 150px;
-    height: 150px;
-`;
-/*======================================*/
-/*======================================*/
-export const Image = styled.img`
-    position: absolute;
-    top: 0;
-    left: 0;
-
-    pointer-events: none;
-    -webkit-user-select: none;
-    user-select: none;
-
-    transition: transform linear ${transition.transform};
-    transform: translateX(calc(300px * ${(props) => props.position}));
-`;
-/*======================================*/
-/*======================================*/
-export const TitleContainer = styled.div`
-    width: 100%;
-    height: auto;
-
-    padding: ${sizes.spacing.app};
-    margin-bottom: 15px;
-
-    ${FLEX_CENTER_ROW}
-`;
-/*======================================*/
-/*======================================*/
-export const Title = styled.h1`
-    text-transform: uppercase;
-    font-size: 3rem;
-    font-weight: 600;
-    margin: 0;
-`;
-/*======================================*/
-/*======================================*/
-export const Input = styled.input`
-    width: 100%;
-    height: 30px;
-
-    padding: 0 ${sizes.spacing.app};
-    margin-bottom: 12px;
-
-    box-sizing: border-box;
-    outline: none;
-    border: none;
-
-    background: ${({ theme }) => theme.color.text.light};
-    color: ${({ theme }) => theme.color.text.dark};
-`;
-/*======================================*/
-/*======================================*/
-export const ButtonContainer = styled.div`
-    position: relative;
-    width: 100%;
-    height: 30px;
-
-    margin-bottom: 20px;
-    ${FLEX_CENTER_ROW}
-
-    & button {
-        position: absolute;
-        top: 0;
-        left: 0;
-    }
-    & button:first-child {
-        transform: translateX(calc(400px * ${(props) => (props.state === 'login' ? 0 : -1)}));
-    }
-    & button:last-child {
-        transform: translateX(calc(400px * ${(props) => (props.state === 'register' ? 0 : 1)}));
-    }
-`;
-/*======================================*/
-/*======================================*/
-export const RememberContainer = styled.div`
-    margin-bottom: 20px;
-    ${FLEX_CENTER_ROW}
-`;
-/*======================================*/
-/*======================================*/
-export const Label = styled.label`
-    padding-left: ${sizes.spacing.app};
-`;
-/*======================================*/
-/*======================================*/
-export const Checbox = styled.input``;
-/*======================================*/
-/*======================================*/
-export const Swapper = styled.div`
-    cursor: pointer;
-    ${FLEX_CENTER_COL}
-
-    color: ${({ theme }) => theme.color.text.link};
-    &:hover {
-        color: ${({ theme }) => theme.color.text.link_hover};
-    }
-
-    & span:last-child {
-        text-decoration: underline;
-    }
-`;
-/*======================================*/
-/*======================================*/
-/*======================================*/
-/* FUN */
-/*======================================*/
-/*======================================*/
-/*======================================*/
-export const FunContainerLeft = styled.div`
-    position: absolute;
-    top: ${sizes.spacing.app};
-    left: ${sizes.spacing.app};
-    opacity: 0.09;
-    transition: opacity linear ${transition.fade};
-
-    &:hover {
-        opacity: 1;
-    }
-
-    ${FLEX_CENTER_COL}
-`;
-/*======================================*/
-/*======================================*/
-export const FunContainerRight = styled.div`
-    position: absolute;
-    top: ${sizes.spacing.app};
-    right: ${sizes.spacing.app};
-    opacity: 0.09;
-    transition: opacity linear ${transition.fade};
-
-    &:hover {
-        opacity: 1;
-    }
-
-    ${FLEX_CENTER_ROW}
 `;
 /*======================================*/
 /*======================================*/

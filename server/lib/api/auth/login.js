@@ -23,11 +23,12 @@ router.post('/', async function (req, res) {
 
         // ==> Determine is user exists in DB
         const user = await dbQuery.user.getUser(name);
-        console.log('user: ', user);
 
         // ==> Validate password
-        if (user) {
-            const validPassword = await bcrypt.compare(password, user.password);
+        if (user[0]) {
+            console.log('user: ', user[0]);
+            const validPassword = await bcrypt.compare(password, user[0].password);
+            console.log('validPassword: ', validPassword);
             if (validPassword) {
                 // ==> Add JWT for authentication
                 // const token = jwt.sign(
@@ -41,8 +42,9 @@ router.post('/', async function (req, res) {
                 // user.token = token;
 
                 // ==> END
-                res.status(200).json(user);
+                res.status(200).json(user[0]);
             } else {
+                console.log('INVALID PASSWORD');
                 res.status(400).json({ error: 'Invalid password' });
             }
         } else {

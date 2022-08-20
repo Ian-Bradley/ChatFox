@@ -1,41 +1,19 @@
-import React, { useState, useEffect, useCallback, useLayoutEffect, useRef } from 'react';
+import React, { useState, useEffect, useLayoutEffect, useRef } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import api from '../../api/axios.js';
 
-// ICON COMPONENTS
-import FormButton from '../../components/Buttons/FormButton.jsx';
-import IconButton from '../../components/Buttons/IconButton.jsx';
-import LeftSVG from '../../assets/icons/left.svg.js';
-import RightSVG from '../../assets/icons/right.svg.js';
-import UpSVG from '../../assets/icons/up.svg.js';
-import DownSVG from '../../assets/icons/down.svg.js';
-
-// LOGO COMPONENTS
-import ImageLogo_1a from '../../assets/logos/logo_1a.png';
-import ImageLogo_1b from '../../assets/logos/logo_1b.png';
-import ImageLogo_1c from '../../assets/logos/logo_1c.png';
-import ImageLogo_1d from '../../assets/logos/logo_1d.png';
-import ImageLogo_1e from '../../assets/logos/logo_1e.png';
+// COMPONENTS
+import Fun from './components/Fun.jsx';
+import Logos from './components/Logos.jsx';
+import Title from './components/Title.jsx';
+import Inputs from './components/Inputs.jsx';
+import Buttons from './components/Buttons.jsx';
+import Swapper from './components/Swapper.jsx';
+import Remember from './components/Remember.jsx';
 
 // STYLED COMPONENTS
-import {
-    Form,
-    Input,
-    Label,
-    Title,
-    Image,
-    Swapper,
-    Checbox,
-    Container,
-    FormContainer,
-    ImageContainer,
-    TitleContainer,
-    ButtonContainer,
-    RememberContainer,
-    FunContainerLeft,
-    FunContainerRight,
-} from './styles.js';
+import { Container, FormContainer, Form } from './styles.js';
 
 export default function Auth(props) {
     /*================================================
@@ -63,7 +41,12 @@ export default function Auth(props) {
         BLOCK: HOOKS
     ==================================================*/
 
-    useLayoutEffect(() => {}, []);
+    useLayoutEffect(() => {
+        if (formType === 'login') {
+        }
+        if (formType === 'login') {
+        }
+    }, []);
 
     /*================================================*/
     /*================================================*/
@@ -99,12 +82,11 @@ export default function Auth(props) {
                     name: name,
                     password: password,
                 };
-                console.log('url: ', url);
-                console.log('data: ', data);
                 const results = await api.post(url, data);
                 console.log('results.data: ', results.data);
 
                 // ==> STORAGE
+                console.log('isChecked: ', isChecked);
                 if (isChecked) {
                     console.log('isChecked = true');
                     // TODO: store in cookies/local
@@ -117,8 +99,12 @@ export default function Auth(props) {
             } catch (error) {
                 console.error(error);
 
-                if (error.response.status === 409) {
-                    
+                // ==> USER ALREADY EXISTS
+                if (error.response.status && error.response.status === 409) {
+                }
+
+                // ==> INCORRECT PASSWORD
+                if (error.response.status && error.response.status === 401) {
                 }
 
                 console.log('===> END - onAccountSubmit - async error');
@@ -180,43 +166,18 @@ export default function Auth(props) {
     /*================================================
         BLOCK: COMPONENTS
     ==================================================*/
-
     return (
         <Container>
             <FormContainer borderWidth={borderWidth}>
-                <FunContainerLeft>
-                    <IconButton onClick={onBorderGrow} data={'grow'} icon={UpSVG} />
-                    <IconButton onClick={onBorderGrow} data={'shrink'} icon={DownSVG} />
-                </FunContainerLeft>
-                <FunContainerRight>
-                    <IconButton onClick={onLogoSwap} data={'left'} icon={LeftSVG} />
-                    <IconButton onClick={onLogoSwap} data={'right'} icon={RightSVG} />
-                </FunContainerRight>
-                <ImageContainer>
-                    <Image src={ImageLogo_1a} alt='logo-1' position={1 - currentLogo} />
-                    <Image src={ImageLogo_1b} alt='logo-2' position={2 - currentLogo} />
-                    <Image src={ImageLogo_1c} alt='logo-3' position={3 - currentLogo} />
-                    <Image src={ImageLogo_1d} alt='logo-4' position={4 - currentLogo} />
-                    <Image src={ImageLogo_1e} alt='logo-5' position={5 - currentLogo} />
-                </ImageContainer>
-                <TitleContainer>
-                    <Title>{document.title}</Title>
-                </TitleContainer>
+                <Fun onLogoSwap={onLogoSwap} onBorderGrow={onBorderGrow} />
+                <Logos currentLogo={currentLogo} />
+                <Title />
                 <Form onSubmit={onAccountSubmit} ref={formRef}>
-                    <Input type='text' placeholder='User name' />
-                    <Input type='password' placeholder='Password' />
-                    <ButtonContainer state={formType}>
-                        <FormButton onClick={onAccountSubmit} text={'Sign In'} />
-                        <FormButton onClick={onAccountSubmit} text={'Register'} />
-                    </ButtonContainer>
-                    <RememberContainer>
-                        <Checbox id='remember-me' type='checkbox' onClick={onRememberMe} />
-                        <Label htmlFor='remember-me'>Remember me</Label>
-                    </RememberContainer>
-                    <Swapper onClick={onFormSwap}>
-                        <span>Don't have an account?</span>
-                        <span>Click Here!</span>
-                    </Swapper>
+                    <Inputs formType={formType} />
+                    <Buttons formType={formType} onAccountSubmit={onAccountSubmit} />
+                    <Remember onRememberMe={onRememberMe} />
+                    <Swapper onFormSwap={onFormSwap} />
+                    <br />
                     TESTING:
                     <Link to='/room'>room</Link>
                     <Link to='/eeeeeeeee'>error</Link>
