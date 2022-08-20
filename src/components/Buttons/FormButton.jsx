@@ -23,6 +23,4 @@ export default function FormButton(props) {
 const StyledFormButton = styled(Button)`
     width: 100%;
     height: 30px;
-
-    margin-bottom: 20px;
 `;

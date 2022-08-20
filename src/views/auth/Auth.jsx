@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useLayoutEffect, useRef } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import axios from 'axios';
+import api from '../../api/axios.js';
 
 // ICON COMPONENTS
-import IconButton from '../../components/Buttons/IconButton.jsx';
 import FormButton from '../../components/Buttons/FormButton.jsx';
+import IconButton from '../../components/Buttons/IconButton.jsx';
 import LeftSVG from '../../assets/icons/left.svg.js';
 import RightSVG from '../../assets/icons/right.svg.js';
 import UpSVG from '../../assets/icons/up.svg.js';
@@ -31,6 +31,7 @@ import {
     FormContainer,
     ImageContainer,
     TitleContainer,
+    ButtonContainer,
     RememberContainer,
     FunContainerLeft,
     FunContainerRight,
@@ -48,23 +49,26 @@ export default function Auth(props) {
     });
 
     // Hooks
-    const [hasUserName, setHasUserName] = useState(false);
-    const [hasPassword, setHasPassword] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [isChecked, setIsChecked] = useState(false);
     const [formType, setFormType] = useState('login');
     const navigate = useNavigate();
+    const formRef = useRef();
 
     // Hooks - Fun
     const [currentLogo, setCurrentLogo] = useState(1);
     const [borderWidth, setBorderWidth] = useState(0);
 
     /*================================================
-        BLOCK: HOOK - USER INFO
+        BLOCK: HOOKS
     ==================================================*/
 
+    useLayoutEffect(() => {}, []);
+
+    /*================================================*/
+    /*================================================*/
+
     useEffect(() => {
-        console.log('---------- USE-EFFECT - Login check and user info ----------');
         // TODO: maybe use JWT validation
         if (user.loggedIn) {
             navigate('/room', { replace: true });
@@ -75,24 +79,30 @@ export default function Auth(props) {
         // ==>
         // ==>
         // ==>
-    });
+    }, []);
 
     /*================================================
-        BLOCK: AUTH
+        BLOCK: EVENTS
     ==================================================*/
 
-    // FUNCTION: => handleLogin
-    const handleLogin = async () => {
-        // TODO: password and name must be 3 characters min
-        console.log('===> START - handleLogin');
-        if (hasUserName && hasPassword) {
+    // FUNCTION: => onAccountSubmit
+    const onAccountSubmit = async () => {
+        console.log('===> START - onAccountSubmit');
+        const name = formRef.current[0].value;
+        const password = formRef.current[0].value;
+
+        if (name.length > 3 && password.length > 3) {
             try {
                 // ==> QUERY
-                const res = await axios.get(`http://localhost:3001/${formType}/`);
-                console.log(res);
-                console.log(res.data);
-
-                // ==>
+                const url = formType + '/';
+                const data = {
+                    name: name,
+                    password: password,
+                };
+                console.log('url: ', url);
+                console.log('data: ', data);
+                const results = await api.post(url, data);
+                console.log('results.data: ', results.data);
 
                 // ==> STORAGE
                 if (isChecked) {
@@ -101,70 +111,24 @@ export default function Auth(props) {
                 }
 
                 // ==> END
-                console.log('===> END - handleLogin');
+                console.log('===> END - onAccountSubmit');
                 // navigate('/room', { replace: false }); // DEV
                 // navigate('/room', { replace: true }); // PROD
             } catch (error) {
                 console.error(error);
-                console.log('===> END - handleLogin');
+
+                if (error.response.status === 409) {
+                    
+                }
+
+                console.log('===> END - onAccountSubmit - async error');
                 return [error.severity + ': ' + error.routine];
             }
         } else {
-            // TODO: add error to form around empty input
-            console.log('===> END - handleLogin');
+            // TODO: add error to form around empty inputs || length < 3 inputs
+            console.log('===> END - onAccountSubmit - input error');
             return false;
         }
-    };
-
-    /*================================================
-        BLOCK: EVENTS
-    ==================================================*/
-
-    // EVENT: => onSubmitForm
-    const onSubmitForm = (e) => {
-        e.preventDefault();
-        handleLogin();
-    };
-
-    /*================================================*/
-    /*================================================*/
-
-    // EVENT: => onNameInput
-    const onNameInput = (e) => {
-        if (e.target.value && e.target.value.length) {
-            setHasUserName(true);
-            if (e.keyCode === 13) {
-                e.preventDefault();
-                handleLogin();
-            }
-        } else {
-            setHasUserName(false);
-        }
-    };
-
-    /*================================================*/
-    /*================================================*/
-
-    // EVENT: => onPasswordInput
-    const onPasswordInput = (e) => {
-        if (e.target.value && e.target.value.length) {
-            setHasPassword(true);
-            if (e.keyCode === 13) {
-                e.preventDefault();
-                handleLogin();
-            }
-        } else {
-            setHasPassword(false);
-        }
-    };
-
-    /*================================================*/
-    /*================================================*/
-
-    // EVENT: => onLoginButton
-    const onLoginButton = (e) => {
-        e.preventDefault();
-        handleLogin();
     };
 
     /*================================================*/
@@ -172,11 +136,7 @@ export default function Auth(props) {
 
     // EVENT: => onRememberMe
     const onRememberMe = (e) => {
-        if (e.target.checked) {
-            setIsChecked(true);
-        } else {
-            setIsChecked(false);
-        }
+        e.target.checked ? setIsChecked(true) : setIsChecked(false);
     };
 
     /*================================================*/
@@ -185,13 +145,7 @@ export default function Auth(props) {
     // EVENT: => onFormSwap
     const onFormSwap = (e) => {
         e.preventDefault();
-        if (formType === 'login') {
-            setFormType('register');
-        }
-        if (formType === 'register') {
-            setFormType('login');
-        }
-        // TODO: swap form functionality (post instead of get)
+        formType === 'login' ? setFormType('register') : setFormType('login');
     };
 
     /*================================================
@@ -224,23 +178,6 @@ export default function Auth(props) {
     };
 
     /*================================================
-        BLOCK: RENDERING - FUN
-    ==================================================*/
-
-    // RENDER: => renderLogos
-    const renderLogos = useCallback(() => {
-        return (
-            <>
-                <Image src={ImageLogo_1a} alt='logo-1' position={1 - currentLogo} />
-                <Image src={ImageLogo_1b} alt='logo-2' position={2 - currentLogo} />
-                <Image src={ImageLogo_1c} alt='logo-3' position={3 - currentLogo} />
-                <Image src={ImageLogo_1d} alt='logo-4' position={4 - currentLogo} />
-                <Image src={ImageLogo_1e} alt='logo-5' position={5 - currentLogo} />
-            </>
-        );
-    });
-
-    /*================================================
         BLOCK: COMPONENTS
     ==================================================*/
 
@@ -255,19 +192,28 @@ export default function Auth(props) {
                     <IconButton onClick={onLogoSwap} data={'left'} icon={LeftSVG} />
                     <IconButton onClick={onLogoSwap} data={'right'} icon={RightSVG} />
                 </FunContainerRight>
-                <ImageContainer>{renderLogos()}</ImageContainer>
+                <ImageContainer>
+                    <Image src={ImageLogo_1a} alt='logo-1' position={1 - currentLogo} />
+                    <Image src={ImageLogo_1b} alt='logo-2' position={2 - currentLogo} />
+                    <Image src={ImageLogo_1c} alt='logo-3' position={3 - currentLogo} />
+                    <Image src={ImageLogo_1d} alt='logo-4' position={4 - currentLogo} />
+                    <Image src={ImageLogo_1e} alt='logo-5' position={5 - currentLogo} />
+                </ImageContainer>
                 <TitleContainer>
-                    <Title>Chattr</Title>
+                    <Title>{document.title}</Title>
                 </TitleContainer>
-                <Form onSubmit={onSubmitForm}>
-                    <Input type='text' onKeyUp={onNameInput} placeholder='User name' />
-                    <Input type='password' onKeyUp={onPasswordInput} placeholder='Password' />
-                    <FormButton onClick={onLoginButton} text={'Sign In'} />
+                <Form onSubmit={onAccountSubmit} ref={formRef}>
+                    <Input type='text' placeholder='User name' />
+                    <Input type='password' placeholder='Password' />
+                    <ButtonContainer state={formType}>
+                        <FormButton onClick={onAccountSubmit} text={'Sign In'} />
+                        <FormButton onClick={onAccountSubmit} text={'Register'} />
+                    </ButtonContainer>
                     <RememberContainer>
                         <Checbox id='remember-me' type='checkbox' onClick={onRememberMe} />
                         <Label htmlFor='remember-me'>Remember me</Label>
                     </RememberContainer>
-                    <Swapper href='' onClick={onFormSwap}>
+                    <Swapper onClick={onFormSwap}>
                         <span>Don't have an account?</span>
                         <span>Click Here!</span>
                     </Swapper>

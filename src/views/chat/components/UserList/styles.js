@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { sizes, USE_FULL_AREA, STYLE_LIST_SCROLLBAR } from '../../styles/common.js';
+import { sizes, USE_FULL_AREA, STYLE_LIST_SCROLLBAR } from '../../../../styles/common.js';
 /*======================================*/
 /*======================================*/
 export const Container = styled.div`

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { useSocket } from '../../util/websocket.js';
+import { useSocket } from '../../../../util/websocket.js';
 import { Container, InputContainer, Input } from './styles.js';
 
 export default function ChatBar(props) {

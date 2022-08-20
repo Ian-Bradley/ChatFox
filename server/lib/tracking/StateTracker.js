@@ -9,7 +9,6 @@ module.exports = class StateTracker {
         ==================================================*/
 
         this.state = {
-            // TODO: convert to MongoDB
             log: [],
             users: [],
             messages: [],

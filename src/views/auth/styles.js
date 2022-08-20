@@ -1,4 +1,10 @@
-import { sizes, transition, USE_FULL_AREA, FLEX_CENTER_COL, FLEX_CENTER_ROW } from '../../styles/common.js';
+import {
+    sizes,
+    transition,
+    USE_FULL_AREA,
+    FLEX_CENTER_COL,
+    FLEX_CENTER_ROW,
+} from '../../styles/common.js';
 import styled from 'styled-components';
 /*======================================*/
 /*======================================*/
@@ -24,7 +30,7 @@ export const FormContainer = styled.div`
     padding: 80px ${sizes.spacing.app};
 
     background: ${({ theme }) => theme.color.bg.main_2};
-    border: ${props => props.borderWidth}px solid ${({ theme }) => theme.color.border.highlight};
+    border: ${(props) => props.borderWidth}px solid ${({ theme }) => theme.color.border.highlight};
     border-radius: 0;
 `;
 // border: 5px solid ${({ theme }) => theme.color.border.highlight};
@@ -58,7 +64,7 @@ export const Image = styled.img`
     user-select: none;
 
     transition: transform linear ${transition.transform};
-    transform: translateX(calc(300px * ${props => props.position}));
+    transform: translateX(calc(300px * ${(props) => props.position}));
 `;
 /*======================================*/
 /*======================================*/
@@ -74,7 +80,6 @@ export const TitleContainer = styled.div`
 /*======================================*/
 /*======================================*/
 export const Title = styled.h1`
-    font-family: 'Astradan', sans-serif;
     text-transform: uppercase;
     font-size: 3rem;
     font-weight: 600;
@@ -98,6 +103,28 @@ export const Input = styled.input`
 `;
 /*======================================*/
 /*======================================*/
+export const ButtonContainer = styled.div`
+    position: relative;
+    width: 100%;
+    height: 30px;
+
+    margin-bottom: 20px;
+    ${FLEX_CENTER_ROW}
+
+    & button {
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+    & button:first-child {
+        transform: translateX(calc(400px * ${(props) => (props.state === 'login' ? 0 : -1)}));
+    }
+    & button:last-child {
+        transform: translateX(calc(400px * ${(props) => (props.state === 'register' ? 0 : 1)}));
+    }
+`;
+/*======================================*/
+/*======================================*/
 export const RememberContainer = styled.div`
     margin-bottom: 20px;
     ${FLEX_CENTER_ROW}
@@ -112,8 +139,18 @@ export const Label = styled.label`
 export const Checbox = styled.input``;
 /*======================================*/
 /*======================================*/
-export const Swapper = styled.a`
+export const Swapper = styled.div`
+    cursor: pointer;
     ${FLEX_CENTER_COL}
+
+    color: ${({ theme }) => theme.color.text.link};
+    &:hover {
+        color: ${({ theme }) => theme.color.text.link_hover};
+    }
+
+    & span:last-child {
+        text-decoration: underline;
+    }
 `;
 /*======================================*/
 /*======================================*/
@@ -122,11 +159,11 @@ export const Swapper = styled.a`
 /*======================================*/
 /*======================================*/
 /*======================================*/
-export const FunContainerLeft= styled.div`
+export const FunContainerLeft = styled.div`
     position: absolute;
     top: ${sizes.spacing.app};
     left: ${sizes.spacing.app};
-    opacity: 0.1;
+    opacity: 0.09;
     transition: opacity linear ${transition.fade};
 
     &:hover {
@@ -141,7 +178,7 @@ export const FunContainerRight = styled.div`
     position: absolute;
     top: ${sizes.spacing.app};
     right: ${sizes.spacing.app};
-    opacity: 0.1;
+    opacity: 0.09;
     transition: opacity linear ${transition.fade};
 
     &:hover {

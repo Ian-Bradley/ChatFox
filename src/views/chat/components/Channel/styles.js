@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { sizes } from '../../styles/common.js';
+import { sizes } from '../../../../styles/common.js';
 /*======================================*/
 /*======================================*/
 export const Container = styled.div`

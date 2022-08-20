@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 
 // GLOBAL CONSTANTS
-import { GMT_MINUTES, GMT_HOURS, GMT_DIRECTION } from '../../util/constants.js';
+import { GMT_MINUTES, GMT_HOURS, GMT_DIRECTION } from '../../../../util/constants.js';
 
 // CSS COMPONENTS
 import { Container, Div, Time, Name, Content } from './styles.js';

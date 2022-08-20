@@ -17,26 +17,26 @@ const config = require('./config.env.js');
 // Settings
 const server = express();
 server.use(cors());
+server.use(express.json());
 server.use(express.static(path.join(__dirname, '..', 'dist')));
-
 // API
+
 const userAPI = require('./lib/api/users/user.api.js');
 const usersAPI = require('./lib/api/users/users.api.js');
 const roomAPI = require('./lib/api/rooms/room.api.js');
 const roomsAPI = require('./lib/api/rooms/rooms.api.js');
-
 server.use('/api/user', userAPI);
 server.use('/api/users', usersAPI);
 server.use('/api/room', roomAPI);
 server.use('/api/rooms', roomsAPI);
 
-// Routes
-const login = require('./lib/routes/login.js');
-const register = require('./lib/routes/register.js');
-const routes = require('./lib/routes/routes.js');
+const login = require('./lib/api/auth/login.js');
+const register = require('./lib/api/auth/register.js');
+server.use('/api/login', login);
+server.use('/api/register', register);
 
-server.use('/login', login);
-server.use('/register', register);
+// Routes
+const routes = require('./lib/routes/routes.js');
 // server.use('/', routes);
 
 // Initiating

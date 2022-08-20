@@ -4,11 +4,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 // COMPONENETS
-import NavBar from '../../components/NavBar/NavBar.jsx';
-import ChatBar from '../../components/ChatBar/ChatBar.jsx';
-import UserList from '../../components/UserList/UserList.jsx';
-import ChannelList from '../../components/ChannelList/ChannelList.jsx';
-import MessageList from '../../components/MessageList/MessageList.jsx';
+import NavBar from './components/NavBar/NavBar.jsx';
+import ChatBar from './components/ChatBar/ChatBar.jsx';
+import UserList from './components/UserList/UserList.jsx';
+import ChannelList from './components/ChannelList/ChannelList.jsx';
+import MessageList from './components/MessageList/MessageList.jsx';
 
 // STYLED COMPONENTS
 import { ContainerNav, ContainerBody, ContainerChat, ContainerSidebar } from './styles.js';

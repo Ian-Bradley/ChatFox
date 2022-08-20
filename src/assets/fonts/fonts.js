@@ -42,7 +42,10 @@ import Ubuntu500ItalicWOFF from './ubuntu/ubuntu-v20-latin-500italic.woff';
 import Ubuntu700ItalicWOFF2 from './ubuntu/ubuntu-v20-latin-700italic.woff2';
 import Ubuntu700ItalicWOFF from './ubuntu/ubuntu-v20-latin-700italic.woff';
 
-import AstradanBlackTTF from './fun/astrblk.woff2';
+import AstradanBlackWOFF2 from './fun/astrblk.woff2';
+
+import SpaceAgeWOFF from './fun/SpaceAge.woff';
+import SpaceAgeWOFF2 from './fun/SpaceAge.woff2';
 
 const fonts = `
     /* astradan-black */
@@ -50,8 +53,18 @@ const fonts = `
         font-family: 'Astradan';
         font-style: normal;
         font-weight: 400;
-        src: url('${AstradanBlackTTF}') format('woff2');
+        src: url('${AstradanBlackWOFF2}') format('woff2');
     }
+    /* SpaceAge */
+    @font-face {
+        font-family: 'SpaceAge';
+        font-style: normal;
+        font-weight: 400;
+        src: local(''),
+            url('${SpaceAgeWOFF}') format('woff2'),
+            url('${SpaceAgeWOFF2}') format('woff');
+    }
+
 
     /* roboto-100 */
     @font-face {

@@ -7,9 +7,9 @@ const user = {
             const client = await pool.connect();
             let query = '';
             if (parseInt(value)) {
-                query = `SELECT * FROM users WHERE id = ${value}`;
+                query = `SELECT * FROM users WHERE id = ${value};`;
             } else {
-                query = `SELECT * FROM users WHERE UPPER(name) = UPPER('${value}')`;
+                query = `SELECT * FROM users WHERE UPPER(name) = UPPER('${value}');`;
             }
             const results = await client.query(query);
             client.release();
@@ -24,9 +24,8 @@ const user = {
     insertUser: async function (user) {
         try {
             const client = await pool.connect();
-            const results = await client.query(`INSERT INTO users (name, password) VALUES (${user.name}, ${user.password})`);
+            const results = await client.query(`INSERT INTO users (name, password) VALUES ('${user.name}', '${user.password}');`);
             client.release();
-            console.log(results);
             return results;
         } catch (error) {
             console.error(error);

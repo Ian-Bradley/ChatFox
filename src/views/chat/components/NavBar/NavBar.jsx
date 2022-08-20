@@ -40,7 +40,7 @@ export default function NavBar(props) {
     /*================================================
         BLOCK: COMPONENTS
     ==================================================*/
-    // TODO: change to nav-left and nav-right
+
     return (
         <Container>
             <TitleContainer>

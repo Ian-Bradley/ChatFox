@@ -8,9 +8,9 @@ export default function LeftSVG(props) {
                 <path
                     fill='none'
                     stroke='currentColor'
-                    stroke-linecap='square'
-                    stroke-miterlimit='10'
-                    stroke-width='48'
+                    strokeLinecap='square'
+                    strokeMiterlimit='10'
+                    strokeWidth='48'
                     d='M112 328l144-144 144 144'
                 />
             </SVG>
