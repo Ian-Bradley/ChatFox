@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { sizes, USE_FULL_AREA, FLEX_CENTER_ROW } from '../../../../styles/common.js';
+import { USE_FULL_AREA } from 'Styles/common.js';
 /*======================================*/
 /*======================================*/
 export const Container = styled.div`

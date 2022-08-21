@@ -3,8 +3,6 @@ import { useSelector } from 'react-redux';
 
 // COMPONENETS
 import Message from '../Message/Message.jsx';
-
-// CSS
 import { Container } from './styles.js';
 
 /**

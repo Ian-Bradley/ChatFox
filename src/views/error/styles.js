@@ -1,5 +1,5 @@
+import { sizes, USE_FULL_AREA, FLEX_CENTER_COL } from 'Styles/common.js';
 import styled from 'styled-components';
-import { sizes, USE_FULL_AREA, FLEX_CENTER_COL, FLEX_CENTER_ROW } from '../../styles/common.js';
 /*======================================*/
 /*======================================*/
 export const Container = styled.div`
@@ -9,55 +9,46 @@ export const Container = styled.div`
 /*======================================*/
 /*======================================*/
 export const ErrorContainer = styled.div`
-    width: 20%;
-    height: 20%;
+    position: relative;
+
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+    align-items: center;
+
+    width: ${window.innerWidth < 400 ? window.innerWidth : '400px'};
+    height: auto;
+    overflow: hidden;
+
+    padding: 80px ${sizes.spacing.app};
 
     background: ${({ theme }) => theme.color.bg.main_2};
+    border-radius: 0;
 `;
 /*======================================*/
 /*======================================*/
-export const ImageContainer = styled.div`
-    width: 100%;
+export const Logo = styled.img`
+    width: 80px;
+    height: 80px;
+    pointer-events: none;
+    -webkit-user-select: none;
+    user-select: none;
 `;
 /*======================================*/
 /*======================================*/
-export const Image = styled.img`
-    width: 150px;
-    height: 150px;
+export const Error = styled.div`
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+    align-items: center;
+
+    width: 60%;
+    padding: 0;
 `;
 /*======================================*/
 /*======================================*/
-export const TitleContainer = styled.div`
-    width: 100%;
-    height: auto;
-
-    padding: ${sizes.spacing.app};
-    margin-bottom: 15px;
-
-    ${FLEX_CENTER_ROW}
-`;
-/*======================================*/
-/*======================================*/
-export const Title = styled.h1`
-    font-size: 3rem;
-    font-weight: 600;
-    margin: 0;
-`;
-/*======================================*/
-/*======================================*/
-export const Button = styled.button`
-    width: 100%;
-    height: 30px;
-
-    outline: none;
-    border: none;
-
-    background: ${({ theme }) => theme.color.text.link};
-    color: ${({ theme }) => theme.color.text.black};
-
-    & a {
-        color: ${({ theme }) => theme.color.text.black};
-    }
+export const ErrorText = styled.span`
+    margin: -10px 0px 20px 0;
 `;
 /*======================================*/
 /*======================================*/

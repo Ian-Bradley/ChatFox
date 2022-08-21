@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { sizes, USE_FULL_AREA } from '../../styles/common.js';
+import { sizes, USE_FULL_AREA } from 'Styles/common.js';
 /*======================================*/
 /*======================================*/
 export const ContainerNav = styled.div`

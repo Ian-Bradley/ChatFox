@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-// import { useSocket } from '../util/websocket.js';
+// import { useSocket } from 'Util/websocket.js';
 import { useNavigate } from 'react-router-dom';
 
 // COMPONENETS
 import NavBar from './components/NavBar/NavBar.jsx';
 import ChatBar from './components/ChatBar/ChatBar.jsx';
 import UserList from './components/UserList/UserList.jsx';
-import ChannelList from './components/ChannelList/ChannelList.jsx';
 import MessageList from './components/MessageList/MessageList.jsx';
+import ChannelList from './components/ChannelList/ChannelList.jsx';
 
 // STYLED COMPONENTS
 import { ContainerNav, ContainerBody, ContainerChat, ContainerSidebar } from './styles.js';
 
-export default function Chat(props) {
+export default function ChatPage(props) {
     /*================================================
         BLOCK: STATES
     ==================================================*/

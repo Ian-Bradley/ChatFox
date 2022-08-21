@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { sizes, USE_FULL_AREA, STYLE_LIST_SCROLLBAR } from '../../../../styles/common.js';
+import { sizes, USE_FULL_AREA, LIST_SCROLLBAR } from 'Styles/common.js';
 /*======================================*/
 /*======================================*/
 export const Container = styled.div`
@@ -11,7 +11,7 @@ export const Container = styled.div`
     justify-content: flex-start;
 
     ${USE_FULL_AREA}
-    ${STYLE_LIST_SCROLLBAR}
+    ${LIST_SCROLLBAR}
 `;
 /*======================================*/
 /*======================================*/

@@ -7,55 +7,33 @@
 // put    = update
 // delete = delete
 
-// Packages
+// ==> Packages
 const path = require('path');
 const cors = require('cors');
 const express = require('express');
 const { v4: uuidv4 } = require('uuid');
 const config = require('./config.env.js');
 
-// Settings
-// const server = express();
-// server.use(cors());
-// server.use(express.json());
-// server.use(express.static(path.join(__dirname, '..', 'dist')));
-
-// API
-const userAPI = require('./lib/api/users/user.api.js');
-const usersAPI = require('./lib/api/users/users.api.js');
-const roomAPI = require('./lib/api/rooms/room.api.js');
-const roomsAPI = require('./lib/api/rooms/rooms.api.js');
-// server.use('/api/user', userAPI);
-// server.use('/api/users', usersAPI);
-// server.use('/api/room', roomAPI);
-// server.use('/api/rooms', roomsAPI);
-
+// ==> API
 const login = require('./lib/api/auth/login.js');
 const register = require('./lib/api/auth/register.js');
-// server.use('/api/login', login);
-// server.use('/api/register', register);
+const usersAPI = require('./lib/api/users.api.js');
 
-// Routes
-const routes = require('./lib/routes/routes.js');
-// server.use('/', routes);
+// ==> Routes
+// const routes = require('./lib/routes/routes.js');
 
-// Initiating
-// server.listen(config.server.port, config.server.ip, config.server.domain, () => {
-//     console.log(`Listening on ${config.server.domain}:${config.server.port}`);
-// });
-
+// ==> Initiating
 const server = express()
     .use(cors())
     .use(express.json())
     .use(express.static(path.join(__dirname, '..', 'dist')))
-    .use('/api/user', userAPI)
-    .use('/api/users', usersAPI)
-    .use('/api/room', roomAPI)
-    .use('/api/rooms', roomsAPI)
     .use('/api/login', login)
     .use('/api/register', register)
+    .use('/api/users', usersAPI)
     // .use('/', routes)
-    .listen(config.server.port, config.server.ip, config.server.domain, () => console.log(`Listening on ${3001}`));
+    .listen(config.server.port, config.server.ip, config.server.domain, () => {
+        console.log(`Listening on ${config.server.domain}:${config.server.port}`);
+    });
 
 const SocketServer = require('ws');
 const WSS = new SocketServer.Server({ server });

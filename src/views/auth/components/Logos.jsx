@@ -1,13 +1,17 @@
-import { transition } from '../../../styles/common.js';
+import { transition } from 'Styles/common.js';
 import styled from 'styled-components';
 import React from 'react';
 
 // LOGO COMPONENTS
-import ImageLogo_1a from '../../../assets/logos/logo_1a.png';
-import ImageLogo_1b from '../../../assets/logos/logo_1b.png';
-import ImageLogo_1c from '../../../assets/logos/logo_1c.png';
-import ImageLogo_1d from '../../../assets/logos/logo_1d.png';
-import ImageLogo_1e from '../../../assets/logos/logo_1e.png';
+import ImageLogo_1a from 'Assets/logos/logo_1a.png';
+import ImageLogo_1b from 'Assets/logos/logo_1b.png';
+import ImageLogo_1c from 'Assets/logos/logo_1c.png';
+import ImageLogo_1d from 'Assets/logos/logo_1d.png';
+import ImageLogo_1e from 'Assets/logos/logo_1e.png';
+
+/**
+ * @props currentLogo (Number) Current logo to be moved into viewing position
+ */
 
 export default function Logos(props) {
     return (

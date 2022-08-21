@@ -1,4 +1,4 @@
-import { FLEX_CENTER_ROW } from '../../styles/common.js';
+import { FLEX_CENTER_ROW } from 'Styles/common.js';
 import styled from 'styled-components';
 import Button from './styles.js';
 import React from 'react';

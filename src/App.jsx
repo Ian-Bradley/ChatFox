@@ -1,17 +1,17 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import React, { useState, useEffect } from 'react';
-import { useSocket } from './util/websocket.js';
+import { useSocket } from 'Util/api/websocket.js';
 
 // COMPONENTS
-import Auth from './views/auth/Auth.jsx';
-import Chat from './views/chat/Chat.jsx';
-import Error from './views/error/Error.jsx';
-import Dev from './components/Dev/Dev.jsx';
+import AuthPage from 'Views/auth/Auth.jsx';
+import ChatPage from 'Views/chat/Chat.jsx';
+import ErrorPage from 'Views/error/Error.jsx';
 import { ContainerApp } from './styles.js';
+import Dev from 'Shared/Dev/Dev.jsx';
 
 // UTILS - DEV
-import { generateRandomName, generateRandomColor } from './util/functions.js';
+import { generateRandomName, generateRandomColor } from 'Util/helpers/functions.js';
 
 /*================================================
     BLOCK: REDUX ACTIONS
@@ -22,9 +22,9 @@ import {
     setUserTotal,
     incrementUserTotal,
     decrementUserTotal,
-} from './redux/slices/userTotal.slice.js';
+} from 'Redux/slices/userTotal.slice.js';
 /*================================================*/
-import { setID, setName, setNickname, setColor, setLoggedIn } from './redux/slices/user.slice.js';
+import { setID, setName, setNickname, setColor, setLoggedIn } from 'Redux/slices/user.slice.js';
 /*================================================*/
 import {
     addUser,
@@ -33,9 +33,9 @@ import {
     setUserName,
     setUserNickname,
     setUserColor,
-} from './redux/slices/users.slice.js';
+} from 'Redux/slices/users.slice.js';
 /*================================================*/
-import { toggleTimestamps, toggle24HourTime } from './redux/slices/prefs.slice.js';
+import { toggleTimestamps, toggle24HourTime } from 'Redux/slices/prefs.slice.js';
 /*================================================*/
 import {
     setChannel,
@@ -43,7 +43,7 @@ import {
     setPublic,
     setPrivate,
     setPassword,
-} from './redux/slices/channel.slice.js';
+} from 'Redux/slices/channel.slice.js';
 /*================================================*/
 import {
     addChannel,
@@ -55,16 +55,16 @@ import {
     setChannelPrivate,
     setChannelPublic,
     setChannelPassword,
-} from './redux/slices/channels.slice.js';
+} from 'Redux/slices/channels.slice.js';
 /*================================================*/
 import {
     addMessage,
     deleteMessage,
     deleteAllMessages,
     setMessages,
-} from './redux/slices/messages.slice.js';
+} from 'Redux/slices/messages.slice.js';
 /*================================================*/
-import { addLogItem, deleteLogItem, deleteAllLogItems } from './redux/slices/log.slice.js';
+import { addLogItem, deleteLogItem, deleteAllLogItems } from 'Redux/slices/log.slice.js';
 /*================================================*/
 
 export default function App(props) {
@@ -98,7 +98,7 @@ export default function App(props) {
             console.log('>>>>>>>>> WebSocket Client Connected >>>>>>>>>');
             // setWSReady(true);
         };
-        
+
         /*================================================
             INNER: > WS - ON MESSAGE
         ==================================================*/
@@ -487,10 +487,10 @@ export default function App(props) {
             <ContainerApp>
                 <Router>
                     <Routes>
-                        <Route path='/' element={<Auth />}></Route>
-                        <Route path='/room' element={<Chat />}></Route>
+                        <Route path='/' element={<AuthPage />}></Route>
+                        <Route path='/room' element={<ChatPage />}></Route>
                         {/* <Route path='/room/:id' element={<App />}></Route> */}
-                        <Route path='*' element={<Error />}></Route>
+                        <Route path='*' element={<ErrorPage />}></Route>
                     </Routes>
                 </Router>
             </ContainerApp>

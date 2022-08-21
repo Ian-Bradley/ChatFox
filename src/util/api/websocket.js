@@ -1,6 +1,5 @@
 import React, { useContext, createContext } from 'react';
-import { WS_URL } from './constants.js';
-// const WebSocket = require('ws');
+import { WS_URL } from 'Util/helpers/constants.js';
 
 const WS = new WebSocket(WS_URL);
 const SocketContext = createContext();

@@ -1,4 +1,4 @@
-import { SERVER_URL } from '../util/constants.js';
+import { SERVER_URL } from 'Util/helpers/constants.js';
 import axios from 'axios';
 
 const api = axios.create({

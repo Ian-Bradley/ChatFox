@@ -1,5 +1,5 @@
 import { call, out, takeEvery } from 'redux-saga/effects';
-import { SERVER_URL } from '../../util/constants.js';
+import { SERVER_URL } from 'Util/constants.js';
 import axios from 'axios';
 // /api/user/:name
 function* workGetUserFetch() {

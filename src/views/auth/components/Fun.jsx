@@ -1,12 +1,17 @@
-import { sizes, transition, FLEX_CENTER_COL, FLEX_CENTER_ROW } from '../../../styles/common.js';
+import { sizes, transition, FLEX_CENTER_COL, FLEX_CENTER_ROW } from 'Styles/common.js';
 import styled from 'styled-components';
 import React from 'react';
 
-import IconButton from '../../../components/Buttons/IconButton.jsx';
-import RightSVG from '../../../assets/icons/right.svg.js';
-import LeftSVG from '../../../assets/icons/left.svg.js';
-import DownSVG from '../../../assets/icons/down.svg.js';
-import UpSVG from '../../../assets/icons/up.svg.js';
+import IconButton from 'Shared/Buttons/IconButton.jsx';
+import RightSVG from 'Assets/icons/right.svg.js';
+import LeftSVG from 'Assets/icons/left.svg.js';
+import DownSVG from 'Assets/icons/down.svg.js';
+import UpSVG from 'Assets/icons/up.svg.js';
+
+/**
+ * @props onBorderGrow (Function) Can't spell FUNction without FUN
+ * @props onLogoSwap (Function) Can't spell FUNction without FUN
+ */
 
 export default function Fun(props) {
     return (

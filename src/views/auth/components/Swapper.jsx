@@ -1,6 +1,10 @@
-import { FLEX_CENTER_COL } from '../../../styles/common.js';
+import { FLEX_CENTER_COL } from 'Styles/common.js';
 import styled from 'styled-components';
 import React from 'react';
+
+/**
+ * @props onFormSwap (Function) Callback to swap login/register forms
+ */
 
 export default function Swapper(props) {
     return (

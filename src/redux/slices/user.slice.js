@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { generateRandomName, generateRandomColor } from '../../util/functions.js';
+import { generateRandomName, generateRandomColor } from 'Util/helpers/functions.js';
 
 const initialState = {
     user: {

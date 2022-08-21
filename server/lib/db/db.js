@@ -1,8 +1,4 @@
-/*================================================
-    BLOCK: CONFIGS
-==================================================*/
-
-const config = require('../../config.env');
+const config = require('../../config.env.js');
 const { Pool } = require('pg');
 
 const pool = new Pool({

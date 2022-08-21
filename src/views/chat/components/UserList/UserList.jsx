@@ -3,10 +3,9 @@ import { useSelector } from 'react-redux';
 
 // COMPONENTS
 import User from '../User/User.jsx';
-// import IconSearch from '../../assets/icons/search.svg';
-
-// CSS COMPONENTS
+// import IconSearch from 'Assets/icons/search.svg';
 import { Container, Top, Bottom, Total, Search, SearchButton } from './styles.js';
+
 /**
  * @props clickName (function) Clicking on a user name
  */

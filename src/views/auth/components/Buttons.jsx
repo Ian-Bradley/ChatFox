@@ -1,7 +1,12 @@
-import FormButton from '../../../components/Buttons/FormButton.jsx';
-import { FLEX_CENTER_ROW } from '../../../styles/common.js';
+import FormButton from 'Shared/Buttons/FormButton.jsx';
+import { FLEX_CENTER_ROW } from 'Styles/common.js';
 import styled from 'styled-components';
 import React from 'react';
+
+/**
+ * @props formType (String) Current type of form in use
+ * @props onAccountSubmit (Function) Submit callback
+ */
 
 export default function Buttons(props) {
     return (

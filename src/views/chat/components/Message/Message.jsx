@@ -1,11 +1,11 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-// GLOBAL CONSTANTS
-import { GMT_MINUTES, GMT_HOURS, GMT_DIRECTION } from '../../../../util/constants.js';
-
-// CSS COMPONENTS
+// COMPONENTS
 import { Container, Div, Time, Name, Content } from './styles.js';
+
+// UTIL
+import { REGEX_IMAGE, GMT_MINUTES, GMT_HOURS, GMT_DIRECTION } from 'Util/helpers/constants.js';
 
 /**
  * @props message (object)
@@ -40,7 +40,7 @@ export default function Message(props) {
 
     // Regular expression for image extensions
     // TODO: Switch to checking in ChatBar and storing URL to message object
-    const imageExtensionRegex = /\.( gif|jp?g|png|svg|bmp|tiff|bat )$/i;
+    // REGEX_IMAGE
 
     // TODO: add as util function, will be needed in log
     const renderTimestamp = () => {

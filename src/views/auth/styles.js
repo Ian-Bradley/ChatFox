@@ -1,9 +1,8 @@
-import { sizes, USE_FULL_AREA, FLEX_CENTER_COL } from '../../styles/common.js';
+import { sizes, USE_FULL_AREA, FLEX_CENTER_COL } from 'Styles/common.js';
 import styled from 'styled-components';
 /*======================================*/
 /*======================================*/
 export const Container = styled.div`
-    background: ${({ theme }) => theme.color.bg.main_1};
     ${USE_FULL_AREA}
     ${FLEX_CENTER_COL}
 `;
@@ -27,7 +26,6 @@ export const FormContainer = styled.div`
     border: ${(props) => props.borderWidth}px solid ${({ theme }) => theme.color.border.highlight};
     border-radius: 0;
 `;
-// border: 5px solid ${({ theme }) => theme.color.border.highlight};
 /*======================================*/
 /*======================================*/
 export const Form = styled.form`

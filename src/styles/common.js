@@ -33,7 +33,7 @@ export const transition = {
     BLOCK: COMMON STYLES
 ========================================*/
 
-export const STYLE_LIST_SCROLLBAR = `
+export const LIST_SCROLLBAR = `
     overflow-y: scroll;
     overflow-x: hidden;
     box-sizing: content-box;

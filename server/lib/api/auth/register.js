@@ -6,7 +6,6 @@ const bcrypt = require('bcryptjs');
 const router = express.Router();
 /*================================================*/
 /*================================================*/
-
 // ROUTE: => REGISTER
 router.post('/', async function (req, res) {
     console.log('=====REGISTER======');
@@ -50,7 +49,6 @@ router.post('/', async function (req, res) {
         res.status(400).json(err);
     }
 });
-
 /*================================================*/
 /*================================================*/
 module.exports = router;

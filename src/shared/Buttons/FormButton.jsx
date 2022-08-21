@@ -4,6 +4,7 @@ import React from 'react';
 
 /**
  * @props text (String) Text to be displayed on button
+ * @props data (String) Value to be placed in data-value attribute
  */
 
 export default function FormButton(props) {

@@ -14,6 +14,17 @@ module.exports = {
             favicon: path.join(path.dirname(__dirname), 'src/assets/icons', 'favicon-32.png'),
         }),
     ],
+    resolve: {
+        alias: {
+            Src: path.join(path.dirname(__dirname), 'src'),
+            Assets: path.join(path.dirname(__dirname), 'src', 'assets'),
+            Redux: path.join(path.dirname(__dirname), 'src', 'redux'),
+            Shared: path.join(path.dirname(__dirname), 'src', 'shared'),
+            Styles: path.join(path.dirname(__dirname), 'src', 'styles'),
+            Util: path.join(path.dirname(__dirname), 'src', 'util'),
+            Views: path.join(path.dirname(__dirname), 'src', 'views'),
+        },
+    },
     module: {
         rules: [
             {

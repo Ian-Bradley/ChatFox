@@ -1,18 +1,29 @@
-import { sizes, transition } from '../../../styles/common.js';
-import React, { useState } from 'react';
+import { KEYCODE_ENTER } from 'Util/helpers/constants.js';
+import { sizes, transition } from 'Styles/common.js';
+import React from 'react';
 import styled from 'styled-components';
-
-/*================================================
-    BLOCK: COMPONENT
-==================================================*/
+/**
+ * @props formType (String) Current type of form in use
+ * @props onAccountSubmit (Function) Submit callback
+ * @props nameError (String) Current error text for name input
+ * @props passwordError (String) Current error text for password input
+ */
 
 export default function Inputs(props) {
+    /*================================================
+        BLOCK: EVENTS
+    ==================================================*/
+
     const onInput = (e) => {
-        if (e.keyCode === 13) {
+        if (e.keyCode === KEYCODE_ENTER) {
             e.preventDefault();
             props.onAccountSubmit();
         }
     };
+
+    /*================================================
+        BLOCK: COMPONENT
+    ==================================================*/
 
     return (
         <>

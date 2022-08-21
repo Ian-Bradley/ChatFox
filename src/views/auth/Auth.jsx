@@ -1,16 +1,15 @@
 import React, { useState, useEffect, useLayoutEffect, useRef } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import api from '../../api/axios.js';
 
 // COMPONENTS
 import Fun from './components/Fun.jsx';
 import Logos from './components/Logos.jsx';
-import Title from './components/Title.jsx';
 import Inputs from './components/Inputs.jsx';
 import Buttons from './components/Buttons.jsx';
 import Swapper from './components/Swapper.jsx';
 import Remember from './components/Remember.jsx';
+import Title from 'Shared/Title/Title.jsx';
 import { Container, FormContainer, Form } from './styles.js';
 
 // UTIL
@@ -18,9 +17,10 @@ import {
     REGEX_USERNAME,
     MAX_CHARACTERS_NAME,
     MAX_CHARACTERS_PASSWORD,
-} from '../../util/constants.js';
+} from 'Util/helpers/constants.js';
+import api from 'Util/api/axios.js';
 
-export default function Auth(props) {
+export default function AuthPage(props) {
     /*================================================
         BLOCK: STATE
     ==================================================*/
@@ -74,7 +74,7 @@ export default function Auth(props) {
     /*================================================
         BLOCK: FUNCTIONS
     ==================================================*/
-
+    // TODO: maybe move to UTIL FUNCTIONS
     // FUNCTION: => validateInput
     const validateInput = (formRef) => {
         const inputName = formRef.current[0];
@@ -135,7 +135,7 @@ export default function Auth(props) {
         console.log('SUBMIT => name: ', formRef.current[0].value);
         console.log('SUBMIT => password: ', formRef.current[1].value);
         try {
-            // ==> QUERY
+            // ==> Query
             const url = formType + '/';
             const data = {
                 name: formRef.current[0].value,
@@ -144,16 +144,16 @@ export default function Auth(props) {
             const results = await api.post(url, data);
             console.log('results.data: ', results.data);
 
-            // ==> STORAGE
+            // ==> Storage
             console.log('isChecked: ', isChecked);
             if (isChecked) {
                 console.log('isChecked = true');
                 // TODO: store in cookies/local
             }
 
-            // ==> END
+            // ==> End
             console.log('===> END - onAccountSubmit');
-            // navigate('/room', { replace: false }); // DEV
+            navigate('/room', { replace: false }); // DEV
             // navigate('/room', { replace: true }); // PROD
         } catch (error) {
             console.error(error);
@@ -161,7 +161,6 @@ export default function Auth(props) {
             // ==> USER ALREADY EXISTS
             if (error.response.status && error.response.status === 409) {
                 console.log('USER ALREADY EXISTS');
-
             }
 
             // ==> INCORRECT PASSWORD

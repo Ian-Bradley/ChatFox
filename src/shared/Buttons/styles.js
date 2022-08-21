@@ -1,5 +1,6 @@
-import { transition } from '../../styles/common.js';
+import { transition } from 'Styles/common.js';
 import styled from 'styled-components';
+/*======================================*/
 const Button = styled.button`
     font-size: 1.1rem;
 
@@ -25,4 +26,4 @@ const Button = styled.button`
 
 `;
 export default Button;
-// ${props => props.primary ? "white" : "palevioletred"};
+/*======================================*/

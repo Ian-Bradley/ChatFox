@@ -1,12 +1,16 @@
-import { sizes, FLEX_CENTER_ROW } from '../../../styles/common.js';
+import { sizes, FLEX_CENTER_ROW } from 'Styles/common.js';
 import styled from 'styled-components';
 import React from 'react';
+
+/**
+ * @props title (String) Text to be displayed as title
+ */
 
 export default function Title(props) {
     return (
         <>
             <Container>
-                <H1>{document.title}</H1>
+                <H1>{props.title ? props.title : document.title}</H1>
             </Container>
         </>
     );
@@ -24,4 +28,5 @@ const H1 = styled.h1`
     font-size: 3rem;
     font-weight: 600;
     margin: 0;
+    padding: 0;
 `;

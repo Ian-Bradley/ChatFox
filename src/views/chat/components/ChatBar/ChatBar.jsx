@@ -1,7 +1,12 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { useSocket } from '../../../../util/websocket.js';
+import { useSocket } from 'Util/api/websocket.js';
+
+// COMPONENTS
 import { Container, InputContainer, Input } from './styles.js';
+
+// UTIL
+import { KEYCODE_ENTER } from 'Util/helpers/constants.js';
 
 export default function ChatBar(props) {
     /*================================================
@@ -20,7 +25,7 @@ export default function ChatBar(props) {
     ==================================================*/
 
     const onTypingMessage = (e) => {
-        if (e.keyCode === 13 && e.target.value !== '') {
+        if (e.keyCode === KEYCODE_ENTER && e.target.value !== '') {
             console.log('===> sendMessage');
             let newUpdate = {
                 type: 'newMessage',

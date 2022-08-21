@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-// STYLED COMPONENTS
+// COMPONENTS
 import { Dev, DevInfo, DevTools, DevList, DevListItem, DevTitle } from './styles.js';
 
 export default function Auth(props) {

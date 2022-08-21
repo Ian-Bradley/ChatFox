@@ -3,9 +3,7 @@ import { useSelector } from 'react-redux';
 
 // COMPONENTS
 import Channel from '../Channel/Channel.jsx';
-// import IconSearch from '../../assets/icons/search.svg';
-
-// CSS COMPONENTS
+// import IconSearch from 'Assets/icons/search.svg';
 import { Container, Top, Bottom, Search, SearchButton } from './styles.js';
 
 /**

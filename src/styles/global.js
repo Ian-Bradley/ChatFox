@@ -1,5 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
-import fonts from '../assets/fonts/fonts.js';
+import fonts from 'Assets/fonts/fonts.js';
 
 const GlobalStyles = createGlobalStyle`
     ${fonts}

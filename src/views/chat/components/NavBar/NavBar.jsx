@@ -2,10 +2,9 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 
 // COMPONENTS
-// import IconSettings from '../../assets/icons/settings.svg';
-
-// CSS COMPONENTS
+// import IconSettings from 'Assets/icons/settings.svg';
 import { Container, TitleContainer, Title, Nav, Button } from './styles.js';
+//TODO: import Shared/Title instead of styled
 
 /**
  * @props

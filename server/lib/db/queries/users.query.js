@@ -1,7 +1,8 @@
-const pool = require('../../db.js');
-const user = {
+const pool = require('../db.js');
+const users = {
     /*================================================*/
     /*================================================*/
+    // QUERY: => getUser
     getUser: async function (value) {
         try {
             const client = await pool.connect();
@@ -21,6 +22,7 @@ const user = {
     },
     /*================================================*/
     /*================================================*/
+    // QUERY: => insertUser
     insertUser: async function (user) {
         try {
             const client = await pool.connect();
@@ -34,6 +36,7 @@ const user = {
     },
     /*================================================*/
     /*================================================*/
+    // QUERY: => updateUser
     updateUser: async function (value) {
         // try {
         //     const client = await pool.connect();
@@ -47,6 +50,7 @@ const user = {
     },
     /*================================================*/
     /*================================================*/
+    // QUERY: => deleteUser
     deleteUser: async function (value) {
         // try {
         //     const client = await pool.connect();
@@ -60,5 +64,33 @@ const user = {
     },
     /*================================================*/
     /*================================================*/
+    // QUERY: => getUsers
+    getUsers: async function () {
+        try {
+            const client = await pool.connect();
+            const results = await client.query(`SELECT * FROM users`);
+            client.release();
+            return results.rows;
+        } catch (error) {
+            console.error(error);
+            return [error.severity + ': ' + error.routine];
+        }
+    },
+    /*================================================*/
+    /*================================================*/
+    // QUERY: => getUsersByRoomID
+    getUsersByRoomID: async function (value) {
+        try {
+            const client = await pool.connect();
+            const results = await client.query(`SELECT * FROM users WHERE room_id = ${value}`);
+            client.release();
+            return results.rows;
+        } catch (error) {
+            console.error(error);
+            return [error.severity + ': ' + error.routine];
+        }
+    },
+    /*================================================*/
+    /*================================================*/
 };
-module.exports = user;
+module.exports = users;

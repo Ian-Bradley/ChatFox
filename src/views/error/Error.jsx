@@ -1,43 +1,37 @@
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import React from 'react';
-import {
-    Title,
-    Image,
-    Button,
-    Container,
-    ImageContainer,
-    TitleContainer,
-    ErrorContainer,
-} from './styles.js';
 
-export default function Error(props) {
-    /*================================================
-        BLOCK: EVENTS
-    ==================================================*/
+// COMPONENTS
+import Title from 'Shared/Title/Title.jsx';
+import LogoSrc from 'Assets/logos/logo_1a.png';
+import FormButton from 'Shared/Buttons/FormButton.jsx';
+import { Container, ErrorContainer, Error, ErrorText, Logo } from './styles.js';
 
+export default function ErrorPage(props) {
+    // States - Redux
+    const user = useSelector((state) => {
+        return state['user'].user;
+    });
+
+    // Hooks
+    const navigate = useNavigate();
+
+    // Events
     const onClickHome = (e) => {
-        console.log('===> onClickHome');
-
-        console.log('===> END - onClickHome');
+        user.loggedIn ? navigate('/room', { replace: true }) : navigate('/', { replace: true });
     };
 
-    /*================================================
-        BLOCK: COMPONENTS
-    ==================================================*/
-
+    // Components
     return (
         <Container>
             <ErrorContainer>
-                <ImageContainer>
-                    <Image src={''} alt='logo' />
-                </ImageContainer>
-                <TitleContainer>
-                    <Title>Error</Title>
-                    Invalid link
-                </TitleContainer>
-                <Button type='button'>
-                    <Link to='/'>Home</Link>
-                </Button>
+                <Logo src={LogoSrc} alt={'logo'} />
+                <Title title={'Error'} />
+                <Error>
+                    <ErrorText>Unrecognized URL</ErrorText>
+                    <FormButton onClick={onClickHome} text='Home' />
+                </Error>
             </ErrorContainer>
         </Container>
     );
