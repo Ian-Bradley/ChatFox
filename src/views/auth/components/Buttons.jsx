@@ -19,7 +19,7 @@ const Container = styled.div`
     width: 100%;
     height: 30px;
 
-    margin-bottom: 20px;
+    margin-top: 15px;
     ${FLEX_CENTER_ROW}
 
     & button {

@@ -19,8 +19,8 @@ export const FormContainer = styled.div`
 
     width: ${window.innerWidth < 400 ? window.innerWidth : '400px'};
     height: auto;
-
     overflow: hidden;
+
     padding: 80px ${sizes.spacing.app};
 
     background: ${({ theme }) => theme.color.bg.main_2};

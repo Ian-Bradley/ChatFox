@@ -15,6 +15,7 @@ export default function Swapper(props) {
 
 const Container = styled.div`
     ${FLEX_CENTER_COL}
+    margin-top: 20px;
 `;
 
 const Swap = styled.span`

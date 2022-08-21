@@ -25,6 +25,7 @@ export const TitleContainer = styled.div`
 export const Title = styled.h1`
     font-size: 3rem;
     font-weight: 800;
+    text-transform: uppercase;
     margin: 0 0 7px 0;
 `;
 /*======================================*/

@@ -15,34 +15,47 @@ const { v4: uuidv4 } = require('uuid');
 const config = require('./config.env.js');
 
 // Settings
-const server = express();
-server.use(cors());
-server.use(express.json());
-server.use(express.static(path.join(__dirname, '..', 'dist')));
-// API
+// const server = express();
+// server.use(cors());
+// server.use(express.json());
+// server.use(express.static(path.join(__dirname, '..', 'dist')));
 
+// API
 const userAPI = require('./lib/api/users/user.api.js');
 const usersAPI = require('./lib/api/users/users.api.js');
 const roomAPI = require('./lib/api/rooms/room.api.js');
 const roomsAPI = require('./lib/api/rooms/rooms.api.js');
-server.use('/api/user', userAPI);
-server.use('/api/users', usersAPI);
-server.use('/api/room', roomAPI);
-server.use('/api/rooms', roomsAPI);
+// server.use('/api/user', userAPI);
+// server.use('/api/users', usersAPI);
+// server.use('/api/room', roomAPI);
+// server.use('/api/rooms', roomsAPI);
 
 const login = require('./lib/api/auth/login.js');
 const register = require('./lib/api/auth/register.js');
-server.use('/api/login', login);
-server.use('/api/register', register);
+// server.use('/api/login', login);
+// server.use('/api/register', register);
 
 // Routes
 const routes = require('./lib/routes/routes.js');
 // server.use('/', routes);
 
 // Initiating
-server.listen(config.server.port, config.server.ip, config.server.domain, () => {
-    console.log(`Listening on ${config.server.domain}:${config.server.port}`);
-});
+// server.listen(config.server.port, config.server.ip, config.server.domain, () => {
+//     console.log(`Listening on ${config.server.domain}:${config.server.port}`);
+// });
+
+const server = express()
+    .use(cors())
+    .use(express.json())
+    .use(express.static(path.join(__dirname, '..', 'dist')))
+    .use('/api/user', userAPI)
+    .use('/api/users', usersAPI)
+    .use('/api/room', roomAPI)
+    .use('/api/rooms', roomsAPI)
+    .use('/api/login', login)
+    .use('/api/register', register)
+    // .use('/', routes)
+    .listen(config.server.port, config.server.ip, config.server.domain, () => console.log(`Listening on ${3001}`));
 
 const SocketServer = require('ws');
 const WSS = new SocketServer.Server({ server });
@@ -298,35 +311,35 @@ WSS.on('connection', (wsClient) => {
     wsClient.on('close', (wsClient) => {
         console.log('======= START - Client Disonnected =======');
 
-        console.log(
-            'find user: ',
-            wsState.state.users.find((user) => (user.id = wsClientData.userID))
-        );
+        // console.log(
+        //     'find user: ',
+        //     wsState.state.users.find((user) => (user.id = wsClientData.userID))
+        // );
 
         // Disconnect message
         // TODO: error when refreshing?
-        let disconnectMessage = {
-            type: 'notification-disconnect',
-            name: wsState.state.users.find((user) => (user.id = wsClientData.userID)).name,
-            time: new Date().toGMTString(),
-            color: wsState.state.users.find((user) => (user.id = wsClientData.userID)).color,
-        };
-        console.log('disconnectMessage: ', disconnectMessage);
-        wsState.addMessage(disconnectMessage);
+        // let disconnectMessage = {
+        //     type: 'notification-disconnect',
+        //     name: wsState.state.users.find((user) => (user.id = wsClientData.userID)).name,
+        //     time: new Date().toGMTString(),
+        //     color: wsState.state.users.find((user) => (user.id = wsClientData.userID)).color,
+        // };
+        // console.log('disconnectMessage: ', disconnectMessage);
+        // wsState.addMessage(disconnectMessage);
 
         // Disconnect data for other users
-        const messageData = {
-            id: uuidv4(), // message id
-            type: 'userDisconnected',
-            userID: wsClientData.userID, // user removal id
-            message: disconnectMessage,
-        };
-        console.log('messageData: ', messageData);
-        WSS.broadcast(JSON.stringify(messageData), wsClient);
+        // const messageData = {
+        //     id: uuidv4(), // message id
+        //     type: 'userDisconnected',
+        //     userID: wsClientData.userID, // user removal id
+        //     message: disconnectMessage,
+        // };
+        // console.log('messageData: ', messageData);
+        // WSS.broadcast(JSON.stringify(messageData), wsClient);
         console.log('>>>>>>>>> MESSAGE SENT - userDisconnected >>>>>>>>>');
 
         // Remove user
-        wsState.removeUser(wsClientData.userID);
+        // wsState.removeUser(wsClientData.userID);
 
         console.log('======= END - Client Disonnected =======');
     });

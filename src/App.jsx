@@ -3,13 +3,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import React, { useState, useEffect } from 'react';
 import { useSocket } from './util/websocket.js';
 
-// PAGE COMPONENTS
+// COMPONENTS
 import Auth from './views/auth/Auth.jsx';
 import Chat from './views/chat/Chat.jsx';
 import Error from './views/error/Error.jsx';
 import Dev from './components/Dev/Dev.jsx';
-
-// STYLED COMPONENTS
 import { ContainerApp } from './styles.js';
 
 // UTILS - DEV
@@ -100,7 +98,7 @@ export default function App(props) {
             console.log('>>>>>>>>> WebSocket Client Connected >>>>>>>>>');
             // setWSReady(true);
         };
-
+        
         /*================================================
             INNER: > WS - ON MESSAGE
         ==================================================*/

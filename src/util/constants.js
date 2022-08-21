@@ -12,6 +12,10 @@ export const CLASS_ACTIVE = 'active';
 export const CLASS_DISABLED = 'disabled';
 export const CLASS_HIDDEN = 'hidden';
 
+export const REGEX_USERNAME = /[^A-Za-z0-9\-\_]+/g;
+export const MAX_CHARACTERS_NAME = 3;
+export const MAX_CHARACTERS_PASSWORD = 3;
+
 export const LOTR_NAMES = [
     'Adalgrim Took','Adanedhel','Adanel','Adrahil','Adrahil II','Aegnor','Ælfwine','Aerin','Agarwaen','Aikanáro','Aiwendil','Alatar','Alatáriel','Aldamir','Aldaron',
     'Aldor','Amandil','Amdír','Amlaith','Amras','Amrod','Amroth','Amrothos','Anairë','Anardil','Anárion','Anborn','Ancalagon','Andrast','Andreth','Andróg','Anfauglir',

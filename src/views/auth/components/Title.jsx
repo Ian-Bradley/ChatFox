@@ -16,7 +16,6 @@ const Container = styled.div`
     width: 100%;
     height: auto;
     padding: ${sizes.spacing.app};
-    margin-bottom: 15px;
     ${FLEX_CENTER_ROW}
 `;
 

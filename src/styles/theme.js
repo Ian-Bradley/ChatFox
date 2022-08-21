@@ -27,6 +27,7 @@ const theme = {
             white: '#FFFFFF',
             link: '#605aa0',
             link_hover: '#8c80c2',
+            error: '#ff3333',
 
             material: 'rgba(255,255,255, .87)',
             material_dark: 'rgba(255,255,255, .60)',

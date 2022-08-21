@@ -11,9 +11,14 @@ import Inputs from './components/Inputs.jsx';
 import Buttons from './components/Buttons.jsx';
 import Swapper from './components/Swapper.jsx';
 import Remember from './components/Remember.jsx';
-
-// STYLED COMPONENTS
 import { Container, FormContainer, Form } from './styles.js';
+
+// UTIL
+import {
+    REGEX_USERNAME,
+    MAX_CHARACTERS_NAME,
+    MAX_CHARACTERS_PASSWORD,
+} from '../../util/constants.js';
 
 export default function Auth(props) {
     /*================================================
@@ -27,6 +32,8 @@ export default function Auth(props) {
     });
 
     // Hooks
+    const [passwordError, setPasswordError] = useState('');
+    const [nameError, setNameError] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [isChecked, setIsChecked] = useState(false);
     const [formType, setFormType] = useState('login');
@@ -44,7 +51,7 @@ export default function Auth(props) {
     useLayoutEffect(() => {
         if (formType === 'login') {
         }
-        if (formType === 'login') {
+        if (formType === 'register') {
         }
     }, []);
 
@@ -65,55 +72,106 @@ export default function Auth(props) {
     }, []);
 
     /*================================================
+        BLOCK: FUNCTIONS
+    ==================================================*/
+
+    // FUNCTION: => validateInput
+    const validateInput = (formRef) => {
+        const inputName = formRef.current[0];
+        const inputPassword = formRef.current[1];
+
+        let errorName = false;
+        let errorPassword = false;
+        /*================================================*/
+        if (!(inputName.value && inputName.value.length)) {
+            setNameError('Name is required');
+            errorName = true;
+        }
+        if (!(inputPassword.value && inputPassword.value.length)) {
+            setPasswordError('Password is required');
+            errorPassword = true;
+        }
+        /*================================================*/
+        if (!(inputName.value.length >= MAX_CHARACTERS_NAME)) {
+            setNameError('Name must be 3 characters or longer');
+            errorName = true;
+        }
+        if (!(inputPassword.value.length >= MAX_CHARACTERS_PASSWORD)) {
+            setPasswordError('Password must be 3 characters or longer');
+            errorPassword = true;
+        }
+        /*================================================*/
+        if (REGEX_USERNAME.test(inputName.value)) {
+            setNameError('Name cannot contain special characters');
+            errorName = true;
+        }
+        /*================================================*/
+        if (!errorName) {
+            setNameError('');
+        }
+        if (!errorPassword) {
+            setPasswordError('');
+        }
+        if (errorName || errorPassword) {
+            console.log('VALIDATE => return: FALSE');
+            return false;
+        }
+        console.log('VALIDATE => return: TRUE');
+        return true;
+    };
+
+    /*================================================
         BLOCK: EVENTS
     ==================================================*/
 
-    // FUNCTION: => onAccountSubmit
+    // EVENT: => onAccountSubmit
     const onAccountSubmit = async () => {
         console.log('===> START - onAccountSubmit');
-        const name = formRef.current[0].value;
-        const password = formRef.current[0].value;
-
-        if (name.length > 3 && password.length > 3) {
-            try {
-                // ==> QUERY
-                const url = formType + '/';
-                const data = {
-                    name: name,
-                    password: password,
-                };
-                const results = await api.post(url, data);
-                console.log('results.data: ', results.data);
-
-                // ==> STORAGE
-                console.log('isChecked: ', isChecked);
-                if (isChecked) {
-                    console.log('isChecked = true');
-                    // TODO: store in cookies/local
-                }
-
-                // ==> END
-                console.log('===> END - onAccountSubmit');
-                // navigate('/room', { replace: false }); // DEV
-                // navigate('/room', { replace: true }); // PROD
-            } catch (error) {
-                console.error(error);
-
-                // ==> USER ALREADY EXISTS
-                if (error.response.status && error.response.status === 409) {
-                }
-
-                // ==> INCORRECT PASSWORD
-                if (error.response.status && error.response.status === 401) {
-                }
-
-                console.log('===> END - onAccountSubmit - async error');
-                return [error.severity + ': ' + error.routine];
-            }
-        } else {
-            // TODO: add error to form around empty inputs || length < 3 inputs
-            console.log('===> END - onAccountSubmit - input error');
+        if (!validateInput(formRef)) {
+            console.log('SUBMIT => validate: INVALID');
             return false;
+        }
+        console.log('SUBMIT => validate: VALID');
+        console.log('SUBMIT => name: ', formRef.current[0].value);
+        console.log('SUBMIT => password: ', formRef.current[1].value);
+        try {
+            // ==> QUERY
+            const url = formType + '/';
+            const data = {
+                name: formRef.current[0].value,
+                password: formRef.current[1].value,
+            };
+            const results = await api.post(url, data);
+            console.log('results.data: ', results.data);
+
+            // ==> STORAGE
+            console.log('isChecked: ', isChecked);
+            if (isChecked) {
+                console.log('isChecked = true');
+                // TODO: store in cookies/local
+            }
+
+            // ==> END
+            console.log('===> END - onAccountSubmit');
+            // navigate('/room', { replace: false }); // DEV
+            // navigate('/room', { replace: true }); // PROD
+        } catch (error) {
+            console.error(error);
+
+            // ==> USER ALREADY EXISTS
+            if (error.response.status && error.response.status === 409) {
+                console.log('USER ALREADY EXISTS');
+
+            }
+
+            // ==> INCORRECT PASSWORD
+            if (error.response.status && error.response.status === 401) {
+                console.log('INCORRECT PASSWORD');
+                setPasswordError('Invalid password');
+            }
+
+            console.log('===> END - onAccountSubmit - async error');
+            return [error.severity + ': ' + error.routine];
         }
     };
 
@@ -173,7 +231,12 @@ export default function Auth(props) {
                 <Logos currentLogo={currentLogo} />
                 <Title />
                 <Form onSubmit={onAccountSubmit} ref={formRef}>
-                    <Inputs formType={formType} />
+                    <Inputs
+                        formType={formType}
+                        onAccountSubmit={onAccountSubmit}
+                        nameError={nameError}
+                        passwordError={passwordError}
+                    />
                     <Buttons formType={formType} onAccountSubmit={onAccountSubmit} />
                     <Remember onRememberMe={onRememberMe} />
                     <Swapper onFormSwap={onFormSwap} />
