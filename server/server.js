@@ -18,6 +18,8 @@ const config = require('./config.env.js');
 const login = require('./lib/api/auth/login.js');
 const register = require('./lib/api/auth/register.js');
 const usersAPI = require('./lib/api/users.api.js');
+const channelsAPI = require('./lib/api/channels.api.js');
+const messagesAPI = require('./lib/api/messages.api.js');
 
 // ==> Routes
 // const routes = require('./lib/routes/routes.js');
@@ -30,6 +32,8 @@ const server = express()
     .use('/api/login', login)
     .use('/api/register', register)
     .use('/api/users', usersAPI)
+    .use('/api/users', channelsAPI)
+    .use('/api/users', messagesAPI)
     // .use('/', routes)
     .listen(config.server.port, config.server.ip, config.server.domain, () => {
         console.log(`Listening on ${config.server.domain}:${config.server.port}`);

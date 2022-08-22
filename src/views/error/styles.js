@@ -22,7 +22,7 @@ export const ErrorContainer = styled.div`
 
     padding: 80px ${sizes.spacing.app};
 
-    background: ${({ theme }) => theme.color.bg.main_2};
+    background: ${({ theme }) => theme.bg.main_2};
     border-radius: 0;
 `;
 /*======================================*/

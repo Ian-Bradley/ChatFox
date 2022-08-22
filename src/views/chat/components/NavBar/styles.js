@@ -1,32 +1,10 @@
+import { FLEX_CENTER_ROW } from 'Styles/common.js';
 import styled from 'styled-components';
-import { USE_FULL_AREA } from 'Styles/common.js';
 /*======================================*/
 /*======================================*/
-export const Container = styled.div`
-    position: relative;
-    box-sizing: border-box;
-
-    display: flex;
-    flex-flow: row nowrap;
-    align-items: center;
-    justify-content: space-between;
-
-    padding: 0 1rem;
-
-    ${USE_FULL_AREA}
-`;
-/*======================================*/
-/*======================================*/
-export const TitleContainer = styled.div`
-    /* width: 100%; */
-`;
-/*======================================*/
-/*======================================*/
-export const Title = styled.h1`
-    font-size: 3rem;
-    font-weight: 800;
-    text-transform: uppercase;
-    margin: 0 0 7px 0;
+export const Brand = styled.div`
+    height: 100%;
+    ${FLEX_CENTER_ROW}
 `;
 /*======================================*/
 /*======================================*/
@@ -36,6 +14,12 @@ export const Nav = styled.nav`
 `;
 /*======================================*/
 /*======================================*/
-export const Button = styled.button``;
+export const Logo = styled.img`
+    width: 50px;
+    height: 50px;
+    pointer-events: none;
+    -webkit-user-select: none;
+    user-select: none;
+`;
 /*======================================*/
 /*======================================*/

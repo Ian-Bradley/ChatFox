@@ -5,6 +5,8 @@ import React from 'react';
 
 /**
  * @props icon (SVG Component)
+ * @props data (String) Value to be placed in data-value attribute
+ * @props size (String) px value to size icon
  */
 
 export default function IconButton(props) {
@@ -12,6 +14,7 @@ export default function IconButton(props) {
         <>
             <StyledIconButton
                 type='button'
+                size={props.size}
                 onClick={props.onClick}
                 data-value={props.data ? props.data : ''}
             >
@@ -22,17 +25,17 @@ export default function IconButton(props) {
 }
 
 const StyledIconButton = styled(Button)`
-    width: 20px;
-    height: 20px;
+    width: ${props => props.size ? props.size : '20px'};
+    height: ${props => props.size ? props.size : '20px'};
 
     padding: 0;
     ${FLEX_CENTER_ROW}
 
-    color: ${({ theme }) => theme.color.button_icon.text};
-    background: ${({ theme }) => theme.color.button_icon.bg};
+    color: ${({ theme }) => theme.button_icon.text};
+    background: ${({ theme }) => theme.button_icon.bg};
 
     &:hover {
-        color: ${({ theme }) => theme.color.button_icon.text_hover};
-        background: ${({ theme }) => theme.color.button_icon.bg_hover};
+        color: ${({ theme }) => theme.button_icon.text_hover};
+        background: ${({ theme }) => theme.button_icon.bg_hover};
     }
 `;

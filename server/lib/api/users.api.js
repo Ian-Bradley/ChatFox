@@ -16,7 +16,20 @@ router.get('/:value', async function (req, res) {
 });
 /*================================================*/
 /*================================================*/
-// ROUTE: => POST user (disabled in favour of /register)
+// ROUTE: => GET users
+router.get('/', async function (req, res) {
+    try {
+        console.log('GET: users');
+        let results = await dbQuery.users.getUsers();
+        res.status(200).json(results);
+    } catch (err) {
+        res.status(400).send(err);
+        console.log(err);
+    }
+});
+/*================================================*/
+/*================================================*/
+// ROUTE: => POST user - ===DISABLED=== use /register
 router.post('/', async function (req, res) {
     // try {
     //     console.log('POST: user');
@@ -47,39 +60,13 @@ router.put('/:value', async function (req, res) {
 router.delete('/:value', async function (req, res) {
     try {
         console.log('DELETE: user:name||id');
-        const result = await dbQuery.users.deleteUser(req.params.value, req.body);
+        const result = await dbQuery.users.deleteUser(req.params.value);
         res.status(204).json(result);
     } catch (err) {
         res.status(400).send(err);
         console.log(err);
     }
 });
-/*================================================*/
-/*================================================*/
-// ROUTE: => GET users (all - use with caution)
-// router.get('/', async function (req, res) {
-//     try {
-//         console.log('GET: users');
-//         let output = await dbQuery.users.getUsers();
-//         res.status(200).json(output);
-//     } catch (err) {
-//         res.status(400).send(err);
-//         console.log(err);
-//     }
-// });
-/*================================================*/
-/*================================================*/
-// ROUTE: => GET users for room (room_id - FOREIGN KEY)
-// router.get('/:id', async function (req, res) {
-//     try {
-//         console.log('GET: users:id');
-//         let output = await dbQuery.users.getUsersByRoomID(req.params.id);
-//         res.status(200).json(output);
-//     } catch (err) {
-//         res.status(400).send(err);
-//         console.log(err);
-//     }
-// });
 /*================================================*/
 /*================================================*/
 module.exports = router;

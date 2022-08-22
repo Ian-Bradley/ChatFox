@@ -1,18 +1,12 @@
 const pool = require('../db.js');
-const users = {
+const channels = {
     /*================================================*/
     /*================================================*/
-    // QUERY: => getUser (name||id)
-    getUser: async function (value) {
+    // QUERY: => getChannels
+    getChannels: async function () {
         try {
             const client = await pool.connect();
-            let query = '';
-            if (parseInt(value)) {
-                query = `SELECT * FROM users WHERE id = ${value};`;
-            } else {
-                query = `SELECT * FROM users WHERE UPPER(name) = UPPER('${value}');`;
-            }
-            const results = await client.query(query);
+            const results = await client.query(`SELECT * FROM channels;`);
             client.release();
             return results.rows;
         } catch (error) {
@@ -22,25 +16,12 @@ const users = {
     },
     /*================================================*/
     /*================================================*/
-    // QUERY: => getUsers
-    getUsers: async function () {
+    // QUERY: => insertChannel
+    insertChannel: async function (channel) {
         try {
             const client = await pool.connect();
-            const results = await client.query(`SELECT * FROM users;`);
-            client.release();
-            return results.rows;
-        } catch (error) {
-            console.error(error);
-            return [error.severity + ': ' + error.routine];
-        }
-    },
-    /*================================================*/
-    /*================================================*/
-    // QUERY: => insertUser
-    insertUser: async function (user) {
-        try {
-            const client = await pool.connect();
-            const results = await client.query(`INSERT INTO users (name, password) VALUES ('${user.name}', '${user.password}');`);
+            // TODO: add description column
+            const results = await client.query(`INSERT INTO channels (name, password) VALUES ('${channel.name}', '${channel.password}');`);
             client.release();
             return results;
         } catch (error) {
@@ -50,12 +31,12 @@ const users = {
     },
     /*================================================*/
     /*================================================*/
-    // QUERY: => updateUser (name||id)
-    updateUser: async function (value) {
+    // QUERY: => updateChannel (name||id)
+    updateChannel: async function (value) {
         try {
             const client = await pool.connect();
-            // TODO: update user
-            // const results = await client.query(`SELECT * FROM users WHERE id = ${value}`);
+            // TODO: update channel
+            // const results = await client.query(`SELECT * FROM channels WHERE id = ${value}`);
             client.release();
             return results;
         } catch (error) {
@@ -65,15 +46,15 @@ const users = {
     },
     /*================================================*/
     /*================================================*/
-    // QUERY: => deleteUser (name||id)
-    deleteUser: async function (value) {
+    // QUERY: => deleteChannel (name||id)
+    deleteChannel: async function (value) {
         try {
             const client = await pool.connect();
             let query = '';
             if (parseInt(value)) {
-                query = `DELETE * FROM users WHERE id = ${value};`;
+                query = `DELETE * FROM channels WHERE id = ${value};`;
             } else {
-                query = `DELETE * FROM users WHERE UPPER(name) = UPPER('${value}');`;
+                query = `DELETE * FROM channels WHERE UPPER(name) = UPPER('${value}');`;
             }
             const results = await client.query(query);
             client.release();
@@ -86,4 +67,4 @@ const users = {
     /*================================================*/
     /*================================================*/
 };
-module.exports = users;
+module.exports = channels;

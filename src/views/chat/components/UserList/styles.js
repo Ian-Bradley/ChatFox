@@ -21,7 +21,7 @@ export const Top = styled.div`
     align-items: center;
     justify-content: space-between;
 
-    background: ${({ theme }) => theme.color.bg.main_4};
+    background: ${({ theme }) => theme.bg.main_4};
     padding: ${sizes.spacing.app};
     width: 100%;
 `;
@@ -49,7 +49,7 @@ export const SearchButton = styled.div``;
 /*======================================*/
 /*======================================*/
 export const Bottom = styled.div`
-    background: ${({ theme }) => theme.color.bg.main_2};
+    background: ${({ theme }) => theme.bg.main_2};
     padding: ${sizes.spacing.app};
     width: 100%;
     height: 100%;

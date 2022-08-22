@@ -2,9 +2,11 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 
 // COMPONENTS
-// import IconSettings from 'Assets/icons/settings.svg';
-import { Container, TitleContainer, Title, Nav, Button } from './styles.js';
-//TODO: import Shared/Title instead of styled
+import Title from 'Shared/Title/Title.jsx';
+import LogoSrc from 'Assets/logos/logo_1a.png';
+import GearSVG from 'Assets/icons/gear.svg.js';
+import MenuButton from 'Shared/Buttons/MenuButton.jsx';
+import { Brand, Logo, Nav } from './styles.js';
 
 /**
  * @props
@@ -23,14 +25,6 @@ export default function NavBar(props) {
         BLOCK: EVENTS
     ==================================================*/
 
-    const onUser = () => {
-        console.log('===> onUser');
-        console.log('===> END - onUser');
-    };
-
-    /*======================================*/
-    /*======================================*/
-
     const onSettings = () => {
         console.log('===> onSettings');
         console.log('===> END - onSettings');
@@ -41,14 +35,14 @@ export default function NavBar(props) {
     ==================================================*/
 
     return (
-        <Container>
-            <TitleContainer>
-                <Title>{document.title}</Title>
-            </TitleContainer>
+        <>
+            <Brand>
+                <Logo src={LogoSrc} alt={'logo'} />
+                <Title />
+            </Brand>
             <Nav>
-                {/* <Button onClick={onSettings}>{IconSettings}</Button> */}
-                <Button onClick={onUser}>{user.nickname}</Button>
+                <MenuButton onClick={onSettings} icon={GearSVG} text={user.name} rounded={4} />
             </Nav>
-        </Container>
+        </>
     );
 }

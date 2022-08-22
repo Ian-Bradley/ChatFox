@@ -50,7 +50,7 @@ export default function ChatBar(props) {
     return (
         <Container>
             <InputContainer>
-                <Input type='text' onKeyUp={onTypingMessage} placeholder='Type your message here' />
+                <Input type='text' onKeyUp={onTypingMessage} placeholder='Send a message' />
             </InputContainer>
         </Container>
     );

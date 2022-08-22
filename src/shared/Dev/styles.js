@@ -3,8 +3,8 @@ import styled from 'styled-components';
 /*======================================*/
 export const Dev = styled.div`
     position: fixed;
-    top: 0;
-    right: 267px;
+    bottom: 10px;
+    right: 10px;
     z-index: 1000;
     display: flex;
     flex-flow: column nowrap;

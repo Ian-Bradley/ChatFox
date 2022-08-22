@@ -29,28 +29,28 @@ export default function Auth(props) {
                         <DevTitle>Current User: </DevTitle>
                     </DevListItem>
                     <DevListItem>
-                        <DevTitle>ID</DevTitle>
                         {user.id + ' '}
+                        <DevTitle>ID</DevTitle>
                     </DevListItem>
                     <DevListItem>
-                        <DevTitle>Name</DevTitle>
                         {user.name + ' '}
+                        <DevTitle>Name</DevTitle>
                     </DevListItem>
                     <DevListItem>
-                        <DevTitle>Nickname</DevTitle>
                         {user.nickname + ' '}
+                        <DevTitle>Nickname</DevTitle>
                     </DevListItem>
                     <DevListItem>
-                        <DevTitle>Color</DevTitle>
                         {user.color + ' '}
+                        <DevTitle>Color</DevTitle>
                     </DevListItem>
                     <DevListItem>
-                        <DevTitle>Timestamps</DevTitle>
                         {prefs.showTimestamps + ' '}
+                        <DevTitle>Timestamps</DevTitle>
                     </DevListItem>
                     <DevListItem>
-                        <DevTitle>24HourTime</DevTitle>
                         {prefs.show24HourTime + ' '}
+                        <DevTitle>24HourTime</DevTitle>
                     </DevListItem>
                 </DevList>
             </DevInfo>

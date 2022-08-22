@@ -1,10 +1,21 @@
-import styled from 'styled-components';
 import { sizes, USE_FULL_AREA } from 'Styles/common.js';
+import styled from 'styled-components';
 /*======================================*/
 /*======================================*/
 export const ContainerNav = styled.div`
     width: 100%;
     height: ${sizes.height.nav};
+
+    position: relative;
+    box-sizing: border-box;
+
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 1rem;
+    background: ${({ theme }) => theme.bg.main_3};
 `;
 /*======================================*/
 /*======================================*/
@@ -30,7 +41,7 @@ export const ContainerSidebar = styled.div`
     width: ${sizes.width.sidebar};
     height: 100%;
 
-    background: ${({ theme }) => theme.color.bg.main_2};
+    background: ${({ theme }) => theme.bg.main_2};
 `;
 /*======================================*/
 /*======================================*/

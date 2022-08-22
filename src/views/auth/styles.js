@@ -22,8 +22,8 @@ export const FormContainer = styled.div`
 
     padding: 80px ${sizes.spacing.app};
 
-    background: ${({ theme }) => theme.color.bg.main_2};
-    border: ${(props) => props.borderWidth}px solid ${({ theme }) => theme.color.border.highlight};
+    background: ${({ theme }) => theme.bg.main_2};
+    border: ${(props) => props.borderWidth}px solid ${({ theme }) => theme.border.highlight};
     border-radius: 0;
 `;
 /*======================================*/

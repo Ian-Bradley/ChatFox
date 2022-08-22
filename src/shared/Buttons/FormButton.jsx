@@ -22,6 +22,16 @@ export default function FormButton(props) {
 }
 
 const StyledFormButton = styled(Button)`
+    font-size: 1.1rem;
+    font-weight: 400;
+
     width: 100%;
     height: 30px;
+
+    color: ${({ theme }) => theme.button.text};
+    background: ${({ theme }) => theme.button.bg};
+
+    &:hover {
+        background: ${({ theme }) => theme.button.bg_hover};
+    }
 `;

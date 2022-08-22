@@ -1,8 +1,10 @@
 const users = require('./queries/users.query.js');
-const rooms = require('./queries/rooms.query.js');
+const channels = require('./queries/channels.query.js');
+const messages = require('./queries/messages.query.js');
 
 const dbQuery = {
     users,
-    rooms,
+    channels,
+    messages,
 };
 module.exports = dbQuery;

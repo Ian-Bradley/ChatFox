@@ -1,53 +1,6 @@
-const theme = {
-    color: {
-        border: {
-            black: '#000000',
-            dark: '#343635',
-            light: '#e1ebe2',
-            white: '#FFFFFF',
-            highlight: '#605aa0',
-        },
-        button: {
-            text: '#000000',
-            bg: '#605aa0',
-            bg_hover: '#8c80c2',
-            bg_disabled: 'rgba(96,90,160, .38)',
-        },
-        button_icon: {
-            text: '#343635',
-            text_hover: '#e1ebe2',
-            bg: 'none',
-            bg_hover: 'none',
-            bg_disabled: 'none',
-        },
-        text: {
-            black: '#000000',
-            dark: '#343635',
-            light: '#e1ebe2',
-            white: '#FFFFFF',
-            link: '#605aa0',
-            link_hover: '#8c80c2',
-            error: '#ff3333',
-
-            material: 'rgba(255,255,255, .87)',
-            material_dark: 'rgba(255,255,255, .60)',
-            material_disabled: 'rgba(255,255,255, .38)',
-        },
-        bg: {
-            main_1: '#121212',
-            main_2: '#1D1D1D',
-            main_3: '#212121',
-            main_4: '#242424',
-            main_5: '#272727',
-            main_6: '#2C2C2C',
-            main_7: '#2D2D2D',
-            main_8: '#323232',
-            main_9: '#343434',
-        },
-    },
-};
-export default theme;
-
+/*======================================
+    BLOCK: COLORS
+========================================*/
 /*
 The Sweetest Chill
 #343635 (52,54,53)
@@ -72,3 +25,73 @@ The Sweetest Chill
 #5684AE abstemious-off-blue
 #C3FBF4 annihilating-duck-egg-blue
 */
+
+const THEME_MONO_BLACK = '#000000';
+const THEME_MONO_DARK = '#343635';
+const THEME_MONO_LIGHT = '#e1ebe2';
+const THEME_MONO_WHITE = '#FFFFFF';
+
+const THEME_DARK = '#605aa0';
+const THEME_MEDIUM = '#8c80c2';
+const THEME_LIGHT = '#c6a9e1';
+
+const THEME_ERROR = '#ff3333';
+
+// material: 'rgba(255,255,255, .87)',
+// material_dark: 'rgba(255,255,255, .60)',
+// material_disabled: 'rgba(255,255,255, .38)',
+
+/*======================================
+    BLOCK: THEME
+========================================*/
+
+const theme = {
+    text: {
+        black: THEME_MONO_BLACK,
+        white: THEME_MONO_WHITE,
+        dark: THEME_MONO_DARK,
+        light: THEME_MONO_LIGHT,
+        link: THEME_DARK,
+        link_hover: THEME_MEDIUM,
+        error: THEME_ERROR,
+    },
+    button: {
+        text: THEME_MONO_BLACK,
+        bg: THEME_DARK,
+        bg_hover: THEME_MEDIUM,
+    },
+    button_icon: {
+        text: THEME_MONO_DARK,
+        text_hover: THEME_MONO_LIGHT,
+        bg: 'none',
+        bg_hover: 'none',
+    },
+    button_menu: {
+        text: THEME_MONO_LIGHT,
+        text_hover: THEME_MONO_WHITE,
+        bg: 'none',
+        bg_hover: THEME_MONO_DARK,
+    },
+    border: {
+        black: THEME_MONO_BLACK,
+        white: THEME_MONO_WHITE,
+        dark: THEME_MONO_DARK,
+        light: THEME_MONO_LIGHT,
+        highlight: THEME_DARK,
+        error: THEME_ERROR,
+    },
+    bg: {
+        error: THEME_ERROR,
+        highlight: THEME_DARK,
+        main_1: '#121212',
+        main_2: '#1D1D1D',
+        main_3: '#212121',
+        main_4: '#242424',
+        main_5: '#272727',
+        main_6: '#2C2C2C',
+        main_7: '#2D2D2D',
+        main_8: '#323232',
+        main_9: '#343434',
+    },
+};
+export default theme;

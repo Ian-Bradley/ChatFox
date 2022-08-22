@@ -25,8 +25,8 @@ const Container = styled.div`
 const Swap = styled.span`
     cursor: pointer;
     text-decoration: underline;
-    color: ${({ theme }) => theme.color.text.link};
+    color: ${({ theme }) => theme.text.link};
     &:hover {
-        color: ${({ theme }) => theme.color.text.link_hover};
+        color: ${({ theme }) => theme.text.link_hover};
     }
 `;

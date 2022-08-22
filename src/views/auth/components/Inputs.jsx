@@ -91,8 +91,8 @@ const Input = styled.input`
     outline: none;
     border: none;
 
-    color: ${({ theme }) => theme.color.text.dark};
-    background: ${({ theme }) => theme.color.text.light};
+    color: ${({ theme }) => theme.text.dark};
+    background: ${({ theme }) => theme.text.light};
 `;
 /*================================================*/
 /*================================================*/
@@ -102,7 +102,7 @@ const Error = styled.div`
 
     padding: ${sizes.spacing.app} 0 0 0;
 
-    color: ${({ theme }) => theme.color.text.error};
+    color: ${({ theme }) => theme.text.error};
     transition: transform linear ${transition.transform};
 `;
 /*================================================*/
