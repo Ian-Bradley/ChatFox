@@ -20,14 +20,10 @@ const messages = {
     insertMessage: async function (message) {
         try {
             const client = await pool.connect();
-            // TODO: change to correct message columns
-            /*
-            channel_id
-            timestamp
-            name
-            conent
-            */
-            // const results = await client.query(`INSERT INTO messages (name, password) VALUES ('${message.name}', '${message.password}');`);
+            const results = await client.query(
+                `INSERT INTO messages (channel_id, timestamp, name, content)
+                VALUES ('${message.channelID}', '${message.timestamp}', '${message.name}', '${message.content}');`
+            );
             client.release();
             return results;
         } catch (error) {

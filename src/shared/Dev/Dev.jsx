@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 // COMPONENTS
 import { Dev, DevInfo, DevTools, DevList, DevListItem, DevTitle } from './styles.js';
 
-export default function Auth(props) {
+export default function Dev(props) {
     /*================================================
         BLOCK: STATE
     ==================================================*/

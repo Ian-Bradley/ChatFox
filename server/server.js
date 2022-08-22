@@ -39,43 +39,10 @@ const server = express()
         console.log(`Listening on ${config.server.domain}:${config.server.port}`);
     });
 
-const SocketServer = require('ws');
-const WSS = new SocketServer.Server({ server });
+const { WS } = require('./lib/websocket/ws.js');
+const WSS = WS.Server({ server });
 
-const StateTracker = require('./lib/tracking/StateTracker.js');
-const wsState = new StateTracker();
-
-/*================================================
-    BLOCK: WEBSOCKET FUNCTIONS
-==================================================*/
-
-WSS.broadcast = (data, wsClient) => {
-    WSS.clients.forEach((client) => {
-        if (client.readyState === SocketServer.OPEN && wsClient !== client) {
-            client.send(data);
-        }
-    });
-};
-
-/*================================================*/
-/*================================================*/
-
-WSS.broadcastClient = (data, wsClient) => {
-    if (wsClient.readyState === SocketServer.OPEN) {
-        wsClient.send(data);
-    }
-};
-
-/*================================================*/
-/*================================================*/
-
-WSS.broadcastAll = (data) => {
-    WSS.clients.forEach((client) => {
-        if (client.readyState === SocketServer.OPEN) {
-            client.send(data);
-        }
-    });
-};
+// const WSS = new SocketServer.Server({ server });
 
 /*================================================
     BLOCK: WEBSOCKET SERVER
@@ -88,19 +55,19 @@ WSS.on('connection', (wsClient) => {
 
     console.log('======= START - Client Connected =======');
 
-    // Set initial client data
-    const wsClientData = {
-        id: uuidv4(), // message id
-        type: 'clientConnected',
-        users: wsState.state.users,
-        userID: uuidv4(), // id for disconnecting user removal - TODO: supply id on auth page
-        messages: wsState.state.messages,
-    };
+    // // Set initial client data
+    // const wsClientData = {
+    //     id: uuidv4(), // message id
+    //     type: 'clientConnected',
+    //     users: wsState.state.users,
+    //     userID: uuidv4(), // id for disconnecting user removal - TODO: supply id on auth page
+    //     messages: wsState.state.messages,
+    // };
 
-    // Send id, users, and message to connecting client
-    WSS.broadcastClient(JSON.stringify(wsClientData), wsClient);
-    console.log('>>>>>>>>> MESSAGE SENT - Client Data >>>>>>>>>');
-    console.log('======= END - Client Connected =======');
+    // // Send id, users, and message to connecting client
+    // WSS.broadcastClient(JSON.stringify(wsClientData), wsClient);
+    // console.log('>>>>>>>>> MESSAGE SENT - Client Data >>>>>>>>>');
+    // console.log('======= END - Client Connected =======');
 
     /*================================================
         INNER: > HANDLERS

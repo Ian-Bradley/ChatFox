@@ -56,3 +56,11 @@ export const Bottom = styled.div`
 `;
 /*======================================*/
 /*======================================*/
+
+export const SimpleBarStyles = {
+    background: ({ theme }) => theme.bg.main_2,
+    padding: sizes.spacing.app,
+    width: '100%',
+    height: '100%',
+}
+

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useSelector } from 'react-redux';
 
 // COMPONENTS
@@ -32,17 +32,26 @@ export default function ChannelList(props) {
         BLOCK: RENDERING
     ===================================================*/
 
-    const renderChannels = () => {
+    // const renderChannels = () => {
+    //     if (!(channels === undefined) && channels.length) {
+    //         let channelsArray = [];
+    //         for (let i = 0; i < channels.length; i++) {
+    //             channelsArray.push(
+    //                 <Channel key={i} channel={channels[i]} clickChannel={props.clickChannel} />
+    //             );
+    //         }
+    //         return channelsArray;
+    //     }
+    // };
+
+    // NOTE: testing
+    const renderChannels = useCallback(() => {
         if (!(channels === undefined) && channels.length) {
-            let channelsArray = [];
-            for (let i = 0; i < channels.length; i++) {
-                channelsArray.push(
-                    <Channel key={i} channel={channels[i]} clickChannel={props.clickChannel} />
-                );
-            }
-            return channelsArray;
+            [...Array(channels.length)].map((x, i) => (
+                <Channel key={i} channel={channels[i]} clickChannel={props.clickChannel} />
+            ));
         }
-    };
+    });
 
     /*=================================================
         BLOCK: COMPONENTS

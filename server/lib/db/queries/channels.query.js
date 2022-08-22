@@ -20,8 +20,10 @@ const channels = {
     insertChannel: async function (channel) {
         try {
             const client = await pool.connect();
-            // TODO: add description column
-            const results = await client.query(`INSERT INTO channels (name, password) VALUES ('${channel.name}', '${channel.password}');`);
+            const results = await client.query(
+                `INSERT INTO channels (name, password, description)
+                VALUES ('${channel.name}', '${channel.password}', '${channel.description}');`
+            );
             client.release();
             return results;
         } catch (error) {
