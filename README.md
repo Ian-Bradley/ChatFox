@@ -83,19 +83,22 @@ Head on down to <a href="#getting-started">Getting Started</a> to begin!
 
 ## Built With
 
-* [![Node][Node.i]][Node-url]
-* [![React][React.i]][React-url]
+* [![JavaScript][JavaScript.js]][JavaScript-url]
+* [![React][React.js]][React-url]
+* [![Node][Node.js]][Node-url]
+* [![Npm][Npm.js]][Npm-url]
 
 ### Other Dependencies
 
 * [![React Router][ReactRouter.i]][ReactRouter-url] || [![React Router][ReactRouter.i]][ReactRouter-url2]
 * [![Styled-components][Styled-components.i]][Styled-components-url]
 * [![Redux (@reduxjs/toolkit)][Redux.i]][Redux-url]
-* [![Redux Persist][Redux Persist.i]][Redux Persist-url]
+* [![Redux Persist][Redux-Persist.i]][Redux Persist-url]
 * [![Jsonwebtoken][Jsonwebtoken.i]][Jsonwebtoken-url]
 * [![WebSockets][WebSockets.i]][WebSockets-url]
 * [![PostgreSQL][PostgreSQL.i]][PostgreSQL-url]
 * [![Redux-Saga][Redux-Saga.i]][Redux-Saga-url]
+* [![SimpleBar][SimpleBar.i]][SimpleBar-url]
 * [![Bcryptjs][Bcryptjs.i]][Bcryptjs-url]
 * [![Express][Express.i]][Express-url]
 * [![Webpack][Webpack.i]][Webpack-url]
@@ -183,52 +186,60 @@ Ian Bradley - [GitHub](https://github.com/Ian-Bradley/) - [LinkedIn](https://lin
 [stars-url]: https://github.com/Ian-Bradley/Chattr/stargazers
 [issues-shield]: https://img.shields.io/github/issues/Ian-Bradley/Chattr?style=flat-square
 [issues-url]: https://github.com/Ian-Bradley/Chattr/issues -->
-[license-shield]: https://img.shields.io/github/license/Ian-Bradley/Chattr?style=plastic
+[license-shield]: https://img.shields.io/github/license/Ian-Bradley/Chattr?style=flat-square
 [license-url]: https://github.com/Ian-Bradley/Chattr/blob/master/LICENSE.txt
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black?style=plastic&logo=linkedin&colorB=555
+[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black?style=flat-square&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/ian-bradley-418505159/
 
 <!-- [product-screenshot]: images/screenshot.png -->
 
-[React.i]: https://img.shields.io/badge/React-20232A?style=plastic&logo=react&logoColor=61DAFB
+[JavaScript.js]: https://img.shields.io/badge/Javascript-20232A?style=flat-square&logo=javascript&logoColor=F7DF1E
+[JavaScript-url]: https://reactjs.org/
+[React.js]: https://img.shields.io/badge/React-20232A?style=flat-square&logo=react&logoColor=61DAFB
 [React-url]: https://reactjs.org/
-[Node.i]: https://img.shields.io/badge/React-20232A?style=plastic&logo=react&logoColor=61DAFB
+[Node.js]: https://img.shields.io/badge/Node-20232A?style=flat-square&logo=node&logoColor=339933
 [Node-url]: https://nodejs.org/
+[Npm.js]: https://img.shields.io/badge/Npm-20232A?style=flat-square&logo=npm&logoColor=CB3837
+[Npm-url]: https://nodejs.org/
 
-[Ajv.i]: https://img.shields.io/badge/React-20232A?style=plastic&logo=react&logoColor=61DAFB
+[Ajv.i]: https://img.shields.io/badge/Ajv-20232A?style=flat-square&logo=ajv&logoColor=23C8D2
 [Ajv-url]: https://ajv.js.org/
-[Axios.i]: https://img.shields.io/badge/React-20232A?style=plastic&logo=react&logoColor=61DAFB
-[Axios-url]: https://axios-http.com/
-[Babel.i]: https://img.shields.io/badge/React-20232A?style=plastic&logo=react&logoColor=61DAFB
+[Babel.i]: https://img.shields.io/badge/Babel-20232A?style=flat-square&logo=babel&logoColor=F9DC3E
 [Babel-url]: https://babeljs.io/
-[Bcryptjs.i]: https://img.shields.io/badge/React-20232A?style=plastic&logo=react&logoColor=61DAFB
-[Bcryptjs-url]: https://github.com/dcodeIO/bcrypt.js#readme
-[Cors.i]: https://img.shields.io/badge/React-20232A?style=plastic&logo=react&logoColor=61DAFB
-[Cors-url]: https://github.com/expressjs/cors#readme
-[Dotenv.i]: https://img.shields.io/badge/React-20232A?style=plastic&logo=react&logoColor=61DAFB
-[Dotenv-url]: https://github.com/motdotla/dotenv#readme
-[WebSESLintoESLintckets.i]: https://img.shields.io/badge/React-20232A?style=plastic&logo=react&logoColor=61DAFB
+[ESLint.i]: https://img.shields.io/badge/ESLint-20232A?style=flat-square&logo=eslint&logoColor=4B32C3
 [ESLint-url]: https://eslint.org/
-[Express.i]: https://img.shields.io/badge/React-20232A?style=plastic&logo=react&logoColor=61DAFB
+[Express.i]: https://img.shields.io/badge/Express-20232A?style=flat-square&logo=express&logoColor=000000
 [Express-url]: https://expressjs.com/
-[Jsonwebtoken.i]: https://img.shields.io/badge/React-20232A?style=plastic&logo=react&logoColor=61DAFB
+[Jsonwebtoken.i]: https://img.shields.io/badge/JSONWebToken-20232A?style=flat-square&logo=jsonwebtoken&logoColor=000000
 [Jsonwebtoken-url]: https://github.com/auth0/node-jsonwebtoken#readme
-[PostgreSQL.i]: https://img.shields.io/badge/React-20232A?style=plastic&logo=react&logoColor=61DAFB
+[PostgreSQL.i]: https://img.shields.io/badge/PostGreSQL-20232A?style=flat-square&logo=postgresql&logoColor=4169E1
 [PostgreSQL-url]: https://github.com/brianc/node-postgres
-[ReactRouter.i]: https://img.shields.io/badge/React-20232A?style=plastic&logo=react&logoColor=61DAFB
+[ReactRouter.i]: https://img.shields.io/badge/ReactRouter-20232A?style=flat-square&logo=reactrouter&logoColor=CA4245
 [ReactRouter-url]: https://reactrouter.com/
 [ReactRouter-url2]: https://github.com/remix-run/react-router#readme
-[Redux.i]: https://img.shields.io/badge/React-20232A?style=plastic&logo=react&logoColor=61DAFB
+[Redux.i]: https://img.shields.io/badge/Redux-20232A?style=flat-square&logo=redux&logoColor=764ABC
 [Redux-url]: https://redux.js.org/
-[Redux Persist.i]: https://img.shields.io/badge/React-20232A?style=plastic&logo=react&logoColor=61DAFB
-[Redux Persist-url]: https://github.com/rt2zz/redux-persist#readme
-[Redux-Saga.i]: https://img.shields.io/badge/React-20232A?style=plastic&logo=react&logoColor=61DAFB
+[Redux-Saga.i]: https://img.shields.io/badge/ReduxSaga-20232A?style=flat-square&logo=reduxsaga&logoColor=999999
 [Redux-Saga-url]: https://redux-saga.js.org/
-[Styled-components.i]: https://img.shields.io/badge/React-20232A?style=plastic&logo=react&logoColor=61DAFB
+[Styled-components.i]: https://img.shields.io/badge/StyledComponents-20232A?style=flat-square&logo=styledcomponents&logoColor=DB7093
 [Styled-components-url]: https://styled-components.com/
-[Uuid.i]: https://img.shields.io/badge/React-20232A?style=plastic&logo=react&logoColor=61DAFB
-[Uuid-url]: https://github.com/uuidjs/uuid#readme
-[Webpack.i]: https://img.shields.io/badge/React-20232A?style=plastic&logo=react&logoColor=61DAFB
+[Webpack.i]: https://img.shields.io/badge/Webpack-20232A?style=flat-square&logo=webpack&logoColor=8DD6F9
 [Webpack-url]: https://webpack.js.org/
-[WebSockets.i]: https://img.shields.io/badge/React-20232A?style=plastic&logo=react&logoColor=61DAFB
+[WebSockets.i]: https://img.shields.io/badge/Socket.io-20232A?style=flat-square&logo=socketdotio&logoColor=010101
 [WebSockets-url]: https://github.com/websockets/ws
+
+[Axios.i]: https://img.shields.io/badge/React-20232A?style=flat-square&logo=react&logoColor=61DAFB
+[Axios-url]: https://axios-http.com/
+[Bcryptjs.i]: https://img.shields.io/badge/React-20232A?style=flat-square&logo=react&logoColor=61DAFB
+[Bcryptjs-url]: https://github.com/dcodeIO/bcrypt.js#readme
+[Cors.i]: https://img.shields.io/badge/React-20232A?style=flat-square&logo=react&logoColor=61DAFB
+[Cors-url]: https://github.com/expressjs/cors#readme
+[Dotenv.i]: https://img.shields.io/badge/React-20232A?style=flat-square&logo=react&logoColor=61DAFB
+[Dotenv-url]: https://github.com/motdotla/dotenv#readme
+[Redux-Persist.i]: https://img.shields.io/badge/React-20232A?style=flat-square&logo=react&logoColor=61DAFB
+[Redux-Persist-url]: https://github.com/rt2zz/redux-persist#readme
+[SimpleBar.i]: https://img.shields.io/badge/React-20232A?style=flat-square&logo=react&logoColor=61DAFB
+[SimpleBar-url]: https://github.com/Grsmto/simplebar
+[Uuid.i]: https://img.shields.io/badge/React-20232A?style=flat-square&logo=react&logoColor=61DAFB
+[Uuid-url]: https://github.com/uuidjs/uuid#readme
+

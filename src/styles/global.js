@@ -1,9 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
-import fonts from 'Assets/fonts/fonts.js';
-
+/*======================================*/
 const GlobalStyles = createGlobalStyle`
-    ${fonts}
-    
     * {
         box-sizing: border-box;
     }
@@ -33,4 +30,5 @@ const GlobalStyles = createGlobalStyle`
         }
     }
 `;
+/*======================================*/
 export default GlobalStyles;

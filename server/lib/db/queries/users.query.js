@@ -40,7 +40,9 @@ const users = {
     insertUser: async function (user) {
         try {
             const client = await pool.connect();
-            const results = await client.query(`INSERT INTO users (name, password)VALUES ('${user.name}', '${user.password}');`);
+            const results = await client.query(
+                `INSERT INTO users (name, password)
+                 VALUES ('${user.name}', '${user.password}');`);
             client.release();
             return results;
         } catch (error) {
@@ -55,7 +57,7 @@ const users = {
         try {
             const client = await pool.connect();
             // TODO: update user
-            // const results = await client.query(`SELECT * FROM users WHERE id = ${value}`);
+            // const results = await client.query(`UPDATE * FROM users WHERE id = ${value}`);
             client.release();
             return results;
         } catch (error) {

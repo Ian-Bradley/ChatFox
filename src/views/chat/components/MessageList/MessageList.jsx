@@ -1,9 +1,11 @@
+import { SIMPLE_BAR_STYLES } from 'Styles/common.js';
 import React, { useEffect, useRef, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 
 // COMPONENETS
+import SimpleBar from 'simplebar-react';
 import Message from '../Message/Message.jsx';
-import { Container } from './styles.js';
+// import { Container } from './styles.js';
 
 /**
  * @props clickName (function) Clicking on a user name
@@ -22,9 +24,9 @@ export default function MessageList(props) {
         BLOCK: HOOKS
     ==================================================*/
 
-    const list = useRef(null);
+    const messageList = useRef(null);
     useEffect(() => {
-        list.current.scrollTop = list.current.scrollHeight;
+        messageList.current.scrollTop = messageList.current.scrollHeight;
     });
 
     /*================================================
@@ -35,30 +37,20 @@ export default function MessageList(props) {
         BLOCK: RENDERING
     ==================================================*/
 
-    // const renderMessages = () => {
-    //     if (!(messages === undefined) && messages.length) {
-    //         let messageArray = [];
-    //         for (let i = messages.length - 1; i > 0; i--) {
-    //             messageArray.push(
-    //                 <Message key={i} message={messages[i]} clickName={props.clickName} />
-    //             );
-    //         }
-    //         return messageArray;
-    //     }
-    // };
-
-    // NOTE: testing
     const renderMessages = useCallback(() => {
         if (!(messages === undefined) && messages.length) {
-            [...Array(messages.length)].map((x, i) => (
+            return [...Array(messages.length)].map((x, i) => (
                 <Message key={i} message={messages[i]} clickName={props.clickName} />
             ));
         }
+        // NOTE: testing
+        return [...Array(150)].map((x, i) => <div key={i}>Message</div>);
     });
 
     /*================================================
         BLOCK: COMPONENTS
     ==================================================*/
 
-    return <Container ref={list}>{renderMessages()}</Container>;
+    // return <Container ref={messageList}>{renderMessages()}</Container>;
+    return <SimpleBar ref={messageList} style={SIMPLE_BAR_STYLES}>{renderMessages()}</SimpleBar>
 }

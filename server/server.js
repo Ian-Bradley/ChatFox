@@ -42,6 +42,9 @@ const server = express()
 const { WS } = require('./lib/websocket/ws.js');
 const WSS = WS.Server({ server });
 
+console.log('Server.js ==> WS.handler: ', WS.handler);
+console.log('Server.js ==> WSS.handler: ', WSS.handler);
+
 // const WSS = new SocketServer.Server({ server });
 
 /*================================================

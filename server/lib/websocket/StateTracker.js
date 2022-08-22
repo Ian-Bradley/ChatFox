@@ -1,4 +1,9 @@
 /*================================================
+    BLOCK: IMPORTS
+==================================================*/
+
+
+/*================================================
     BLOCK: TRACKING CLASS
 ==================================================*/
 
@@ -58,19 +63,19 @@ module.exports = class StateTracker {
 
     // FUNCTION: => removeUser
     removeUser(userID) {
-        console.log('userID: ', userID);
-        console.log('typeof userID: ', typeof userID);
-        console.log('FIND USER: ', this.state.users.find((user) => user.id === userID)
+        console.log('removeUSER ==> userID: ', userID);
+        console.log('removeUSER ==> typeof userID: ', typeof userID);
+        console.log('removeUSER ==> FIND USER: ', this.state.users.find((user) => user.id === userID)
         );
         if (this.state.users.find((user) => user.id === userID)) {
             // User exists in array
-            console.log('User exists in array');
-            console.log('this.state.users: ', this.state.users);
+            console.log('removeUSER ==> User exists in array');
+            console.log('removeUSER ==> this.state.users: ', this.state.users);
             this.state.users = this.state.users.filter((user) => user.id !== userID);
-            console.log('this.state.users: ', this.state.users);
+            console.log('removeUSER ==> this.state.users: ', this.state.users);
         } else {
             // No user!!
-            console.log('No user!!');
+            console.log('removeUSER ==> No user!!');
         }
     }
 
@@ -125,17 +130,17 @@ module.exports = class StateTracker {
 
     // FUNCTION: => deleteChannel
     deleteChannel(channelID) {
-        console.log('channelID: ', channelID);
-        console.log('typeof channelID: ', typeof channelID);
-        console.log('FIND CHANNEL: ', this.state.channels.find((channel) => channel.id === channelID)
+        console.log('deleteCHANNEL ==> channelID: ', channelID);
+        console.log('deleteCHANNEL ==> typeof channelID: ', typeof channelID);
+        console.log('deleteCHANNEL ==> FIND CHANNEL: ', this.state.channels.find((channel) => channel.id === channelID)
         );
         if (this.state.channels.find((user) => user.id === channelID)) {
-            console.log('Channel exists in array');
-            console.log('this.state.channels: ', this.state.channels);
+            console.log('deleteCHANNEL ==> Channel exists in array');
+            console.log('deleteCHANNEL ==> this.state.channels: ', this.state.channels);
             this.state.channels = this.state.channels.filter((channel) => channel.id !== channelID);
-            console.log('this.state.channels: ', this.state.channels);
+            console.log('deleteCHANNEL ==> this.state.channels: ', this.state.channels);
         } else {
-            console.log('No channel!!');
+            console.log('deleteCHANNEL ==> No channel!!');
         }
     }
 

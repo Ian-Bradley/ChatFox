@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 
 // COMPONENTS
-import { Dev, DevInfo, DevTools, DevList, DevListItem, DevTitle } from './styles.js';
+import { Container, DevInfo, DevTools, DevList, DevListItem, DevTitle } from './styles.js';
 
 export default function Dev(props) {
     /*================================================
@@ -22,7 +22,7 @@ export default function Dev(props) {
     ==================================================*/
 
     return (
-        <Dev>
+        <Container>
             <DevInfo>
                 <DevList>
                     <DevListItem>
@@ -81,6 +81,6 @@ export default function Dev(props) {
                     <label htmlFor='dev-hour'>24 hour time</label>
                 </div>
             </DevTools>
-        </Dev>
+        </Container>
     );
 }

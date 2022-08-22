@@ -16,7 +16,8 @@ const development = {
         password: process.env.DEV_DB_PASSWORD || '123',
     },
     jwtKey: {
-        key: process.env.JWT_KEY,
+        key_private: process.env.JWT_KEY_PRIVATE,
+        key_public: process.env.JWT_KEY_PUBLIC,
         expire: process.env.JWT_EXPIRE,
         alg: process.env.JWT_ALG,
     },

@@ -1,12 +1,11 @@
+import { SIMPLE_BAR_STYLES } from 'Styles/common.js';
 import React, { useCallback } from 'react';
 import { useSelector } from 'react-redux';
-import SimpleBar from 'simplebar-react';
-import 'simplebar/dist/simplebar.min.css';
 
 // COMPONENTS
 import User from '../User/User.jsx';
-import SearchSVG from 'Assets/icons/search.svg.js';
-import { Container, Top, Bottom, Total, Search, SearchButton, SimpleBarStyles } from './styles.js';
+import SimpleBar from 'simplebar-react';
+import { Container, Top, Total } from './styles.js';
 
 /**
  * @props clickName (function) Clicking on a user name
@@ -50,10 +49,12 @@ export default function UserList(props) {
     // NOTE: testing
     const renderUsers = useCallback(() => {
         if (!(users === undefined) && users.length) {
-            [...Array(users.length)].map((x, i) => (
+            return [...Array(users.length)].map((x, i) => (
                 <User key={i} user={users[i]} clickName={props.clickName} />
             ));
         }
+        // NOTE: testing
+        return [...Array(150)].map((x, i) => <div key={i}>Username</div>);
     });
 
     /*=================================================
@@ -63,12 +64,9 @@ export default function UserList(props) {
     return (
         <Container>
             <Top>
-                <Total>{userTotal}</Total>
-                <Search>
-                    {/* <SearchButton onClick={onSearchButton}>{IconSearch}</SearchButton> */}
-                </Search>
+                <Total>Users{userTotal}</Total>
             </Top>
-            <SimpleBar style={SimpleBarStyles}>{renderUsers()}</SimpleBar>
+            <SimpleBar style={SIMPLE_BAR_STYLES}>{renderUsers()}</SimpleBar>
         </Container>
     );
 }

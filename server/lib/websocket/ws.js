@@ -2,7 +2,6 @@
     BLOCK: CONFIGURATION
 ==================================================*/
 
-
 const SocketServer = require('ws');
 const WS = new SocketServer();
 

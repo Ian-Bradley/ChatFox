@@ -33,12 +33,12 @@ export const transition = {
     BLOCK: COMMON STYLES
 ========================================*/
 
-export const LIST_SCROLLBAR = `
-    overflow-y: scroll;
-    overflow-x: hidden;
-    box-sizing: content-box;
-    padding-right: 17px;
-`;
+export const SIMPLE_BAR_STYLES = {
+    padding: sizes.spacing.app,
+    width: '100%',
+    height: '100%',
+    overflowX: 'hidden',
+};
 
 export const FLEX_CENTER_COL = `
     display: flex;

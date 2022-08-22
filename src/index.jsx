@@ -1,8 +1,10 @@
+import 'Styles/fonts.css';
 import React from 'react';
 import App from './App.jsx';
-import 'Styles/normalize.css';
 import store from 'Redux/store';
 import ReactDOM from 'react-dom';
+import 'Styles/simplebar.min.css';
+import 'Styles/normalize.min.css';
 import theme from 'Styles/theme.js';
 import { Provider } from 'react-redux';
 import GlobalStyles from 'Styles/global.js';

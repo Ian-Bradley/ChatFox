@@ -22,7 +22,7 @@ const channels = {
             const client = await pool.connect();
             const results = await client.query(
                 `INSERT INTO channels (name, password, description)
-                VALUES ('${channel.name}', '${channel.password}', '${channel.description}');`
+                 VALUES ('${channel.name}', '${channel.password}', '${channel.description}');`
             );
             client.release();
             return results;
@@ -38,7 +38,7 @@ const channels = {
         try {
             const client = await pool.connect();
             // TODO: update channel
-            // const results = await client.query(`SELECT * FROM channels WHERE id = ${value}`);
+            // const results = await client.query(`UPDATE * FROM channels WHERE id = ${value}`);
             client.release();
             return results;
         } catch (error) {

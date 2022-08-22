@@ -1,10 +1,11 @@
+import { SIMPLE_BAR_STYLES } from 'Styles/common.js';
 import React, { useCallback } from 'react';
 import { useSelector } from 'react-redux';
 
 // COMPONENTS
+import SimpleBar from 'simplebar-react';
 import Channel from '../Channel/Channel.jsx';
-// import IconSearch from 'Assets/icons/search.svg';
-import { Container, Top, Bottom, Search, SearchButton } from './styles.js';
+import { Container, Top } from './styles.js';
 
 /**
  * @props clickChannel (Function) Clicking on a chat channel
@@ -47,10 +48,12 @@ export default function ChannelList(props) {
     // NOTE: testing
     const renderChannels = useCallback(() => {
         if (!(channels === undefined) && channels.length) {
-            [...Array(channels.length)].map((x, i) => (
+            return [...Array(channels.length)].map((x, i) => (
                 <Channel key={i} channel={channels[i]} clickChannel={props.clickChannel} />
             ));
         }
+        // NOTE: testing
+        return [...Array(150)].map((x, i) => <div key={i}>Channel</div>);
     });
 
     /*=================================================
@@ -59,12 +62,8 @@ export default function ChannelList(props) {
 
     return (
         <Container>
-            <Top>
-                <Search>
-                    {/* <SearchButton onclick={onSearchButton}>{IconSearch}</SearchButton> */}
-                </Search>
-            </Top>
-            <Bottom>{renderChannels()}</Bottom>
+            <Top>Channels</Top>
+            <SimpleBar style={SIMPLE_BAR_STYLES}>{renderChannels()}</SimpleBar>
         </Container>
     );
 }

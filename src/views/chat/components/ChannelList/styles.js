@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { sizes, LIST_SCROLLBAR } from 'Styles/common.js';
+import { sizes } from 'Styles/common.js';
 /*======================================*/
 /*======================================*/
 export const Container = styled.div`
@@ -12,8 +12,6 @@ export const Container = styled.div`
 
     width: 100%;
     height: 100%;
-
-    ${LIST_SCROLLBAR}
 `;
 /*======================================*/
 /*======================================*/
@@ -21,31 +19,11 @@ export const Top = styled.div`
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
 
     background: ${({ theme }) => theme.bg.main_4};
     padding: ${sizes.spacing.app};
     width: 100%;
-`;
-/*======================================*/
-/*======================================*/
-export const Bottom = styled.div`
-    background: ${({ theme }) => theme.bg.main_2};
-    padding: ${sizes.spacing.app};
-    width: 100%;
-    height: 100%;
-`;
-/*======================================*/
-/*======================================*/
-export const Search = styled.div`
-    position: absolute;
-    bottom: ${sizes.spacing.app};
-    right: ${sizes.spacing.app};
-`;
-/*======================================*/
-/*======================================*/
-export const SearchButton = styled.button`
-    
 `;
 /*======================================*/
 /*======================================*/

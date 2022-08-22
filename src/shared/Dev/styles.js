@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 /*======================================*/
 /*======================================*/
-export const Dev = styled.div`
+export const Container = styled.div`
     position: fixed;
     bottom: 10px;
     right: 10px;

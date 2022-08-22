@@ -22,7 +22,7 @@ const messages = {
             const client = await pool.connect();
             const results = await client.query(
                 `INSERT INTO messages (channel_id, timestamp, name, content)
-                VALUES ('${message.channelID}', '${message.timestamp}', '${message.name}', '${message.content}');`
+                 VALUES ('${message.channelID}', '${message.timestamp}', '${message.name}', '${message.content}');`
             );
             client.release();
             return results;

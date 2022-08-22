@@ -1,6 +1,6 @@
-// const users = require('./queries/users.query.js');
-// const channels = require('./queries/channels.query.js');
-// const messages = require('./queries/messages.query.js');
+// const users = require('./queries/users.handler.js');
+// const channels = require('./queries/channels.handler.js');
+// const messages = require('./queries/messages.handler.js');
 
 const handler = {
     // users,
