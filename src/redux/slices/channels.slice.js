@@ -1,22 +1,59 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-    channels: [],
+    channel: {
+        id: '',
+        name: '',
+        active: false,
+        locked: false,
+        password: '',
+    },
 };
 
-/*
-channel (Object)
-    id: (String)
-    name: (String)
-    active: (Boolean)
-    locked: (Boolean)
-    password: (String)
-*/
+// TODO: all channel slices
+// TODO: add 's' to channel in this file
 
-let channelsSlice = createSlice({
-    name: 'channels',
+let channelSlice = createSlice({
+    name: 'channel',
     initialState: initialState,
     reducers: {
+        /*======================================*/
+
+        setChannel: function (state, action) {
+            // action.payload = channel (Object)
+            state.channel = action.payload;
+        },
+
+        /*======================================*/
+
+        setName: function (state, action) {
+            // action.payload = name (String)
+            state.channel.name = action.payload;
+        },
+
+        /*======================================*/
+
+        setPublic: function (state, action) {
+            state.channel.locked = false;
+            state.channel.password = '';
+        },
+
+        /*======================================*/
+
+        setPrivate: function (state, action) {
+            // action.payload = password (String)
+            state.channel.locked = true;
+            state.channel.password = action.payload;
+        },
+
+        /*======================================*/
+
+        setPassword: function (state, action) {
+            // action.payload = password (String)
+            state.channel.password = action.payload;
+        },
+
+        /*======================================*/
         /*======================================*/
 
         addChannel: function (state, action) {
@@ -104,15 +141,5 @@ let channelsSlice = createSlice({
         /*======================================*/
     },
 });
-export const {
-    addChannel,
-    deleteChannel,
-    deleteAllChannels,
-    setChannels,
-    setChannelActive,
-    setChannelInctive,
-    setChannelPrivate,
-    setChannelPublic,
-    setChannelPassword,
-} = channelsSlice.actions;
-export default channelsSlice.reducer;
+export const { setChannel, setName, setPublic, setPrivate, setPassword } = channelSlice.actions;
+export default channelSlice.reducer;

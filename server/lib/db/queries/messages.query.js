@@ -16,6 +16,20 @@ const messages = {
     },
     /*================================================*/
     /*================================================*/
+    // QUERY: => getMessagesForChannel
+    getMessagesForChannel: async function (id) {
+        try {
+            const client = await pool.connect();
+            const results = await client.query(`SELECT * FROM messages WHERE channel_id = ${id};`);
+            client.release();
+            return results.rows;
+        } catch (error) {
+            console.error(error);
+            return [error.severity + ': ' + error.routine];
+        }
+    },
+    /*================================================*/
+    /*================================================*/
     // QUERY: => insertMessage
     insertMessage: async function (message) {
         try {

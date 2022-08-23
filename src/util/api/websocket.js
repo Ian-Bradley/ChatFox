@@ -4,7 +4,7 @@ import { WS_URL } from 'Util/helpers/constants.js';
 const WS = new WebSocket(WS_URL);
 const SocketContext = createContext();
 
-// ==> FOR COMPONENTS TO SEND
+// ==> HOOK FOR COMPONENTS TO SEND/RECIEVE
 export const useSocket = () => useContext(SocketContext);
 
 // ==> FOR INDEX.JSX

@@ -3,46 +3,17 @@ import { generateRandomName, generateRandomColor } from 'Util/helpers/functions.
 
 const initialState = {
     user: {
-        id: 0,
         name: generateRandomName(true),
         nickname: generateRandomName(false),
         color: generateRandomColor(),
         loggedIn: false,
     },
-    isLoading: false,
 };
 
 let userSlice = createSlice({
     name: 'user',
     initialState: initialState,
     reducers: {
-        /*======================================*/
-
-        getUserFetch: function (state, action) {
-            state.isLoading = true;
-        },
-
-        /*======================================*/
-
-        getUserSuccess: function (state, action) {
-            // action.payload = user (Object)
-            state.user = action.payload;
-            state.isLoading = false;
-        },
-
-        /*======================================*/
-
-        getUserFailure: function (state, action) {
-            state.isLoading = false;
-        },
-
-        /*======================================*/
-
-        setID: function (state, action) {
-            // action.payload = id (String)
-            state.user.id = action.payload;
-        },
-
         /*======================================*/
 
         setName: function (state, action) {
@@ -74,13 +45,5 @@ let userSlice = createSlice({
         /*======================================*/
     },
 });
-export const {
-    getUserFetch,
-    getUserSuccess,
-    getUserFailure,
-    setID,
-    setName,
-    setNickname,
-    setColor,
-} = userSlice.actions;
+export const { setName, setNickname, setColor, setLoggedIn } = userSlice.actions;
 export default userSlice.reducer;

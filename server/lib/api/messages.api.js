@@ -16,6 +16,19 @@ router.get('/', async function (req, res) {
 });
 /*================================================*/
 /*================================================*/
+// ROUTE: => GET messages for channel by id
+router.get('/:id', async function (req, res) {
+    try {
+        console.log('GET: messages');
+        let results = await dbQuery.messages.getMessages(req.params.id);
+        res.status(200).json(results);
+    } catch (err) {
+        res.status(400).send(err);
+        console.log(err);
+    }
+});
+/*================================================*/
+/*================================================*/
 // ROUTE: => POST message
 router.post('/', async function (req, res) {
     try {

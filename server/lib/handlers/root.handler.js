@@ -2,9 +2,9 @@
 // const channels = require('./queries/channels.handler.js');
 // const messages = require('./queries/messages.handler.js');
 
-const handler = {
+const handlers = {
     // users,
     // channels,
     // messages,
 };
-module.exports = handler;
+module.exports = handlers;

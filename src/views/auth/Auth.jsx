@@ -1,16 +1,23 @@
-import React, { useState, useEffect, useLayoutEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { useSocket } from 'Util/api/websocket.js';
 import { useSelector } from 'react-redux';
 
 // COMPONENTS
-import Fun from './components/Fun.jsx';
-import Logos from './components/Logos.jsx';
-import Inputs from './components/Inputs.jsx';
-import Buttons from './components/Buttons.jsx';
-import Swapper from './components/Swapper.jsx';
-import Remember from './components/Remember.jsx';
-import Title from 'Shared/Title/Title.jsx';
 import { Container, FormContainer, Form } from './styles.js';
+import Remember from './components/Remember.jsx';
+import Swapper from './components/Swapper.jsx';
+import Buttons from './components/Buttons.jsx';
+import Inputs from './components/Inputs.jsx';
+import Logos from './components/Logos.jsx';
+import Title from 'Shared/Title/Title.jsx';
+import Fun from './components/Fun.jsx';
+
+// REDUX
+import { setName, setLoggedIn } from 'Redux/slices/user.slice.js';
+import { setUserTotal } from 'Redux/slices/userTotal.slice.js';
+import { setSocketOpen } from 'Redux/slices/socket.slice.js';
+import { setUsers } from 'Redux/slices/users.slice.js';
 
 // UTIL
 import {
@@ -26,18 +33,23 @@ export default function AuthPage(props) {
     ==================================================*/
 
     // Redux
-    // const dispatch = useDispatch();
+    const dispatch = useDispatch();
     const user = useSelector((state) => {
         return state['user'].user;
+    });
+    const socketReady = useSelector((state) => {
+        return state['socket'].socket;
     });
 
     // Hooks
     const [passwordError, setPasswordError] = useState('');
     const [nameError, setNameError] = useState('');
-    const [isLoading, setIsLoading] = useState(false);
+
+    // const [isLoading, setIsLoading] = useState(false);
     const [isChecked, setIsChecked] = useState(false);
     const [formType, setFormType] = useState('login');
-    const navigate = useNavigate();
+
+    const socket = useSocket();
     const formRef = useRef();
 
     // Hooks - Fun
@@ -45,36 +57,9 @@ export default function AuthPage(props) {
     const [borderWidth, setBorderWidth] = useState(0);
 
     /*================================================
-        BLOCK: HOOKS
+        BLOCK: HELPERS
     ==================================================*/
 
-    useLayoutEffect(() => {
-        if (formType === 'login') {
-        }
-        if (formType === 'register') {
-        }
-    }, []);
-
-    /*================================================*/
-    /*================================================*/
-
-    useEffect(() => {
-        // TODO: maybe use JWT validation
-        if (user.loggedIn) {
-            navigate('/room', { replace: true });
-        }
-
-        // TODO: cookies || localstorage w/ redux-persist
-        // ==> get user info from storage
-        // ==>
-        // ==>
-        // ==>
-    }, []);
-
-    /*================================================
-        BLOCK: FUNCTIONS
-    ==================================================*/
-    // TODO: maybe move to UTIL FUNCTIONS
     // FUNCTION: => validateInput
     const validateInput = (formRef) => {
         const inputName = formRef.current[0];
@@ -134,6 +119,7 @@ export default function AuthPage(props) {
         console.log('SUBMIT => validate: VALID');
         console.log('SUBMIT => name: ', formRef.current[0].value);
         console.log('SUBMIT => password: ', formRef.current[1].value);
+
         try {
             // ==> Query
             const url = formType + '/';
@@ -144,23 +130,28 @@ export default function AuthPage(props) {
             const results = await api.post(url, data);
             console.log('results.data: ', results.data);
 
+            // ==> User
+            dispatch(setName());
+            dispatch(setLoggedIn(true));
+
             // ==> Storage
             console.log('isChecked: ', isChecked);
             if (isChecked) {
                 console.log('isChecked = true');
-                // TODO: store in cookies/local
+                // TODO: store in cookies/local (redux-persist)
             }
 
-            // ==> End
+            // ==> Initiate socket to get app data (messages/users/channels)
+            dispatch(setSocketOpen());
             console.log('===> END - onAccountSubmit');
-            navigate('/room', { replace: false }); // DEV
-            // navigate('/room', { replace: true }); // PROD
+
         } catch (error) {
             console.error(error);
 
             // ==> USER ALREADY EXISTS
             if (error.response.status && error.response.status === 409) {
                 console.log('USER ALREADY EXISTS');
+                setNameError('User already exists');
             }
 
             // ==> INCORRECT PASSWORD
