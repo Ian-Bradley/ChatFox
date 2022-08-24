@@ -1,30 +1,21 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef, useLayoutEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { useSocket } from 'Util/api/websocket.js';
-import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 // COMPONENTS
-import { Container, FormContainer, Form } from './styles.js';
+import { Container, FormContainer, Forms, Error } from './styles.js';
 import Remember from './components/Remember.jsx';
 import Swapper from './components/Swapper.jsx';
-import Buttons from './components/Buttons.jsx';
-import Inputs from './components/Inputs.jsx';
 import Logos from './components/Logos.jsx';
 import Title from 'Shared/Title/Title.jsx';
+import Form from './components/Form.jsx';
 import Fun from './components/Fun.jsx';
 
 // REDUX
 import { setName, setLoggedIn } from 'Redux/slices/user.slice.js';
-import { setUserTotal } from 'Redux/slices/userTotal.slice.js';
 import { setSocketOpen } from 'Redux/slices/socket.slice.js';
-import { setUsers } from 'Redux/slices/users.slice.js';
 
 // UTIL
-import {
-    REGEX_USERNAME,
-    MAX_CHARACTERS_NAME,
-    MAX_CHARACTERS_PASSWORD,
-} from 'Util/helpers/constants.js';
 import api from 'Util/api/axios.js';
 
 export default function AuthPage(props) {
@@ -34,92 +25,36 @@ export default function AuthPage(props) {
 
     // Redux
     const dispatch = useDispatch();
-    const user = useSelector((state) => {
-        return state['user'].user;
-    });
-    const socketReady = useSelector((state) => {
-        return state['socket'].socket;
-    });
 
     // Hooks
-    const [passwordError, setPasswordError] = useState('');
-    const [nameError, setNameError] = useState('');
-
-    // const [isLoading, setIsLoading] = useState(false);
+    const [accountError, setAccountError] = useState('');
     const [isChecked, setIsChecked] = useState(false);
     const [formType, setFormType] = useState('login');
-
-    const socket = useSocket();
+    const [formHeight, setFormHeight] = useState('');
     const formRef = useRef();
-
+    
     // Hooks - Fun
     const [currentLogo, setCurrentLogo] = useState(1);
     const [borderWidth, setBorderWidth] = useState(0);
 
     /*================================================
-        BLOCK: HELPERS
+        BLOCK: HOOKS - FORM HEIGHT
     ==================================================*/
 
-    // FUNCTION: => validateInput
-    const validateInput = (formRef) => {
-        const inputName = formRef.current[0];
-        const inputPassword = formRef.current[1];
+    useLayoutEffect(() => {
+        
+        console.log(formRef.current.clientHeight);
+        
 
-        let errorName = false;
-        let errorPassword = false;
-        /*================================================*/
-        if (!(inputName.value && inputName.value.length)) {
-            setNameError('Name is required');
-            errorName = true;
-        }
-        if (!(inputPassword.value && inputPassword.value.length)) {
-            setPasswordError('Password is required');
-            errorPassword = true;
-        }
-        /*================================================*/
-        if (!(inputName.value.length >= MAX_CHARACTERS_NAME)) {
-            setNameError('Name must be 3 characters or longer');
-            errorName = true;
-        }
-        if (!(inputPassword.value.length >= MAX_CHARACTERS_PASSWORD)) {
-            setPasswordError('Password must be 3 characters or longer');
-            errorPassword = true;
-        }
-        /*================================================*/
-        if (REGEX_USERNAME.test(inputName.value)) {
-            setNameError('Name cannot contain special characters');
-            errorName = true;
-        }
-        /*================================================*/
-        if (!errorName) {
-            setNameError('');
-        }
-        if (!errorPassword) {
-            setPasswordError('');
-        }
-        if (errorName || errorPassword) {
-            console.log('VALIDATE => return: FALSE');
-            return false;
-        }
-        console.log('VALIDATE => return: TRUE');
-        return true;
-    };
+    }, []);
 
     /*================================================
         BLOCK: EVENTS
     ==================================================*/
 
-    // EVENT: => onAccountSubmit
-    const onAccountSubmit = async () => {
-        console.log('===> START - onAccountSubmit');
-        if (!validateInput(formRef)) {
-            console.log('SUBMIT => validate: INVALID');
-            return false;
-        }
-        console.log('SUBMIT => validate: VALID');
-        console.log('SUBMIT => name: ', formRef.current[0].value);
-        console.log('SUBMIT => password: ', formRef.current[1].value);
-
+    // EVENT: => onSubmit
+    const onSubmit = async (formRef) => {
+        console.log('===> START - onSubmit');
         try {
             // ==> Query
             const url = formType + '/';
@@ -131,7 +66,7 @@ export default function AuthPage(props) {
             console.log('results.data: ', results.data);
 
             // ==> User
-            dispatch(setName());
+            dispatch(setName(data.name));
             dispatch(setLoggedIn(true));
 
             // ==> Storage
@@ -141,26 +76,37 @@ export default function AuthPage(props) {
                 // TODO: store in cookies/local (redux-persist)
             }
 
-            // ==> Initiate socket to get app data (messages/users/channels)
+            // ==> Initiate
+            // get app data (messages/users/channels) from socket
+            // done in useEffect() in App
             dispatch(setSocketOpen());
-            console.log('===> END - onAccountSubmit');
-
+            console.log('===> END - onSubmit');
         } catch (error) {
             console.error(error);
-
-            // ==> USER ALREADY EXISTS
-            if (error.response.status && error.response.status === 409) {
-                console.log('USER ALREADY EXISTS');
-                setNameError('User already exists');
+            switch (error.response.status) {
+                case 409: {
+                    console.log('REGISTER => USER ALREADY EXISTS');
+                    setAccountError('User already exists');
+                    break;
+                }
+                case 400: {
+                    console.log('LOGIN => USER DOES NOT EXIST');
+                    setAccountError('User does not exist');
+                    break;
+                }
+                case 401: {
+                    console.log('LOGIN => INVALID PASSWORD');
+                    setAccountError('Invalid password');
+                    break;
+                }
+                case 0: {
+                    console.log('NETWORK ERROR');
+                    setAccountError('Connection failure');
+                    break;
+                }
+                default:
             }
-
-            // ==> INCORRECT PASSWORD
-            if (error.response.status && error.response.status === 401) {
-                console.log('INCORRECT PASSWORD');
-                setPasswordError('Invalid password');
-            }
-
-            console.log('===> END - onAccountSubmit - async error');
+            console.log('===> END - onSubmit - async error');
             return [error.severity + ': ' + error.routine];
         }
     };
@@ -220,21 +166,17 @@ export default function AuthPage(props) {
                 <Fun onLogoSwap={onLogoSwap} onBorderGrow={onBorderGrow} />
                 <Logos currentLogo={currentLogo} />
                 <Title />
-                <Form onSubmit={onAccountSubmit} ref={formRef}>
-                    <Inputs
-                        formType={formType}
-                        onAccountSubmit={onAccountSubmit}
-                        nameError={nameError}
-                        passwordError={passwordError}
-                    />
-                    <Buttons formType={formType} onAccountSubmit={onAccountSubmit} />
-                    <Remember onRememberMe={onRememberMe} />
-                    <Swapper onFormSwap={onFormSwap} />
-                    <br />
-                    TESTING:
-                    <Link to='/room'>room</Link>
-                    <Link to='/eeeeeeeee'>error</Link>
-                </Form>
+                <Forms form={formType} ref={formRef} height={formHeight}>
+                    <Form buttonText={'Sign in'} onSubmit={onSubmit} />
+                    <Form buttonText={'Register'} onSubmit={onSubmit} />
+                </Forms>
+                <Error error={accountError}>{accountError}</Error>
+                <Remember onRememberMe={onRememberMe} />
+                <Swapper onFormSwap={onFormSwap} />
+                <br />
+                TESTING:
+                <Link to='/room'>room</Link>
+                <Link to='/eeeeeeeee'>error</Link>
             </FormContainer>
         </Container>
     );

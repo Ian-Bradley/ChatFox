@@ -39,7 +39,7 @@ const server = express()
         console.log(`Listening on ${config.server.domain}:${config.server.port}`);
     });
 
-// ==> Initiating socket server
+// ==> Initiating socket server & state
 const SocketServer = require('ws');
 const WSS = new SocketServer.Server({ server });
 
@@ -101,7 +101,8 @@ WSS.on('connection', (WSClient) => {
 
                 // HANDLER: => userConnected
                 case 'userConnected': {
-                    // ==> Send connecting user websocket state data + messages for default channel (lounge)
+                    console.log('======= START - MESSAGE - userConnected =======');
+                    // ==> Send connecting user websocket state data + messages for default channel (name=lounge, id=1)
                     const data = {
                         id: uuidv4(), // message id
                         type: 'connectionReady',
@@ -112,9 +113,8 @@ WSS.on('connection', (WSClient) => {
                     console.log('>>>>>>>>> MESSAGE SENT - Client - State Data >>>>>>>>>');
 
                     // ==> Send new user data to all other users
-                    console.log('======= START - MESSAGE - userConnected =======');
                     messageData.id = uuidv4();
-                    WSClientData.userID = messageData.user.id; // set id for disconnecting user removal
+                    // WSClientData.userID = messageData.user.id; // set id for disconnecting user removal
                     WSState.addUser(messageData.user);
                     WSState.addLogItem(messageData.message);
                     WSS.broadcastToOthers(JSON.stringify(messageData), WSClient);
@@ -130,6 +130,7 @@ WSS.on('connection', (WSClient) => {
                 case 'updateUserName': {
                     console.log('======= START - MESSAGE - updateUserName =======');
                     messageData.id = uuidv4();
+                    // TODO: QUERY
                     WSState.setUserName(messageData.user, messageData.newName);
                     WSState.addLogItem(messageData.message);
                     WSS.broadcastToAll(JSON.stringify(messageData));
@@ -175,6 +176,7 @@ WSS.on('connection', (WSClient) => {
                 case 'updateAddChannel': {
                     console.log('======= START - MESSAGE - updateAddChannel =======');
                     messageData.id = uuidv4();
+                    // TODO: QUERY
                     WSState.addChannel(messageData.channel);
                     WSState.addLogItem(messageData.message);
                     WSS.broadcastToAll(JSON.stringify(messageData));
@@ -190,6 +192,7 @@ WSS.on('connection', (WSClient) => {
                 case 'updateDeleteChannel': {
                     console.log('======= START - MESSAGE - updateDeleteChannel =======');
                     messageData.id = uuidv4();
+                    // TODO: QUERY
                     WSState.deleteChannel(messageData.channelID);
                     WSState.addLogItem(messageData.message);
                     WSS.broadcastToAll(JSON.stringify(messageData));
@@ -205,6 +208,8 @@ WSS.on('connection', (WSClient) => {
                 case 'updateChannelName': {
                     console.log('======= START - MESSAGE - updateChannelName =======');
                     messageData.id = uuidv4();
+                    // TODO: QUERY
+                    // TODO: add possibility of description change
                     WSState.setChannelName(messageData.channel, messageData.newName);
                     WSState.addLogItem(messageData.message);
                     WSS.broadcastToAll(JSON.stringify(messageData));
@@ -220,6 +225,7 @@ WSS.on('connection', (WSClient) => {
                 case 'updateChannelPublic': {
                     console.log('======= START - MESSAGE - updateChannelPublic =======');
                     messageData.id = uuidv4();
+                    // TODO: QUERY
                     WSState.setChannelPublic(messageData.channel);
                     WSState.addLogItem(messageData.message);
                     WSS.broadcastToAll(JSON.stringify(messageData));
@@ -235,6 +241,7 @@ WSS.on('connection', (WSClient) => {
                 case 'updateChannelPrivate': {
                     console.log('======= START - MESSAGE - updateChannelPrivate =======');
                     messageData.id = uuidv4();
+                    // TODO: QUERY
                     WSState.setChannelPrivate(messageData.channel);
                     WSState.setChannelPassword(messageData.channel, messageData.password);
                     WSState.addLogItem(messageData.message);
@@ -251,6 +258,7 @@ WSS.on('connection', (WSClient) => {
                 case 'updateChannelPassword': {
                     console.log('======= START - MESSAGE - updateChannelPassword =======');
                     messageData.id = uuidv4();
+                    // TODO: QUERY
                     WSState.setChannelPassword(messageData.channel, messageData.password);
                     WSState.addLogItem(messageData.message);
                     WSS.broadcastToAll(JSON.stringify(messageData));
@@ -266,6 +274,7 @@ WSS.on('connection', (WSClient) => {
                 case 'newMessage': {
                     console.log('======= START - MESSAGE - newMessage =======');
                     messageData.id = uuidv4();
+                    // TODO: QUERY
                     WSState.addMessage(messageData.message);
                     WSS.broadcastToAll(JSON.stringify(messageData));
                     console.log('>>>>>>>>> MESSAGE SENT - newMessage >>>>>>>>>');

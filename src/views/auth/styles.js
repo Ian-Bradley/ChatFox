@@ -1,4 +1,4 @@
-import { sizes, USE_FULL_AREA, FLEX_CENTER_COL } from 'Styles/common.js';
+import { sizes, transition, USE_FULL_AREA, FLEX_CENTER_COL } from 'Styles/common.js';
 import styled from 'styled-components';
 /*======================================*/
 /*======================================*/
@@ -28,14 +28,34 @@ export const FormContainer = styled.div`
 `;
 /*======================================*/
 /*======================================*/
-export const Form = styled.form`
+export const Forms = styled.div`
+    position: relative;
+    width: 60%;
+    height: 0;
+
     display: flex;
     flex-flow: column nowrap;
+    align-items: flex-start;
     justify-content: flex-start;
-    align-items: center;
 
-    width: 60%;
-    padding: 0;
+    transition: padding linear ${transition.transform};
+    padding-bottom: ${(props) => (props.height ? props.height : '126px')};
+
+    & form:first-child {
+        transform: translateX(calc(400px * ${(props) => (props.form === 'login' ? 0 : -1)}));
+    }
+
+    & form:last-child {
+        transform: translateX(calc(400px * ${(props) => (props.form === 'register' ? 0 : 1)}));
+    }
 `;
 /*======================================*/
 /*======================================*/
+export const Error = styled.div`
+    height: 0;
+    color: ${({ theme }) => theme.text.error};
+
+    transition: padding linear ${transition.transform};
+    padding: ${(props) => (props.error ? sizes.spacing.app : 0)} 0
+        ${(props) => (props.error ? '1rem' : 0)} 0;
+`;

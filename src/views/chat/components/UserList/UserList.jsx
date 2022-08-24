@@ -36,17 +36,6 @@ export default function UserList(props) {
         BLOCK: RENDERING
     ===================================================*/
 
-    // const renderUsers = () => {
-    //     if (!(users === undefined) && users.length) {
-    //         let usersArray = [];
-    //         for (let i = 0; i < users.length; i++) {
-    //             usersArray.push(<User key={i} user={users[i]} clickName={props.clickName} />);
-    //         }
-    //         return usersArray;
-    //     }
-    // };
-
-    // NOTE: testing
     const renderUsers = useCallback(() => {
         if (!(users === undefined) && users.length) {
             return [...Array(users.length)].map((x, i) => (

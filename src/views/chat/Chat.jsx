@@ -22,7 +22,7 @@ export default function ChatPage(props) {
     const user = useSelector((state) => {
         return state['user'].user;
     });
-    
+
     // Hooks
     const navigate = useNavigate();
 
@@ -32,11 +32,11 @@ export default function ChatPage(props) {
 
     useEffect(() => {
         console.log('---------- USE-EFFECT - Logged-In Redirect ----------');
-        if(!user.loggedIn) {
-            console.log('NOT LOGGED IN');
-            // navigate('/', { replace: true });
-        }
+        // if (!user.loggedIn) {
+        //     navigate('/', { replace: true });
+        // }
 
+        user.loggedIn ? console.log('LOGGED IN') : console.log('NOT LOGGED IN');
     });
 
     /*================================================

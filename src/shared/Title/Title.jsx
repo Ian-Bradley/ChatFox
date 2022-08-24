@@ -17,8 +17,6 @@ export default function Title(props) {
 }
 
 const Container = styled.div`
-    width: 100%;
-    height: auto;
     padding: ${sizes.spacing.app};
     ${FLEX_CENTER_ROW}
 `;

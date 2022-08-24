@@ -17,11 +17,11 @@ router.post('/', async function (req, res) {
             res.status(400).json({ error: 'Missing data' });
         }
         if (name.length < 3 || password.length < 3) {
-            res.status(400).json({ error: 'Invalid name or password length' });
+            res.status(400).json({ error: 'Account requirements not met' });
         }
 
         // ==> Determine is user exists in DB
-        const user = await dbQuery.user.getUser(name);
+        const user = await dbQuery.users.getUser(name);
 
         // ==> Validate password
         if (user[0]) {
@@ -44,10 +44,10 @@ router.post('/', async function (req, res) {
                 res.status(200).json(user[0]);
             } else {
                 console.log('INVALID PASSWORD');
-                res.status(400).json({ error: 'Invalid password' });
+                res.status(401).json({ error: 'Invalid password' });
             }
         } else {
-            res.status(401).json({ error: 'User does not exist' });
+            res.status(400).json({ error: 'User does not exist' });
         }
     } catch (err) {
         console.log(err);

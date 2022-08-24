@@ -29,6 +29,7 @@ export const DevList = styled.ul`
 /*======================================*/
 export const DevListItem = styled.li`
     margin-top: 6px;
+    color: #ff3333;
 `;
 /*======================================*/
 /*======================================*/
@@ -36,6 +37,8 @@ export const DevTitle = styled.span`
     font-weight: 800;
     border: 2px solid black;
     padding: 0px 2px;
+    background: black;
+    color: white;
 `;
 /*======================================*/
 /*======================================*/

@@ -1,5 +1,5 @@
 import { useSocket } from 'Util/api/websocket.js';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import React from 'react';
 
 // COMPONENTS
@@ -17,6 +17,7 @@ export default function Dev(props) {
     ==================================================*/
 
     // Redux
+    const dispatch = useDispatch();
     const user = useSelector((state) => {
         return state['user'].user;
     });
@@ -146,10 +147,6 @@ export default function Dev(props) {
                 <DevList>
                     <DevListItem>
                         <DevTitle>Current User: </DevTitle>
-                    </DevListItem>
-                    <DevListItem>
-                        {user.id + ' '}
-                        <DevTitle>ID</DevTitle>
                     </DevListItem>
                     <DevListItem>
                         {user.name + ' '}
