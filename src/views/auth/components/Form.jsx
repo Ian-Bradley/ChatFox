@@ -17,6 +17,7 @@ import {
 /**
  * @props buttonText {string}
  * @props onSubmit {function}
+ * @props syncHeight {function}
  */
 
 export default function Form(props) {
@@ -28,6 +29,11 @@ export default function Form(props) {
     const [nameError, setNameError] = useState('');
     const [passError, setPassError] = useState('');
     const formRef = useRef();
+
+    // useLayoutEffect(() => {
+    //     console.log('FORM__useLayoutEffect => ', formRef.current.clientHeight);
+    //     props.syncHeight(formRef.current.clientHeight);
+    // }, [nameError, passError]);
 
     /*================================================
         BLOCK: VALIDATION
@@ -74,12 +80,19 @@ export default function Form(props) {
             break;
         }
 
+        // ==> Reset
+        if (!errorName) {
+            setNameError('');
+        }
+        if (!errorPassword) {
+            setPassError('');
+        }
+
         // ==> END
         if (errorPassword || errorName) {
             return false;
         }
-        setNameError('');
-        setPassError('');
+
         return true;
     };
 
@@ -143,10 +156,7 @@ export default function Form(props) {
 ==================================================*/
 
 const StyledForm = styled.form`
-    position: absolute;
-    top: 0;
-    left: 0;
-
+    grid-area: 1 / 1 / 2 / 2;
     width: 100%;
 
     transition: transform linear ${transition.transform};

@@ -1,21 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-// import { useSocket } from 'Util/websocket.js';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
 
 // COMPONENETS
-import NavBar from './components/NavBar/NavBar.jsx';
-import ChatBar from './components/ChatBar/ChatBar.jsx';
-import UserList from './components/UserList/UserList.jsx';
-import MessageList from './components/MessageList/MessageList.jsx';
-import ChannelList from './components/ChannelList/ChannelList.jsx';
-
-// STYLED COMPONENTS
 import { ContainerNav, ContainerBody, ContainerChat, ContainerSidebar } from './styles.js';
+import ChannelList from './components/ChannelList/ChannelList.jsx';
+import MessageList from './components/MessageList/MessageList.jsx';
+import UserList from './components/UserList/UserList.jsx';
+import ChatBar from './components/ChatBar/ChatBar.jsx';
+import NavBar from './components/NavBar/NavBar.jsx';
 
 export default function ChatPage(props) {
     /*================================================
-        BLOCK: STATES
+        BLOCK: STATE
     ==================================================*/
 
     // Redux
@@ -27,17 +24,17 @@ export default function ChatPage(props) {
     const navigate = useNavigate();
 
     /*================================================
-        BLOCK: HOOKS
+        BLOCK: HOOKS - LOGGED IN CHECK
     ==================================================*/
 
     useEffect(() => {
-        console.log('---------- USE-EFFECT - Logged-In Redirect ----------');
-        // if (!user.loggedIn) {
-        //     navigate('/', { replace: true });
-        // }
-
+        // TODO: cookies || localstorage w/ redux-persist
         user.loggedIn ? console.log('LOGGED IN') : console.log('NOT LOGGED IN');
-    });
+        if (!user.loggedIn) {
+            navigate('/', { replace: false }); // DEV
+            // navigate('/', { replace: true }); // PROD
+        }
+    }, [user.loggedIn]);
 
     /*================================================
         BLOCK: EVENTS

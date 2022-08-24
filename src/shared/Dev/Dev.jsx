@@ -7,6 +7,7 @@ import { Container, DevInfo, DevTools, DevList, DevListItem, DevTitle } from './
 
 // REDUX
 import { toggleTimestamps, toggle24HourTime } from 'Redux/slices/prefs.slice.js';
+import { addUser } from 'Redux/slices/users.slice.js';
 
 // UTILS
 import { generateRandomName, generateRandomColor } from 'Util/helpers/functions.js';
@@ -24,7 +25,7 @@ export default function Dev(props) {
     const prefs = useSelector((state) => {
         return state['prefs'].prefs;
     });
-    
+
     // Hooks
     const socket = useSocket();
 

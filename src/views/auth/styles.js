@@ -10,6 +10,7 @@ export const Container = styled.div`
 /*======================================*/
 export const FormContainer = styled.div`
     position: relative;
+    box-sizing: initial;
 
     display: flex;
     flex-flow: column nowrap;
@@ -31,15 +32,10 @@ export const FormContainer = styled.div`
 export const Forms = styled.div`
     position: relative;
     width: 60%;
-    height: 0;
 
-    display: flex;
-    flex-flow: column nowrap;
-    align-items: flex-start;
-    justify-content: flex-start;
+    display: grid;
 
     transition: padding linear ${transition.transform};
-    padding-bottom: ${(props) => (props.height ? props.height : '126px')};
 
     & form:first-child {
         transform: translateX(calc(400px * ${(props) => (props.form === 'login' ? 0 : -1)}));

@@ -173,6 +173,9 @@ Ian Bradley - [GitHub](https://github.com/Ian-Bradley/) - [LinkedIn](https://lin
 
 * [Luminosity calculator](https://react-icons.github.io/react-icons/search) [More info](https://en.wikipedia.org/wiki/Rec._709#Luma_coefficients)
 * [Other possibility for luminosity](https://github.com/bgrins/TinyColor)
+* [Jöcker on StackOverflow.com for height sizing of absolutely positioned children](https://stackoverflow.com/questions/13545947/position-absolute-and-parent-height/13546011#answer-63711983)
+
+
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -228,18 +231,18 @@ Ian Bradley - [GitHub](https://github.com/Ian-Bradley/) - [LinkedIn](https://lin
 [WebSockets.i]: https://img.shields.io/badge/Socket.io-20232A?style=flat-square&logo=socketdotio&logoColor=010101
 [WebSockets-url]: https://github.com/websockets/ws
 
-[Axios.i]: https://img.shields.io/badge/React-20232A?style=flat-square&logo=react&logoColor=61DAFB
+[Axios.i]: https://img.shields.io/badge/Axos-20232A?style=flat-square
 [Axios-url]: https://axios-http.com/
-[Bcryptjs.i]: https://img.shields.io/badge/React-20232A?style=flat-square&logo=react&logoColor=61DAFB
+[Bcryptjs.i]: https://img.shields.io/badge/Bcryptjs-20232A?style=flat-square
 [Bcryptjs-url]: https://github.com/dcodeIO/bcrypt.js#readme
-[Cors.i]: https://img.shields.io/badge/React-20232A?style=flat-square&logo=react&logoColor=61DAFB
+[Cors.i]: https://img.shields.io/badge/Cors-20232A?style=flat-square
 [Cors-url]: https://github.com/expressjs/cors#readme
-[Dotenv.i]: https://img.shields.io/badge/React-20232A?style=flat-square&logo=react&logoColor=61DAFB
+[Dotenv.i]: https://img.shields.io/badge/Dotenv-20232A?style=flat-square
 [Dotenv-url]: https://github.com/motdotla/dotenv#readme
-[Redux-Persist.i]: https://img.shields.io/badge/React-20232A?style=flat-square&logo=react&logoColor=61DAFB
+[Redux-Persist.i]: https://img.shields.io/badge/ReduxPersist-20232A?style=flat-square
 [Redux-Persist-url]: https://github.com/rt2zz/redux-persist#readme
-[SimpleBar.i]: https://img.shields.io/badge/React-20232A?style=flat-square&logo=react&logoColor=61DAFB
+[SimpleBar.i]: https://img.shields.io/badge/SimpleBar-20232A?style=flat-square
 [SimpleBar-url]: https://github.com/Grsmto/simplebar
-[Uuid.i]: https://img.shields.io/badge/React-20232A?style=flat-square&logo=react&logoColor=61DAFB
+[Uuid.i]: https://img.shields.io/badge/Uuid-20232A?style=flat-square
 [Uuid-url]: https://github.com/uuidjs/uuid#readme
 

@@ -42,19 +42,6 @@ export default function App(props) {
     const socket = useSocket();
 
     /*================================================
-        BLOCK: HOOKS - LOGGED IN CHECK
-    ==================================================*/
-
-    useEffect(() => {
-        // TODO: cookies || localstorage w/ redux-persist
-        // ==> get user info from storage
-        // ==>
-        if (user.loggedIn) {
-            navigate('/room', { replace: true });
-        }
-    }, []);
-
-    /*================================================
         BLOCK: HOOK - WEBSOCKET
     ==================================================*/
 

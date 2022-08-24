@@ -21,7 +21,7 @@ router.post('/', async function (req, res) {
         }
 
         // ==> Determine is user exists in DB
-        const existingUser = await dbQuery.user.getUser(name);
+        const existingUser = await dbQuery.users.getUser(name);
         console.log('existingUser: ', existingUser);
         if (existingUser && existingUser.length) {
             return res.status(409).json({ error: 'User already exists' });
@@ -33,7 +33,7 @@ router.post('/', async function (req, res) {
             name: name,
             password: encryptedPassword,
         };
-        const results = await dbQuery.user.insertUser(user);
+        const results = await dbQuery.users.insertUser(user);
 
         // ==> Add JWT for authentication
         // const token = jwt.sign({ user_id: user.id, user_name: user.name }, config.jwt.key_private, {

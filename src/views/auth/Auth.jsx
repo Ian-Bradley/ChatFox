@@ -1,6 +1,6 @@
-import React, { useState, useRef, useLayoutEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 
 // COMPONENTS
 import { Container, FormContainer, Forms, Error } from './styles.js';
@@ -25,28 +25,33 @@ export default function AuthPage(props) {
 
     // Redux
     const dispatch = useDispatch();
+    const user = useSelector((state) => {
+        return state['user'].user;
+    });
 
     // Hooks
     const [accountError, setAccountError] = useState('');
     const [isChecked, setIsChecked] = useState(false);
     const [formType, setFormType] = useState('login');
-    const [formHeight, setFormHeight] = useState('');
+    const navigate = useNavigate();
     const formRef = useRef();
-    
+
     // Hooks - Fun
     const [currentLogo, setCurrentLogo] = useState(1);
     const [borderWidth, setBorderWidth] = useState(0);
 
     /*================================================
-        BLOCK: HOOKS - FORM HEIGHT
+        BLOCK: HOOKS - LOGGED IN CHECK
     ==================================================*/
 
-    useLayoutEffect(() => {
-        
-        console.log(formRef.current.clientHeight);
-        
-
-    }, []);
+    useEffect(() => {
+        // TODO: cookies || localstorage w/ redux-persist
+        user.loggedIn ? console.log('LOGGED IN') : console.log('NOT LOGGED IN');
+        if (user.loggedIn) {
+            navigate('/room', { replace: false }); // DEV
+            // navigate('/room', { replace: true }); // PROD
+        }
+    }, [user.loggedIn]);
 
     /*================================================
         BLOCK: EVENTS
@@ -54,7 +59,7 @@ export default function AuthPage(props) {
 
     // EVENT: => onSubmit
     const onSubmit = async (formRef) => {
-        console.log('===> START - onSubmit');
+        // console.log('===> START - onSubmit');
         try {
             // ==> Query
             const url = formType + '/';
@@ -63,14 +68,14 @@ export default function AuthPage(props) {
                 password: formRef.current[1].value,
             };
             const results = await api.post(url, data);
-            console.log('results.data: ', results.data);
+            // console.log('results.data: ', results.data);
 
             // ==> User
             dispatch(setName(data.name));
             dispatch(setLoggedIn(true));
 
             // ==> Storage
-            console.log('isChecked: ', isChecked);
+            // console.log('isChecked: ', isChecked);
             if (isChecked) {
                 console.log('isChecked = true');
                 // TODO: store in cookies/local (redux-persist)
@@ -80,33 +85,31 @@ export default function AuthPage(props) {
             // get app data (messages/users/channels) from socket
             // done in useEffect() in App
             dispatch(setSocketOpen());
-            console.log('===> END - onSubmit');
+
+            // ==> Navigate
+            navigate('/room', { replace: false }); // DEV
+            // navigate('/room', { replace: true }); // PROD
+            // console.log('===> END - onSubmit');
         } catch (error) {
             console.error(error);
-            switch (error.response.status) {
-                case 409: {
-                    console.log('REGISTER => USER ALREADY EXISTS');
-                    setAccountError('User already exists');
-                    break;
-                }
-                case 400: {
-                    console.log('LOGIN => USER DOES NOT EXIST');
-                    setAccountError('User does not exist');
-                    break;
-                }
-                case 401: {
-                    console.log('LOGIN => INVALID PASSWORD');
-                    setAccountError('Invalid password');
-                    break;
-                }
-                case 0: {
-                    console.log('NETWORK ERROR');
-                    setAccountError('Connection failure');
-                    break;
-                }
-                default:
+
+            if (!error.response.status) {
+                setAccountError('Network error');
             }
-            console.log('===> END - onSubmit - async error');
+
+            if (error.response.status === 409 && formType === 'register') {
+                setAccountError('User already exists');
+            }
+
+            if (error.response.status === 400 && formType === 'login') {
+                setAccountError('User does not exist');
+            }
+
+            if (error.response.status === 401 && formType === 'login') {
+                setAccountError('Invalid password');
+            }
+
+            // console.log('===> END - onSubmit - async error');
             return [error.severity + ': ' + error.routine];
         }
     };
@@ -125,6 +128,7 @@ export default function AuthPage(props) {
     // EVENT: => onFormSwap
     const onFormSwap = (e) => {
         e.preventDefault();
+        setAccountError('');
         formType === 'login' ? setFormType('register') : setFormType('login');
     };
 
@@ -166,7 +170,7 @@ export default function AuthPage(props) {
                 <Fun onLogoSwap={onLogoSwap} onBorderGrow={onBorderGrow} />
                 <Logos currentLogo={currentLogo} />
                 <Title />
-                <Forms form={formType} ref={formRef} height={formHeight}>
+                <Forms form={formType} ref={formRef}>
                     <Form buttonText={'Sign in'} onSubmit={onSubmit} />
                     <Form buttonText={'Register'} onSubmit={onSubmit} />
                 </Forms>
@@ -176,7 +180,7 @@ export default function AuthPage(props) {
                 <br />
                 TESTING:
                 <Link to='/room'>room</Link>
-                <Link to='/eeeeeeeee'>error</Link>
+                <Link to='/error'>error</Link>
             </FormContainer>
         </Container>
     );
