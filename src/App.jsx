@@ -11,14 +11,15 @@ import { ContainerApp } from './styles.js';
 import Dev from 'Shared/Dev/Dev.jsx';
 
 // REDUX
-import { incrementUserTotal, decrementUserTotal } from 'Redux/slices/userTotal.slice.js';
+import { setUserTotal, incrementUserTotal, decrementUserTotal } from 'Redux/slices/userTotal.slice.js';
 import { setName, setNickname, setColor } from 'Redux/slices/user.slice.js';
 import { setSocketClosed } from 'Redux/slices/socket.slice.js';
-import { addMessage } from 'Redux/slices/messages.slice.js';
+import { addMessage, setMessages } from 'Redux/slices/messages.slice.js';
 import { addLogItem } from 'Redux/slices/log.slice.js';
 import {
     addUser,
     removeUser,
+    setUsers,
     setUserName,
     setUserNickname,
     setUserColor,

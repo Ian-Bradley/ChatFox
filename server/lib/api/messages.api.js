@@ -16,11 +16,11 @@ router.get('/', async function (req, res) {
 });
 /*================================================*/
 /*================================================*/
-// ROUTE: => GET messages for channel by id
+// ROUTE: => GET messages for channel by channel id (foreign key)
 router.get('/:id', async function (req, res) {
     try {
         console.log('GET: messages');
-        let results = await dbQuery.messages.getMessages(req.params.id);
+        let results = await dbQuery.messages.getMessagesForChannel(req.params.id);
         res.status(200).json(results);
     } catch (err) {
         res.status(400).send(err);

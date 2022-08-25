@@ -1,6 +1,6 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
 import { useSocket } from 'Util/api/websocket.js';
+import { useSelector } from 'react-redux';
+import React from 'react';
 
 // COMPONENTS
 import { Container, InputContainer, Input } from './styles.js';

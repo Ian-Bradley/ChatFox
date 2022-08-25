@@ -10,7 +10,6 @@ const initialState = {
 };
 
 // TODO: all channel slices
-// TODO: add 's' to channel in this file
 
 let channelsSlice = createSlice({
     name: 'channels',
@@ -35,7 +34,7 @@ let channelsSlice = createSlice({
         /*======================================*/
 
         // FUNCTION: deleteAllChannels
-        deleteAllChannels: function (state, action) {
+        deleteAllChannels: function (state) {
             state.channels = [];
         },
 

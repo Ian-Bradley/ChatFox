@@ -10,14 +10,14 @@ let socketSlice = createSlice({
     reducers: {
         /*======================================*/
 
-        setSocketOpen: function (state, action) {
+        setSocketOpen: function (state) {
             // action.payload = socket (Object)
             state.socket = true;
         },
 
         /*======================================*/
 
-        setSocketClosed: function (state, action) {
+        setSocketClosed: function (state) {
             // action.payload = socket (Object)
             state.socket = true;
         },

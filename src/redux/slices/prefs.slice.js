@@ -16,13 +16,13 @@ let preferencesSlice = createSlice({
     reducers: {
         /*======================================*/
 
-        toggleTimestamps: function (state, action) {
+        toggleTimestamps: function (state) {
             state.prefs.showTimestamps = !state.prefs.showTimestamps;
         },
 
         /*======================================*/
 
-        toggle24HourTime: function (state, action) {
+        toggle24HourTime: function (state) {
             state.prefs.show24HourTime = !state.prefs.show24HourTime;
         },
 

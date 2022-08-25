@@ -38,7 +38,7 @@ let logSlice = createSlice({
 
         /*======================================*/
 
-        deleteAllLogItems: function (state, action) {
+        deleteAllLogItems: function (state) {
             state.log = [];
         },
 

@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
     messages: [],
+    isLoading: false,
 };
 
 /*
@@ -24,6 +25,30 @@ let messagesSlice = createSlice({
     initialState: initialState,
     reducers: {
         /*======================================*/
+        getMessages: function (state) {
+            state.isLoading = true;
+        },
+
+        /*======================================*/
+        getMessagesSuccess: function (state, action) {
+            // action.payload = messages (Array of message Objects)
+            state.messages = action.payload;
+            state.isLoading = false;
+        },
+
+        /*======================================*/
+        getMessagesFailure: function (state) {
+            state.isLoading = false;
+        },
+
+        /*======================================*/
+
+        setMessages: function (state, action) {
+            // action.payload = messages (Array of message Objects)
+            state.messages = action.payload;
+        },
+
+        /*======================================*/
 
         addMessage: function (state, action) {
             // action.payload = message (Object)
@@ -39,19 +64,20 @@ let messagesSlice = createSlice({
 
         /*======================================*/
 
-        deleteAllMessages: function (state, action) {
+        deleteAllMessages: function (state) {
             state.messages = [];
-        },
-
-        /*======================================*/
-
-        setMessages: function (state, action) {
-            // action.payload = messages (Array of message Objects)
-            state.messages = action.payload;
         },
 
         /*======================================*/
     },
 });
-export const { addMessage, deleteMessage, deleteAllMessages, setMessages } = messagesSlice.actions;
+export const {
+    getMessages,
+    getMessagesSuccess,
+    getMessagesFailure,
+    setMessages,
+    addMessage,
+    deleteMessage,
+    deleteAllMessages,
+} = messagesSlice.actions;
 export default messagesSlice.reducer;

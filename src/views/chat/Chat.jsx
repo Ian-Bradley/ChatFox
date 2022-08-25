@@ -1,6 +1,6 @@
+import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
 // COMPONENETS
 import ChannelList from './components/ChannelList/ChannelList.jsx';
@@ -8,10 +8,10 @@ import MessageList from './components/MessageList/MessageList.jsx';
 import UserList from './components/UserList/UserList.jsx';
 import ChatBar from './components/ChatBar/ChatBar.jsx';
 import Header from './components/Header/Header.jsx';
-import {Body, Chat, Sidebar } from './styles.js';
+import { Body, Chat, Sidebar } from './styles.js';
 
-// UTIL
-import { MODE_DEV } from 'Util/helpers/constants.js';
+// REDUX
+import { getMessages } from 'Redux/slices/messages.slice.js';
 
 export default function PageChat(props) {
     /*================================================
@@ -24,6 +24,8 @@ export default function PageChat(props) {
     });
 
     // Hooks
+    const [isLoading, setIsLoading] = useState(true);
+    const dispatch = useDispatch();
     const navigate = useNavigate();
 
     /*================================================
@@ -32,11 +34,31 @@ export default function PageChat(props) {
 
     useEffect(() => {
         // TODO: cookies || localstorage w/ redux-persist
-        user.loggedIn ? console.log('LOGGED IN') : console.log('NOT LOGGED IN');
         if (!user.loggedIn) {
-            MODE_DEV ? navigate('/', { replace: false }) : navigate('/', { replace: true });
+            navigate('/', { replace: true });
         }
     }, [user.loggedIn]);
+
+    /*================================================
+        BLOCK: HOOKS - LOADING
+    ==================================================*/
+
+    // useEffect(() => {
+    //     if (isLoading) {
+
+            
+    //         setIsLoading(false);
+    //     } else {
+    //     }
+    // }, [setIsLoading]);
+
+    /*================================================
+        BLOCK: HOOKS - ?? GET MESSAGES ??
+    ==================================================*/
+
+    useEffect(() => {
+        dispatch(getMessages());
+    }, [dispatch]);
 
     /*================================================
         BLOCK: EVENTS

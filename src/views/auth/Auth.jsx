@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, Link } from 'react-router-dom';
+import { useSocket } from 'Util/api/websocket.js';
+import { useNavigate } from 'react-router-dom';
 
 // COMPONENTS
 import { Container, Forms, Error } from './styles.js';
@@ -35,6 +36,7 @@ export default function PageAuth(props) {
     const [isChecked, setIsChecked] = useState(false);
     const [formType, setFormType] = useState('login');
     const navigate = useNavigate();
+    const socket = useSocket();
     const formRef = useRef();
 
     // Hooks - Fun
@@ -47,7 +49,6 @@ export default function PageAuth(props) {
 
     useEffect(() => {
         // TODO: cookies || localstorage w/ redux-persist
-        user.loggedIn ? console.log('LOGGED IN') : console.log('NOT LOGGED IN');
         if (user.loggedIn) {
             MODE_DEV ? navigate('/room', { replace: false }) : navigate('/room', { replace: true });
         }
@@ -72,6 +73,7 @@ export default function PageAuth(props) {
 
             // ==> User
             dispatch(setName(data.name));
+            // dispatch(setName(results.data.name));
             dispatch(setLoggedIn(true));
 
             // ==> Storage
@@ -82,12 +84,22 @@ export default function PageAuth(props) {
             }
 
             // ==> Initiate
-            // get app data (messages/users/channels) from socket
-            // done in useEffect() in App
+            // > get app data (messages/users/channels) from socket
+            //      > recieved in socket hook in App
             dispatch(setSocketOpen());
-
+            let userConnection = {
+                type: 'userConnected',
+                user: {
+                    name: data.name,
+                    color: 'ff3333',
+                    nickname: data.name,
+                },
+            };
+            socket.send(JSON.stringify(userConnection));
+            console.log('>>>>>>>>> MESSAGE SENT - userConnected >>>>>>>>>');
+            
             // ==> Navigate
-            MODE_DEV ? navigate('/room', { replace: false }) : navigate('/room', { replace: true });
+            navigate('/room', { replace: true });
             // console.log('===> END - onSubmit');
         } catch (error) {
             console.error(error);

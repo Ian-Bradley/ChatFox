@@ -17,13 +17,13 @@ let userTotalSlice = createSlice({
 
         /*======================================*/
 
-        incrementUserTotal: function (state, action) {
+        incrementUserTotal: function (state) {
             state.userTotal = state.userTotal + 1;
         },
 
         /*======================================*/
 
-        decrementUserTotal: function (state, action) {
+        decrementUserTotal: function (state) {
             state.userTotal = state.userTotal - 1;
         },
 
