@@ -43,11 +43,11 @@ router.post('/', async function (req, res) {
 });
 /*================================================*/
 /*================================================*/
-// ROUTE: => DELETE message (name||id)
-router.delete('/:value', async function (req, res) {
+// ROUTE: => DELETE message
+router.delete('/:name', async function (req, res) {
     try {
-        console.log('DELETE: message:name||id');
-        const result = await dbQuery.messages.deleteMessage(req.params.value);
+        console.log('DELETE: message:name');
+        const result = await dbQuery.messages.deleteMessage(req.params.name);
         res.status(204).json(result);
     } catch (err) {
         res.status(400).send(err);

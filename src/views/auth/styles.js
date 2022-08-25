@@ -1,14 +1,8 @@
-import { sizes, transition, USE_FULL_AREA, FLEX_CENTER_COL } from 'Styles/common.js';
+import { sizes, transition } from 'Styles/common.js';
 import styled from 'styled-components';
 /*======================================*/
 /*======================================*/
 export const Container = styled.div`
-    ${USE_FULL_AREA}
-    ${FLEX_CENTER_COL}
-`;
-/*======================================*/
-/*======================================*/
-export const FormContainer = styled.div`
     position: relative;
     box-sizing: initial;
 

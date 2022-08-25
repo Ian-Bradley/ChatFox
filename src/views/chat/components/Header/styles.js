@@ -1,5 +1,23 @@
-import { FLEX_CENTER_ROW } from 'Styles/common.js';
+import { sizes, FLEX_CENTER_ROW } from 'Styles/common.js';
 import styled from 'styled-components';
+/*======================================*/
+/*======================================*/
+export const Container = styled.div`
+    width: 100%;
+    height: ${sizes.height.nav};
+
+    position: relative;
+    box-sizing: border-box;
+
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 1rem;
+    background: ${({ theme }) => theme.bg.main_3};
+`;
+/*==
 /*======================================*/
 /*======================================*/
 export const Brand = styled.div`

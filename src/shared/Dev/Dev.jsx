@@ -1,12 +1,14 @@
-import { useSocket } from 'Util/api/websocket.js';
 import { useSelector, useDispatch } from 'react-redux';
+import { useSocket } from 'Util/api/websocket.js';
 import React from 'react';
 
 // COMPONENTS
-import { Container, DevInfo, DevTools, DevList, DevListItem, DevTitle } from './styles.js';
+import { Container, Info, Tools, List, ListItem, Title } from './styles.js';
+import Draggable from 'Shared/draggable/draggable.jsx';
 
 // REDUX
 import { toggleTimestamps, toggle24HourTime } from 'Redux/slices/prefs.slice.js';
+import { setLoggedIn } from 'Redux/slices/user.slice.js';
 import { addUser } from 'Redux/slices/users.slice.js';
 
 // UTILS
@@ -100,10 +102,10 @@ export default function Dev(props) {
     };
 
     /*================================================
-        BLOCK: FUNCTIONS
+        BLOCK: TOOLS
     ==================================================*/
 
-    const onDevuser = () => {
+    const addFakeUser = () => {
         dispatch(
             addUser({
                 id: generateRandomName(),
@@ -113,28 +115,38 @@ export default function Dev(props) {
             })
         );
     };
-    const onDevcolor = () => {
+
+    const toggleLogin = () => {
+        user.loggedIn ? dispatch(setLoggedIn(false)) : dispatch(setLoggedIn(true));
+    };
+
+    const randomColor = () => {
         sendUserColor(generateRandomColor());
     };
-    const onDevname = (e) => {
+
+    const randomName = () => {
+        sendUserNickname(generateRandomName());
+    };
+
+    const changeNickname = (e) => {
         if (e.keyCode === 13) {
             sendUserNickname(e.target.value);
             e.target.value = '';
         }
     };
-    const onDevname3 = (e) => {
+
+    const changeName = (e) => {
         if (e.keyCode === 13) {
             sendUserName(e.target.value);
             e.target.value = '';
         }
     };
-    const onDevname2 = () => {
-        sendUserNickname(generateRandomName());
-    };
-    const onDevpref4 = () => {
+
+    const timestamps = () => {
         dispatch(toggleTimestamps());
     };
-    const onDevpref5 = () => {
+
+    const fullHours = () => {
         dispatch(toggle24HourTime());
     };
 
@@ -143,65 +155,50 @@ export default function Dev(props) {
     ==================================================*/
 
     return (
-        <Container>
-            <DevInfo>
-                <DevList>
-                    <DevListItem>
-                        <DevTitle>Current User: </DevTitle>
-                    </DevListItem>
-                    <DevListItem>
-                        {user.name + ' '}
-                        <DevTitle>Name</DevTitle>
-                    </DevListItem>
-                    <DevListItem>
-                        {user.nickname + ' '}
-                        <DevTitle>Nickname</DevTitle>
-                    </DevListItem>
-                    <DevListItem>
-                        {user.color + ' '}
-                        <DevTitle>Color</DevTitle>
-                    </DevListItem>
-                    <DevListItem>
-                        {user.loggedIn + ' '}
-                        <DevTitle>LoggedIn</DevTitle>
-                    </DevListItem>
-                    <DevListItem>
-                        {prefs.showTimestamps + ' '}
-                        <DevTitle>Timestamps</DevTitle>
-                    </DevListItem>
-                    <DevListItem>
-                        {prefs.show24HourTime + ' '}
-                        <DevTitle>24HourTime</DevTitle>
-                    </DevListItem>
-                </DevList>
-            </DevInfo>
-            <DevTools>
-                <input
-                    type='text'
-                    className='name-input'
-                    placeholder='Specific name'
-                    defaultValue=''
-                    onKeyDown={onDevname3}
-                />
-                <input
-                    type='text'
-                    className='name-input'
-                    placeholder='Specific nickname'
-                    defaultValue=''
-                    onKeyDown={onDevname}
-                />
-                <button onClick={onDevname2}>Name</button>
-                <button onClick={onDevcolor}>Color</button>
-                <button onClick={onDevuser}>Fake User</button>
-                <div>
-                    <input type='checkbox' id='dev-time' onClick={onDevpref4} />
-                    <label htmlFor='dev-time'>Timestamps</label>
-                </div>
-                <div>
-                    <input type='checkbox' id='dev-hour' onClick={onDevpref5} />
-                    <label htmlFor='dev-hour'>24 hour time</label>
-                </div>
-            </DevTools>
-        </Container>
+        <Draggable initial={{top: 'calc(100vh - 372px)', left: '0'}}>
+            <Container>
+                <Info>
+                    <List>
+                        <ListItem>
+                            <Title>Current User: </Title>
+                        </ListItem>
+                        <ListItem>
+                            <Title>Name</Title>
+                            {' ' + user.name}
+                        </ListItem>
+                        <ListItem>
+                            <Title>Nickname</Title>
+                            {' ' + user.nickname}
+                        </ListItem>
+                        <ListItem>
+                            <Title>Color</Title>
+                            {' ' + user.color}
+                        </ListItem>
+                        <ListItem>
+                            <Title>LoggedIn</Title>
+                            {' ' + user.loggedIn}
+                        </ListItem>
+                        <ListItem>
+                            <Title>Timestamps</Title>
+                            {' ' + prefs.showTimestamps}
+                        </ListItem>
+                        <ListItem>
+                            <Title>24HourTime</Title>
+                            {' ' + prefs.show24HourTime}
+                        </ListItem>
+                    </List>
+                </Info>
+                <Tools>
+                    <input type='text' placeholder='Name' onKeyDown={changeName} />
+                    <input type='text' placeholder='Nickname' onKeyDown={changeNickname} />
+                    <button onClick={randomName}>Name</button>
+                    <button onClick={randomColor}>Color</button>
+                    <button onClick={toggleLogin}>LoggedIn</button>
+                    <button onClick={addFakeUser}>Fake User</button>
+                    <button onClick={timestamps}>Timestamps</button>
+                    <button onClick={fullHours}>24 Hour</button>
+                </Tools>
+            </Container>
+        </Draggable>
     );
 }

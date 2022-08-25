@@ -30,11 +30,11 @@ router.post('/', async function (req, res) {
 });
 /*================================================*/
 /*================================================*/
-// ROUTE: => PUT channel (name||id)
-router.put('/:value', async function (req, res) {
+// ROUTE: => PUT channel
+router.put('/:name', async function (req, res) {
     try {
-        console.log('PUT: channel:name||id');
-        const result = await dbQuery.channels.updateChannel(req.params.value, req.body);
+        console.log('PUT: channel:name');
+        const result = await dbQuery.channels.updateChannel(req.params.name, req.body);
         res.status(200).json(result);
     } catch (err) {
         res.status(400).send(err);
@@ -43,11 +43,11 @@ router.put('/:value', async function (req, res) {
 });
 /*================================================*/
 /*================================================*/
-// ROUTE: => DELETE channel (name||id)
-router.delete('/:value', async function (req, res) {
+// ROUTE: => DELETE channel
+router.delete('/:name', async function (req, res) {
     try {
-        console.log('DELETE: channel:name||id');
-        const result = await dbQuery.channels.deleteChannel(req.params.value);
+        console.log('DELETE: channel:name');
+        const result = await dbQuery.channels.deleteChannel(req.params.name);
         res.status(204).json(result);
     } catch (err) {
         res.status(400).send(err);

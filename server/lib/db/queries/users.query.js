@@ -2,17 +2,11 @@ const pool = require('../db.js');
 const users = {
     /*================================================*/
     /*================================================*/
-    // QUERY: => getUser (name||id)
-    getUser: async function (value) {
+    // QUERY: => getUser
+    getUser: async function (name) {
         try {
             const client = await pool.connect();
-            let query = '';
-            if (parseInt(value)) {
-                query = `SELECT * FROM users WHERE id = ${value};`;
-            } else {
-                query = `SELECT * FROM users WHERE UPPER(name) = UPPER('${value}');`;
-            }
-            const results = await client.query(query);
+            const results = await client.query(`SELECT * FROM users WHERE UPPER(name) = UPPER('${name}');`);
             client.release();
             return results.rows;
         } catch (error) {
@@ -52,12 +46,12 @@ const users = {
     },
     /*================================================*/
     /*================================================*/
-    // QUERY: => updateUser (name||id)
-    updateUser: async function (value) {
+    // QUERY: => updateUser
+    updateUser: async function (name, update) {
         try {
             const client = await pool.connect();
             // TODO: update user
-            // const results = await client.query(`UPDATE * FROM users WHERE id = ${value}`);
+            // const results = await client.query(`UPDATE * FROM users WHERE UPPER(name) = UPPER('${name}');`);
             client.release();
             return results;
         } catch (error) {
@@ -67,17 +61,11 @@ const users = {
     },
     /*================================================*/
     /*================================================*/
-    // QUERY: => deleteUser (name||id)
-    deleteUser: async function (value) {
+    // QUERY: => deleteUser
+    deleteUser: async function (name) {
         try {
             const client = await pool.connect();
-            let query = '';
-            if (parseInt(value)) {
-                query = `DELETE * FROM users WHERE id = ${value};`;
-            } else {
-                query = `DELETE * FROM users WHERE UPPER(name) = UPPER('${value}');`;
-            }
-            const results = await client.query(query);
+            const results = await client.query(`DELETE * FROM users WHERE UPPER(name) = UPPER('${name}');`);
             client.release();
             return results;
         } catch (error) {

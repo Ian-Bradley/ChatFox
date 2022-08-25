@@ -3,11 +3,11 @@ const express = require('express');
 const router = express.Router();
 /*================================================*/
 /*================================================*/
-// ROUTE: => GET user (name||id)
-router.get('/:value', async function (req, res) {
+// ROUTE: => GET user
+router.get('/:name', async function (req, res) {
     try {
-        console.log('GET: user:name||id');
-        let output = await dbQuery.users.getUser(req.params.value);
+        console.log('GET: user:name');
+        let output = await dbQuery.users.getUser(req.params.name);
         res.status(200).json(output);
     } catch (err) {
         res.status(400).send(err);
@@ -29,7 +29,7 @@ router.get('/', async function (req, res) {
 });
 /*================================================*/
 /*================================================*/
-// ROUTE: => POST user - ===DISABLED=== use /register
+// ROUTE: => POST user - DISABLED, use /register
 router.post('/', async function (req, res) {
     // try {
     //     console.log('POST: user');
@@ -43,11 +43,11 @@ router.post('/', async function (req, res) {
 });
 /*================================================*/
 /*================================================*/
-// ROUTE: => PUT user (name||id)
-router.put('/:value', async function (req, res) {
+// ROUTE: => PUT user
+router.put('/:name', async function (req, res) {
     try {
-        console.log('PUT: user:name||id');
-        const result = await dbQuery.users.updateUser(req.params.value, req.body);
+        console.log('PUT: user:name');
+        const result = await dbQuery.users.updateUser(req.params.name, req.body);
         res.status(200).json(result);
     } catch (err) {
         res.status(400).send(err);
@@ -56,11 +56,11 @@ router.put('/:value', async function (req, res) {
 });
 /*================================================*/
 /*================================================*/
-// ROUTE: => DELETE user (name||id)
-router.delete('/:value', async function (req, res) {
+// ROUTE: => DELETE user
+router.delete('/:name', async function (req, res) {
     try {
-        console.log('DELETE: user:name||id');
-        const result = await dbQuery.users.deleteUser(req.params.value);
+        console.log('DELETE: user:name');
+        const result = await dbQuery.users.deleteUser(req.params.name);
         res.status(204).json(result);
     } catch (err) {
         res.status(400).send(err);

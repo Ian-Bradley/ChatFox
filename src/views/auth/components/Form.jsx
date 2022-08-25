@@ -30,11 +30,6 @@ export default function Form(props) {
     const [passError, setPassError] = useState('');
     const formRef = useRef();
 
-    // useLayoutEffect(() => {
-    //     console.log('FORM__useLayoutEffect => ', formRef.current.clientHeight);
-    //     props.syncHeight(formRef.current.clientHeight);
-    // }, [nameError, passError]);
-
     /*================================================
         BLOCK: VALIDATION
     ==================================================*/
@@ -115,11 +110,9 @@ export default function Form(props) {
 
     // EVENT: onForm
     const onForm = (e) => {
-        if (e.keyCode === KEYCODE_ENTER) {
-            e.preventDefault();
-            if (validateInputs(formRef)) {
-                props.onSubmit(formRef);
-            }
+        e.preventDefault();
+        if (validateInputs(formRef)) {
+            props.onSubmit(formRef);
         }
     };
 

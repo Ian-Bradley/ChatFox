@@ -6,13 +6,13 @@ import Title from 'Shared/Title/Title.jsx';
 import LogoSrc from 'Assets/logos/logo_1a.png';
 import GearSVG from 'Assets/icons/gear.svg.js';
 import MenuButton from 'Shared/Buttons/MenuButton.jsx';
-import { Brand, Logo, Nav } from './styles.js';
+import { Container, Brand, Logo, Nav } from './styles.js';
 
 /**
  * @props
  */
 
-export default function NavBar(props) {
+export default function Header(props) {
     /*================================================
         BLOCK: STATES
     ==================================================*/
@@ -36,13 +36,15 @@ export default function NavBar(props) {
 
     return (
         <>
-            <Brand>
-                <Logo src={LogoSrc} alt={'logo'} />
-                <Title />
-            </Brand>
-            <Nav>
-                <MenuButton onClick={onSettings} icon={GearSVG} text={user.name} rounded={4} />
-            </Nav>
+            <Container>
+                <Brand>
+                    <Logo src={LogoSrc} alt={'logo'} />
+                    <Title />
+                </Brand>
+                <Nav>
+                    <MenuButton onClick={onSettings} icon={GearSVG} text={user.name} rounded={4} />
+                </Nav>
+            </Container>
         </>
     );
 }

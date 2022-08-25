@@ -33,12 +33,12 @@ const channels = {
     },
     /*================================================*/
     /*================================================*/
-    // QUERY: => updateChannel (name||id)
-    updateChannel: async function (value) {
+    // QUERY: => updateChannel
+    updateChannel: async function (name) {
         try {
             const client = await pool.connect();
             // TODO: update channel
-            // const results = await client.query(`UPDATE * FROM channels WHERE id = ${value}`);
+            // const results = await client.query(`UPDATE * FROM channels WHERE UPPER(name) = UPPER('${name}');`);
             client.release();
             return results;
         } catch (error) {
@@ -48,17 +48,11 @@ const channels = {
     },
     /*================================================*/
     /*================================================*/
-    // QUERY: => deleteChannel (name||id)
-    deleteChannel: async function (value) {
+    // QUERY: => deleteChannel
+    deleteChannel: async function (name) {
         try {
             const client = await pool.connect();
-            let query = '';
-            if (parseInt(value)) {
-                query = `DELETE * FROM channels WHERE id = ${value};`;
-            } else {
-                query = `DELETE * FROM channels WHERE UPPER(name) = UPPER('${value}');`;
-            }
-            const results = await client.query(query);
+            const results = await client.query(`DELETE * FROM channels WHERE UPPER(name) = UPPER('${name}');`);
             client.release();
             return results;
         } catch (error) {

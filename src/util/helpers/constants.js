@@ -18,7 +18,7 @@ export const REGEX_USERNAME = /[^A-Za-z0-9\-\_]+/g;
 export const MAX_CHARACTERS_NAME = 3;
 export const MAX_CHARACTERS_PASSWORD = 3;
 
-export const KEYCODE_ENTER = 12;
+export const KEYCODE_ENTER = 13;
 
 export const LOTR_NAMES = [
     'Adalgrim Took','Adanedhel','Adanel','Adrahil','Adrahil II','Aegnor','Ælfwine','Aerin','Agarwaen','Aikanáro','Aiwendil','Alatar','Alatáriel','Aldamir','Aldaron',

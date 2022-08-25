@@ -47,17 +47,11 @@ const messages = {
     },
     /*================================================*/
     /*================================================*/
-    // QUERY: => deleteMessage (name||id)
-    deleteMessage: async function (value) {
+    // QUERY: => deleteMessage
+    deleteMessage: async function (name) {
         try {
             const client = await pool.connect();
-            let query = '';
-            if (parseInt(value)) {
-                query = `DELETE * FROM messages WHERE id = ${value};`;
-            } else {
-                query = `DELETE * FROM messages WHERE UPPER(name) = UPPER('${value}');`;
-            }
-            const results = await client.query(query);
+            const results = await client.query(`DELETE * FROM messages WHERE UPPER(name) = UPPER('${name}');`);
             client.release();
             return results;
         } catch (error) {

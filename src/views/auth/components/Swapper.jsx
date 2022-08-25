@@ -20,13 +20,14 @@ export default function Swapper(props) {
 const Container = styled.div`
     margin-top: 20px;
     ${FLEX_CENTER_COL}
+
+    color: ${({ theme }) => theme.text.link};
+    &:hover {
+        color: ${({ theme }) => theme.text.link_hover};
+    }
 `;
 
 const Swap = styled.span`
     cursor: pointer;
     text-decoration: underline;
-    color: ${({ theme }) => theme.text.link};
-    &:hover {
-        color: ${({ theme }) => theme.text.link_hover};
-    }
 `;

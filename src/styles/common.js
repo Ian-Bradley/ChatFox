@@ -17,6 +17,10 @@ export const sizes = {
         chatbar: '60px',
         messages: 'calc(100% - 60px)',
     },
+
+    border: {
+        modal: '15px',
+    },
 };
 
 /*======================================

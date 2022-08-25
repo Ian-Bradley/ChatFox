@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
 
 // COMPONENTS
-import { Container, FormContainer, Forms, Error } from './styles.js';
+import { Container, Forms, Error } from './styles.js';
 import Remember from './components/Remember.jsx';
 import Swapper from './components/Swapper.jsx';
 import Logos from './components/Logos.jsx';
@@ -16,9 +16,10 @@ import { setName, setLoggedIn } from 'Redux/slices/user.slice.js';
 import { setSocketOpen } from 'Redux/slices/socket.slice.js';
 
 // UTIL
+import { MODE_DEV } from 'Util/helpers/constants.js';
 import api from 'Util/api/axios.js';
 
-export default function AuthPage(props) {
+export default function PageAuth(props) {
     /*================================================
         BLOCK: STATE
     ==================================================*/
@@ -48,8 +49,7 @@ export default function AuthPage(props) {
         // TODO: cookies || localstorage w/ redux-persist
         user.loggedIn ? console.log('LOGGED IN') : console.log('NOT LOGGED IN');
         if (user.loggedIn) {
-            navigate('/room', { replace: false }); // DEV
-            // navigate('/room', { replace: true }); // PROD
+            MODE_DEV ? navigate('/room', { replace: false }) : navigate('/room', { replace: true });
         }
     }, [user.loggedIn]);
 
@@ -87,8 +87,7 @@ export default function AuthPage(props) {
             dispatch(setSocketOpen());
 
             // ==> Navigate
-            navigate('/room', { replace: false }); // DEV
-            // navigate('/room', { replace: true }); // PROD
+            MODE_DEV ? navigate('/room', { replace: false }) : navigate('/room', { replace: true });
             // console.log('===> END - onSubmit');
         } catch (error) {
             console.error(error);
@@ -99,6 +98,10 @@ export default function AuthPage(props) {
 
             if (error.response.status === 409 && formType === 'register') {
                 setAccountError('User already exists');
+            }
+
+            if (error.response.status === 400 && formType === 'register') {
+                setAccountError('Server error or bad request');
             }
 
             if (error.response.status === 400 && formType === 'login') {
@@ -165,8 +168,8 @@ export default function AuthPage(props) {
         BLOCK: COMPONENTS
     ==================================================*/
     return (
-        <Container>
-            <FormContainer borderWidth={borderWidth}>
+        <>
+            <Container borderWidth={borderWidth}>
                 <Fun onLogoSwap={onLogoSwap} onBorderGrow={onBorderGrow} />
                 <Logos currentLogo={currentLogo} />
                 <Title />
@@ -177,11 +180,7 @@ export default function AuthPage(props) {
                 <Error error={accountError}>{accountError}</Error>
                 <Remember onRememberMe={onRememberMe} />
                 <Swapper onFormSwap={onFormSwap} />
-                <br />
-                TESTING:
-                <Link to='/room'>room</Link>
-                <Link to='/error'>error</Link>
-            </FormContainer>
-        </Container>
+            </Container>
+        </>
     );
 }

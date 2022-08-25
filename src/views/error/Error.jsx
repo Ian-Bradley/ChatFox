@@ -6,9 +6,9 @@ import React from 'react';
 import Title from 'Shared/Title/Title.jsx';
 import LogoSrc from 'Assets/logos/logo_1a.png';
 import FormButton from 'Shared/Buttons/FormButton.jsx';
-import { Container, ErrorContainer, Error, ErrorText, Logo } from './styles.js';
+import { Container, Error, ErrorText, Logo } from './styles.js';
 
-export default function ErrorPage(props) {
+export default function PageError(props) {
     // States - Redux
     const user = useSelector((state) => {
         return state['user'].user;
@@ -24,15 +24,15 @@ export default function ErrorPage(props) {
 
     // Components
     return (
-        <Container>
-            <ErrorContainer>
+        <>
+            <Container>
                 <Logo src={LogoSrc} alt={'logo'} />
                 <Title title={'Error'} />
                 <Error>
                     <ErrorText>Unrecognized URL</ErrorText>
                     <FormButton onClick={onClickHome} text='Home' />
                 </Error>
-            </ErrorContainer>
-        </Container>
+            </Container>
+        </>
     );
 }

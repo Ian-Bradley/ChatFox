@@ -1,14 +1,8 @@
-import { sizes, USE_FULL_AREA, FLEX_CENTER_COL } from 'Styles/common.js';
+import { sizes } from 'Styles/common.js';
 import styled from 'styled-components';
 /*======================================*/
 /*======================================*/
 export const Container = styled.div`
-    ${USE_FULL_AREA}
-    ${FLEX_CENTER_COL}
-`;
-/*======================================*/
-/*======================================*/
-export const ErrorContainer = styled.div`
     position: relative;
 
     display: flex;

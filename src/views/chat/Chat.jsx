@@ -3,14 +3,17 @@ import { useSelector } from 'react-redux';
 import React, { useEffect } from 'react';
 
 // COMPONENETS
-import { ContainerNav, ContainerBody, ContainerChat, ContainerSidebar } from './styles.js';
 import ChannelList from './components/ChannelList/ChannelList.jsx';
 import MessageList from './components/MessageList/MessageList.jsx';
 import UserList from './components/UserList/UserList.jsx';
 import ChatBar from './components/ChatBar/ChatBar.jsx';
-import NavBar from './components/NavBar/NavBar.jsx';
+import Header from './components/Header/Header.jsx';
+import {Body, Chat, Sidebar } from './styles.js';
 
-export default function ChatPage(props) {
+// UTIL
+import { MODE_DEV } from 'Util/helpers/constants.js';
+
+export default function PageChat(props) {
     /*================================================
         BLOCK: STATE
     ==================================================*/
@@ -31,8 +34,7 @@ export default function ChatPage(props) {
         // TODO: cookies || localstorage w/ redux-persist
         user.loggedIn ? console.log('LOGGED IN') : console.log('NOT LOGGED IN');
         if (!user.loggedIn) {
-            navigate('/', { replace: false }); // DEV
-            // navigate('/', { replace: true }); // PROD
+            MODE_DEV ? navigate('/', { replace: false }) : navigate('/', { replace: true });
         }
     }, [user.loggedIn]);
 
@@ -69,21 +71,19 @@ export default function ChatPage(props) {
 
     return (
         <>
-            <ContainerNav>
-                <NavBar />
-            </ContainerNav>
-            <ContainerBody>
-                <ContainerSidebar>
+            <Header />
+            <Body>
+                <Sidebar>
                     <ChannelList clickChannel={clickChannel} />
-                </ContainerSidebar>
-                <ContainerChat>
+                </Sidebar>
+                <Chat>
                     <MessageList clickName={clickName} />
                     <ChatBar />
-                </ContainerChat>
-                <ContainerSidebar>
+                </Chat>
+                <Sidebar>
                     <UserList clickName={clickName} />
-                </ContainerSidebar>
-            </ContainerBody>
+                </Sidebar>
+            </Body>
         </>
     );
 }

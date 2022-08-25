@@ -2,38 +2,38 @@ import styled from 'styled-components';
 /*======================================*/
 /*======================================*/
 export const Container = styled.div`
-    position: fixed;
-    bottom: 10px;
-    right: 10px;
+    width: 250px;
+    height: 372px;
     z-index: 1000;
     display: flex;
     flex-flow: column nowrap;
+    background: #333;
 `;
 /*======================================*/
 /*======================================*/
-export const DevInfo = styled.div`
+export const Info = styled.div`
     width: auto;
     white-space: nowrap;
 `;
 /*======================================*/
 /*======================================*/
-export const DevList = styled.ul`
+export const List = styled.ul`
     list-style: none;
     padding: 0;
     margin: 0 0 20px 0;
     display: flex;
     flex-flow: column nowrap;
-    align-items: flex-end;
+    align-items: flex-start;
 `;
 /*======================================*/
 /*======================================*/
-export const DevListItem = styled.li`
+export const ListItem = styled.li`
     margin-top: 6px;
     color: #ff3333;
 `;
 /*======================================*/
 /*======================================*/
-export const DevTitle = styled.span`
+export const Title = styled.span`
     font-weight: 800;
     border: 2px solid black;
     padding: 0px 2px;
@@ -42,9 +42,19 @@ export const DevTitle = styled.span`
 `;
 /*======================================*/
 /*======================================*/
-export const DevTools = styled.div`
+export const Tools = styled.div`
     display: flex;
     flex-flow: column nowrap;
+
+    & button {
+        color: #eee;
+        background: #333;
+
+        &:hover {
+            color: #333;
+            background: #eee;
+        }
+    }
 `;
 /*======================================*/
 /*======================================*/

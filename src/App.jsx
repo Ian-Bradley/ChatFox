@@ -4,9 +4,9 @@ import React, { useState, useEffect } from 'react';
 import { useSocket } from 'Util/api/websocket.js';
 
 // COMPONENTS
-import ErrorPage from 'Views/error/Error.jsx';
-import AuthPage from 'Views/auth/Auth.jsx';
-import ChatPage from 'Views/chat/Chat.jsx';
+import PageError from 'Views/error/Error.jsx';
+import PageAuth from 'Views/auth/Auth.jsx';
+import PageChat from 'Views/chat/Chat.jsx';
 import { ContainerApp } from './styles.js';
 import Dev from 'Shared/Dev/Dev.jsx';
 
@@ -317,9 +317,9 @@ export default function App(props) {
             <ContainerApp>
                 <Router>
                     <Routes>
-                        <Route path='/' element={<AuthPage />}></Route>
-                        <Route path='/room' element={<ChatPage />}></Route>
-                        <Route path='*' element={<ErrorPage />}></Route>
+                        <Route path='/' element={<PageAuth />}></Route>
+                        <Route path='/room' element={<PageChat />}></Route>
+                        <Route path='*' element={<PageError />}></Route>
                     </Routes>
                 </Router>
             </ContainerApp>
