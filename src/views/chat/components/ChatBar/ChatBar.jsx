@@ -26,7 +26,6 @@ export default function ChatBar(props) {
 
     const onTypingMessage = (e) => {
         if (e.keyCode === KEYCODE_ENTER && e.target.value !== '') {
-            console.log('===> sendMessage');
             let newUpdate = {
                 type: 'newMessage',
                 message: {
@@ -38,8 +37,6 @@ export default function ChatBar(props) {
             };
             socket.send(JSON.stringify(newUpdate));
             e.target.value = '';
-            console.log('>>>>>>>>> MESSAGE SENT - newMessage >>>>>>>>>');
-            console.log('===> END - sendMessage');
         }
     };
 

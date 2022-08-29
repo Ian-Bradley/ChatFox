@@ -7,6 +7,7 @@ export const WS_URL = 'ws://localhost:3001';
 export const SERVER_URL = 'http://localhost:3001';
 
 export const DEBOUNCE_DELAY = 200;
+export const PAGE_LOAD_DELAY = 200;
 
 export const CLASS_ACTIVE = 'active';
 export const CLASS_DISABLED = 'disabled';

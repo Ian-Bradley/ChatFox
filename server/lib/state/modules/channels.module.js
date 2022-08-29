@@ -27,43 +27,54 @@ const channels = {
     /*================================================*/
     /*================================================*/
     // METHOD: => setChannelName
-    setChannelName(channel, name) {
-        for (let i = 0; i < this.state.channels.length; i++) {
-            if (this.state.channels[i].name === channel.name) {
-                this.state.channels[i].name = name;
+    setChannelName(name, newName) {
+        this.state.channels.map((channel) => {
+            if (channel.name === name) {
+                channel.name = newName;
             }
-        }
+        });
     },
-
+    /*================================================*/
+    /*================================================*/
+    // METHOD: => setChannelDescription
+    setChannelDescription(name, description) {
+        this.state.channels.map((channel) => {
+            if (channel.name === name) {
+                channel.description = description;
+            }
+        });
+    },
     /*================================================*/
     /*================================================*/
     // METHOD: => setChannelPublic
-    setChannelPublic(channel) {
-        for (let i = 0; i < this.state.channels.length; i++) {
-            if (this.state.channels[i].name === channel.name) {
-                this.state.channels[i].locked = false;
+    setChannelPublic(name) {
+        this.state.channels.map((channel) => {
+            if (channel.name === name) {
+                channel.locked = false;
+                channel.password = '';
             }
-        }
+        });
     },
     /*================================================*/
     /*================================================*/
     // METHOD: => setChannelPrivate
-    setChannelPrivate(channel) {
-        for (let i = 0; i < this.state.channels.length; i++) {
-            if (this.state.channels[i].name === channel.name) {
-                this.state.channels[i].locked = true;
+    setChannelPrivate(name, password) {
+        this.state.channels.map((channel) => {
+            if (channel.name === name) {
+                channel.locked = true;
+                channel.password = password;
             }
-        }
+        });
     },
     /*================================================*/
     /*================================================*/
     // METHOD: => setChannelPassword
-    setChannelPassword(channel, password) {
-        for (let i = 0; i < this.state.channels.length; i++) {
-            if (this.state.channels[i].name === channel.name) {
-                this.state.channels[i].password = password;
+    setChannelPassword(name, password) {
+        this.state.channels.map((channel) => {
+            if (channel.name === name) {
+                channel.password = password;
             }
-        }
+        });
     },
     /*================================================*/
     /*================================================*/

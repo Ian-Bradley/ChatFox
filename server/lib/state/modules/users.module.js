@@ -31,32 +31,31 @@ const users = {
     /*================================================*/
     // METHOD: => setUserName
     setUserName(name, newName) {
-        for (let i = 0; i < this.state.users.length; i++) {
-            if (this.state.users[i].name === name) {
-                this.state.users[i].name = newName;
+        this.state.users.map((user) => {
+            if (user.name === name) {
+                user.color = newName;
             }
-        }
+        });
     },
     /*================================================*/
     /*================================================*/
-
     // METHOD: => setUserNickname
     setUserNickname(name, newNickname) {
-        for (let i = 0; i < this.state.users.length; i++) {
-            if (this.state.users[i].name === name) {
-                this.state.users[i].nickname = newNickname;
+        this.state.users.map((user) => {
+            if (user.name === name) {
+                user.color = newNickname;
             }
-        }
+        });
     },
     /*================================================*/
     /*================================================*/
     // METHOD: => setUserColor
     setUserColor(name, newColor) {
-        for (let i = 0; i < this.state.users.length; i++) {
-            if (this.state.users[i].name === name) {
-                this.state.users[i].color = newColor;
+        this.state.users.map((user) => {
+            if (user.name === name) {
+                user.color = newColor;
             }
-        }
+        });
     },
     /*================================================*/
     /*================================================*/

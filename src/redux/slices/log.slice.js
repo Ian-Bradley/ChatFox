@@ -22,27 +22,26 @@ let logSlice = createSlice({
     name: 'log',
     initialState: initialState,
     reducers: {
-        /*======================================*/
-
+        /*================================================*/
+        /*================================================*/
         addLogItem: function (state, action) {
             // action.payload = log (Object)
             state.log.push(action.payload);
         },
 
-        /*======================================*/
-
+        /*================================================*/
+        /*================================================*/
         deleteLogItem: function (state, action) {
             // action.payload = id (String)
             state.log.filter((logItem) => logItem.id !== action.payload);
         },
-
-        /*======================================*/
-
+        /*================================================*/
+        /*================================================*/
         deleteAllLogItems: function (state) {
             state.log = [];
         },
-
-        /*======================================*/
+        /*================================================*/
+        /*================================================*/
     },
 });
 export const { addLogItem, deleteLogItem, deleteAllLogItems } = logSlice.actions;

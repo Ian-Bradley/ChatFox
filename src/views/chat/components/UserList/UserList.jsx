@@ -42,8 +42,6 @@ export default function UserList(props) {
                 <User key={i} user={users[i]} clickName={props.clickName} />
             ));
         }
-        // NOTE: testing
-        // return [...Array(150)].map((x, i) => <div key={i}>Username</div>);
     });
 
     /*=================================================
@@ -53,7 +51,8 @@ export default function UserList(props) {
     return (
         <Container>
             <Top>
-                <Total>Users{userTotal}</Total>
+                Users
+                <Total>{userTotal}</Total>
             </Top>
             <SimpleBar style={SIMPLE_BAR_STYLES}>{renderUsers()}</SimpleBar>
         </Container>

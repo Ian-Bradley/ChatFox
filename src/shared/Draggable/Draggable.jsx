@@ -1,11 +1,8 @@
 import React, { useRef } from 'react';
-import { useSelector } from 'react-redux';
-
-// COMPONENTS
 import { Container, Trigger } from './styles.js';
 
 /**
- * @props
+ * @props initial {object} top & left properties for initial positioning
  */
 
 // Basic WC3 implementation

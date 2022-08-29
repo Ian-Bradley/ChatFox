@@ -43,14 +43,15 @@ export default function MessageList(props) {
                 <Message key={i} message={messages[i]} clickName={props.clickName} />
             ));
         }
-        // NOTE: testing
-        return [...Array(150)].map((x, i) => <div key={i}>Message</div>);
     });
 
     /*================================================
         BLOCK: COMPONENTS
     ==================================================*/
 
-    // return <Container ref={messageList}>{renderMessages()}</Container>;
-    return <SimpleBar ref={messageList} style={SIMPLE_BAR_STYLES}>{renderMessages()}</SimpleBar>
+    return (
+        <SimpleBar ref={messageList} style={SIMPLE_BAR_STYLES}>
+            {renderMessages()}
+        </SimpleBar>
+    );
 }

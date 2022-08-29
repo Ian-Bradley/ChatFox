@@ -2,11 +2,10 @@ import { getMessagesSuccess, getMessagesFailure } from '../slices/messages.slice
 import { call, put, takeEvery } from 'redux-saga/effects';
 import api from 'Util/api/axios.js';
 
-function* workGetMessages() {
+function* workGetMessages(channelID) {
     try {
-        const messages = yield call(() => api.get(`/messages/${1}`));
-        console.log(messages);
-        yield put(getMessagesSuccess(messages));
+        const results = yield call(() => api.get(`/messages/${channelID.payload}`));
+        yield put(getMessagesSuccess(results.data));
     } catch (err) {
         yield put(getMessagesFailure());
         console.error(err);
@@ -14,9 +13,9 @@ function* workGetMessages() {
 }
 
 function* messagesSaga() {
-    console.log('===> START - userSaga');
+    console.log('===> START - messagesSaga');
     yield takeEvery('messages/getMessages', workGetMessages);
-    console.log('===> END - userSaga');
+    console.log('===> END - messagesSaga');
 }
 
 export default messagesSaga;

@@ -5,7 +5,7 @@ import styled from 'styled-components';
 export const Container = styled.div`
     position: fixed;
     top: ${(props) => props.initial.top ? props.initial.top : sizes.border.modal};
-    left: ${(props) => props.initial.left ? props.initial.left : 0};
+    left: ${(props) => props.initial.left ? props.initial.left : sizes.border.modal};
     z-index: 1000;
 `;
 /*======================================*/

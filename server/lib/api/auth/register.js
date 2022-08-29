@@ -8,8 +8,8 @@ const router = express.Router();
 /*================================================*/
 // ROUTE: => REGISTER
 router.post('/', async function (req, res) {
-    console.log('=====REGISTER======');
-    console.log('req.body: ', req.body);
+    // console.log('=====REGISTER======');
+    // console.log('req.body: ', req.body);
     try {
         // ==> Validate data for account requirements
         const { name, password } = req.body;
@@ -22,7 +22,7 @@ router.post('/', async function (req, res) {
 
         // ==> Determine is user exists in DB
         const existingUser = await dbQuery.users.getUser(name);
-        console.log('existingUser: ', existingUser);
+        // console.log('existingUser: ', existingUser);
         if (existingUser && existingUser.length) {
             return res.status(409).json({ error: 'User already exists' });
         }

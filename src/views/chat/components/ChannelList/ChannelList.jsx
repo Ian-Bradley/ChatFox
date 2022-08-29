@@ -39,8 +39,6 @@ export default function ChannelList(props) {
                 <Channel key={i} channel={channels[i]} clickChannel={props.clickChannel} />
             ));
         }
-        // NOTE: testing
-        // return [...Array(150)].map((x, i) => <div key={i}>Channel</div>);
     });
 
     /*=================================================

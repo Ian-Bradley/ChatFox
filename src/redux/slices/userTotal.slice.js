@@ -8,26 +8,27 @@ let userTotalSlice = createSlice({
     name: 'userTotal',
     initialState: initialState,
     reducers: {
-        /*======================================*/
-
+        /*================================================*/
+        /*================================================*/
         setUserTotal: function (state, action) {
             // action.payload = amount/count/total (Number)
             state.userTotal = action.payload;
         },
 
-        /*======================================*/
-
+        /*================================================*/
+        /*================================================*/
         incrementUserTotal: function (state) {
             state.userTotal = state.userTotal + 1;
         },
 
-        /*======================================*/
-
+        /*================================================*/
+        /*================================================*/
         decrementUserTotal: function (state) {
             state.userTotal = state.userTotal - 1;
         },
 
-        /*======================================*/
+        /*================================================*/
+        /*================================================*/
     },
 });
 export const { setUserTotal, incrementUserTotal, decrementUserTotal } = userTotalSlice.actions;

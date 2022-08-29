@@ -106,7 +106,7 @@ export default function Message(props) {
         BLOCK: COMPONENTS
     ==================================================*/
 
-    if (!imageExtensionRegex.test(props.message.content)) {
+    if (!REGEX_IMAGE.test(props.message.content)) {
         // NOTE: MESSAGE - Regular
         return (
             <Container>

@@ -8,8 +8,8 @@ const router = express.Router();
 /*================================================*/
 // ROUTE: => LOGIN
 router.post('/', async function (req, res) {
-    console.log('=====LOGIN======');
-    console.log('req.body: ', req.body);
+    // console.log('=====LOGIN======');
+    // console.log('req.body: ', req.body);
     try {
         // ==> Validate data for account requirements
         const { name, password } = req.body;
@@ -25,9 +25,9 @@ router.post('/', async function (req, res) {
 
         // ==> Validate password
         if (user[0]) {
-            console.log('user: ', user[0]);
+            // console.log('user: ', user[0]);
             const validPassword = await bcrypt.compare(password, user[0].password);
-            console.log('validPassword: ', validPassword);
+            // console.log('validPassword: ', validPassword);
             if (validPassword) {
                 // ==> Add JWT for authentication
                 // const token = jwt.sign(
@@ -43,7 +43,7 @@ router.post('/', async function (req, res) {
                 // ==> END
                 res.status(200).json(user[0]);
             } else {
-                console.log('INVALID PASSWORD');
+                // console.log('INVALID PASSWORD');
                 res.status(401).json({ error: 'Invalid password' });
             }
         } else {

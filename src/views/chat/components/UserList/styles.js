@@ -15,6 +15,8 @@ export const Container = styled.div`
 /*======================================*/
 /*======================================*/
 export const Top = styled.div`
+    position: relative;
+
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
@@ -28,7 +30,6 @@ export const Top = styled.div`
 /*======================================*/
 export const Total = styled.span`
     position: absolute;
-    top: ${sizes.spacing.app};
     right: ${sizes.spacing.app};
 
     font-family: 'Roboto', sans-serif;

@@ -13,6 +13,9 @@ import { Body, Chat, Sidebar } from './styles.js';
 // REDUX
 import { getMessages } from 'Redux/slices/messages.slice.js';
 
+// UTIL
+import { PAGE_LOAD_DELAY } from 'Util/helpers/constants.js';
+
 export default function PageChat(props) {
     /*================================================
         BLOCK: STATE
@@ -43,21 +46,26 @@ export default function PageChat(props) {
         BLOCK: HOOKS - LOADING
     ==================================================*/
 
-    // useEffect(() => {
-    //     if (isLoading) {
+    useEffect(() => {
+        console.log('---------- USE-EFFECT - LOADING - CHAT ----------');
+        // if (isLoading) {
+        //     setTimeout(() => {
+        //         setIsLoading(false);
+        //     }, PAGE_LOAD_DELAY);
+        // }
 
+        // return () => {
             
-    //         setIsLoading(false);
-    //     } else {
-    //     }
-    // }, [setIsLoading]);
+        // };
+    }, [setIsLoading]);
 
     /*================================================
         BLOCK: HOOKS - ?? GET MESSAGES ??
     ==================================================*/
 
     useEffect(() => {
-        dispatch(getMessages());
+        console.log('---------- USE-EFFECT - MESSAGES - CHAT ----------');
+        dispatch(getMessages(1)); // 1 = channel id for lounge (default channel)
     }, [dispatch]);
 
     /*================================================

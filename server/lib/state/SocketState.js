@@ -1,28 +1,13 @@
-/*================================================
-    BLOCK: IMPORTS
-==================================================*/
-
 const usersModule = require('./modules/users.module.js');
 const channelsModule = require('./modules/channels.module.js');
 
-/*================================================
-    BLOCK: CLASS
-==================================================*/
-
 module.exports = class StateTracker {
     constructor() {
-        /*================================================
-            INNER: STATE
-        ==================================================*/
 
         this.state = {
             users: [],
             channels: [],
         };
-
-        /*================================================
-            INNER: METHOD BINDINGS
-        ==================================================*/
 
         // Init
         this.initData = this.initData.bind(this);
@@ -41,12 +26,9 @@ module.exports = class StateTracker {
         this.setChannelPublic = channelsModule.setChannelPublic.bind(this);
         this.setChannelPrivate = channelsModule.setChannelPrivate.bind(this);
         this.setChannelPassword = channelsModule.setChannelPassword.bind(this);
+        this.setChannelDescription = channelsModule.setChannelDescription.bind(this);
     }
-
-    /*================================================
-        INNER: METHOD BINDINGS
-    ==================================================*/
-
+    
     initData() {
         // ==> db
     }

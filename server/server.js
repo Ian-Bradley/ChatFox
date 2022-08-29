@@ -89,13 +89,12 @@ WSS.on('connection', async (WSClient) => {
     WSClient.on('message', async function incoming(data) {
         console.log('>>>>>>>>> MESSAGE RECIEVED >>>>>>>>>');
         const messageData = JSON.parse(data);
-        console.log('type: ', messageData.type);
+        // console.log('type: ', messageData.type);
 
         try {
             switch (messageData.type) {
                 /*================================================*/
                 /*================================================*/
-
                 // HANDLER: => userConnected
                 case 'userConnected': {
                     console.log('======= START - MESSAGE - userConnected =======');
@@ -119,10 +118,8 @@ WSS.on('connection', async (WSClient) => {
                     console.log('======= END MESSAGE - userConnected =======');
                     break;
                 }
-
                 /*================================================*/
                 /*================================================*/
-
                 // HANDLER: => updateUserName
                 case 'updateUserName': {
                     console.log('======= START - MESSAGE - updateUserName =======');
@@ -135,10 +132,8 @@ WSS.on('connection', async (WSClient) => {
                     console.log('======= END MESSAGE - updateUserName =======');
                     break;
                 }
-
                 /*================================================*/
                 /*================================================*/
-
                 // HANDLER: => updateUserNickname
                 case 'updateUserNickname': {
                     console.log('======= START - MESSAGE - updateUserNickname =======');
@@ -150,10 +145,8 @@ WSS.on('connection', async (WSClient) => {
                     console.log('======= END MESSAGE - updateUserNickname =======');
                     break;
                 }
-
                 /*================================================*/
                 /*================================================*/
-
                 // HANDLER: => updateUserColor
                 case 'updateUserColor': {
                     console.log('======= START - MESSAGE - updateUserColor =======');
@@ -165,10 +158,8 @@ WSS.on('connection', async (WSClient) => {
                     console.log('======= END MESSAGE - updateUserColor =======');
                     break;
                 }
-
                 /*================================================*/
                 /*================================================*/
-
                 // HANDLER: => updateAddChannel
                 case 'updateAddChannel': {
                     console.log('======= START - MESSAGE - updateAddChannel =======');
@@ -181,108 +172,92 @@ WSS.on('connection', async (WSClient) => {
                     console.log('======= END MESSAGE - updateAddChannel =======');
                     break;
                 }
-
                 /*================================================*/
                 /*================================================*/
-
                 // HANDLER: => updateDeleteChannel
                 case 'updateDeleteChannel': {
                     console.log('======= START - MESSAGE - updateDeleteChannel =======');
                     messageData.id = uuidv4();
                     // TODO: QUERY
-                    WSState.deleteChannel(messageData.channelID);
+                    WSState.deleteChannel(messageData.name);
                     // WSState.addLogItem(messageData.message);
                     WSS.broadcastToAll(JSON.stringify(messageData));
                     console.log('>>>>>>>>> MESSAGE SENT - updateDeleteChannel >>>>>>>>>');
                     console.log('======= END MESSAGE - updateDeleteChannel =======');
                     break;
                 }
-
                 /*================================================*/
                 /*================================================*/
-
                 // HANDLER: => updateChannelName
                 case 'updateChannelName': {
                     console.log('======= START - MESSAGE - updateChannelName =======');
                     messageData.id = uuidv4();
                     // TODO: QUERY
                     // TODO: add possibility of description change
-                    WSState.setChannelName(messageData.channel, messageData.newName);
+                    WSState.setChannelName(messageData.name, messageData.newName);
                     // WSState.addLogItem(messageData.message);
                     WSS.broadcastToAll(JSON.stringify(messageData));
                     console.log('>>>>>>>>> MESSAGE SENT - updateChannelName >>>>>>>>>');
                     console.log('======= END MESSAGE - updateChannelName =======');
                     break;
                 }
-
                 /*================================================*/
                 /*================================================*/
-
                 // HANDLER: => updateChannelPublic
                 case 'updateChannelPublic': {
                     console.log('======= START - MESSAGE - updateChannelPublic =======');
                     messageData.id = uuidv4();
                     // TODO: QUERY
-                    WSState.setChannelPublic(messageData.channel);
+                    WSState.setChannelPublic(messageData.name);
                     // WSState.addLogItem(messageData.message);
                     WSS.broadcastToAll(JSON.stringify(messageData));
                     console.log('>>>>>>>>> MESSAGE SENT - updateChannelPublic >>>>>>>>>');
                     console.log('======= END MESSAGE - updateChannelPublic =======');
                     break;
                 }
-
                 /*================================================*/
                 /*================================================*/
-
                 // HANDLER: => updateChannelPrivate
                 case 'updateChannelPrivate': {
                     console.log('======= START - MESSAGE - updateChannelPrivate =======');
                     messageData.id = uuidv4();
                     // TODO: QUERY
-                    WSState.setChannelPrivate(messageData.channel);
-                    WSState.setChannelPassword(messageData.channel, messageData.password);
+                    WSState.setChannelPrivate(messageData.name, messageData.password);
                     // WSState.addLogItem(messageData.message);
                     WSS.broadcastToAll(JSON.stringify(messageData));
                     console.log('>>>>>>>>> MESSAGE SENT - updateChannelPrivate >>>>>>>>>');
                     console.log('======= END MESSAGE - updateChannelPrivate =======');
                     break;
                 }
-
                 /*================================================*/
                 /*================================================*/
-
                 // HANDLER: => updateChannelPassword
                 case 'updateChannelPassword': {
                     console.log('======= START - MESSAGE - updateChannelPassword =======');
                     messageData.id = uuidv4();
                     // TODO: QUERY
-                    WSState.setChannelPassword(messageData.channel, messageData.password);
+                    WSState.setChannelPassword(messageData.name, messageData.password);
                     // WSState.addLogItem(messageData.message);
                     WSS.broadcastToAll(JSON.stringify(messageData));
                     console.log('>>>>>>>>> MESSAGE SENT - updateChannelPassword >>>>>>>>>');
                     console.log('======= END MESSAGE - updateChannelPassword =======');
                     break;
                 }
-
                 /*================================================*/
                 /*================================================*/
-
                 // HANDLER: => newMessage
                 case 'newMessage': {
-                    console.log('======= START - MESSAGE - newMessage =======');
+                    // console.log('======= START - MESSAGE - newMessage =======');
                     messageData.id = uuidv4();
-                    // TODO: QUERY
-                    WSState.addMessage(messageData.message);
+                    // TODO: QUERY -  addMessage
                     WSS.broadcastToAll(JSON.stringify(messageData));
-                    console.log('>>>>>>>>> MESSAGE SENT - newMessage >>>>>>>>>');
-                    console.log('======= END - MESSAGE - newMessage =======');
+                    // console.log('>>>>>>>>> MESSAGE SENT - newMessage >>>>>>>>>');
+                    // console.log('======= END - MESSAGE - newMessage =======');
 
                     break;
                 }
-
                 /*================================================*/
                 /*================================================*/
-
                 default:
             }
         } catch (err) {
