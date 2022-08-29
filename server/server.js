@@ -87,10 +87,8 @@ WSS.on('connection', async (WSClient) => {
     ==================================================*/
 
     WSClient.on('message', async function incoming(data) {
-        console.log('>>>>>>>>> MESSAGE RECIEVED >>>>>>>>>');
         const messageData = JSON.parse(data);
-        // console.log('type: ', messageData.type);
-
+        console.log('>>>>>>>>> MESSAGE RECIEVED - '+ messageData.type +' >>>>>>>>>');
         try {
             switch (messageData.type) {
                 /*================================================*/
@@ -160,30 +158,30 @@ WSS.on('connection', async (WSClient) => {
                 }
                 /*================================================*/
                 /*================================================*/
-                // HANDLER: => updateAddChannel
-                case 'updateAddChannel': {
-                    console.log('======= START - MESSAGE - updateAddChannel =======');
+                // HANDLER: => addChannel
+                case 'addChannel': {
+                    console.log('======= START - MESSAGE - addChannel =======');
                     messageData.id = uuidv4();
                     // TODO: QUERY
                     WSState.addChannel(messageData.channel);
                     // WSState.addLogItem(messageData.message);
                     WSS.broadcastToAll(JSON.stringify(messageData));
-                    console.log('>>>>>>>>> MESSAGE SENT - updateAddChannel >>>>>>>>>');
-                    console.log('======= END MESSAGE - updateAddChannel =======');
+                    console.log('>>>>>>>>> MESSAGE SENT - addChannel >>>>>>>>>');
+                    console.log('======= END MESSAGE - addChannel =======');
                     break;
                 }
                 /*================================================*/
                 /*================================================*/
-                // HANDLER: => updateDeleteChannel
-                case 'updateDeleteChannel': {
-                    console.log('======= START - MESSAGE - updateDeleteChannel =======');
+                // HANDLER: => deleteChannel
+                case 'deleteChannel': {
+                    console.log('======= START - MESSAGE - deleteChannel =======');
                     messageData.id = uuidv4();
                     // TODO: QUERY
                     WSState.deleteChannel(messageData.name);
                     // WSState.addLogItem(messageData.message);
                     WSS.broadcastToAll(JSON.stringify(messageData));
-                    console.log('>>>>>>>>> MESSAGE SENT - updateDeleteChannel >>>>>>>>>');
-                    console.log('======= END MESSAGE - updateDeleteChannel =======');
+                    console.log('>>>>>>>>> MESSAGE SENT - deleteChannel >>>>>>>>>');
+                    console.log('======= END MESSAGE - deleteChannel =======');
                     break;
                 }
                 /*================================================*/
@@ -193,12 +191,25 @@ WSS.on('connection', async (WSClient) => {
                     console.log('======= START - MESSAGE - updateChannelName =======');
                     messageData.id = uuidv4();
                     // TODO: QUERY
-                    // TODO: add possibility of description change
-                    WSState.setChannelName(messageData.name, messageData.newName);
+                    WSState.setChannelName(messageData.channelName, messageData.newName);
                     // WSState.addLogItem(messageData.message);
                     WSS.broadcastToAll(JSON.stringify(messageData));
                     console.log('>>>>>>>>> MESSAGE SENT - updateChannelName >>>>>>>>>');
                     console.log('======= END MESSAGE - updateChannelName =======');
+                    break;
+                }
+                /*================================================*/
+                /*================================================*/
+                // HANDLER: => updateChannelDescription
+                case 'updateChannelDescription': {
+                    console.log('======= START - MESSAGE - updateChannelDescription =======');
+                    messageData.id = uuidv4();
+                    // TODO: QUERY
+                    WSState.setChannelDescription(messageData.channelName, messageData.description);
+                    // WSState.addLogItem(messageData.message);
+                    WSS.broadcastToAll(JSON.stringify(messageData));
+                    console.log('>>>>>>>>> MESSAGE SENT - updateChannelDescription >>>>>>>>>');
+                    console.log('======= END MESSAGE - updateChannelDescription =======');
                     break;
                 }
                 /*================================================*/
@@ -208,7 +219,7 @@ WSS.on('connection', async (WSClient) => {
                     console.log('======= START - MESSAGE - updateChannelPublic =======');
                     messageData.id = uuidv4();
                     // TODO: QUERY
-                    WSState.setChannelPublic(messageData.name);
+                    WSState.setChannelPublic(messageData.channelName);
                     // WSState.addLogItem(messageData.message);
                     WSS.broadcastToAll(JSON.stringify(messageData));
                     console.log('>>>>>>>>> MESSAGE SENT - updateChannelPublic >>>>>>>>>');
@@ -222,7 +233,7 @@ WSS.on('connection', async (WSClient) => {
                     console.log('======= START - MESSAGE - updateChannelPrivate =======');
                     messageData.id = uuidv4();
                     // TODO: QUERY
-                    WSState.setChannelPrivate(messageData.name, messageData.password);
+                    WSState.setChannelPrivate(messageData.channelName, messageData.password);
                     // WSState.addLogItem(messageData.message);
                     WSS.broadcastToAll(JSON.stringify(messageData));
                     console.log('>>>>>>>>> MESSAGE SENT - updateChannelPrivate >>>>>>>>>');
@@ -236,11 +247,33 @@ WSS.on('connection', async (WSClient) => {
                     console.log('======= START - MESSAGE - updateChannelPassword =======');
                     messageData.id = uuidv4();
                     // TODO: QUERY
-                    WSState.setChannelPassword(messageData.name, messageData.password);
+                    WSState.setChannelPassword(messageData.channelName, messageData.password);
                     // WSState.addLogItem(messageData.message);
                     WSS.broadcastToAll(JSON.stringify(messageData));
                     console.log('>>>>>>>>> MESSAGE SENT - updateChannelPassword >>>>>>>>>');
                     console.log('======= END MESSAGE - updateChannelPassword =======');
+                    break;
+                }
+                /*================================================*/
+                /*================================================*/
+                // HANDLER: => addUserToChannel
+                case 'addUserToChannel': {
+                    console.log('======= START - MESSAGE - addUserToChannel =======');
+                    dispatch(addUserToChannel(messageData.channelName, updateData.userName));
+                    // dispatch(addLogItem(updateData.message));
+                    console.log('>>>>>>>>> MESSAGE SENT - addUserToChannel >>>>>>>>>');
+                    console.log('======= END MESSAGE - addUserToChannel =======');
+                    break;
+                }
+                /*================================================*/
+                /*================================================*/
+                // HANDLER: => removeUserFromChannel
+                case 'removeUserFromChannel': {
+                    console.log('======= START - MESSAGE - removeUserFromChannel =======');
+                    dispatch(removeUserFromChannel(messageData.channelName, updateData.userName));
+                    // dispatch(addLogItem(updateData.message));
+                    console.log('>>>>>>>>> MESSAGE SENT - removeUserFromChannel >>>>>>>>>');
+                    console.log('======= END MESSAGE - removeUserFromChannel =======');
                     break;
                 }
                 /*================================================*/

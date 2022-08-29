@@ -8,28 +8,17 @@ const channels = {
     /*================================================*/
     /*================================================*/
     // METHOD: => deleteChannel
-    deleteChannel(name) {
-        console.log('deleteCHANNEL ==> name: ', name);
-        console.log('deleteCHANNEL ==> typeof name: ', typeof name);
-        console.log(
-            'deleteCHANNEL ==> FIND CHANNEL: ',
-            this.state.channels.find((channel) => channel.name === name)
-        );
-        if (this.state.channels.find((user) => user.name === name)) {
-            console.log('deleteCHANNEL ==> Channel exists in array');
-            console.log('deleteCHANNEL ==> this.state.channels: ', this.state.channels);
-            this.state.channels = this.state.channels.filter((channel) => channel.name !== name);
-            console.log('deleteCHANNEL ==> this.state.channels: ', this.state.channels);
-        } else {
-            console.log('deleteCHANNEL ==> No channel!!');
-        }
+    deleteChannel(channelName) {
+        console.log('deleteCHANNEL ==> this.state.channels: ', this.state.channels);
+        this.state.channels = this.state.channels.filter((channel) => channel.name !== channelName);
+        console.log('deleteCHANNEL ==> this.state.channels: ', this.state.channels);
     },
     /*================================================*/
     /*================================================*/
     // METHOD: => setChannelName
-    setChannelName(name, newName) {
+    setChannelName(channelName, newName) {
         this.state.channels.map((channel) => {
-            if (channel.name === name) {
+            if (channel.name === channelName) {
                 channel.name = newName;
             }
         });
@@ -37,9 +26,9 @@ const channels = {
     /*================================================*/
     /*================================================*/
     // METHOD: => setChannelDescription
-    setChannelDescription(name, description) {
+    setChannelDescription(channelName, description) {
         this.state.channels.map((channel) => {
-            if (channel.name === name) {
+            if (channel.name === channelName) {
                 channel.description = description;
             }
         });
@@ -47,9 +36,9 @@ const channels = {
     /*================================================*/
     /*================================================*/
     // METHOD: => setChannelPublic
-    setChannelPublic(name) {
+    setChannelPublic(channelName) {
         this.state.channels.map((channel) => {
-            if (channel.name === name) {
+            if (channel.name === channelName) {
                 channel.locked = false;
                 channel.password = '';
             }
@@ -58,9 +47,9 @@ const channels = {
     /*================================================*/
     /*================================================*/
     // METHOD: => setChannelPrivate
-    setChannelPrivate(name, password) {
+    setChannelPrivate(channelName, password) {
         this.state.channels.map((channel) => {
-            if (channel.name === name) {
+            if (channel.name === channelName) {
                 channel.locked = true;
                 channel.password = password;
             }
@@ -69,12 +58,38 @@ const channels = {
     /*================================================*/
     /*================================================*/
     // METHOD: => setChannelPassword
-    setChannelPassword(name, password) {
+    setChannelPassword(channelName, password) {
         this.state.channels.map((channel) => {
-            if (channel.name === name) {
+            if (channel.name === channelName) {
                 channel.password = password;
             }
         });
+    },
+    /*================================================*/
+    /*================================================*/
+    // METHOD: => addUserToChannel
+    addUserToChannel(channelName, userName) {
+        console.log('addUserToChannel ==> this.state.channels: ', this.state.channels);
+        this.state.channels.map((channel) => {
+            if (channel.name === channelName) {
+                channel.users.push(userName);
+            }
+        });
+        console.log('addUserToChannel ==> this.state.channels: ', this.state.channels);
+    },
+    /*================================================*/
+    /*================================================*/
+    // METHOD: => removeUserFromChannel
+    removeUserFromChannel(channelName, userName) {
+        console.log('removeUserFromChannel ==> this.state.channels: ', this.state.channels);
+        this.state.channels.map((channel) => {
+            if (channel.name === channelName) {
+                channel.users = channel.users.filter(
+                    (user) => user !== userName
+                );
+            }
+        });
+        console.log('removeUserFromChannel ==> this.state.channels: ', this.state.channels);
     },
     /*================================================*/
     /*================================================*/

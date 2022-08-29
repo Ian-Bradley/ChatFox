@@ -28,7 +28,14 @@ export const Top = styled.div`
 `;
 /*======================================*/
 /*======================================*/
-export const Total = styled.span`
+export const Search = styled.span`
+    position: absolute;
+    left: ${sizes.spacing.app};
+    width: 15px;
+`;
+/*======================================*/
+/*======================================*/
+export const UserTotal = styled.span`
     position: absolute;
     right: ${sizes.spacing.app};
 

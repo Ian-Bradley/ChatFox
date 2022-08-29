@@ -33,6 +33,8 @@ import {
     setChannelPrivate,
     setChannelPublic,
     setChannelPassword,
+    addUserToChannel,
+    removeUserFromChannel,
 } from 'Redux/slices/channels.slice.js';
 
 export default function App(props) {
@@ -166,24 +168,24 @@ export default function App(props) {
                         }
                         /*================================================*/
                         /*================================================*/
-                        // HANDLER: => updateAddChannel
-                        case 'updateAddChannel': {
-                            console.log('======= START - MESSAGE - updateAddChannel =======');
+                        // HANDLER: => addChannel
+                        case 'addChannel': {
+                            console.log('======= START - MESSAGE - addChannel =======');
                             dispatch(addChannel(updateData.channel));
                             // dispatch(addLogItem(updateData.message));
-                            console.log('>>>>>>>>> MESSAGE SENT - updateAddChannel >>>>>>>>>');
-                            console.log('======= END MESSAGE - updateAddChannel =======');
+                            console.log('>>>>>>>>> MESSAGE SENT - addChannel >>>>>>>>>');
+                            console.log('======= END MESSAGE - addChannel =======');
                             break;
                         }
                         /*================================================*/
                         /*================================================*/
-                        // HANDLER: => updateDeleteChannel
-                        case 'updateDeleteChannel': {
-                            console.log('======= START - MESSAGE - updateDeleteChannel =======');
-                            dispatch(deleteChannel(updateData.name));
+                        // HANDLER: => deleteChannel
+                        case 'deleteChannel': {
+                            console.log('======= START - MESSAGE - deleteChannel =======');
+                            dispatch(deleteChannel(updateData.channelName));
                             // dispatch(addLogItem(updateData.message));
-                            console.log('>>>>>>>>> MESSAGE SENT - updateDeleteChannel >>>>>>>>>');
-                            console.log('======= END MESSAGE - updateDeleteChannel =======');
+                            console.log('>>>>>>>>> MESSAGE SENT - deleteChannel >>>>>>>>>');
+                            console.log('======= END MESSAGE - deleteChannel =======');
                             break;
                         }
                         /*================================================*/
@@ -191,7 +193,7 @@ export default function App(props) {
                         // HANDLER: => updateChannelName
                         case 'updateChannelName': {
                             console.log('======= START - MESSAGE - updateChannelName =======');
-                            dispatch(setChannelName(updateData.name, updateData.newName));
+                            dispatch(setChannelName(updateData.channelName, updateData.newName));
                             // dispatch(addLogItem(updateData.message));
                             console.log('>>>>>>>>> MESSAGE SENT - updateChannelName >>>>>>>>>');
                             console.log('======= END MESSAGE - updateChannelName =======');
@@ -202,7 +204,7 @@ export default function App(props) {
                         // HANDLER: => updateChannelDescription
                         case 'updateChannelDescription': {
                             console.log('======= START - MESSAGE - updateChannelDescription =======');
-                            dispatch(setChannelDescription(updateData.name, updateData.description));
+                            dispatch(setChannelDescription(updateData.channelName, updateData.description));
                             // dispatch(addLogItem(updateData.message));
                             console.log('>>>>>>>>> MESSAGE SENT - updateChannelDescription >>>>>>>>>');
                             console.log('======= END MESSAGE - updateChannelDescription =======');
@@ -213,7 +215,7 @@ export default function App(props) {
                         // HANDLER: => updateChannelPublic
                         case 'updateChannelPublic': {
                             console.log('======= START - MESSAGE - updateChannelPublic =======');
-                            dispatch(setChannelPublic(updateData.name));
+                            dispatch(setChannelPublic(updateData.channelName));
                             // dispatch(addLogItem(updateData.message));
                             console.log('>>>>>>>>> MESSAGE SENT - updateChannelPublic >>>>>>>>>');
                             console.log('======= END MESSAGE - updateChannelPublic =======');
@@ -224,7 +226,7 @@ export default function App(props) {
                         // HANDLER: => updateChannelPrivate
                         case 'updateChannelPrivate': {
                             console.log('======= START - MESSAGE - updateChannelPrivate =======');
-                            dispatch(setChannelPrivate(updateData.name, updateData.password));
+                            dispatch(setChannelPrivate(updateData.channelName, updateData.password));
                             // dispatch(addLogItem(updateData.message));
                             console.log('>>>>>>>>> MESSAGE SENT - updateChannelPrivate >>>>>>>>>');
                             console.log('======= END MESSAGE - updateChannelPrivate =======');
@@ -235,10 +237,32 @@ export default function App(props) {
                         // HANDLER: => updateChannelPassword
                         case 'updateChannelPassword': {
                             console.log('======= START - MESSAGE - updateChannelPassword =======');
-                            dispatch(setChannelPassword(updateData.name, updateData.password));
+                            dispatch(setChannelPassword(updateData.channelName, updateData.password));
                             // dispatch(addLogItem(updateData.message));
                             console.log('>>>>>>>>> MESSAGE SENT - updateChannelPassword >>>>>>>>>');
                             console.log('======= END MESSAGE - updateChannelPassword =======');
+                            break;
+                        }
+                        /*================================================*/
+                        /*================================================*/
+                        // HANDLER: => addUserToChannel
+                        case 'addUserToChannel': {
+                            console.log('======= START - MESSAGE - addUserToChannel =======');
+                            dispatch(addUserToChannel(updateData.channelName, updateData.userName));
+                            // dispatch(addLogItem(updateData.message));
+                            console.log('>>>>>>>>> MESSAGE SENT - addUserToChannel >>>>>>>>>');
+                            console.log('======= END MESSAGE - addUserToChannel =======');
+                            break;
+                        }
+                        /*================================================*/
+                        /*================================================*/
+                        // HANDLER: => removeUserFromChannel
+                        case 'removeUserFromChannel': {
+                            console.log('======= START - MESSAGE - removeUserFromChannel =======');
+                            dispatch(removeUserFromChannel(updateData.channelName, updateData.userName));
+                            // dispatch(addLogItem(updateData.message));
+                            console.log('>>>>>>>>> MESSAGE SENT - removeUserFromChannel >>>>>>>>>');
+                            console.log('======= END MESSAGE - removeUserFromChannel =======');
                             break;
                         }
                         /*================================================*/

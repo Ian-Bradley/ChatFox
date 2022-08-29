@@ -7,6 +7,7 @@ const initialState = {
         nickname: generateRandomName(false),
         color: generateRandomColor(),
         loggedIn: false,
+        channel: '',
     },
 };
 
@@ -17,19 +18,19 @@ let userSlice = createSlice({
         /*================================================*/
         /*================================================*/
         setName: function (state, action) {
-            // action.payload = name (String)
+            // action.payload = name {string}
             state.user.name = action.payload;
         },
         /*================================================*/
         /*================================================*/
         setNickname: function (state, action) {
-            // action.payload = nickname (String)
+            // action.payload = nickname {string}
             state.user.nickname = action.payload;
         },
         /*================================================*/
         /*================================================*/
         setColor: function (state, action) {
-            // action.payload = color (String [HEX])
+            // action.payload = color {string, hex}
             state.user.color = action.payload;
         },
         /*================================================*/
@@ -40,7 +41,13 @@ let userSlice = createSlice({
         },
         /*================================================*/
         /*================================================*/
+        setChannel: function (state, action) {
+            // action.payload = channel name {string}
+            state.user.channel = action.payload;
+        },
+        /*================================================*/
+        /*================================================*/
     },
 });
-export const { setName, setNickname, setColor, setLoggedIn } = userSlice.actions;
+export const { setName, setNickname, setColor, setLoggedIn, setChannel } = userSlice.actions;
 export default userSlice.reducer;

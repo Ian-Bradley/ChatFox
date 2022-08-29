@@ -27,3 +27,20 @@ export const Top = styled.div`
 `;
 /*======================================*/
 /*======================================*/
+export const Search = styled.span`
+    position: absolute;
+    left: ${sizes.spacing.app};
+    width: 15px;
+`;
+/*======================================*/
+/*======================================*/
+export const AddChannel = styled.span`
+    position: absolute;
+    right: ${sizes.spacing.app};
+
+    font-family: 'Roboto', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 400;
+`;
+/*======================================*/
+/*======================================*/

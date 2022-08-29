@@ -1,15 +1,18 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-    channels: {
-        name: '',
-        active: false,
-        locked: false,
-        password: '',
-    },
+    channels: [],
 };
 
-// TODO: all channel slices
+/*
+user {object}
+    name: {string}
+    active: {boolean}
+    locked: {boolean}
+    locked: {boolean}
+    password: {string}
+    users: {array}
+*/
 
 let channelsSlice = createSlice({
     name: 'channels',
@@ -19,14 +22,14 @@ let channelsSlice = createSlice({
         /*================================================*/
         // FUNCTION: addChannel
         addChannel: function (state, action) {
-            // action.payload = channel (object)
+            // action.payload = channel {object}
             state.channels.push(action.payload);
         },
         /*================================================*/
         /*================================================*/
         // FUNCTION: deleteChannel
         deleteChannel: function (state, action) {
-            // action.payload = name (string)
+            // action.payload = name {string}
             state.channels.filter((channel) => channel.name !== action.payload);
         },
         /*================================================*/
@@ -46,9 +49,9 @@ let channelsSlice = createSlice({
         /*================================================*/
         // FUNCTION: setChannelName
         setChannelName: function (state, action) {
-            // action.payload = names data (object {name: (string), newName: (string)})
+            // action.payload = (object {channelName: {string}, newName: {string}})
             state.channels.map((channel) => {
-                if (channel.name === action.payload.name) {
+                if (channel.name === action.payload.channelName) {
                     channel.name = action.payload.newName;
                 }
             });
@@ -57,9 +60,9 @@ let channelsSlice = createSlice({
         /*================================================*/
         // FUNCTION: setChannelDescription
         setChannelDescription: function (state, action) {
-            // action.payload = names data (object {name: (string), description: (string)})
+            // action.payload = (object {channelName: {string}, description: {string}})
             state.channels.map((channel) => {
-                if (channel.name === action.payload.name) {
+                if (channel.name === action.payload.channelName) {
                     channel.description = action.payload.description;
                 }
             });
@@ -68,7 +71,7 @@ let channelsSlice = createSlice({
         /*================================================*/
         // FUNCTION: setChannelPublic
         setChannelPublic: function (state, action) {
-            // action.payload = name (string)
+            // action.payload = channel name {string}
             state.channels.map((channel) => {
                 if (channel.name === action.payload) {
                     channel.locked = false;
@@ -80,9 +83,9 @@ let channelsSlice = createSlice({
         /*================================================*/
         // FUNCTION: setChannelPrivate
         setChannelPrivate: function (state, action) {
-            // action.payload = locking data (object {name: (string), password: (string)})
+            // action.payload = (object {channelName: {string}, password: {string}})
             state.channels.map((channel) => {
-                if (channel.name === action.payload.name) {
+                if (channel.name === action.payload.channelName) {
                     channel.locked = true;
                     channel.password = action.payload.password;
                 }
@@ -92,10 +95,34 @@ let channelsSlice = createSlice({
         /*================================================*/
         // FUNCTION: setChannelPassword
         setChannelPassword: function (state, action) {
-            // action.payload = lockData (object {name: (string), password: (string)})
+            // action.payload = (object {channelName: {string}, password: {string}})
             state.channels.map((channel) => {
-                if (channel.name === action.payload.name) {
+                if (channel.name === action.payload.channelName) {
                     channel.password = action.payload.password;
+                }
+            });
+        },
+        /*================================================*/
+        /*================================================*/
+        // FUNCTION: => addUserToChannel
+        addUserToChannel(state, action) {
+            // action.payload = (object {channelName: {string}, userName: {string}})
+            state.channels.map((channel) => {
+                if (channel.name === action.payload.channelName) {
+                    channel.users.push(action.payload.userName);
+                }
+            });
+        },
+        /*================================================*/
+        /*================================================*/
+        // FUNCTION: => removeUserFromChannel
+        removeUserFromChannel(state, action) {
+            // action.payload = (object {channelName: {string}, userName: {string}})
+            state.channels.map((channel) => {
+                if (channel.name === action.payload.channelName) {
+                    channel.users = channel.users.filter(
+                        (user) => user !== action.payload.userName
+                    );
                 }
             });
         },
@@ -113,5 +140,7 @@ export const {
     setChannelPublic,
     setChannelPrivate,
     setChannelPassword,
+    addUserToChannel,
+    removeUserFromChannel,
 } = channelsSlice.actions;
 export default channelsSlice.reducer;

@@ -5,7 +5,9 @@ import { useSelector } from 'react-redux';
 // COMPONENTS
 import User from '../User/User.jsx';
 import SimpleBar from 'simplebar-react';
-import { Container, Top, Total } from './styles.js';
+import SearchSVG from 'Assets/icons/search.svg.js';
+import IconButton from 'Shared/Buttons/IconButton.jsx';
+import { Container, Top, Search, UserTotal } from './styles.js';
 
 /**
  * @props clickName (function) Clicking on a user name
@@ -51,8 +53,11 @@ export default function UserList(props) {
     return (
         <Container>
             <Top>
+                <Search>
+                    <IconButton onClick={onSearchButton} icon={SearchSVG} />
+                </Search>
                 Users
-                <Total>{userTotal}</Total>
+                <UserTotal>{userTotal}</UserTotal>
             </Top>
             <SimpleBar style={SIMPLE_BAR_STYLES}>{renderUsers()}</SimpleBar>
         </Container>
