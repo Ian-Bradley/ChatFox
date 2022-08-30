@@ -28,6 +28,7 @@ export const sizes = {
 ========================================*/
 
 export const transition = {
+    fast: '100ms',
     fade: '200ms',
     transform: '200ms',
     hover: '200ms',

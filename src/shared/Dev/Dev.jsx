@@ -9,6 +9,7 @@ import Draggable from 'Shared/draggable/draggable.jsx';
 // REDUX
 import { toggleTimestamps, toggle24HourTime } from 'Redux/slices/prefs.slice.js';
 import { incrementUserTotal } from 'Redux/slices/userTotal.slice.js';
+import { addChannel } from 'Redux/slices/channels.slice.js';
 import { setLoggedIn } from 'Redux/slices/user.slice.js';
 import { addUser } from 'Redux/slices/users.slice.js';
 
@@ -118,6 +119,18 @@ export default function Dev(props) {
         dispatch(incrementUserTotal());
     };
 
+    const addFakeChannel = () => {
+        dispatch(
+            addChannel({
+                name: generateRandomName(false),
+                active: false,
+                locked: false,
+                password: '',
+                users: [],
+            })
+        );
+    };
+
     const toggleLogin = () => {
         user.loggedIn ? dispatch(setLoggedIn(false)) : dispatch(setLoggedIn(true));
     };
@@ -197,6 +210,7 @@ export default function Dev(props) {
                     <button onClick={randomColor}>Color</button>
                     <button onClick={toggleLogin}>LoggedIn</button>
                     <button onClick={addFakeUser}>Fake User</button>
+                    <button onClick={addFakeChannel}>Fake Channel</button>
                     <button onClick={timestamps}>Timestamps</button>
                     <button onClick={fullHours}>24 Hour</button>
                 </Tools>

@@ -1,5 +1,5 @@
+import React, { useState, useCallback, useRef } from 'react';
 import { SIMPLE_BAR_STYLES } from 'Styles/common.js';
-import React, { useCallback } from 'react';
 import { useSelector } from 'react-redux';
 
 // COMPONENTS
@@ -7,17 +7,26 @@ import User from '../User/User.jsx';
 import SimpleBar from 'simplebar-react';
 import SearchSVG from 'Assets/icons/search.svg.js';
 import IconButton from 'Shared/Buttons/IconButton.jsx';
-import { Container, Top, Search, UserTotal } from './styles.js';
+import {
+    Container,
+    List,
+    Header,
+    OpenSearch,
+    UserTotal,
+    SearchBar,
+    SearchInput,
+} from './styles.js';
 
 /**
  * @props clickName (function) Clicking on a user name
  */
 
-export default function UserList(props) {
+export default function listRef(props) {
     /*================================================
         BLOCK: STATES
     ==================================================*/
 
+    // Redux
     const users = useSelector((state) => {
         return state['users'].users;
     });
@@ -25,13 +34,21 @@ export default function UserList(props) {
         return state['userTotal'].userTotal;
     });
 
+    // Hooks
+    const [searchOpen, setsearchOpen] = useState(false);
+    const searchRef = useRef();
+    const listRef = useRef();
+
     /*=================================================
         BLOCK: EVENTS
     ===================================================*/
 
     const onSearchButton = (e) => {
-        console.log('===> onSearchButton');
-        console.log('===> END - onSearchButton');
+        console.log(searchRef);
+        // !searchOpen ? searchRef.current.children[0].focus() : searchRef.current.children[0].blur();
+        console.log(listRef);
+        // !searchOpen ? (listRef.current.elStyles.marginTop = '-50px') : (listRef.current.elStyles.marginTop = '0');
+        setsearchOpen(!searchOpen);
     };
 
     /*=================================================
@@ -52,14 +69,19 @@ export default function UserList(props) {
 
     return (
         <Container>
-            <Top>
-                <Search>
+            <Header>
+                <OpenSearch>
                     <IconButton onClick={onSearchButton} icon={SearchSVG} />
-                </Search>
+                </OpenSearch>
                 Users
                 <UserTotal>{userTotal}</UserTotal>
-            </Top>
-            <SimpleBar style={SIMPLE_BAR_STYLES}>{renderUsers()}</SimpleBar>
+            </Header>
+            <SearchBar ref={searchRef} open={searchOpen}>
+                <SearchInput placeholder={'Search users'}></SearchInput>
+            </SearchBar>
+            <List ref={listRef}>
+                <SimpleBar style={SIMPLE_BAR_STYLES}>{renderUsers()}</SimpleBar>
+            </List>
         </Container>
     );
 }

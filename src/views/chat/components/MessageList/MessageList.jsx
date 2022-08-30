@@ -50,7 +50,7 @@ export default function MessageList(props) {
     ==================================================*/
 
     return (
-        <SimpleBar ref={messageList} style={SIMPLE_BAR_STYLES}>
+        <SimpleBar scrollableNodeProps={{ ref: messageList }} style={SIMPLE_BAR_STYLES}>
             {renderMessages()}
         </SimpleBar>
     );

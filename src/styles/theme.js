@@ -55,23 +55,6 @@ const theme = {
         link_hover: THEME_MEDIUM,
         error: THEME_ERROR,
     },
-    button: {
-        text: THEME_MONO_BLACK,
-        bg: THEME_DARK,
-        bg_hover: THEME_MEDIUM,
-    },
-    button_icon: {
-        text: THEME_MONO_DARK,
-        text_hover: THEME_MONO_LIGHT,
-        bg: 'none',
-        bg_hover: 'none',
-    },
-    button_menu: {
-        text: THEME_MONO_LIGHT,
-        text_hover: THEME_MONO_WHITE,
-        bg: 'none',
-        bg_hover: THEME_MONO_DARK,
-    },
     border: {
         black: THEME_MONO_BLACK,
         white: THEME_MONO_WHITE,
@@ -93,5 +76,30 @@ const theme = {
         main_8: '#323232',
         main_9: '#343434',
     },
+    button: {
+        text: THEME_MONO_BLACK,
+        bg: THEME_DARK,
+        bg_hover: THEME_MEDIUM,
+    },
+    button_icon: {
+        text: THEME_MONO_DARK,
+        text_hover: THEME_MONO_LIGHT,
+        bg: 'none',
+        bg_hover: 'none',
+    },
+    button_menu: {
+        text: THEME_MONO_LIGHT,
+        text_hover: THEME_MONO_WHITE,
+        bg: 'none',
+        bg_hover: THEME_MONO_DARK,
+    },
+    input: {
+        text: THEME_MONO_LIGHT,
+        outline: THEME_DARK,
+        bg: THEME_MONO_DARK,
+    },
+    // input_checkbox: {
+
+    // },
 };
 export default theme;

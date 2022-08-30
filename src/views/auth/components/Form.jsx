@@ -35,8 +35,8 @@ export default function Form(props) {
     ==================================================*/
 
     const validateInputs = (ref) => {
-        let name = ref.current[0].value;
-        let pass = ref.current[1].value;
+        const name = ref.current[0].value;
+        const pass = ref.current[1].value;
         let errorPassword = false;
         let errorName = false;
 

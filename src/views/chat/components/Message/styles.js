@@ -10,8 +10,8 @@ export const Container = styled.div`
 export const Div = styled.div`
     display: flex;
     flex-flow: row nowrap;
-    align-items: center;
     justify-content: flex-start;
+    align-items: center;
 
     white-space: nowrap;
     font-size: 0.9rem;

@@ -65,7 +65,9 @@ export default function PageChat(props) {
 
     useEffect(() => {
         console.log('---------- USE-EFFECT - MESSAGES - CHAT ----------');
-        dispatch(getMessages(1)); // 1 = channel id for lounge (default channel)
+        if (user.loggedIn) {
+            dispatch(getMessages(1)); // 1 = channel id for lounge (default channel)
+        }
     }, [dispatch]);
 
     /*================================================

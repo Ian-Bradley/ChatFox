@@ -79,7 +79,7 @@ WSS.broadcastToAll = (data) => {
     BLOCK: WEBSOCKET SERVER
 ==================================================*/
 
-WSS.on('connection', async (WSClient) => {
+WSS.on('connection', (WSClient) => {
     console.log('======= CLIENT CONNECTED =======');
 
     /*================================================
@@ -95,7 +95,7 @@ WSS.on('connection', async (WSClient) => {
                 /*================================================*/
                 // HANDLER: => userConnected
                 case 'userConnected': {
-                    console.log('======= START - MESSAGE - userConnected =======');
+                    // console.log('======= START - MESSAGE - userConnected =======');
                     // ==> Send connecting user websocket state data + messages for default channel (name=lounge, id=1)
                     const data = {
                         id: uuidv4(), // message id
@@ -104,7 +104,7 @@ WSS.on('connection', async (WSClient) => {
                         channels: WSState.state.channels,
                     };
                     WSS.broadcastToClient(JSON.stringify(data), WSClient);
-                    console.log('>>>>>>>>> MESSAGE SENT - Client - State Data >>>>>>>>>');
+                    // console.log('>>>>>>>>> MESSAGE SENT - Client - State Data >>>>>>>>>');
 
                     // ==> Send new user data to all other users
                     messageData.id = uuidv4();
@@ -112,8 +112,8 @@ WSS.on('connection', async (WSClient) => {
                     WSState.addUser(messageData.user);
                     // WSState.addLogItem(messageData.message);
                     WSS.broadcastToOthers(JSON.stringify(messageData), WSClient);
-                    console.log('>>>>>>>>> MESSAGE SENT - userConnected >>>>>>>>>');
-                    console.log('======= END MESSAGE - userConnected =======');
+                    // console.log('>>>>>>>>> MESSAGE SENT - userConnected >>>>>>>>>');
+                    // console.log('======= END MESSAGE - userConnected =======');
                     break;
                 }
                 /*================================================*/

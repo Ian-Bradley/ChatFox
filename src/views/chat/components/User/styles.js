@@ -1,14 +1,18 @@
 import styled from 'styled-components';
+import { sizes } from 'Styles/common.js';
 /*======================================*/
 /*======================================*/
 export const Container = styled.div`
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    align-items: center;
+
     width: 100%;
-    margin-bottom: 2px;
+    margin-bottom: ${sizes.spacing.lists};
 `;
 /*======================================*/
 /*======================================*/
-export const Name = styled.span`
-    font-weight: 700;
-`;
+export const Name = styled.span``;
 /*======================================*/
 /*======================================*/

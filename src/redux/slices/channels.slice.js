@@ -9,7 +9,6 @@ user {object}
     name: {string}
     active: {boolean}
     locked: {boolean}
-    locked: {boolean}
     password: {string}
     users: {array}
 */
