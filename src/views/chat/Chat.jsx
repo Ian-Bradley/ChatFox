@@ -86,17 +86,6 @@ export default function PageChat(props) {
         console.log('===> END - clickName');
     };
 
-    /*================================================*/
-    /*================================================*/
-
-    // FUNCTION: => clickChannel
-    const clickChannel = (data) => {
-        console.log('===> clickChannel');
-        console.log('data: ', data);
-        // TODO: channel clicking
-        console.log('===> END - clickChannel');
-    };
-
     /*================================================
         BLOCK: COMPONENTS
     ==================================================*/
@@ -106,7 +95,7 @@ export default function PageChat(props) {
             <Header />
             <Body>
                 <Sidebar>
-                    <ChannelList clickChannel={clickChannel} />
+                    <ChannelList />
                 </Sidebar>
                 <Chat>
                     <MessageList clickName={clickName} />

@@ -16,7 +16,7 @@ export default function App(props) {
                 <Router>
                     <Routes>
                         <Route path='/' element={<PageAuth />}></Route>
-                        <Route path='/room' element={<PageChat />}></Route>
+                        <Route path='/chat' element={<PageChat />}></Route>
                         <Route path='*' element={<PageError />}></Route>
                     </Routes>
                 </Router>

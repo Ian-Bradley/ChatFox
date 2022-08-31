@@ -3,9 +3,9 @@ import Button from './styles.js';
 import React from 'react';
 
 /**
- * @props icon (SVG Component)
- * @props data (String) Value to be placed in data-value attribute
- * @props size (String) px value to size icon
+ * @props icon {SVG Component} // required
+ * @props data {string} Value to be placed in data-value attribute // default empty string ''
+ * @props size {number} px value to size icon // default 20px
  */
 
 export default function IconButton(props) {
@@ -24,8 +24,8 @@ export default function IconButton(props) {
 }
 
 const StyledIconButton = styled(Button)`
-    width: ${props => props.size ? props.size : '20px'};
-    height: ${props => props.size ? props.size : '20px'};
+    width: ${props => props.size ? props.size+'px' : '20px'};
+    height: ${props => props.size ? props.size+'px' : '20px'};
 
     padding: 0;
 

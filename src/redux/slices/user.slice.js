@@ -53,5 +53,6 @@ let userSlice = createSlice({
         /*================================================*/
     },
 });
-export const { setName, setNickname, setColor, setLoggedIn, setChannel } = userSlice.actions;
+export const { setName, setNickname, setColor, setLoggedIn, setLoggedOut, setChannel } =
+    userSlice.actions;
 export default userSlice.reducer;

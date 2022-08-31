@@ -77,7 +77,6 @@ export default function SocketHandler(props) {
                         /*================================================*/
                         // HANDLER: => connectionReady (self)
                         case 'connectionReady': {
-                            console.log('======= START - MESSAGE - connectionReady =======');
 
                             // ==> Set channels
                             console.log('==> Set channels');
@@ -92,7 +91,6 @@ export default function SocketHandler(props) {
                                 dispatch(setUserTotal(updateData.users.length + 1)); // + 1 for current user
                             }
 
-                            console.log('======= END - MESSAGE - connectionReady =======');
                             break;
                         }
                         /*================================================*/
@@ -253,9 +251,7 @@ export default function SocketHandler(props) {
                         /*================================================*/
                         // HANDLER: => newMessage
                         case 'newMessage': {
-                            // console.log('======= START - MESSAGE - newMessage =======');
                             dispatch(addMessage(updateData.message));
-                            // console.log('======= END - MESSAGE - newMessage =======');
                             break;
                         }
                         /*================================================*/

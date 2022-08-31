@@ -2,11 +2,12 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 
 // COMPONENTS
-import Title from 'Shared/Title/Title.jsx';
-import LogoSrc from 'Assets/logos/logo_1a.png';
-import GearSVG from 'Assets/icons/gear.svg.js';
+import { Container, Brand, Logo, Nav, Name } from './styles.js';
 import MenuButton from 'Shared/Buttons/MenuButton.jsx';
-import { Container, Brand, Logo, Nav } from './styles.js';
+import GearSVG from 'Assets/icons/gear.svg.js';
+import LogoSrc from 'Assets/logos/logo_1a.png';
+import Menu from 'Shared/Dropdowns/Menu.jsx';
+import Title from 'Shared/Title/Title.jsx';
 
 /**
  * @props
@@ -42,7 +43,19 @@ export default function Header(props) {
                     <Title />
                 </Brand>
                 <Nav>
-                    <MenuButton onClick={onSettings} icon={GearSVG} text={user.name} rounded={4} />
+                    <Name></Name>
+                    <Menu icon={GearSVG}>
+                        <MenuButton
+                            onClick={onSettings}
+                            text={user.name}
+                            borderRadius={props.borderRadius}
+                        />
+                        <MenuButton
+                            onClick={onSettings}
+                            text={user.name}
+                            borderRadius={props.borderRadius}
+                        />
+                    </Menu>
                 </Nav>
             </Container>
         </>

@@ -2,32 +2,8 @@ import styled from 'styled-components';
 import { sizes, transition } from 'Styles/common.js';
 /*======================================*/
 /*======================================*/
-export const Container = styled.div`
-    position: relative;
-    
-    display: flex;
-    flex-flow: column nowrap;
-    align-items: center;
-    justify-content: center;
-
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-`;
-/*======================================*/
-/*======================================*/
-export const List = styled.div`
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-
-    margin-top: ${(props) => (props.margin ? props.margin : '0')};
-    transition: all linear ${transition.transform};
-`;
-/*======================================*/
-/*======================================*/
 export const Header = styled.div`
-    position: relative;
+    width: 100%;
     z-index: 20;
     font-family: 'Roboto', sans-serif;
 
@@ -38,7 +14,6 @@ export const Header = styled.div`
 
     background: ${({ theme }) => theme.bg.main_4};
     padding: ${sizes.spacing.app};
-    width: 100%;
 `;
 /*======================================*/
 /*======================================*/
@@ -63,9 +38,10 @@ export const SearchBar = styled.div`
     z-index: 10;
 
     width: 100%;
+    /* height: ${(props) => (props.open ? 0 : 'auto')}; */
     padding: ${sizes.spacing.app};
 
-    transition: transform linear ${transition.transform};
+    transition: all linear ${transition.transform};
     transform: translateY(${(props) => (props.open ? 0 : '-100%')});
 `;
 /*======================================*/
@@ -86,6 +62,16 @@ export const SearchInput = styled.input`
     line-height: 1rem;
     padding: 0.2rem 0.6rem;
     margin: 0;
+`;
+/*======================================*/
+/*======================================*/
+export const List = styled.div`
+    width: 100%;
+    height: 100%;
+
+    margin-top: -36px;
+    /* margin-top: ${(props) => (props.margin ? props.margin : '0')}; */
+    transition: all linear ${transition.transform};
 `;
 /*======================================*/
 /*======================================*/

@@ -9,11 +9,7 @@ import Channel from '../Channel/Channel.jsx';
 import PlusSVG from 'Assets/icons/plus.svg.js';
 import SearchSVG from 'Assets/icons/search.svg.js';
 import IconButton from 'Shared/Buttons/IconButton.jsx';
-import { Container, Header, List, OpenSearch, SearchBar, AddChannel, SearchInput } from './styles.js';
-
-/**
- * @props clickChannel (Function) Clicking on a chat channel
- */
+import { Header, List, OpenSearch, SearchBar, AddChannel, SearchInput } from './styles.js';
 
 export default function listRef(props) {
     /*================================================
@@ -26,19 +22,23 @@ export default function listRef(props) {
     });
 
     // Hooks
-    const [searchOpen, setsearchOpen] = useState(false);
-    const listRef = useRef();
-    const searchRef = useRef();
+    const [searchOpen, setSearchOpen] = useState(false);
     const socket = useSocket();
-    
+    const searchRef = useRef();
+    const listRef = useRef();
+
     /*=================================================
         BLOCK: EVENTS
     ===================================================*/
 
     const onSearchButton = (e) => {
+        // console.log(searchRef);
         !searchOpen ? searchRef.current.children[0].focus() : searchRef.current.children[0].blur();
-        !searchOpen ? listRef.current.style.marginTop = '0' : listRef.current.style.marginTop = '-36px';
-        setsearchOpen(!searchOpen);
+        // console.log(listRef);
+        !searchOpen
+            ? (listRef.current.style.marginTop = '0')
+            : (listRef.current.style.marginTop = '-36px');
+        setSearchOpen(!searchOpen);
     };
 
     /*================================================*/
@@ -66,7 +66,7 @@ export default function listRef(props) {
     const renderChannels = useCallback(() => {
         if (!(channels === undefined) && channels.length) {
             return [...Array(channels.length)].map((x, i) => (
-                <Channel key={i} channel={channels[i]} clickChannel={props.clickChannel} />
+                <Channel key={i} channel={channels[i]} />
             ));
         }
     });
@@ -76,7 +76,7 @@ export default function listRef(props) {
     ===================================================*/
 
     return (
-        <Container>
+        <>
             <Header>
                 <OpenSearch>
                     <IconButton onClick={onSearchButton} icon={SearchSVG} />
@@ -87,11 +87,11 @@ export default function listRef(props) {
                 </AddChannel>
             </Header>
             <SearchBar ref={searchRef} open={searchOpen}>
-                <SearchInput placeholder={'Search channels'} ref={searchRef}></SearchInput>
+                <SearchInput placeholder={'Search channels'}></SearchInput>
             </SearchBar>
             <List ref={listRef}>
                 <SimpleBar style={SIMPLE_BAR_STYLES}>{renderChannels()}</SimpleBar>
             </List>
-        </Container>
+        </>
     );
 }

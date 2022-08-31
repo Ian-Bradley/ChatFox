@@ -7,15 +7,7 @@ import User from '../User/User.jsx';
 import SimpleBar from 'simplebar-react';
 import SearchSVG from 'Assets/icons/search.svg.js';
 import IconButton from 'Shared/Buttons/IconButton.jsx';
-import {
-    Container,
-    List,
-    Header,
-    OpenSearch,
-    UserTotal,
-    SearchBar,
-    SearchInput,
-} from './styles.js';
+import { List, Header, OpenSearch, UserTotal, SearchBar, SearchInput } from './styles.js';
 
 /**
  * @props clickName (function) Clicking on a user name
@@ -35,7 +27,7 @@ export default function listRef(props) {
     });
 
     // Hooks
-    const [searchOpen, setsearchOpen] = useState(false);
+    const [searchOpen, setSearchOpen] = useState(false);
     const searchRef = useRef();
     const listRef = useRef();
 
@@ -48,8 +40,10 @@ export default function listRef(props) {
         // console.log(searchRef);
         !searchOpen ? searchRef.current.children[0].focus() : searchRef.current.children[0].blur();
         // console.log(listRef);
-        !searchOpen ? (listRef.current.style.marginTop = '0') : (listRef.current.style.marginTop = '-37px');
-        setsearchOpen(!searchOpen);
+        !searchOpen
+            ? (listRef.current.style.marginTop = '0')
+            : (listRef.current.style.marginTop = '-36px');
+        setSearchOpen(!searchOpen);
     };
 
     /*=================================================
@@ -69,7 +63,7 @@ export default function listRef(props) {
     ===================================================*/
 
     return (
-        <Container>
+        <>
             <Header>
                 <OpenSearch>
                     <IconButton onClick={onSearchButton} icon={SearchSVG} />
@@ -83,6 +77,6 @@ export default function listRef(props) {
             <List ref={listRef}>
                 <SimpleBar style={SIMPLE_BAR_STYLES}>{renderUsers()}</SimpleBar>
             </List>
-        </Container>
+        </>
     );
 }

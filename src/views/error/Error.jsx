@@ -19,7 +19,7 @@ export default function PageError(props) {
 
     // Events
     const onClickHome = (e) => {
-        user.loggedIn ? navigate('/room', { replace: true }) : navigate('/', { replace: true });
+        user.loggedIn ? navigate('/chat', { replace: true }) : navigate('/', { replace: true });
     };
 
     // Components

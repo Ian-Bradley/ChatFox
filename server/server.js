@@ -82,21 +82,26 @@ WSS.broadcastToAll = (data) => {
 WSS.on('connection', (WSClient) => {
     console.log('======= CLIENT CONNECTED =======');
 
+    // NOTE: testing
+    let disconnectData = '';
+
     /*================================================
         INNER: > HANDLERS
     ==================================================*/
 
     WSClient.on('message', async function incoming(data) {
         const messageData = JSON.parse(data);
-        console.log('>>>>>>>>> MESSAGE RECIEVED - '+ messageData.type +' >>>>>>>>>');
+        console.log('>>>>>>>>> MESSAGE RECIEVED - ' + messageData.type + ' >>>>>>>>>');
         try {
             switch (messageData.type) {
                 /*================================================*/
                 /*================================================*/
-                // HANDLER: => userConnected
+                // HANDLER: => userConnected (LOGIN)
                 case 'userConnected': {
-                    // console.log('======= START - MESSAGE - userConnected =======');
-                    // ==> Send connecting user websocket state data + messages for default channel (name=lounge, id=1)
+                    // NOTE: testing
+                    disconnectData = messageData.user.name;
+
+                    // ==> Send state data to user
                     const data = {
                         id: uuidv4(), // message id
                         type: 'connectionReady',
@@ -104,16 +109,18 @@ WSS.on('connection', (WSClient) => {
                         channels: WSState.state.channels,
                     };
                     WSS.broadcastToClient(JSON.stringify(data), WSClient);
-                    // console.log('>>>>>>>>> MESSAGE SENT - Client - State Data >>>>>>>>>');
 
                     // ==> Send new user data to all other users
                     messageData.id = uuidv4();
-                    // WSClientData.userID = messageData.user.id; // set id for disconnecting user removal
                     WSState.addUser(messageData.user);
                     // WSState.addLogItem(messageData.message);
                     WSS.broadcastToOthers(JSON.stringify(messageData), WSClient);
-                    // console.log('>>>>>>>>> MESSAGE SENT - userConnected >>>>>>>>>');
-                    // console.log('======= END MESSAGE - userConnected =======');
+                    break;
+                }
+                /*================================================*/
+                /*================================================*/
+                // HANDLER: => userDisconnected (LOGOUT)
+                case 'userDisconnected': {
                     break;
                 }
                 /*================================================*/
@@ -123,6 +130,7 @@ WSS.on('connection', (WSClient) => {
                     console.log('======= START - MESSAGE - updateUserName =======');
                     messageData.id = uuidv4();
                     // TODO: QUERY
+                    // await
                     WSState.setUserName(messageData.user, messageData.newName);
                     // WSState.addLogItem(messageData.message);
                     WSS.broadcastToAll(JSON.stringify(messageData));
@@ -280,13 +288,9 @@ WSS.on('connection', (WSClient) => {
                 /*================================================*/
                 // HANDLER: => newMessage
                 case 'newMessage': {
-                    // console.log('======= START - MESSAGE - newMessage =======');
                     messageData.id = uuidv4();
                     // TODO: QUERY -  addMessage
                     WSS.broadcastToAll(JSON.stringify(messageData));
-                    // console.log('>>>>>>>>> MESSAGE SENT - newMessage >>>>>>>>>');
-                    // console.log('======= END - MESSAGE - newMessage =======');
-
                     break;
                 }
                 /*================================================*/
@@ -305,35 +309,31 @@ WSS.on('connection', (WSClient) => {
     WSClient.on('close', (WSClient) => {
         console.log('======= START - Client Disonnected =======');
 
-        // console.log(
-        //     'find user: ',
-        //     WSState.state.users.find((user) => (user.id = WSClientData.userID))
-        // );
+        console.log(WSState.state.users.find((user) => (user.name = disconnectData)));
 
-        // Disconnect message
-        // TODO: error when refreshing?
+        // ==> Log message
         // let disconnectMessage = {
         //     type: 'notification-disconnect',
-        //     name: WSState.state.users.find((user) => (user.id = WSClientData.userID)).name,
+        //     name: disconnectData,
         //     time: new Date().toGMTString(),
-        //     color: WSState.state.users.find((user) => (user.id = WSClientData.userID)).color,
         // };
         // console.log('disconnectMessage: ', disconnectMessage);
         // WSState.addMessage(disconnectMessage);
 
-        // Disconnect data for other users
-        // const messageData = {
-        //     id: uuidv4(), // message id
-        //     type: 'userDisconnected',
-        //     userID: WSClientData.userID, // user removal id
-        //     message: disconnectMessage,
-        // };
-        // console.log('messageData: ', messageData);
-        // WSS.broadcastToOthers(JSON.stringify(messageData), WSClient);
+        // ==> Remove user
+        WSState.removeUser(disconnectData);
+
+        // ==> Update other clients
+        const messageData = {
+            id: uuidv4(),
+            type: 'userDisconnected',
+            name: disconnectData,
+            // message: disconnectMessage,
+        };
+        console.log('messageData: ', messageData);
+        WSS.broadcastToOthers(JSON.stringify(messageData), WSClient);
         console.log('>>>>>>>>> MESSAGE SENT - userDisconnected >>>>>>>>>');
 
-        // Remove user
-        // WSState.removeUser(WSClientData.userID);
 
         console.log('======= END - Client Disonnected =======');
     });

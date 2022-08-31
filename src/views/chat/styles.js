@@ -10,7 +10,6 @@ export const Body = styled.div`
 
     width: 100%;
     height: 100%;
-    overflow: hidden;
 `;
 /*======================================*/
 /*======================================*/
@@ -22,15 +21,22 @@ export const Chat = styled.div`
 
     width: 100%;
     height: 100%;
-    overflow: hidden;
 `;
 /*======================================*/
 /*======================================*/
 export const Sidebar = styled.div`
+    position: relative;
+    overflow: hidden;
+
     width: ${sizes.width.sidebar};
     height: 100%;
 
     background: ${({ theme }) => theme.bg.main_2};
+
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: center;
 `;
 /*======================================*/
 /*======================================*/

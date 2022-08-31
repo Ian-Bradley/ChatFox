@@ -8,7 +8,6 @@ import { Container, Name } from './styles.js';
     active: (Boolean)
     locked: (Boolean)
     password: (String)
- * @props clickChannel (Function) Clicking on a chat channel
  */
 
 export default function Channel(props) {
@@ -18,7 +17,7 @@ export default function Channel(props) {
 
     const onClickChannel = (e) => {
         console.log('===> onClickChannel');
-        props.clickChannel(e);
+
         console.log('===> END - onClickChannel');
     };
 

@@ -50,7 +50,7 @@ export default function PageAuth(props) {
     useEffect(() => {
         // TODO: cookies || localstorage w/ redux-persist
         if (user.loggedIn) {
-            MODE_DEV ? navigate('/room', { replace: false }) : navigate('/room', { replace: true });
+            MODE_DEV ? navigate('/chat', { replace: false }) : navigate('/chat', { replace: true });
         }
     }, [user.loggedIn]);
 
@@ -84,8 +84,6 @@ export default function PageAuth(props) {
             }
 
             // ==> Initiate
-            // > get app data (messages/users/channels) from socket
-            //      > recieved in socket hook in App
             dispatch(setSocketOpen());
             let userConnection = {
                 type: 'userConnected',
@@ -96,7 +94,7 @@ export default function PageAuth(props) {
                 },
             };
             socket.send(JSON.stringify(userConnection));
-            console.log('>>>>>>>>> MESSAGE SENT - userConnected >>>>>>>>>');
+            // console.log('>>>>>>>>> MESSAGE SENT - userConnected >>>>>>>>>');
             
             // ==> Navigate
             navigate('/room', { replace: true });

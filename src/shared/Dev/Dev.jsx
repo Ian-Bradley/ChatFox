@@ -8,9 +8,9 @@ import Draggable from 'Shared/draggable/draggable.jsx';
 
 // REDUX
 import { toggleTimestamps, toggle24HourTime } from 'Redux/slices/prefs.slice.js';
+import { setLoggedIn, setLoggedOut } from 'Redux/slices/user.slice.js';
 import { incrementUserTotal } from 'Redux/slices/userTotal.slice.js';
 import { addChannel } from 'Redux/slices/channels.slice.js';
-import { setLoggedIn } from 'Redux/slices/user.slice.js';
 import { addUser } from 'Redux/slices/users.slice.js';
 
 // UTILS
@@ -132,7 +132,7 @@ export default function Dev(props) {
     };
 
     const toggleLogin = () => {
-        user.loggedIn ? dispatch(setLoggedIn(false)) : dispatch(setLoggedIn(true));
+        user.loggedIn ? dispatch(setLoggedOut()) : dispatch(setLoggedIn());
     };
 
     const randomColor = () => {
@@ -170,7 +170,7 @@ export default function Dev(props) {
     ==================================================*/
 
     return (
-        <Draggable initial={{ top: 'calc(100vh - 372px)', left: '0' }}>
+        <Draggable initial={{ top: 'calc(100vh - 387px)', left: '15px' }}>
             <Container>
                 <Info>
                     <List>
