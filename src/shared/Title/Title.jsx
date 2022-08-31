@@ -1,4 +1,4 @@
-import { sizes, FLEX_CENTER_ROW } from 'Styles/common.js';
+import { sizes } from 'Styles/common.js';
 import styled from 'styled-components';
 import React from 'react';
 
@@ -18,7 +18,11 @@ export default function Title(props) {
 
 const Container = styled.div`
     padding: ${sizes.spacing.app};
-    ${FLEX_CENTER_ROW}
+
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
 `;
 
 const H1 = styled.h1`

@@ -1,5 +1,5 @@
 /*======================================
-    BLOCK: GENERAL SIZING
+    BLOCK: SIZING
 ========================================*/
 
 export const sizes = {
@@ -44,23 +44,3 @@ export const SIMPLE_BAR_STYLES = {
     height: '100%',
     overflowX: 'hidden',
 };
-
-export const FLEX_CENTER_COL = `
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: center;
-    align-items: center;
-`;
-
-export const FLEX_CENTER_ROW = `
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: center;
-    align-items: center;
-`;
-
-export const USE_FULL_AREA = `
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-`;

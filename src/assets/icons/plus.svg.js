@@ -9,8 +9,8 @@ export default function PlusSVG(props) {
                     fill='none'
                     stroke='currentColor'
                     strokeLinecap='square'
-                    strokeLinejoin='round'
-                    strokeWidth='32'
+                    strokeLinejoin='10'
+                    strokeWidth='48'
                     d='M256 112v288M400 256H112'
                 />
             </SVG>

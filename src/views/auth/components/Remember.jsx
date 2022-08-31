@@ -1,4 +1,4 @@
-import { sizes, FLEX_CENTER_ROW } from 'Styles/common.js';
+import { sizes } from 'Styles/common.js';
 import styled from 'styled-components';
 import React from 'react';
 
@@ -19,7 +19,11 @@ export default function Remember(props) {
 
 const Container = styled.div`
     margin-top: 20px;
-    ${FLEX_CENTER_ROW}
+    
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
 `;
 
 const Checbox = styled.input``;

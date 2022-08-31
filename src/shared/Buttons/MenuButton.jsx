@@ -1,4 +1,4 @@
-import { sizes, FLEX_CENTER_ROW } from 'Styles/common.js';
+import { sizes } from 'Styles/common.js';
 import styled from 'styled-components';
 import Button from './styles.js';
 import React from 'react';
@@ -33,7 +33,10 @@ const StyledMenuButton = styled(Button)`
     padding: ${sizes.spacing.app};
     border-radius: ${(props) => props.rounded ? props.rounded : 0}px;
 
-    ${FLEX_CENTER_ROW}
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
 
     color: ${({ theme }) => theme.button_menu.text};
     background: ${({ theme }) => theme.button_menu.bg};

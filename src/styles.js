@@ -7,7 +7,10 @@ export const ContainerApp = styled.div`
     flex-flow: column nowrap;
     align-items: center;
     justify-content: center;
-    ${USE_FULL_AREA}
+    
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
 `;
 /*======================================*/
 /*======================================*/

@@ -35,9 +35,13 @@ let userSlice = createSlice({
         },
         /*================================================*/
         /*================================================*/
-        setLoggedIn: function (state, action) {
-            // action.payload = logged in status {boolean}
-            state.user.loggedIn = action.payload;
+        setLoggedIn: function (state) {
+            state.user.loggedIn = true;
+        },
+        /*================================================*/
+        /*================================================*/
+        setLoggedOut: function (state) {
+            state.user.loggedIn = false;
         },
         /*================================================*/
         /*================================================*/

@@ -1,4 +1,3 @@
-import { FLEX_CENTER_COL } from 'Styles/common.js';
 import styled from 'styled-components';
 import React from 'react';
 
@@ -18,8 +17,12 @@ export default function Swapper(props) {
 }
 
 const Container = styled.div`
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+
     margin-top: 20px;
-    ${FLEX_CENTER_COL}
 
     color: ${({ theme }) => theme.text.link};
     &:hover {

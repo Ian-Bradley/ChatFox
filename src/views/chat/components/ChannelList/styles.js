@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { sizes, transition, USE_FULL_AREA } from 'Styles/common.js';
+import { sizes, transition } from 'Styles/common.js';
 /*======================================*/
 /*======================================*/
 export const Container = styled.div`
@@ -10,12 +10,19 @@ export const Container = styled.div`
     align-items: center;
     justify-content: center;
 
-    ${USE_FULL_AREA}
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
 `;
 /*======================================*/
 /*======================================*/
 export const List = styled.div`
-    ${USE_FULL_AREA}
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+
+    margin-top: -36px;
+    transition: all linear ${transition.transform};
 `;
 /*======================================*/
 /*======================================*/

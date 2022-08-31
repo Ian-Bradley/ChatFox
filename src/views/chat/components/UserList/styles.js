@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { sizes, transition, USE_FULL_AREA } from 'Styles/common.js';
+import { sizes, transition } from 'Styles/common.js';
 /*======================================*/
 /*======================================*/
 export const Container = styled.div`
@@ -10,12 +10,19 @@ export const Container = styled.div`
     align-items: center;
     justify-content: center;
 
-    ${USE_FULL_AREA}
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
 `;
 /*======================================*/
 /*======================================*/
 export const List = styled.div`
-    ${USE_FULL_AREA}
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+
+    margin-top: ${(props) => (props.margin ? props.margin : '0')};
+    transition: all linear ${transition.transform};
 `;
 /*======================================*/
 /*======================================*/
@@ -75,7 +82,6 @@ export const SearchInput = styled.input`
     &:focus {
         border: 1px solid ${({ theme }) => theme.input.outline};
     }
-
 
     line-height: 1rem;
     padding: 0.2rem 0.6rem;

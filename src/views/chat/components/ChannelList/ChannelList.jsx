@@ -36,10 +36,8 @@ export default function listRef(props) {
     ===================================================*/
 
     const onSearchButton = (e) => {
-        console.log(searchRef);
         !searchOpen ? searchRef.current.children[0].focus() : searchRef.current.children[0].blur();
-        console.log(listRef);
-        !searchOpen ? (listRef.current.elStyles.marginTop = '-50px') : (listRef.current.elStyles.marginTop = '0');
+        !searchOpen ? listRef.current.style.marginTop = '0' : listRef.current.style.marginTop = '-36px';
         setsearchOpen(!searchOpen);
     };
 

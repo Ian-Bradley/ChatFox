@@ -44,10 +44,11 @@ export default function listRef(props) {
     ===================================================*/
 
     const onSearchButton = (e) => {
-        console.log(searchRef);
-        // !searchOpen ? searchRef.current.children[0].focus() : searchRef.current.children[0].blur();
-        console.log(listRef);
-        // !searchOpen ? (listRef.current.elStyles.marginTop = '-50px') : (listRef.current.elStyles.marginTop = '0');
+        // TODO: refine to use ref height (offsetheight or clientheight) instead of -37px
+        // console.log(searchRef);
+        !searchOpen ? searchRef.current.children[0].focus() : searchRef.current.children[0].blur();
+        // console.log(listRef);
+        !searchOpen ? (listRef.current.style.marginTop = '0') : (listRef.current.style.marginTop = '-37px');
         setsearchOpen(!searchOpen);
     };
 

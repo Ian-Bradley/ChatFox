@@ -1,4 +1,3 @@
-import { FLEX_CENTER_ROW } from 'Styles/common.js';
 import styled from 'styled-components';
 import Button from './styles.js';
 import React from 'react';
@@ -29,7 +28,11 @@ const StyledIconButton = styled(Button)`
     height: ${props => props.size ? props.size : '20px'};
 
     padding: 0;
-    ${FLEX_CENTER_ROW}
+
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
 
     color: ${({ theme }) => theme.button_icon.text};
     background: ${({ theme }) => theme.button_icon.bg};

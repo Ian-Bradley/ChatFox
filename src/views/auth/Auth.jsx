@@ -74,7 +74,7 @@ export default function PageAuth(props) {
             // ==> User
             dispatch(setName(data.name));
             // dispatch(setName(results.data.name));
-            dispatch(setLoggedIn(true));
+            dispatch(setLoggedIn());
 
             // ==> Storage
             // console.log('isChecked: ', isChecked);

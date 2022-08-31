@@ -1,4 +1,4 @@
-import { sizes, transition, FLEX_CENTER_COL, FLEX_CENTER_ROW } from 'Styles/common.js';
+import { sizes, transition } from 'Styles/common.js';
 import styled from 'styled-components';
 import React from 'react';
 
@@ -40,10 +40,18 @@ const Container = styled.div`
 
 const ContainerLeft = styled(Container)`
     left: ${sizes.spacing.app};
-    ${FLEX_CENTER_COL}
+    
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
 `;
 
 const ContainerRight = styled(Container)`
     right: ${sizes.spacing.app};
-    ${FLEX_CENTER_ROW}
+    
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
 `;

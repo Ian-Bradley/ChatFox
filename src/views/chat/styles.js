@@ -1,4 +1,4 @@
-import { sizes, USE_FULL_AREA } from 'Styles/common.js';
+import { sizes } from 'Styles/common.js';
 import styled from 'styled-components';
 /*======================================*/
 /*======================================*/
@@ -7,7 +7,10 @@ export const Body = styled.div`
     flex-flow: row nowrap;
     align-items: flex-start;
     justify-content: flex-start;
-    ${USE_FULL_AREA}
+
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
 `;
 /*======================================*/
 /*======================================*/
@@ -16,7 +19,10 @@ export const Chat = styled.div`
     flex-flow: column nowrap;
     align-items: flex-start;
     justify-content: flex-start;
-    ${USE_FULL_AREA}
+
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
 `;
 /*======================================*/
 /*======================================*/
