@@ -36,12 +36,20 @@ let userSlice = createSlice({
         /*================================================*/
         /*================================================*/
         setLoggedIn: function (state) {
+            state.user.channel = 1;
             state.user.loggedIn = true;
+            if (!state.user.color) {
+                state.user.color = generateRandomColor();
+            }
         },
         /*================================================*/
         /*================================================*/
         setLoggedOut: function (state) {
+            state.user.name = '';
+            state.user.nickname = '';
+            state.user.color = '';
             state.user.loggedIn = false;
+            state.user.channel = '';
         },
         /*================================================*/
         /*================================================*/

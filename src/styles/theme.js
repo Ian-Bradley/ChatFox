@@ -37,6 +37,16 @@ const THEME_LIGHT = '#c6a9e1';
 
 const THEME_ERROR = '#ff3333';
 
+const MATERIAL_1 = '#121212';
+const MATERIAL_2 = '#1D1D1D';
+const MATERIAL_3 = '#212121';
+const MATERIAL_4 = '#242424';
+const MATERIAL_5 = '#272727';
+const MATERIAL_6 = '#2C2C2C';
+const MATERIAL_7 = '#2D2D2D';
+const MATERIAL_8 = '#323232';
+const MATERIAL_9 = '#343434';
+
 // material: 'rgba(255,255,255, .87)',
 // material_dark: 'rgba(255,255,255, .60)',
 // material_disabled: 'rgba(255,255,255, .38)',
@@ -66,15 +76,15 @@ const theme = {
     bg: {
         error: THEME_ERROR,
         highlight: THEME_DARK,
-        main_1: '#121212',
-        main_2: '#1D1D1D',
-        main_3: '#212121',
-        main_4: '#242424',
-        main_5: '#272727',
-        main_6: '#2C2C2C',
-        main_7: '#2D2D2D',
-        main_8: '#323232',
-        main_9: '#343434',
+        main_1: MATERIAL_1,
+        main_2: MATERIAL_2,
+        main_3: MATERIAL_3,
+        main_4: MATERIAL_4,
+        main_5: MATERIAL_5,
+        main_6: MATERIAL_6,
+        main_7: MATERIAL_7,
+        main_8: MATERIAL_8,
+        main_9: MATERIAL_9,
     },
     button: {
         text: THEME_MONO_BLACK,
@@ -87,10 +97,10 @@ const theme = {
         bg: 'none',
         bg_hover: 'none',
     },
-    button_menu: {
+    menu: {
         text: THEME_MONO_LIGHT,
         text_hover: THEME_MONO_WHITE,
-        bg: 'none',
+        bg: MATERIAL_6,
         bg_hover: THEME_MONO_DARK,
     },
     input: {

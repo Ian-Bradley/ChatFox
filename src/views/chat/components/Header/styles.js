@@ -39,6 +39,11 @@ export const Logo = styled.img`
 /*======================================*/
 /*======================================*/
 export const Nav = styled.nav`
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+
     padding: 0;
     margin: 0;
 `;
@@ -48,6 +53,9 @@ export const Name = styled.nav`
     font-family: 'Roboto', sans-serif;
     font-size: 0.8rem;
     font-weight: 300;
+
+    white-space: nowrap;
+    margin-right:  ${sizes.spacing.app};
 `;
 /*======================================*/
 /*======================================*/

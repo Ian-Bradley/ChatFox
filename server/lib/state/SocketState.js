@@ -1,21 +1,21 @@
-const usersModule = require('./modules/users.module.js');
 const channelsModule = require('./modules/channels.module.js');
+const usersModule = require('./modules/users.module.js');
+const dbQuery = require('../db/root.query');
 
 module.exports = class StateTracker {
     constructor() {
-
         this.state = {
             users: [],
             channels: [],
         };
 
         // Init
-        this.initData = this.initData.bind(this);
+        this.initializeData = this.initializeData.bind(this);
 
         // Users
         this.addUser = usersModule.addUser.bind(this);
         this.removeUser = usersModule.removeUser.bind(this);
-        
+
         this.setUserName = usersModule.setUserName.bind(this);
         this.setUserNickname = usersModule.setUserNickname.bind(this);
         this.setUserColor = usersModule.setUserColor.bind(this);
@@ -33,8 +33,13 @@ module.exports = class StateTracker {
         this.addUserToChannel = channelsModule.addUserToChannel.bind(this);
         this.removeUserFromChannel = channelsModule.removeUserFromChannel.bind(this);
     }
-    
-    initData() {
-        // ==> db
+
+    async initializeData() {
+        try {
+            // this.state.users = await dbQuery.users.getUsers(); // Users must log in
+            this.state.channels = await dbQuery.channels.getChannels();
+        } catch (err) {
+            console.error(err);
+        }
     }
 };

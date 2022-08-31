@@ -4,10 +4,9 @@ import Button from './styles.js';
 import React from 'react';
 
 /**
- * @props icon (SVG Component)
- * @props text (String) Text to be displayed on button
- * @props rounded (Number) Value for border-radius
- * @props data (String) Value to be placed in data-value attribute
+ * @props icon {SVG Component}
+ * @props text {string} Text to be displayed on button // required
+ * @props data {string} Value to be placed in data-value attribute
  */
 
 export default function MenuButton(props) {
@@ -18,7 +17,6 @@ export default function MenuButton(props) {
                 onClick={props.onClick}
                 data-value={props.data ? props.data : ''}
                 icon={props.icon ? true : false}
-                rounded={props.rounded}
             >
                 {props.icon ? props.icon() : ''}{props.text}
             </StyledMenuButton>
@@ -27,27 +25,28 @@ export default function MenuButton(props) {
 }
 
 const StyledMenuButton = styled(Button)`
-    font-size: 1.2rem;
-    font-weight: 500;
+    font-size: 1rem;
+    font-weight: 400;
 
     padding: ${sizes.spacing.app};
-    border-radius: ${(props) => props.rounded ? props.rounded : 0}px;
+    width: 100%;
 
     display: flex;
     flex-flow: row nowrap;
-    justify-content: center;
-    align-items: center;
+    justify-content: flex-start;
+    align-items: flex-start;
 
-    color: ${({ theme }) => theme.button_menu.text};
-    background: ${({ theme }) => theme.button_menu.bg};
+    color: ${({ theme }) => theme.menu.text};
+    background: ${({ theme }) => theme.menu.bg};
 
     &:hover {
-        color: ${({ theme }) => theme.button_menu.text_hover};
-        background: ${({ theme }) => theme.button_menu.bg_hover};
+        color: ${({ theme }) => theme.menu.text_hover};
+        background: ${({ theme }) => theme.menu.bg_hover};
     }
 
     & :first-child {
         margin-right: ${(props) => props.icon ? '5px' : 0};
         height: ${(props) => props.icon ? '1.2rem' : 0};
+        width: auto;
     }
 `;

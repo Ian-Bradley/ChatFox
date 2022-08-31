@@ -1,13 +1,18 @@
+import { useSelector, useDispatch } from 'react-redux';
 import React from 'react';
-import { useSelector } from 'react-redux';
 
 // COMPONENTS
 import { Container, Brand, Logo, Nav, Name } from './styles.js';
 import MenuButton from 'Shared/Buttons/MenuButton.jsx';
+import UserSVG from 'Assets/icons/user-circle.svg.js';
+import LogoutSVG from 'Assets/icons/logout.svg.js';
 import GearSVG from 'Assets/icons/gear.svg.js';
 import LogoSrc from 'Assets/logos/logo_1a.png';
 import Menu from 'Shared/Dropdowns/Menu.jsx';
 import Title from 'Shared/Title/Title.jsx';
+
+// REDUX
+import { setLoggedOut } from 'Redux/slices/user.slice.js';
 
 /**
  * @props
@@ -18,6 +23,7 @@ export default function Header(props) {
         BLOCK: STATES
     ==================================================*/
 
+    const dispatch = useDispatch();
     const user = useSelector((state) => {
         return state['user'].user;
     });
@@ -26,9 +32,22 @@ export default function Header(props) {
         BLOCK: EVENTS
     ==================================================*/
 
-    const onSettings = () => {
-        console.log('===> onSettings');
-        console.log('===> END - onSettings');
+    const onLogout = () => {
+        console.log('===> onLogout');
+        dispatch(setLoggedOut());
+        // TODO: logout
+        // ==> erase persited user data
+        console.log('===> END - onLogout');
+    };
+
+    /*================================================*/
+    /*================================================*/
+
+    const onPreferences = () => {
+        console.log('===> onPreferences');
+        // TODO: preferences menu
+        // ==> open modal
+        console.log('===> END - onPreferences');
     };
 
     /*================================================
@@ -43,18 +62,10 @@ export default function Header(props) {
                     <Title />
                 </Brand>
                 <Nav>
-                    <Name></Name>
-                    <Menu icon={GearSVG}>
-                        <MenuButton
-                            onClick={onSettings}
-                            text={user.name}
-                            borderRadius={props.borderRadius}
-                        />
-                        <MenuButton
-                            onClick={onSettings}
-                            text={user.name}
-                            borderRadius={props.borderRadius}
-                        />
+                    <Name>{user.name}</Name>
+                    <Menu icon={UserSVG}>
+                        <MenuButton onClick={onLogout} icon={LogoutSVG} text={'Logout'} />
+                        <MenuButton onClick={onPreferences} icon={GearSVG} text={'Preferences'} />
                     </Menu>
                 </Nav>
             </Container>

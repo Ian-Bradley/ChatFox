@@ -19,7 +19,7 @@ const channelsAPI = require('./lib/api/channels.api.js');
 const messagesAPI = require('./lib/api/messages.api.js');
 
 // ==> Routes
-// const routes = require('./lib/routes/routes.js');
+const routes = require('./lib/routes/routes.js');
 
 // ==> Initiating express server
 const server = express()
@@ -31,7 +31,7 @@ const server = express()
     .use('/api/users', usersAPI)
     .use('/api/channels', channelsAPI)
     .use('/api/messages', messagesAPI)
-    // .use('/', routes)
+    .use('/', routes)
     .listen(config.server.port, config.server.ip, config.server.domain, () => {
         console.log(`Listening on ${config.server.domain}:${config.server.port}`);
     });
@@ -42,6 +42,7 @@ const WSS = new SocketServer.Server({ server });
 
 const SocketState = require('./lib/state/SocketState.js');
 const WSState = new SocketState();
+WSState.initializeData();
 
 /*================================================
     BLOCK: BROADCAST FUNCTIONS
@@ -83,6 +84,9 @@ WSS.on('connection', (WSClient) => {
     console.log('======= CLIENT CONNECTED =======');
 
     // NOTE: testing
+    // console.log(WSClient);
+
+    // NOTE: testing
     let disconnectData = '';
 
     /*================================================
@@ -121,6 +125,28 @@ WSS.on('connection', (WSClient) => {
                 /*================================================*/
                 // HANDLER: => userDisconnected (LOGOUT)
                 case 'userDisconnected': {
+                    // ==> Log message
+                    // let disconnectMessage = {
+                    //     type: 'notification-disconnect',
+                    //     name: disconnectData,
+                    //     time: new Date().toGMTString(),
+                    // };
+                    // console.log('disconnectMessage: ', disconnectMessage);
+                    // WSState.addMessage(disconnectMessage);
+
+                    // ==> Remove user
+                    WSState.removeUser(disconnectData);
+
+                    // ==> Update other clients
+                    const messageData = {
+                        id: uuidv4(),
+                        type: 'userDisconnected',
+                        name: disconnectData,
+                        // message: disconnectMessage,
+                    };
+                    console.log('messageData: ', messageData);
+                    WSS.broadcastToOthers(JSON.stringify(messageData), WSClient);
+                    console.log('>>>>>>>>> MESSAGE SENT - userDisconnected >>>>>>>>>');
                     break;
                 }
                 /*================================================*/
@@ -333,7 +359,6 @@ WSS.on('connection', (WSClient) => {
         console.log('messageData: ', messageData);
         WSS.broadcastToOthers(JSON.stringify(messageData), WSClient);
         console.log('>>>>>>>>> MESSAGE SENT - userDisconnected >>>>>>>>>');
-
 
         console.log('======= END - Client Disonnected =======');
     });
