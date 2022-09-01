@@ -1,4 +1,3 @@
-import { setCookie, getCookie } from 'Util/helpers/functions.js';
 import React, { useState, useRef, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSocket } from 'Util/api/websocket.js';
@@ -18,6 +17,7 @@ import { setName, setLoggedIn } from 'Redux/slices/user.slice.js';
 import { setSocketOpen } from 'Redux/slices/socket.slice.js';
 
 // UTIL
+import { setCookie, getCookie, deleteCookie } from 'Util/helpers/functions.js';
 import { MODE_DEV } from 'Util/helpers/constants.js';
 import api from 'Util/api/axios.js';
 
@@ -49,7 +49,7 @@ export default function PageAuth(props) {
     ==================================================*/
 
     useEffect(() => {
-        // TODO: cookies || localstorage w/ redux-persist
+        // TODO: may not need, WS + cookies + JWT should hit loggin, maybe still need?
         if (user.loggedIn) {
             MODE_DEV ? navigate('/chat', { replace: false }) : navigate('/chat', { replace: true });
         }
@@ -61,7 +61,6 @@ export default function PageAuth(props) {
 
     // EVENT: => onSubmit
     const onSubmit = async (formRef) => {
-        // console.log('===> START - onSubmit');
         try {
             // ==> Query
             const url = formType + '/';
@@ -75,16 +74,16 @@ export default function PageAuth(props) {
             // ==> Log In - Redux
             dispatch(setLoggedIn(data.name));
 
-            // ==> Storage
-            console.log('isChecked: ', isChecked);
-            if (isChecked && results.data.token) {
-                // TODO: set or remove JWT
+            // ==> Session
+            if (isChecked) {
                 setCookie('sessionid', results.data.token, 3);
+            } else if (getCookie('sessionid')) {
+                deleteCookie('sessionid');
             }
 
             // ==> Initiate
             dispatch(setSocketOpen());
-            let userConnection = {
+            const userConnection = {
                 type: 'userConnected',
                 user: {
                     name: data.name,
@@ -93,11 +92,9 @@ export default function PageAuth(props) {
                 },
             };
             socket.send(JSON.stringify(userConnection));
-            // console.log('>>>>>>>>> MESSAGE SENT - userConnected >>>>>>>>>');
 
             // ==> Navigate
             navigate('/room', { replace: true });
-            // console.log('===> END - onSubmit');
         } catch (error) {
             console.error(error);
 
@@ -121,7 +118,6 @@ export default function PageAuth(props) {
                 setAccountError('Invalid password');
             }
 
-            // console.log('===> END - onSubmit - async error');
             return [error.severity + ': ' + error.routine];
         }
     };

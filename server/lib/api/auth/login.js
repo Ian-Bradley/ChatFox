@@ -1,6 +1,5 @@
 const dbQuery = require('../../db/root.query.js');
-const config = require('../../../config.env.js');
-const jwt = require('jsonwebtoken');
+const Util = require('../../util/util.js');
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const router = express.Router();
@@ -29,14 +28,7 @@ router.post('/', async function (req, res) {
             const validPassword = await bcrypt.compare(password, user[0].password);
             if (validPassword) {
                 // ==> JWT for authentication
-                const token = jwt.sign(
-                    { user_id: user[0].id, user_name: user[0].name },
-                    config.jwt.key_private,
-                    {
-                        algorithm: config.jwt.alg,
-                        expiresIn: config.jwt.expire,
-                    }
-                );
+                const token = Util.createAuthToken(user[0].id);
 
                 // ==> END
                 res.status(200).json({

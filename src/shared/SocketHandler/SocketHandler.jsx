@@ -109,7 +109,7 @@ export default function SocketHandler(props) {
                         // HANDLER: => userDisconnected (other)
                         case 'userDisconnected': {
                             console.log('======= START - MESSAGE - userDisconnected =======');
-                            dispatch(removeUser(updateData.name));
+                            dispatch(removeUser(updateData.userID));
                             dispatch(decrementUserTotal());
                             // dispatch(addLogItem(updateData.message));
                             console.log('======= END - MESSAGE - userDisconnected =======');
@@ -120,10 +120,10 @@ export default function SocketHandler(props) {
                         // HANDLER: => updateUserName
                         case 'updateUserName': {
                             console.log('======= START - MESSAGE - updateUserName =======');
-                            if (updateData.name === user.name) {
-                                dispatch(setName(updateData.newName));
+                            if (updateData.userID === user.id) {
+                                dispatch(setName(updateData.name));
                             } else {
-                                dispatch(setUserName({ name: updateData.name, newName: updateData.newName }));
+                                dispatch(setUserName({ id: updateData.userID, name: updateData.name }));
                             }
                             // dispatch(addLogItem(updateData.message));
                             console.log('======= END - MESSAGE - updateUserName =======');
@@ -134,10 +134,10 @@ export default function SocketHandler(props) {
                         // HANDLER: => updateUserNickame
                         case 'updateUserNickame': {
                             console.log('======= START - MESSAGE - updateUserNickname =======');
-                            if (updateData.name === user.name) {
-                                dispatch(setNickname(updateData.newNickname));
+                            if (updateData.userID === user.id) {
+                                dispatch(setNickname(updateData.nickname));
                             } else {
-                                dispatch( setUserNickname({name: updateData.name, nickname: updateData.newNickname}));
+                                dispatch( setUserNickname({id: updateData.userID, nickname: updateData.nickname}));
                             }
                             // dispatch(addLogItem(updateData.message));
                             console.log('======= END - MESSAGE - updateUserNickname =======');
@@ -148,10 +148,10 @@ export default function SocketHandler(props) {
                         // HANDLER: => updateUserColor
                         case 'updateUserColor': {
                             console.log('======= START - MESSAGE - updateUserColor =======');
-                            if (updateData.name === user.name) {
-                                dispatch(setColor(updateData.newColor));
+                            if (updateData.userID === user.id) {
+                                dispatch(setColor(updateData.color));
                             } else {
-                                dispatch(setUserColor({name: updateData.name, color: updateData.newColor}));
+                                dispatch(setUserColor({id: updateData.userID, color: updateData.color}));
                             }
                             // dispatch(addLogItem(updateData.message));
                             console.log('======= END - MESSAGE - updateUserColor =======');
@@ -172,7 +172,7 @@ export default function SocketHandler(props) {
                         // HANDLER: => deleteChannel
                         case 'deleteChannel': {
                             console.log('======= START - MESSAGE - deleteChannel =======');
-                            dispatch(deleteChannel(updateData.channelName));
+                            dispatch(deleteChannel(updateData.channelID));
                             // dispatch(addLogItem(updateData.message));
                             console.log('======= END MESSAGE - deleteChannel =======');
                             break;
@@ -182,7 +182,7 @@ export default function SocketHandler(props) {
                         // HANDLER: => updateChannelName
                         case 'updateChannelName': {
                             console.log('======= START - MESSAGE - updateChannelName =======');
-                            dispatch(setChannelName(updateData.channelName, updateData.newName));
+                            dispatch(setChannelName(updateData.channelID, updateData.name));
                             // dispatch(addLogItem(updateData.message));
                             console.log('======= END MESSAGE - updateChannelName =======');
                             break;
@@ -192,7 +192,7 @@ export default function SocketHandler(props) {
                         // HANDLER: => updateChannelDescription
                         case 'updateChannelDescription': {
                             console.log('======= START - MESSAGE - updateChannelDescription =======');
-                            dispatch(setChannelDescription(updateData.channelName, updateData.description));
+                            dispatch(setChannelDescription(updateData.channelID, updateData.description));
                             // dispatch(addLogItem(updateData.message));
                             console.log('======= END MESSAGE - updateChannelDescription =======');
                             break;
@@ -202,7 +202,7 @@ export default function SocketHandler(props) {
                         // HANDLER: => updateChannelPublic
                         case 'updateChannelPublic': {
                             console.log('======= START - MESSAGE - updateChannelPublic =======');
-                            dispatch(setChannelPublic(updateData.channelName));
+                            dispatch(setChannelPublic(updateData.channelID));
                             // dispatch(addLogItem(updateData.message));
                             console.log('======= END MESSAGE - updateChannelPublic =======');
                             break;
@@ -212,7 +212,7 @@ export default function SocketHandler(props) {
                         // HANDLER: => updateChannelPrivate
                         case 'updateChannelPrivate': {
                             console.log('======= START - MESSAGE - updateChannelPrivate =======');
-                            dispatch(setChannelPrivate(updateData.channelName, updateData.password));
+                            dispatch(setChannelPrivate(updateData.channelID, updateData.password));
                             // dispatch(addLogItem(updateData.message));
                             console.log('======= END MESSAGE - updateChannelPrivate =======');
                             break;
@@ -222,7 +222,7 @@ export default function SocketHandler(props) {
                         // HANDLER: => updateChannelPassword
                         case 'updateChannelPassword': {
                             console.log('======= START - MESSAGE - updateChannelPassword =======');
-                            dispatch(setChannelPassword(updateData.channelName, updateData.password));
+                            dispatch(setChannelPassword(updateData.channelID, updateData.password));
                             // dispatch(addLogItem(updateData.message));
                             console.log('======= END MESSAGE - updateChannelPassword =======');
                             break;
@@ -232,7 +232,7 @@ export default function SocketHandler(props) {
                         // HANDLER: => addUserToChannel
                         case 'addUserToChannel': {
                             console.log('======= START - MESSAGE - addUserToChannel =======');
-                            dispatch(addUserToChannel(updateData.channelName, updateData.userName));
+                            dispatch(addUserToChannel(updateData.channelID, updateData.userName));
                             // dispatch(addLogItem(updateData.message));
                             console.log('======= END MESSAGE - addUserToChannel =======');
                             break;
@@ -242,7 +242,7 @@ export default function SocketHandler(props) {
                         // HANDLER: => removeUserFromChannel
                         case 'removeUserFromChannel': {
                             console.log('======= START - MESSAGE - removeUserFromChannel =======');
-                            dispatch(removeUserFromChannel(updateData.channelName, updateData.userName));
+                            dispatch(removeUserFromChannel(updateData.channelID, updateData.userName));
                             // dispatch(addLogItem(updateData.message));
                             console.log('======= END MESSAGE - removeUserFromChannel =======');
                             break;

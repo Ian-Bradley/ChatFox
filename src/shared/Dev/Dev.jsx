@@ -42,14 +42,14 @@ export default function Dev(props) {
         let newUpdate = {
             type: 'updateUserName',
             userID: user.id,
-            newName: newName,
-            message: {
-                type: 'notification-name',
-                name: newName,
-                namePrev: user.name,
-                time: new Date().toGMTString(),
-                color: user.color,
-            },
+            name: newName,
+            // message: {
+            //     type: 'notification-name',
+            //     name: newName,
+            //     namePrev: user.name,
+            //     time: new Date().toGMTString(),
+            //     color: user.color,
+            // },
         };
         socket.send(JSON.stringify(newUpdate));
         console.log('>>>>>>>>> MESSAGE SENT - updateUserName >>>>>>>>>');
@@ -66,13 +66,13 @@ export default function Dev(props) {
             type: 'updateUserNickname',
             userID: user.id,
             newNickname: newNickname,
-            message: {
-                type: 'notification-nickname',
-                nickname: newNickname,
-                nicknamePrev: user.nickname,
-                time: new Date().toGMTString(),
-                color: user.color,
-            },
+            // message: {
+            //     type: 'notification-nickname',
+            //     nickname: newNickname,
+            //     nicknamePrev: user.nickname,
+            //     time: new Date().toGMTString(),
+            //     color: user.color,
+            // },
         };
         socket.send(JSON.stringify(newUpdate));
         console.log('>>>>>>>>> MESSAGE SENT - updateUserNickname >>>>>>>>>');
@@ -88,14 +88,14 @@ export default function Dev(props) {
         let newUpdate = {
             type: 'updateUserColor',
             userID: user.id,
-            newColor: newColor,
-            message: {
-                type: 'notification-color',
-                name: user.name,
-                time: new Date().toGMTString(),
-                color: newColor,
-                colorPrev: user.color,
-            },
+            color: newColor,
+            // message: {
+            //     type: 'notification-color',
+            //     name: user.name,
+            //     time: new Date().toGMTString(),
+            //     color: newColor,
+            //     colorPrev: user.color,
+            // },
         };
         socket.send(JSON.stringify(newUpdate));
         console.log('>>>>>>>>> MESSAGE SENT - updateUserColor >>>>>>>>>');
@@ -176,6 +176,10 @@ export default function Dev(props) {
                             <Title>Current User: </Title>
                         </ListItem>
                         <ListItem>
+                            <Title>ID</Title>
+                            {' ' + user.id}
+                        </ListItem>
+                        <ListItem>
                             <Title>Name</Title>
                             {' ' + user.name}
                         </ListItem>
@@ -190,6 +194,10 @@ export default function Dev(props) {
                         <ListItem>
                             <Title>LoggedIn</Title>
                             {' ' + user.loggedIn}
+                        </ListItem>
+                        <ListItem>
+                            <Title>ChannelID</Title>
+                            {' ' + user.channelID}
                         </ListItem>
                         <ListItem>
                             <Title>Timestamps</Title>

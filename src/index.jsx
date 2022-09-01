@@ -20,12 +20,12 @@ import { Provider } from 'react-redux';
 ReactDOM.render(
     <ThemeProvider theme={theme}>
         <Provider store={store}>
-            <PersistGate loading={null} persistor={persistor}>
+            {/* <PersistGate loading={null} persistor={persistor}> */}
                 <SocketProvider>
                     <GlobalStyles></GlobalStyles>
                     <App />
                 </SocketProvider>
-            </PersistGate>
+            {/* </PersistGate> */}
         </Provider>
     </ThemeProvider>,
     document.getElementById('root')

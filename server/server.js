@@ -7,10 +7,14 @@ const path = require('path');
 const cors = require('cors');
 const express = require('express');
 const { v4: uuidv4 } = require('uuid');
-const config = require('./config.env.js');
 
+// ==> Imports
+const jwtHandler = require('./lib/util/jwt/jwt.js');
+
+// ==> Utilities
 const dbQuery = require('./lib/db/root.query');
-const util = require('./lib/util/helpers/functions.js');
+const config = require('./config.env.js');
+const Util = require('./lib/util/util.js');
 
 // ==> API
 const login = require('./lib/api/auth/login.js');
@@ -41,8 +45,8 @@ const server = express()
 const SocketServer = require('ws');
 const WSS = new SocketServer.Server({ server });
 
-const SocketState = require('./lib/state/SocketState.js');
-const WSState = new SocketState();
+const StateTracker = require('./lib/state/StateTracker.js');
+const WSState = new StateTracker();
 WSState.initializeData();
 
 /*================================================
@@ -85,39 +89,59 @@ WSS.on('connection', (client, request) => {
     console.log('======= CLIENT CONNECTED =======');
 
     // NOTE: testing
-    // console.log('request: ', request.headers.cookie);
+    let disconnectData = '';
+
+    /*================================================
+        INNER: > JWT COOKIE SESSION
+    ==================================================*/
+
+    // ==> Check for and parse cookie
     let cookies = {};
     if (request.headers.cookie) {
-        cookies = util.parseCookies(request.headers.cookie);
+        cookies = Util.parseCookies(request.headers.cookie);
     }
-    // console.log('cookies: ', cookies);
+
+    // ==> Manage session
     if (cookies['sessionid']) {
-        console.log('HAS TOKEN');
-        token = cookies['sessionid'].split(' ')[0];
+        try {
+            const token = cookies['sessionid'].split(' ')[0];
+            const decoded = Util.validateAuthToken(token);
+            if (decoded) {
+                console.log('VALID TOKEN');
+                console.log(decoded.user_id);
+                console.log(typeof decoded.user_id);
 
-        // ==> Get user data from db
+                // ==> Get user data from db (use decoded token id)
+                const retrieveUser = async (id) => {
+                    const results = await dbQuery.users.getUser(id);
+                    return results;
+                };
+                const user = retrieveUser(decoded.user_id);
 
-        // ==> Set disconnect name
-        // disconnectData = messageData.user.name;
+                // ==> Set disconnect id
+                disconnectData = user.id;
 
-        // ==> Send state data to user
-        // const data = {
-        //     id: uuidv4(), // message id
-        //     type: 'connectionReady',
-        //     users: WSState.state.users,
-        //     channels: WSState.state.channels,
-        // };
-        // WSS.broadcastToClient(JSON.stringify(data), client);
+                // ==> Send state data to user
+                const data = {
+                    id: uuidv4(), // message id
+                    type: 'connectionReady',
+                    users: WSState.state.users,
+                    channels: WSState.state.channels,
+                };
+                WSS.broadcastToClient(JSON.stringify(data), client);
 
-        // // ==> Send new user data to all other users
-        // messageData.id = uuidv4();
-        // WSState.addUser(messageData.user);
-        // // WSState.addLogItem(messageData.message);
-        // WSS.broadcastToOthers(JSON.stringify(messageData), client);
+                // // ==> Send new user data to all other users
+                messageData.id = uuidv4();
+                WSState.addUser(messageData.user);
+                WSS.broadcastToOthers(JSON.stringify(messageData), client);
+            } else {
+                console.log('INVALID TOKEN');
+                // INVALID TOKEN
+            }
+        } catch (err) {
+            console.error(err);
+        }
     }
-
-    // NOTE: testing
-    let disconnectData = '';
 
     /*================================================
         INNER: > HANDLERS
@@ -133,7 +157,7 @@ WSS.on('connection', (client, request) => {
                 // HANDLER: => userConnected (LOGIN)
                 case 'userConnected': {
                     // NOTE: testing
-                    disconnectData = messageData.user.name;
+                    disconnectData = messageData.user.id;
 
                     // ==> Send state data to user
                     const data = {
@@ -147,7 +171,6 @@ WSS.on('connection', (client, request) => {
                     // ==> Send new user data to all other users
                     messageData.id = uuidv4();
                     WSState.addUser(messageData.user);
-                    // WSState.addLogItem(messageData.message);
                     WSS.broadcastToOthers(JSON.stringify(messageData), client);
                     break;
                 }
@@ -162,7 +185,6 @@ WSS.on('connection', (client, request) => {
                     //     time: new Date().toGMTString(),
                     // };
                     // console.log('disconnectMessage: ', disconnectMessage);
-                    // WSState.addMessage(disconnectMessage);
 
                     // ==> Remove user
                     WSState.removeUser(disconnectData);
@@ -186,9 +208,8 @@ WSS.on('connection', (client, request) => {
                     console.log('======= START - MESSAGE - updateUserName =======');
                     messageData.id = uuidv4();
                     // TODO: QUERY
-                    // await
-                    WSState.setUserName(messageData.user, messageData.newName);
-                    // WSState.addLogItem(messageData.message);
+                    // await dbQuery.users.updateUser();
+                    WSState.setUserName(messageData.userID, messageData.name);
                     WSS.broadcastToAll(JSON.stringify(messageData));
                     console.log('>>>>>>>>> MESSAGE SENT - updateUserName >>>>>>>>>');
                     console.log('======= END MESSAGE - updateUserName =======');
@@ -200,8 +221,7 @@ WSS.on('connection', (client, request) => {
                 case 'updateUserNickname': {
                     console.log('======= START - MESSAGE - updateUserNickname =======');
                     messageData.id = uuidv4();
-                    WSState.setUserNickname(messageData.user, messageData.newNickname);
-                    // WSState.addLogItem(messageData.message);
+                    WSState.setUserNickname(messageData.userID, messageData.nickname);
                     WSS.broadcastToAll(JSON.stringify(messageData));
                     console.log('>>>>>>>>> MESSAGE SENT - updateUserNickname >>>>>>>>>');
                     console.log('======= END MESSAGE - updateUserNickname =======');
@@ -213,8 +233,7 @@ WSS.on('connection', (client, request) => {
                 case 'updateUserColor': {
                     console.log('======= START - MESSAGE - updateUserColor =======');
                     messageData.id = uuidv4();
-                    WSState.setUserColor(messageData.user, messageData.newColor);
-                    // WSState.addLogItem(messageData.message);
+                    WSState.setUserColor(messageData.userID, messageData.color);
                     WSS.broadcastToAll(JSON.stringify(messageData));
                     console.log('>>>>>>>>> MESSAGE SENT - updateUserColor >>>>>>>>>');
                     console.log('======= END MESSAGE - updateUserColor =======');
@@ -226,9 +245,9 @@ WSS.on('connection', (client, request) => {
                 case 'addChannel': {
                     console.log('======= START - MESSAGE - addChannel =======');
                     messageData.id = uuidv4();
-                    // TODO: QUERY
+                    // TODO: TEST QUERY
+                    await dbQuery.channels.insertChannel(messageData.channel);
                     WSState.addChannel(messageData.channel);
-                    // WSState.addLogItem(messageData.message);
                     WSS.broadcastToAll(JSON.stringify(messageData));
                     console.log('>>>>>>>>> MESSAGE SENT - addChannel >>>>>>>>>');
                     console.log('======= END MESSAGE - addChannel =======');
@@ -240,9 +259,9 @@ WSS.on('connection', (client, request) => {
                 case 'deleteChannel': {
                     console.log('======= START - MESSAGE - deleteChannel =======');
                     messageData.id = uuidv4();
-                    // TODO: QUERY
-                    WSState.deleteChannel(messageData.name);
-                    // WSState.addLogItem(messageData.message);
+                    // TODO: TEST QUERY
+                    await dbQuery.channels.deleteChannel(messageData.channelID);
+                    WSState.deleteChannel(messageData.channelID);
                     WSS.broadcastToAll(JSON.stringify(messageData));
                     console.log('>>>>>>>>> MESSAGE SENT - deleteChannel >>>>>>>>>');
                     console.log('======= END MESSAGE - deleteChannel =======');
@@ -255,8 +274,8 @@ WSS.on('connection', (client, request) => {
                     console.log('======= START - MESSAGE - updateChannelName =======');
                     messageData.id = uuidv4();
                     // TODO: QUERY
-                    WSState.setChannelName(messageData.channelName, messageData.newName);
-                    // WSState.addLogItem(messageData.message);
+                    // await dbQuery.channels.updateChannel();
+                    WSState.setChannelName(messageData.channelID, messageData.name);
                     WSS.broadcastToAll(JSON.stringify(messageData));
                     console.log('>>>>>>>>> MESSAGE SENT - updateChannelName >>>>>>>>>');
                     console.log('======= END MESSAGE - updateChannelName =======');
@@ -269,8 +288,8 @@ WSS.on('connection', (client, request) => {
                     console.log('======= START - MESSAGE - updateChannelDescription =======');
                     messageData.id = uuidv4();
                     // TODO: QUERY
-                    WSState.setChannelDescription(messageData.channelName, messageData.description);
-                    // WSState.addLogItem(messageData.message);
+                    // await dbQuery.channels.updateChannel();
+                    WSState.setChannelDescription(messageData.channelID, messageData.description);
                     WSS.broadcastToAll(JSON.stringify(messageData));
                     console.log('>>>>>>>>> MESSAGE SENT - updateChannelDescription >>>>>>>>>');
                     console.log('======= END MESSAGE - updateChannelDescription =======');
@@ -283,8 +302,8 @@ WSS.on('connection', (client, request) => {
                     console.log('======= START - MESSAGE - updateChannelPublic =======');
                     messageData.id = uuidv4();
                     // TODO: QUERY
-                    WSState.setChannelPublic(messageData.channelName);
-                    // WSState.addLogItem(messageData.message);
+                    // await dbQuery.channels.updateChannel();
+                    WSState.setChannelPublic(messageData.channelID);
                     WSS.broadcastToAll(JSON.stringify(messageData));
                     console.log('>>>>>>>>> MESSAGE SENT - updateChannelPublic >>>>>>>>>');
                     console.log('======= END MESSAGE - updateChannelPublic =======');
@@ -297,8 +316,8 @@ WSS.on('connection', (client, request) => {
                     console.log('======= START - MESSAGE - updateChannelPrivate =======');
                     messageData.id = uuidv4();
                     // TODO: QUERY
-                    WSState.setChannelPrivate(messageData.channelName, messageData.password);
-                    // WSState.addLogItem(messageData.message);
+                    // await dbQuery.channels.updateChannel();
+                    WSState.setChannelPrivate(messageData.channelID, messageData.password);
                     WSS.broadcastToAll(JSON.stringify(messageData));
                     console.log('>>>>>>>>> MESSAGE SENT - updateChannelPrivate >>>>>>>>>');
                     console.log('======= END MESSAGE - updateChannelPrivate =======');
@@ -311,8 +330,8 @@ WSS.on('connection', (client, request) => {
                     console.log('======= START - MESSAGE - updateChannelPassword =======');
                     messageData.id = uuidv4();
                     // TODO: QUERY
-                    WSState.setChannelPassword(messageData.channelName, messageData.password);
-                    // WSState.addLogItem(messageData.message);
+                    // await dbQuery.channels.updateChannel();
+                    WSState.setChannelPassword(messageData.channelID, messageData.password);
                     WSS.broadcastToAll(JSON.stringify(messageData));
                     console.log('>>>>>>>>> MESSAGE SENT - updateChannelPassword >>>>>>>>>');
                     console.log('======= END MESSAGE - updateChannelPassword =======');
@@ -323,8 +342,7 @@ WSS.on('connection', (client, request) => {
                 // HANDLER: => addUserToChannel
                 case 'addUserToChannel': {
                     console.log('======= START - MESSAGE - addUserToChannel =======');
-                    dispatch(addUserToChannel(messageData.channelName, updateData.userName));
-                    // dispatch(addLogItem(updateData.message));
+                    dispatch(addUserToChannel(messageData.channelID, updateData.userName));
                     console.log('>>>>>>>>> MESSAGE SENT - addUserToChannel >>>>>>>>>');
                     console.log('======= END MESSAGE - addUserToChannel =======');
                     break;
@@ -334,8 +352,7 @@ WSS.on('connection', (client, request) => {
                 // HANDLER: => removeUserFromChannel
                 case 'removeUserFromChannel': {
                     console.log('======= START - MESSAGE - removeUserFromChannel =======');
-                    dispatch(removeUserFromChannel(messageData.channelName, updateData.userName));
-                    // dispatch(addLogItem(updateData.message));
+                    dispatch(removeUserFromChannel(messageData.channelID, updateData.userName));
                     console.log('>>>>>>>>> MESSAGE SENT - removeUserFromChannel >>>>>>>>>');
                     console.log('======= END MESSAGE - removeUserFromChannel =======');
                     break;
@@ -345,7 +362,8 @@ WSS.on('connection', (client, request) => {
                 // HANDLER: => newMessage
                 case 'newMessage': {
                     messageData.id = uuidv4();
-                    // TODO: QUERY -  addMessage
+                    messageData.message.id = uuidv4();
+                    await dbQuery.messages.insertMessage(messageData.message);
                     WSS.broadcastToAll(JSON.stringify(messageData));
                     break;
                 }
@@ -374,7 +392,6 @@ WSS.on('connection', (client, request) => {
         //     time: new Date().toGMTString(),
         // };
         // console.log('disconnectMessage: ', disconnectMessage);
-        // WSState.addMessage(disconnectMessage);
 
         // ==> Remove user
         WSState.removeUser(disconnectData);

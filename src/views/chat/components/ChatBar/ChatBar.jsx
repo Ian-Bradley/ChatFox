@@ -29,8 +29,10 @@ export default function ChatBar(props) {
             let newUpdate = {
                 type: 'newMessage',
                 message: {
+                    channelID: user.channelID,
+                    timestamp: Date().now(),
                     name: user.name,
-                    time: new Date().toGMTString(),
+                    nickname: user.nickname,
                     color: user.color,
                     content: e.target.value,
                 },

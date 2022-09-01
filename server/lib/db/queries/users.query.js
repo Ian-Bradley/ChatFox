@@ -6,7 +6,9 @@ const users = {
     getUser: async function (name) {
         try {
             const client = await pool.connect();
-            const results = await client.query(`SELECT * FROM users WHERE UPPER(name) = UPPER('${name}');`);
+            const results = await client.query(
+                `SELECT * FROM users WHERE UPPER(name) = UPPER('${name}');`
+            );
             client.release();
             return results.rows;
         } catch (error) {
@@ -36,7 +38,8 @@ const users = {
             const client = await pool.connect();
             const results = await client.query(
                 `INSERT INTO users (name, password)
-                 VALUES ('${user.name}', '${user.password}');`);
+                 VALUES ('${user.name}', '${user.password}');`
+            );
             client.release();
             return results;
         } catch (error) {
@@ -50,8 +53,9 @@ const users = {
     updateUser: async function (name, update) {
         try {
             const client = await pool.connect();
-            // TODO: update user
-            // const results = await client.query(`UPDATE * FROM users WHERE UPPER(name) = UPPER('${name}');`);
+            const results = await client.query(
+                `UPDATE users SET ${update.column} = '${update.data}' WHERE name = '${name}';`
+            );
             client.release();
             return results;
         } catch (error) {
@@ -65,7 +69,9 @@ const users = {
     deleteUser: async function (name) {
         try {
             const client = await pool.connect();
-            const results = await client.query(`DELETE * FROM users WHERE UPPER(name) = UPPER('${name}');`);
+            const results = await client.query(
+                `DELETE FROM users WHERE UPPER(name) = UPPER('${name}');`
+            );
             client.release();
             return results;
         } catch (error) {

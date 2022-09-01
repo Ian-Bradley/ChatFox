@@ -51,7 +51,7 @@ const messages = {
     deleteMessage: async function (name) {
         try {
             const client = await pool.connect();
-            const results = await client.query(`DELETE * FROM messages WHERE UPPER(name) = UPPER('${name}');`);
+            const results = await client.query(`DELETE FROM messages WHERE UPPER(name) = UPPER('${name}');`);
             client.release();
             return results;
         } catch (error) {

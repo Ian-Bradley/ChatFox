@@ -1,6 +1,5 @@
 const dbQuery = require('../../db/root.query.js');
-const config = require('../../../config.env.js');
-const jwt = require('jsonwebtoken');
+const Util = require('../../util/util.js');
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const router = express.Router();
@@ -33,7 +32,8 @@ router.post('/', async function (req, res) {
             name: name,
             password: encryptedPassword,
         };
-        const queryResults = await dbQuery.users.insertUser(user);
+        await dbQuery.users.insertUser(user);
+        // const queryResults = await dbQuery.users.insertUser(user);
         // console.log(queryResults);
 
         // ==> Confirm insert and get ID
@@ -41,10 +41,7 @@ router.post('/', async function (req, res) {
         // console.log(insertedUser);
 
         // ==> JWT for authentication
-        const token = jwt.sign({ user_name: user.name }, config.jwt.key_private, {
-            algorithm: config.jwt.alg,
-            expiresIn: config.jwt.expire,
-        });
+        const token = Util.createAuthToken(insertedUser[0].id);
 
         // ==> END
         res.status(201).json({ id: insertedUser[0].id, name: user.name, token: token });

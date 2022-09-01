@@ -5,10 +5,12 @@ const initialState = {
 };
 
 /*
-user (Object)
-    name: (String)
-    nickname: (String)
-    color: (String [HEX])
+user {object}
+    id: {number}
+    name: {string}
+    nickname: {string}
+    color: {string}
+    channel: {string}
 */
 
 let usersSlice = createSlice({
@@ -18,38 +20,38 @@ let usersSlice = createSlice({
         /*================================================*/
         /*================================================*/
         addUser: function (state, action) {
-            // action.payload = user (object)
+            // action.payload = user {object}
             state.users.push(action.payload);
         },
         /*================================================*/
         /*================================================*/
         removeUser: function (state, action) {
-            // action.payload = name (string)
-            state.users.filter((user) => user.name !== action.payload);
+            // action.payload = id {number}
+            state.users.filter((user) => user.id !== action.payload);
         },
 
         /*================================================*/
         /*================================================*/
         setUsers: function (state, action) {
-            // action.payload = users (array of user objects)
+            // action.payload = users {array of user objects}
             state.users = action.payload;
         },
         /*================================================*/
         /*================================================*/
         setUserName: function (state, action) {
-            // action.payload = userData (object {name: (string), newName: (string)})
+            // action.payload = {object {id: {number}, name: {string}}}
             state.users.map((user) => {
-                if (user.name === action.payload.name) {
-                    user.name = action.payload.newName;
+                if (user.id === action.payload.id) {
+                    user.name = action.payload.name;
                 }
             });
         },
         /*================================================*/
         /*================================================*/
         setUserNickname: function (state, action) {
-            // action.payload = userData (object {name: (string), nickname: (string)})
+            // action.payload = userData {object {id: {number}, nickname: {string}}}
             state.users.map((user) => {
-                if (user.name === action.payload.name) {
+                if (user.id === action.payload.id) {
                     user.nickname = action.payload.nickname;
                 }
             });
@@ -57,9 +59,9 @@ let usersSlice = createSlice({
         /*================================================*/
         /*================================================*/
         setUserColor: function (state, action) {
-            // action.payload = userData (object {name: (string), color: (string [HEX])})
+            // action.payload = userData {object {id: {number}, color: {string}}}
             state.users.map((user) => {
-                if (user.name === action.payload.name) {
+                if (user.id === action.payload.id) {
                     user.color = action.payload.color;
                 }
             });

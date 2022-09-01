@@ -3,11 +3,12 @@ import { generateRandomName, generateRandomColor } from 'Util/helpers/functions.
 
 const initialState = {
     user: {
+        id: 0,
         name: generateRandomName(true),
         nickname: generateRandomName(false),
         color: generateRandomColor(),
         loggedIn: false,
-        channel: '',
+        channelID: 0,
     },
 };
 
@@ -15,6 +16,12 @@ let userSlice = createSlice({
     name: 'user',
     initialState: initialState,
     reducers: {
+        /*================================================*/
+        /*================================================*/
+        setID: function (state, action) {
+            // action.payload = id {number}
+            state.user.id = action.payload;
+        },
         /*================================================*/
         /*================================================*/
         setName: function (state, action) {
@@ -30,7 +37,7 @@ let userSlice = createSlice({
         /*================================================*/
         /*================================================*/
         setColor: function (state, action) {
-            // action.payload = color {string, hex}
+            // action.payload = color {string}
             state.user.color = action.payload;
         },
         /*================================================*/
@@ -58,13 +65,13 @@ let userSlice = createSlice({
         /*================================================*/
         /*================================================*/
         setChannel: function (state, action) {
-            // action.payload = channel name {string}
-            state.user.channel = action.payload;
+            // action.payload = channel id {number}
+            state.user.channelID = action.payload;
         },
         /*================================================*/
         /*================================================*/
     },
 });
-export const { setName, setNickname, setColor, setLoggedIn, setLoggedOut, setChannel } =
+export const { setID, setName, setNickname, setColor, setLoggedIn, setLoggedOut, setChannel } =
     userSlice.actions;
 export default userSlice.reducer;

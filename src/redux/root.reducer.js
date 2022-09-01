@@ -1,5 +1,4 @@
 import { combineReducers } from 'redux';
-import userTotalReducer from './slices/userTotal.slice.js';
 import messagesReducer from './slices/messages.slice.js';
 import channelsReducer from './slices/channels.slice.js';
 import socketReducer from './slices/socket.slice.js';
@@ -9,7 +8,6 @@ import userReducer from './slices/user.slice.js';
 import logReducer from './slices/log.slice.js';
 
 const rootReducer = combineReducers({
-    userTotal: userTotalReducer,
     messages: messagesReducer,
     channels: channelsReducer,
     socket: socketReducer,

@@ -9,18 +9,18 @@ const users = {
     /*================================================*/
     /*================================================*/
     // METHOD: => removeUser
-    removeUser(name) {
-        console.log('removeUSER ==> name: ', name);
-        console.log('removeUSER ==> typeof name: ', typeof name);
+    removeUser(id) {
+        console.log('removeUSER ==> id: ', id);
+        console.log('removeUSER ==> typeof id: ', typeof id);
         console.log(
             'removeUSER ==> FIND USER: ',
-            this.state.users.find((user) => user.name === name)
+            this.state.users.find((user) => user.id === id)
         );
-        if (this.state.users.find((user) => user.name === name)) {
+        if (this.state.users.find((user) => user.id === id)) {
             // User exists in array
             console.log('removeUSER ==> User exists in array');
             console.log('removeUSER ==> this.state.users: ', this.state.users);
-            this.state.users = this.state.users.filter((user) => user.name !== name);
+            this.state.users = this.state.users.filter((user) => user.id !== id);
             console.log('removeUSER ==> this.state.users: ', this.state.users);
         } else {
             // No user!!
@@ -30,30 +30,30 @@ const users = {
     /*================================================*/
     /*================================================*/
     // METHOD: => setUserName
-    setUserName(name, newName) {
+    setUserName(id, name) {
         this.state.users.map((user) => {
-            if (user.name === name) {
-                user.color = newName;
+            if (user.id === id) {
+                user.color = name;
             }
         });
     },
     /*================================================*/
     /*================================================*/
     // METHOD: => setUserNickname
-    setUserNickname(name, newNickname) {
+    setUserNickname(id, nickname) {
         this.state.users.map((user) => {
-            if (user.name === name) {
-                user.color = newNickname;
+            if (user.id === id) {
+                user.color = nickname;
             }
         });
     },
     /*================================================*/
     /*================================================*/
     // METHOD: => setUserColor
-    setUserColor(name, newColor) {
+    setUserColor(id, color) {
         this.state.users.map((user) => {
-            if (user.name === name) {
-                user.color = newColor;
+            if (user.id === id) {
+                user.color = color;
             }
         });
     },

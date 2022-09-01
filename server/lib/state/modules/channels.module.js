@@ -8,27 +8,27 @@ const channels = {
     /*================================================*/
     /*================================================*/
     // METHOD: => deleteChannel
-    deleteChannel(channelName) {
+    deleteChannel(id) {
         console.log('deleteCHANNEL ==> this.state.channels: ', this.state.channels);
-        this.state.channels = this.state.channels.filter((channel) => channel.name !== channelName);
+        this.state.channels = this.state.channels.filter((channel) => channel.id !== id);
         console.log('deleteCHANNEL ==> this.state.channels: ', this.state.channels);
     },
     /*================================================*/
     /*================================================*/
     // METHOD: => setChannelName
-    setChannelName(channelName, newName) {
+    setChannelName(id, name) {
         this.state.channels.map((channel) => {
-            if (channel.name === channelName) {
-                channel.name = newName;
+            if (channel.id === id) {
+                channel.name = name;
             }
         });
     },
     /*================================================*/
     /*================================================*/
     // METHOD: => setChannelDescription
-    setChannelDescription(channelName, description) {
+    setChannelDescription(id, description) {
         this.state.channels.map((channel) => {
-            if (channel.name === channelName) {
+            if (channel.id === id) {
                 channel.description = description;
             }
         });
@@ -36,9 +36,9 @@ const channels = {
     /*================================================*/
     /*================================================*/
     // METHOD: => setChannelPublic
-    setChannelPublic(channelName) {
+    setChannelPublic(id) {
         this.state.channels.map((channel) => {
-            if (channel.name === channelName) {
+            if (channel.id === id) {
                 channel.locked = false;
                 channel.password = '';
             }
@@ -47,9 +47,9 @@ const channels = {
     /*================================================*/
     /*================================================*/
     // METHOD: => setChannelPrivate
-    setChannelPrivate(channelName, password) {
+    setChannelPrivate(id, password) {
         this.state.channels.map((channel) => {
-            if (channel.name === channelName) {
+            if (channel.id === id) {
                 channel.locked = true;
                 channel.password = password;
             }
@@ -58,9 +58,9 @@ const channels = {
     /*================================================*/
     /*================================================*/
     // METHOD: => setChannelPassword
-    setChannelPassword(channelName, password) {
+    setChannelPassword(id, password) {
         this.state.channels.map((channel) => {
-            if (channel.name === channelName) {
+            if (channel.id === id) {
                 channel.password = password;
             }
         });
@@ -68,10 +68,10 @@ const channels = {
     /*================================================*/
     /*================================================*/
     // METHOD: => addUserToChannel
-    addUserToChannel(channelName, userName) {
+    addUserToChannel(channelID, userName) {
         console.log('addUserToChannel ==> this.state.channels: ', this.state.channels);
         this.state.channels.map((channel) => {
-            if (channel.name === channelName) {
+            if (channel.id === channelID) {
                 channel.users.push(userName);
             }
         });
@@ -80,10 +80,10 @@ const channels = {
     /*================================================*/
     /*================================================*/
     // METHOD: => removeUserFromChannel
-    removeUserFromChannel(channelName, userName) {
+    removeUserFromChannel(channelID, userName) {
         console.log('removeUserFromChannel ==> this.state.channels: ', this.state.channels);
         this.state.channels.map((channel) => {
-            if (channel.name === channelName) {
+            if (channel.id === channelID) {
                 channel.users = channel.users.filter(
                     (user) => user !== userName
                 );

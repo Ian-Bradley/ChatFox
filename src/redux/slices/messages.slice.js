@@ -6,18 +6,14 @@ const initialState = {
 };
 
 /*
-message (Object)
-    id: (String)
-    data: (Object)
-        type (String)
-        time (String)
-        name (String)
-        namePrev (String)
-        nickname (String)
-        nicknamePrev (String)
-        color (String)
-        colorPrev (String)
-    content: (String)
+message {object}
+    id: {number}
+    channelID: {number}
+    timestamp: {string}
+    name: {string}
+    nickname: {string}
+    color: {string}
+    content: {string}
 */
 
 let messagesSlice = createSlice({
@@ -32,7 +28,7 @@ let messagesSlice = createSlice({
         /*================================================*/
         /*================================================*/
         getMessagesSuccess: function (state, action) {
-            // action.payload = messages (Array of message Objects)
+            // action.payload = messages {array of message Oobjects}
             state.messages = action.payload;
             state.isLoading = false;
         },
@@ -45,21 +41,21 @@ let messagesSlice = createSlice({
         /*================================================*/
 
         setMessages: function (state, action) {
-            // action.payload = messages (Array of message Objects)
+            // action.payload = messages {array of message objects}
             state.messages = action.payload;
         },
         /*================================================*/
         /*================================================*/
 
         addMessage: function (state, action) {
-            // action.payload = message (Object)
+            // action.payload = message {object}
             state.messages.push(action.payload);
         },
         /*================================================*/
         /*================================================*/
 
         deleteMessage: function (state, action) {
-            // action.payload = id (String)
+            // action.payload = id {number}
             state.messages.filter((message) => message.id !== action.payload);
         },
         /*================================================*/

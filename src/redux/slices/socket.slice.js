@@ -11,14 +11,14 @@ let socketSlice = createSlice({
         /*================================================*/
         /*================================================*/
         setSocketOpen: function (state) {
-            // action.payload = socket (Object)
+            // action.payload = socket {object}
             state.socket = true;
         },
 
         /*================================================*/
         /*================================================*/
         setSocketClosed: function (state) {
-            // action.payload = socket (Object)
+            // action.payload = socket {object}
             state.socket = true;
         },
 
