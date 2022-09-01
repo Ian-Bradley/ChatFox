@@ -22,9 +22,6 @@ export default function listRef(props) {
     const users = useSelector((state) => {
         return state['users'].users;
     });
-    const userTotal = useSelector((state) => {
-        return state['userTotal'].userTotal;
-    });
 
     // Hooks
     const [searchOpen, setSearchOpen] = useState(false);
@@ -69,7 +66,7 @@ export default function listRef(props) {
                     <IconButton onClick={onSearchButton} icon={SearchSVG} />
                 </OpenSearch>
                 Users
-                <UserTotal>{userTotal}</UserTotal>
+                <UserTotal>{users.length}</UserTotal>
             </Header>
             <SearchBar ref={searchRef} open={searchOpen}>
                 <SearchInput placeholder={'Search users'}></SearchInput>

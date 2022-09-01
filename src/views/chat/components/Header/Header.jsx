@@ -36,7 +36,7 @@ export default function Header(props) {
         console.log('===> onLogout');
         dispatch(setLoggedOut());
         // TODO: logout
-        // ==> erase persited user data
+        // ==> send api request to server and remove token from db
         console.log('===> END - onLogout');
     };
 

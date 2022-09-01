@@ -10,6 +10,7 @@ const { v4: uuidv4 } = require('uuid');
 const config = require('./config.env.js');
 
 const dbQuery = require('./lib/db/root.query');
+const util = require('./lib/util/helpers/functions.js');
 
 // ==> API
 const login = require('./lib/api/auth/login.js');
@@ -48,9 +49,9 @@ WSState.initializeData();
     BLOCK: BROADCAST FUNCTIONS
 ==================================================*/
 
-WSS.broadcastToOthers = (data, WSClient) => {
+WSS.broadcastToOthers = (data, client) => {
     WSS.clients.forEach((client) => {
-        if (client.readyState === SocketServer.OPEN && WSClient !== client) {
+        if (client.readyState === SocketServer.OPEN && client !== client) {
             client.send(data);
         }
     });
@@ -59,9 +60,9 @@ WSS.broadcastToOthers = (data, WSClient) => {
 /*================================================*/
 /*================================================*/
 
-WSS.broadcastToClient = (data, WSClient) => {
-    if (WSClient.readyState === SocketServer.OPEN) {
-        WSClient.send(data);
+WSS.broadcastToClient = (data, client) => {
+    if (client.readyState === SocketServer.OPEN) {
+        client.send(data);
     }
 };
 
@@ -80,11 +81,40 @@ WSS.broadcastToAll = (data) => {
     BLOCK: WEBSOCKET SERVER
 ==================================================*/
 
-WSS.on('connection', (WSClient) => {
+WSS.on('connection', (client, request) => {
     console.log('======= CLIENT CONNECTED =======');
 
     // NOTE: testing
-    // console.log(WSClient);
+    // console.log('request: ', request.headers.cookie);
+    let cookies = {};
+    if (request.headers.cookie) {
+        cookies = util.parseCookies(request.headers.cookie);
+    }
+    // console.log('cookies: ', cookies);
+    if (cookies['sessionid']) {
+        console.log('HAS TOKEN');
+        token = cookies['sessionid'].split(' ')[0];
+
+        // ==> Get user data from db
+
+        // ==> Set disconnect name
+        // disconnectData = messageData.user.name;
+
+        // ==> Send state data to user
+        // const data = {
+        //     id: uuidv4(), // message id
+        //     type: 'connectionReady',
+        //     users: WSState.state.users,
+        //     channels: WSState.state.channels,
+        // };
+        // WSS.broadcastToClient(JSON.stringify(data), client);
+
+        // // ==> Send new user data to all other users
+        // messageData.id = uuidv4();
+        // WSState.addUser(messageData.user);
+        // // WSState.addLogItem(messageData.message);
+        // WSS.broadcastToOthers(JSON.stringify(messageData), client);
+    }
 
     // NOTE: testing
     let disconnectData = '';
@@ -93,7 +123,7 @@ WSS.on('connection', (WSClient) => {
         INNER: > HANDLERS
     ==================================================*/
 
-    WSClient.on('message', async function incoming(data) {
+    client.on('message', async function incoming(data) {
         const messageData = JSON.parse(data);
         console.log('>>>>>>>>> MESSAGE RECIEVED - ' + messageData.type + ' >>>>>>>>>');
         try {
@@ -112,13 +142,13 @@ WSS.on('connection', (WSClient) => {
                         users: WSState.state.users,
                         channels: WSState.state.channels,
                     };
-                    WSS.broadcastToClient(JSON.stringify(data), WSClient);
+                    WSS.broadcastToClient(JSON.stringify(data), client);
 
                     // ==> Send new user data to all other users
                     messageData.id = uuidv4();
                     WSState.addUser(messageData.user);
                     // WSState.addLogItem(messageData.message);
-                    WSS.broadcastToOthers(JSON.stringify(messageData), WSClient);
+                    WSS.broadcastToOthers(JSON.stringify(messageData), client);
                     break;
                 }
                 /*================================================*/
@@ -145,7 +175,7 @@ WSS.on('connection', (WSClient) => {
                         // message: disconnectMessage,
                     };
                     console.log('messageData: ', messageData);
-                    WSS.broadcastToOthers(JSON.stringify(messageData), WSClient);
+                    WSS.broadcastToOthers(JSON.stringify(messageData), client);
                     console.log('>>>>>>>>> MESSAGE SENT - userDisconnected >>>>>>>>>');
                     break;
                 }
@@ -332,7 +362,7 @@ WSS.on('connection', (WSClient) => {
         INNER: > DISCONNECTION
     ==================================================*/
 
-    WSClient.on('close', (WSClient) => {
+    client.on('close', (client) => {
         console.log('======= START - Client Disonnected =======');
 
         console.log(WSState.state.users.find((user) => (user.name = disconnectData)));
@@ -357,7 +387,7 @@ WSS.on('connection', (WSClient) => {
             // message: disconnectMessage,
         };
         console.log('messageData: ', messageData);
-        WSS.broadcastToOthers(JSON.stringify(messageData), WSClient);
+        WSS.broadcastToOthers(JSON.stringify(messageData), client);
         console.log('>>>>>>>>> MESSAGE SENT - userDisconnected >>>>>>>>>');
 
         console.log('======= END - Client Disonnected =======');

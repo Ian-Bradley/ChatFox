@@ -1,3 +1,4 @@
+import { setCookie, getCookie } from 'Util/helpers/functions.js';
 import React, { useState, useRef, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSocket } from 'Util/api/websocket.js';
@@ -69,18 +70,16 @@ export default function PageAuth(props) {
                 password: formRef.current[1].value,
             };
             const results = await api.post(url, data);
-            // console.log('results.data: ', results.data);
+            // console.log('results: ', results);
 
-            // ==> User
-            dispatch(setName(data.name));
-            // dispatch(setName(results.data.name));
-            dispatch(setLoggedIn());
+            // ==> Log In - Redux
+            dispatch(setLoggedIn(data.name));
 
             // ==> Storage
-            // console.log('isChecked: ', isChecked);
-            if (isChecked) {
-                console.log('isChecked = true');
-                // TODO: store in cookies/local (redux-persist)
+            console.log('isChecked: ', isChecked);
+            if (isChecked && results.data.token) {
+                // TODO: set or remove JWT
+                setCookie('sessionid', results.data.token, 3);
             }
 
             // ==> Initiate
@@ -95,7 +94,7 @@ export default function PageAuth(props) {
             };
             socket.send(JSON.stringify(userConnection));
             // console.log('>>>>>>>>> MESSAGE SENT - userConnected >>>>>>>>>');
-            
+
             // ==> Navigate
             navigate('/room', { replace: true });
             // console.log('===> END - onSubmit');

@@ -33,17 +33,21 @@ router.post('/', async function (req, res) {
             name: name,
             password: encryptedPassword,
         };
-        const results = await dbQuery.users.insertUser(user);
+        const queryResults = await dbQuery.users.insertUser(user);
+        // console.log(queryResults);
 
-        // ==> Add JWT for authentication
-        // const token = jwt.sign({ user_id: user.id, user_name: user.name }, config.jwt.key_private, {
-        //     algorithm: config.jwt.alg,
-        //     expiresIn: config.jwt.expire,
-        // });
-        // user.token = token;
+        // ==> Confirm insert and get ID
+        const insertedUser = await dbQuery.users.getUser(user.name);
+        // console.log(insertedUser);
+
+        // ==> JWT for authentication
+        const token = jwt.sign({ user_name: user.name }, config.jwt.key_private, {
+            algorithm: config.jwt.alg,
+            expiresIn: config.jwt.expire,
+        });
 
         // ==> END
-        res.status(201).json({ success: results.command + results.rowCount.toString() });
+        res.status(201).json({ id: insertedUser[0].id, name: user.name, token: token });
     } catch (err) {
         console.log(err);
         res.status(400).json(err);

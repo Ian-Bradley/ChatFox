@@ -22,28 +22,29 @@ router.post('/', async function (req, res) {
 
         // ==> Determine is user exists in DB
         const user = await dbQuery.users.getUser(name);
+        // console.log(user);
 
         // ==> Validate password
         if (user[0]) {
-            // console.log('user: ', user[0]);
             const validPassword = await bcrypt.compare(password, user[0].password);
-            // console.log('validPassword: ', validPassword);
             if (validPassword) {
-                // ==> Add JWT for authentication
-                // const token = jwt.sign(
-                //     { user_id: user.id, user_name: user.name },
-                //     config.jwt.key_private,
-                //     {
-                //         algorithm: config.jwt.alg,
-                //         expiresIn: config.jwt.expire,
-                //     }
-                // );
-                // user.token = token;
+                // ==> JWT for authentication
+                const token = jwt.sign(
+                    { user_id: user[0].id, user_name: user[0].name },
+                    config.jwt.key_private,
+                    {
+                        algorithm: config.jwt.alg,
+                        expiresIn: config.jwt.expire,
+                    }
+                );
 
                 // ==> END
-                res.status(200).json(user[0]);
+                res.status(200).json({
+                    id: user[0].id,
+                    name: user[0].name,
+                    token: token,
+                });
             } else {
-                // console.log('INVALID PASSWORD');
                 res.status(401).json({ error: 'Invalid password' });
             }
         } else {

@@ -9,7 +9,6 @@ import Draggable from 'Shared/draggable/draggable.jsx';
 // REDUX
 import { toggleTimestamps, toggle24HourTime } from 'Redux/slices/prefs.slice.js';
 import { setLoggedIn, setLoggedOut } from 'Redux/slices/user.slice.js';
-import { incrementUserTotal } from 'Redux/slices/userTotal.slice.js';
 import { addChannel } from 'Redux/slices/channels.slice.js';
 import { addUser } from 'Redux/slices/users.slice.js';
 
@@ -116,7 +115,6 @@ export default function Dev(props) {
                 color: generateRandomColor(),
             })
         );
-        dispatch(incrementUserTotal());
     };
 
     const addFakeChannel = () => {

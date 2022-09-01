@@ -15,7 +15,7 @@ const development = {
         user: process.env.DEV_DB_USER || 'postgres',
         password: process.env.DEV_DB_PASSWORD || '123',
     },
-    jwtKey: {
+    jwt: {
         key_private: process.env.JWT_KEY_PRIVATE,
         key_public: process.env.JWT_KEY_PUBLIC,
         expire: process.env.JWT_EXPIRE,
@@ -37,7 +37,7 @@ const production = {
         user: process.env.PROD_DB_USER || 'postgres',
         password: process.env.PROD_DB_PASSWORD || '123',
     },
-    jwtKey: {
+    jwt: {
         key_private: process.env.JWT_KEY_PRIVATE,
         key_public: process.env.JWT_KEY_PUBLIC,
         expire: process.env.JWT_EXPIRE,

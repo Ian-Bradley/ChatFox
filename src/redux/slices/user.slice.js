@@ -35,21 +35,25 @@ let userSlice = createSlice({
         },
         /*================================================*/
         /*================================================*/
-        setLoggedIn: function (state) {
-            state.user.channel = 1;
-            state.user.loggedIn = true;
-            if (!state.user.color) {
-                state.user.color = generateRandomColor();
-            }
+        setLoggedIn: function (state, action) {
+            state.user = {
+                name: action.payload,
+                nickname: '',
+                color: generateRandomColor(),
+                loggedIn: true,
+                channel: 1,
+            };
         },
         /*================================================*/
         /*================================================*/
         setLoggedOut: function (state) {
-            state.user.name = '';
-            state.user.nickname = '';
-            state.user.color = '';
-            state.user.loggedIn = false;
-            state.user.channel = '';
+            state.user = {
+                name: '',
+                nickname: '',
+                color: '',
+                loggedIn: false,
+                channel: '',
+            };
         },
         /*================================================*/
         /*================================================*/
