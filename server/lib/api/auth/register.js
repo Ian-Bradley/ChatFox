@@ -31,6 +31,7 @@ router.post('/', async function (req, res) {
         const user = {
             name: name,
             password: encryptedPassword,
+            role: 'registered',
         };
         const results = await dbQuery.users.insertUser(user);
 
@@ -40,7 +41,8 @@ router.post('/', async function (req, res) {
         // ==> END
         res.status(201).json({
             id: results.rows[0].id,
-            name: user.name,
+            name: results.rows[0].name,
+            role: results.rows[0].role,
             token: token,
         });
     } catch (err) {

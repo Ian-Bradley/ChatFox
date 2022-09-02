@@ -7,6 +7,7 @@ const initialState = {
         name: '',
         nickname: '',
         color: '',
+        role: '',
         channelID: 0,
     },
 };
@@ -47,6 +48,12 @@ let userSlice = createSlice({
         },
         /*================================================*/
         /*================================================*/
+        setRole: function (state, action) {
+            // action.payload = role {string}
+            state.user.role = action.payload;
+        },
+        /*================================================*/
+        /*================================================*/
         setUserData: function (state, action) {
             state.user = {
                 id: action.payload.id,
@@ -71,6 +78,14 @@ let userSlice = createSlice({
         /*================================================*/
     },
 });
-export const { setID, setName, setNickname, setColor, setUserData, clearUserData, setChannel } =
-    userSlice.actions;
+export const {
+    setID,
+    setName,
+    setNickname,
+    setColor,
+    setRole,
+    setUserData,
+    clearUserData,
+    setChannel,
+} = userSlice.actions;
 export default userSlice.reducer;

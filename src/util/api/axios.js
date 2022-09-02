@@ -1,9 +1,9 @@
-import { SERVER_URL } from 'Util/helpers/constants.js';
+import { SERVER_URL, AXIOS_TIMEOUT } from 'Util/helpers/constants.js';
 import axios from 'axios';
 
 const api = axios.create({
     baseURL: SERVER_URL + '/api/',
-    timeout: 2000,
+    timeout: AXIOS_TIMEOUT,
     headers: {
         'Content-Type': 'application/json; charset=UTF-8',
     },

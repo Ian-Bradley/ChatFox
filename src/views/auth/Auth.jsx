@@ -13,9 +13,9 @@ import Form from './components/Form.jsx';
 import Fun from './components/Fun.jsx';
 
 // REDUX
-import { setLoggedIn } from 'Redux/slices/loggedIn.slice.js';
 import { setSocketOpen } from 'Redux/slices/socket.slice.js';
 import { setUserData } from 'Redux/slices/user.slice.js';
+import { setLoggedIn } from 'Redux/slices/app.slice.js';
 
 // UTIL
 import { setCookie, getCookie, deleteCookie } from 'Util/helpers/functions.js';
@@ -30,7 +30,7 @@ export default function PageAuth(props) {
     // Redux
     const dispatch = useDispatch();
     const LOGGED_IN = useSelector((state) => {
-        return state['loggedIn'].loggedIn;
+        return state['app'].app.loggedIn;
     });
 
     // Hooks

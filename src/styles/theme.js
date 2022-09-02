@@ -2,29 +2,35 @@
     BLOCK: COLORS
 ========================================*/
 /*
-The Sweetest Chill
-#343635 (52,54,53)
-#605aa0 (96,90,160)
-#8c80c2 (140,128,194)
-#c6a9e1 (198,169,225)
-#e1ebe2 (225,235,226)
+ * The Sweetest Chill
+ * #343635 (52,54,53)
+ * #605aa0 (96,90,160)
+ * #8c80c2 (140,128,194)
+ * #c6a9e1 (198,169,225)
+ * #e1ebe2 (225,235,226)
+ * 
+ * #665FD1 strobilaceous-dark-periwinkle
+ * #8AB8FE subarachnoid-carolina-blue
+ * #FFFF7E fixative-banana
+ * 
+ * #1B2431 blocky-dark
+ * #1E488F ordained-cobalt
+ * #016795 inhaling-peacock-blue
+ * 
+ * #062E03 battailous-very-dark-green 
+ * #CB0162 sporocystic-deep-pink 
+ * #FFFF14 dodgy-yellow 
+ * 
+ * #000000 divorced-black || #e1ebe2 (225,235,226)
+ * #5684AE abstemious-off-blue
+ * #C3FBF4 annihilating-duck-egg-blue
+ */
 
-#665FD1 strobilaceous-dark-periwinkle
-#8AB8FE subarachnoid-carolina-blue
-#FFFF7E fixative-banana
-
-#1B2431 blocky-dark
-#1E488F ordained-cobalt
-#016795 inhaling-peacock-blue
-
-#062E03 battailous-very-dark-green 
-#CB0162 sporocystic-deep-pink 
-#FFFF14 dodgy-yellow 
-
-#000000 divorced-black || #e1ebe2 (225,235,226)
-#5684AE abstemious-off-blue
-#C3FBF4 annihilating-duck-egg-blue
-*/
+/**
+ * NOTE: Colors used in Loader/Spinner are not generated
+ *       from these constants, and must be changed manually
+ * 
+ */
 
 const THEME_MONO_BLACK = '#000000';
 const THEME_MONO_DARK = '#343635';
@@ -36,6 +42,8 @@ const THEME_MEDIUM = '#8c80c2';
 const THEME_LIGHT = '#c6a9e1';
 
 const THEME_ERROR = '#ff3333';
+
+const MODAL_BG = 'rgba(0,0,0, .1)';
 
 const MATERIAL_1 = '#121212';
 const MATERIAL_2 = '#1D1D1D';
@@ -76,6 +84,7 @@ const theme = {
     bg: {
         error: THEME_ERROR,
         highlight: THEME_DARK,
+        modal: MODAL_BG,
         main_1: MATERIAL_1,
         main_2: MATERIAL_2,
         main_3: MATERIAL_3,

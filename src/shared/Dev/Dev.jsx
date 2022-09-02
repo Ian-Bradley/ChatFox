@@ -8,8 +8,8 @@ import Draggable from 'Shared/draggable/draggable.jsx';
 
 // REDUX
 import { toggleTimestamps, toggle24HourTime } from 'Redux/slices/prefs.slice.js';
-import { setLoggedIn, setLoggedOut } from 'Redux/slices/loggedIn.slice.js';
 import { setUserData, clearUserData } from 'Redux/slices/user.slice.js';
+import { setLoggedIn, setLoggedOut } from 'Redux/slices/app.slice.js';
 import { addChannel } from 'Redux/slices/channels.slice.js';
 import { addUser } from 'Redux/slices/users.slice.js';
 
@@ -27,7 +27,7 @@ export default function Dev(props) {
         return state['user'].user;
     });
     const LOGGED_IN = useSelector((state) => {
-        return state['loggedIn'].loggedIn;
+        return state['app'].app.loggedIn;
     });
     const prefs = useSelector((state) => {
         return state['prefs'].prefs;

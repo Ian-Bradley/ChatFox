@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 
 // COMPONENETS
 import ChannelList from './components/ChannelList/ChannelList.jsx';
@@ -13,9 +13,6 @@ import { Body, Chat, Sidebar } from './styles.js';
 // REDUX
 import { getMessages } from 'Redux/slices/messages.slice.js';
 
-// UTIL
-import { PAGE_LOAD_DELAY } from 'Util/helpers/constants.js';
-
 export default function PageChat(props) {
     /*================================================
         BLOCK: STATE
@@ -23,11 +20,10 @@ export default function PageChat(props) {
 
     // Redux
     const LOGGED_IN = useSelector((state) => {
-        return state['loggedIn'].loggedIn;
+        return state['app'].app.loggedIn;
     });
 
     // Hooks
-    const [isLoading, setIsLoading] = useState(true);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -42,29 +38,13 @@ export default function PageChat(props) {
     }, [LOGGED_IN]);
 
     /*================================================
-        BLOCK: HOOKS - LOADING
-    ==================================================*/
-
-    useEffect(() => {
-        console.log('---------- USE-EFFECT - LOADING - CHAT ----------');
-        // if (isLoading) {
-        //     setTimeout(() => {
-        //         setIsLoading(false);
-        //     }, PAGE_LOAD_DELAY);
-        // }
-
-        // return () => {
-            
-        // };
-    }, [setIsLoading]);
-
-    /*================================================
-        BLOCK: HOOKS - ?? GET MESSAGES ??
+        BLOCK: HOOKS - MESSAGES
     ==================================================*/
 
     useEffect(() => {
         console.log('---------- USE-EFFECT - MESSAGES - CHAT ----------');
         if (LOGGED_IN) {
+            console.log('GETTING MESSAGES - LOUNGE ');
             dispatch(getMessages(1)); // 1 = channel id for lounge (default channel)
         }
     }, [dispatch]);

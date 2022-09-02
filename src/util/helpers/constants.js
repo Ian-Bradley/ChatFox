@@ -6,15 +6,22 @@ export const MODE_DEV = true;
 export const WS_URL = 'ws://localhost:3001';
 export const SERVER_URL = 'http://localhost:3001';
 
+export const PAGE_LOAD_TRANSITION_DELAY = 200;
+export const PAGE_LOAD_DELAY = 1000;
 export const DEBOUNCE_DELAY = 200;
-export const PAGE_LOAD_DELAY = 200;
+export const AXIOS_TIMEOUT = 5000;
 
 export const CLASS_ACTIVE = 'active';
 export const CLASS_DISABLED = 'disabled';
 export const CLASS_HIDDEN = 'hidden';
+export const CLASS_FADE = 'fade';
 
 export const REGEX_IMAGE = /\.( gif|jp?g|png|svg|bmp|tiff|bat )$/i;
 export const REGEX_USERNAME = /[^A-Za-z0-9\-\_]+/g;
+
+export const ROLE_ADMIN = 'admin';
+export const ROLE_MODERATOR = 'moderator';
+export const ROLE_REGISTERED = 'registered';
 
 export const MAX_CHARACTERS_NAME = 3;
 export const MAX_CHARACTERS_PASSWORD = 3;

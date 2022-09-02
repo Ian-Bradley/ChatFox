@@ -30,7 +30,7 @@ const Overlay = styled.div`
     justify-content: center;
     align-items: center;
 
-    background: ${({ theme }) => theme.bg.main_1};
+    background: ${({ theme }) => theme.bg.modal};
 `;
 
 const Container = styled.div`
@@ -38,4 +38,6 @@ const Container = styled.div`
 
     width: auto;
     height: auto;
+    
+    background: ${({ theme }) => theme.bg.main_2};
 `;

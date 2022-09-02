@@ -34,6 +34,7 @@ router.post('/', async function (req, res) {
                 res.status(200).json({
                     id: user[0].id,
                     name: user[0].name,
+                    role: user[0].role,
                     token: token,
                 });
             } else {

@@ -12,8 +12,8 @@ import Menu from 'Shared/Dropdowns/Menu.jsx';
 import Title from 'Shared/Title/Title.jsx';
 
 // REDUX
-import { setLoggedOut } from 'Redux/slices/loggedIn.slice.js';
 import { clearUserData } from 'Redux/slices/user.slice.js';
+import { setLoggedOut } from 'Redux/slices/app.slice.js';
 
 // UTIL
 import { getCookie, deleteCookie } from 'Util/helpers/functions.js';
@@ -42,6 +42,8 @@ export default function Header(props) {
         dispatch(clearUserData());
         dispatch(setLoggedOut());
         // ==> JWT session
+
+        // TODO: check and fix
         console.log(getCookie('sessionid'));
         if (getCookie('sessionid')) {
             deleteCookie('sessionid');

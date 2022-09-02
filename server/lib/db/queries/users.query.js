@@ -39,8 +39,8 @@ const users = {
         try {
             const client = await pool.connect();
             const results = await client.query(
-                `INSERT INTO users (name, password)
-                 VALUES ('${user.name}', '${user.password}') RETURNING id;`
+                `INSERT INTO users (name, password, role)
+                 VALUES ('${user.name}', '${user.password}', '${user.role}') RETURNING id;`
             );
             client.release();
             return results;
@@ -52,13 +52,15 @@ const users = {
     /*================================================*/
     /*================================================*/
     // QUERY: => updateUser
-    updateUser: async function (id, update) {
+    updateUser: async function (value, update) {
         // TODO: add other column, use Util function to build queries
         try {
             const client = await pool.connect();
-            const results = await client.query(
-                `UPDATE users SET ${update.column} = '${update.data}' WHERE id = '${id}';`
-            );
+            let query = '';
+            typeof value === 'number'
+                ? (query = `UPDATE users SET ${update.column} = '${update.data}' WHERE id = '${value}';`)
+                : (query = `UPDATE users SET ${update.column} = '${update.data}' WHERE name = ${value};`); // use UPPER
+            const results = await client.query(query);
             client.release();
             return results;
         } catch (error) {
@@ -69,10 +71,14 @@ const users = {
     /*================================================*/
     /*================================================*/
     // QUERY: => deleteUser
-    deleteUser: async function (id) {
+    deleteUser: async function (value) {
         try {
             const client = await pool.connect();
-            const results = await client.query(`DELETE FROM users WHERE id = '${id}';`);
+            let query = '';
+            typeof value === 'number'
+                ? (query = `DELETE FROM users WHERE id = '${value}';`)
+                : (query = `DELETE FROM users WHERE UPPER(name) = UPPER('${value}');`);
+            const results = await client.query(query);
             client.release();
             return results;
         } catch (error) {

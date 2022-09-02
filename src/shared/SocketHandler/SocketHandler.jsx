@@ -5,10 +5,10 @@ import styled from 'styled-components';
 
 // REDUX
 import { setName, setNickname, setColor, setUserData } from 'Redux/slices/user.slice.js';
-import { setLoggedIn } from 'Redux/slices/loggedIn.slice.js';
 import { setSocketClosed } from 'Redux/slices/socket.slice.js';
 import { addMessage } from 'Redux/slices/messages.slice.js';
 // import { addLogItem } from 'Redux/slices/log.slice.js';
+import { setLoggedIn } from 'Redux/slices/app.slice.js';
 import {
     addUser,
     removeUser,
