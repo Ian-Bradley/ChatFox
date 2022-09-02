@@ -3,29 +3,21 @@ const users = {
     /*================================================*/
     // METHOD: => addUser
     addUser(user) {
-        console.log('user: ', user);
         this.state.users.push(user);
     },
     /*================================================*/
     /*================================================*/
     // METHOD: => removeUser
     removeUser(id) {
-        console.log('removeUSER ==> id: ', id);
-        console.log('removeUSER ==> typeof id: ', typeof id);
-        console.log(
-            'removeUSER ==> FIND USER: ',
-            this.state.users.find((user) => user.id === id)
-        );
         if (this.state.users.find((user) => user.id === id)) {
-            // User exists in array
-            console.log('removeUSER ==> User exists in array');
-            console.log('removeUSER ==> this.state.users: ', this.state.users);
             this.state.users = this.state.users.filter((user) => user.id !== id);
-            console.log('removeUSER ==> this.state.users: ', this.state.users);
-        } else {
-            // No user!!
-            console.log('removeUSER ==> No user!!');
         }
+    },
+    /*================================================*/
+    /*================================================*/
+    // METHOD: => getUser
+    getUser(id) {
+        return this.state.users.find((user) => user.id === id);
     },
     /*================================================*/
     /*================================================*/

@@ -1,13 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { generateRandomName, generateRandomColor } from 'Util/helpers/functions.js';
+import { generateRandomColor } from 'Util/helpers/functions.js';
 
 const initialState = {
     user: {
         id: 0,
-        name: generateRandomName(true),
-        nickname: generateRandomName(false),
-        color: generateRandomColor(),
-        loggedIn: false,
+        name: '',
+        nickname: '',
+        color: '',
         channelID: 0,
     },
 };
@@ -42,36 +41,36 @@ let userSlice = createSlice({
         },
         /*================================================*/
         /*================================================*/
-        setLoggedIn: function (state, action) {
-            state.user = {
-                name: action.payload,
-                nickname: '',
-                color: generateRandomColor(),
-                loggedIn: true,
-                channel: 1,
-            };
-        },
-        /*================================================*/
-        /*================================================*/
-        setLoggedOut: function (state) {
-            state.user = {
-                name: '',
-                nickname: '',
-                color: '',
-                loggedIn: false,
-                channel: '',
-            };
-        },
-        /*================================================*/
-        /*================================================*/
         setChannel: function (state, action) {
             // action.payload = channel id {number}
             state.user.channelID = action.payload;
         },
         /*================================================*/
         /*================================================*/
+        setUserData: function (state, action) {
+            state.user = {
+                id: action.payload.id,
+                name: action.payload.name,
+                nickname: action.payload.nickname ? action.payload.nickname : '',
+                color: action.payload.color ? action.payload.color : generateRandomColor(),
+                channelID: 1,
+            };
+        },
+        /*================================================*/
+        /*================================================*/
+        clearUserData: function (state) {
+            state.user = {
+                id: 0,
+                name: '',
+                nickname: '',
+                color: '',
+                channelID: 0,
+            };
+        },
+        /*================================================*/
+        /*================================================*/
     },
 });
-export const { setID, setName, setNickname, setColor, setLoggedIn, setLoggedOut, setChannel } =
+export const { setID, setName, setNickname, setColor, setUserData, clearUserData, setChannel } =
     userSlice.actions;
 export default userSlice.reducer;

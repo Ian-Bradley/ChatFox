@@ -22,8 +22,8 @@ export default function PageChat(props) {
     ==================================================*/
 
     // Redux
-    const user = useSelector((state) => {
-        return state['user'].user;
+    const LOGGED_IN = useSelector((state) => {
+        return state['loggedIn'].loggedIn;
     });
 
     // Hooks
@@ -36,11 +36,10 @@ export default function PageChat(props) {
     ==================================================*/
 
     useEffect(() => {
-        // TODO: cookies || localstorage w/ redux-persist
-        if (!user.loggedIn) {
+        if (!LOGGED_IN) {
             navigate('/', { replace: true });
         }
-    }, [user.loggedIn]);
+    }, [LOGGED_IN]);
 
     /*================================================
         BLOCK: HOOKS - LOADING
@@ -65,7 +64,7 @@ export default function PageChat(props) {
 
     useEffect(() => {
         console.log('---------- USE-EFFECT - MESSAGES - CHAT ----------');
-        if (user.loggedIn) {
+        if (LOGGED_IN) {
             dispatch(getMessages(1)); // 1 = channel id for lounge (default channel)
         }
     }, [dispatch]);

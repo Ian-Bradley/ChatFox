@@ -19,32 +19,30 @@ router.post('/', async function (req, res) {
             res.status(400).json({ error: 'Invalid name or password length' });
         }
 
-        // ==> Determine is user exists in DB
+        // ==> Determine is user exists
         const existingUser = await dbQuery.users.getUser(name);
         // console.log('existingUser: ', existingUser);
         if (existingUser && existingUser.length) {
             return res.status(409).json({ error: 'User already exists' });
         }
 
-        // ==> Insert new user in DB
+        // ==> Encrypt and insert
         const encryptedPassword = await bcrypt.hash(password, 10);
         const user = {
             name: name,
             password: encryptedPassword,
         };
-        await dbQuery.users.insertUser(user);
-        // const queryResults = await dbQuery.users.insertUser(user);
-        // console.log(queryResults);
-
-        // ==> Confirm insert and get ID
-        const insertedUser = await dbQuery.users.getUser(user.name);
-        // console.log(insertedUser);
+        const results = await dbQuery.users.insertUser(user);
 
         // ==> JWT for authentication
-        const token = Util.createAuthToken(insertedUser[0].id);
+        const token = Util.createAuthToken(results.rows[0].id);
 
         // ==> END
-        res.status(201).json({ id: insertedUser[0].id, name: user.name, token: token });
+        res.status(201).json({
+            id: results.rows[0].id,
+            name: user.name,
+            token: token,
+        });
     } catch (err) {
         console.log(err);
         res.status(400).json(err);

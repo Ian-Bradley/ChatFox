@@ -3,12 +3,14 @@ const users = {
     /*================================================*/
     /*================================================*/
     // QUERY: => getUser
-    getUser: async function (name) {
+    getUser: async function (value) {
         try {
             const client = await pool.connect();
-            const results = await client.query(
-                `SELECT * FROM users WHERE UPPER(name) = UPPER('${name}');`
-            );
+            let query = '';
+            typeof value === 'number'
+                ? (query = `SELECT * FROM users WHERE id = '${value}';`)
+                : (query = `SELECT * FROM users WHERE UPPER(name) = UPPER('${value}');`);
+            const results = await client.query(query);
             client.release();
             return results.rows;
         } catch (error) {
@@ -38,7 +40,7 @@ const users = {
             const client = await pool.connect();
             const results = await client.query(
                 `INSERT INTO users (name, password)
-                 VALUES ('${user.name}', '${user.password}');`
+                 VALUES ('${user.name}', '${user.password}') RETURNING id;`
             );
             client.release();
             return results;
@@ -50,11 +52,12 @@ const users = {
     /*================================================*/
     /*================================================*/
     // QUERY: => updateUser
-    updateUser: async function (name, update) {
+    updateUser: async function (id, update) {
+        // TODO: add other column, use Util function to build queries
         try {
             const client = await pool.connect();
             const results = await client.query(
-                `UPDATE users SET ${update.column} = '${update.data}' WHERE name = '${name}';`
+                `UPDATE users SET ${update.column} = '${update.data}' WHERE id = '${id}';`
             );
             client.release();
             return results;
@@ -66,12 +69,10 @@ const users = {
     /*================================================*/
     /*================================================*/
     // QUERY: => deleteUser
-    deleteUser: async function (name) {
+    deleteUser: async function (id) {
         try {
             const client = await pool.connect();
-            const results = await client.query(
-                `DELETE FROM users WHERE UPPER(name) = UPPER('${name}');`
-            );
+            const results = await client.query(`DELETE FROM users WHERE id = '${id}';`);
             client.release();
             return results;
         } catch (error) {

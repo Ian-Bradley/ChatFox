@@ -30,7 +30,7 @@ export default function ChatBar(props) {
                 type: 'newMessage',
                 message: {
                     channelID: user.channelID,
-                    timestamp: Date().now(),
+                    timestamp: Date.now(),
                     name: user.name,
                     nickname: user.nickname,
                     color: user.color,

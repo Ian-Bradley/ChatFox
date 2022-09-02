@@ -12,7 +12,11 @@ import Menu from 'Shared/Dropdowns/Menu.jsx';
 import Title from 'Shared/Title/Title.jsx';
 
 // REDUX
-import { setLoggedOut } from 'Redux/slices/user.slice.js';
+import { setLoggedOut } from 'Redux/slices/loggedIn.slice.js';
+import { clearUserData } from 'Redux/slices/user.slice.js';
+
+// UTIL
+import { getCookie, deleteCookie } from 'Util/helpers/functions.js';
 
 /**
  * @props
@@ -34,9 +38,17 @@ export default function Header(props) {
 
     const onLogout = () => {
         console.log('===> onLogout');
+        // ==> Redux
+        dispatch(clearUserData());
         dispatch(setLoggedOut());
+        // ==> JWT session
+        console.log(getCookie('sessionid'));
+        if (getCookie('sessionid')) {
+            deleteCookie('sessionid');
+        }
         // TODO: logout
         // ==> send api request to server and remove token from db
+        // use socket
         console.log('===> END - onLogout');
     };
 

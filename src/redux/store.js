@@ -1,10 +1,9 @@
 /*=================================================
     BLOCK: PERSIST
 ===================================================*/
-import storage from 'redux-persist/lib/storage';
+import persistedReducer from './root.reducer.js';
 import {
     persistStore,
-    persistReducer,
     FLUSH,
     REHYDRATE,
     PAUSE,
@@ -13,13 +12,6 @@ import {
     REGISTER,
 } from 'redux-persist';
 
-const persistConfig = {
-    key: 'root',
-    version: 1,
-    storage,
-    blacklist: ['channels', 'log', 'messages', 'socket', 'users', 'userTotal'],
-    whitelist: ['prefs', 'user'],
-};
 /*=================================================
     BLOCK: SAGA
 ===================================================*/
@@ -32,9 +24,6 @@ const saga = createSagaMiddleware();
     BLOCK: STORE
 ===================================================*/
 import { configureStore } from '@reduxjs/toolkit';
-import rootReducer from './root.reducer.js';
-
-const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const store = configureStore({
     reducer: persistedReducer,
@@ -45,11 +34,6 @@ const store = configureStore({
             },
         }).concat(saga),
 });
-
-// const store = configureStore({
-//     reducer: rootReducer,
-//     middleware: [saga],
-// });
 
 saga.run(messagesSaga);
 const persistor = persistStore(store);

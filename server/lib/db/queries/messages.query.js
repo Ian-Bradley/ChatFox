@@ -48,10 +48,10 @@ const messages = {
     /*================================================*/
     /*================================================*/
     // QUERY: => deleteMessage
-    deleteMessage: async function (name) {
+    deleteMessage: async function (id) {
         try {
             const client = await pool.connect();
-            const results = await client.query(`DELETE FROM messages WHERE UPPER(name) = UPPER('${name}');`);
+            const results = await client.query(`DELETE FROM messages WHERE id = '${id}';`);
             client.release();
             return results;
         } catch (error) {

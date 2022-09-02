@@ -4,8 +4,8 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 
 // REDUX
-import { setUserTotal, incrementUserTotal, decrementUserTotal } from 'Redux/slices/userTotal.slice.js';
-import { setName, setNickname, setColor } from 'Redux/slices/user.slice.js';
+import { setName, setNickname, setColor, setUserData } from 'Redux/slices/user.slice.js';
+import { setLoggedIn } from 'Redux/slices/loggedIn.slice.js';
 import { setSocketClosed } from 'Redux/slices/socket.slice.js';
 import { addMessage } from 'Redux/slices/messages.slice.js';
 // import { addLogItem } from 'Redux/slices/log.slice.js';
@@ -77,18 +77,20 @@ export default function SocketHandler(props) {
                         /*================================================*/
                         // HANDLER: => connectionReady (self)
                         case 'connectionReady': {
+                            // ==> Log in (JWT Auth)
+                            if (updateData.user && !user.loggedIn) {
+                                dispatch(setUserData({id: updateData.user.id, name: updateData.user.name,}));
+                                dispatch(setLoggedIn());
+                            }
 
                             // ==> Set channels
-                            console.log('==> Set channels');
                             if (!(updateData.channels === undefined) && updateData.channels.length) {
                                 dispatch(setChannels(updateData.channels));
                             }
 
                             // ==> Set users
-                            console.log('==> Set users');
                             if (!(updateData.users === undefined) && updateData.users.length) {
                                 dispatch(setUsers(updateData.users));
-                                dispatch(setUserTotal(updateData.users.length + 1)); // + 1 for current user
                             }
 
                             break;
@@ -99,7 +101,6 @@ export default function SocketHandler(props) {
                         case 'userConnected': {
                             console.log('======= START - MESSAGE - userConnected =======');
                             dispatch(addUser(updateData.user));
-                            dispatch(incrementUserTotal());
                             // dispatch(addLogItem(updateData.message));
                             console.log('======= END - MESSAGE - userConnected =======');
                             break;
@@ -110,7 +111,6 @@ export default function SocketHandler(props) {
                         case 'userDisconnected': {
                             console.log('======= START - MESSAGE - userDisconnected =======');
                             dispatch(removeUser(updateData.userID));
-                            dispatch(decrementUserTotal());
                             // dispatch(addLogItem(updateData.message));
                             console.log('======= END - MESSAGE - userDisconnected =======');
                             // break

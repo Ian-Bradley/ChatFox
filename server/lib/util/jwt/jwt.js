@@ -6,11 +6,16 @@ const jwtHandler = {
     /*================================================*/
     // FUNCTION: => createAuthToken
     createAuthToken: function (userID) {
-        const token = jwt.sign({ user_id: userID }, config.jwt.key_private, {
-            algorithm: config.jwt.alg,
-            expiresIn: config.jwt.expire,
-        });
-        return token;
+        try {
+            const token = jwt.sign({ user_id: userID }, config.jwt.key_private, {
+                algorithm: config.jwt.alg,
+                expiresIn: config.jwt.expire,
+            });
+            return token;
+        } catch (err) {
+            console.error(err);
+            return null;
+        }
     },
     /*================================================*/
     /*================================================*/

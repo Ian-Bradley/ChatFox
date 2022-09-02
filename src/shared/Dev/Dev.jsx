@@ -8,7 +8,8 @@ import Draggable from 'Shared/draggable/draggable.jsx';
 
 // REDUX
 import { toggleTimestamps, toggle24HourTime } from 'Redux/slices/prefs.slice.js';
-import { setLoggedIn, setLoggedOut } from 'Redux/slices/user.slice.js';
+import { setLoggedIn, setLoggedOut } from 'Redux/slices/loggedIn.slice.js';
+import { setUserData, clearUserData } from 'Redux/slices/user.slice.js';
 import { addChannel } from 'Redux/slices/channels.slice.js';
 import { addUser } from 'Redux/slices/users.slice.js';
 
@@ -24,6 +25,9 @@ export default function Dev(props) {
     const dispatch = useDispatch();
     const user = useSelector((state) => {
         return state['user'].user;
+    });
+    const LOGGED_IN = useSelector((state) => {
+        return state['loggedIn'].loggedIn;
     });
     const prefs = useSelector((state) => {
         return state['prefs'].prefs;
@@ -109,7 +113,7 @@ export default function Dev(props) {
     const addFakeUser = () => {
         dispatch(
             addUser({
-                id: generateRandomName(),
+                id: 6,
                 name: generateRandomName(true),
                 nickname: generateRandomName(false),
                 color: generateRandomColor(),
@@ -130,7 +134,21 @@ export default function Dev(props) {
     };
 
     const toggleLogin = () => {
-        user.loggedIn ? dispatch(setLoggedOut()) : dispatch(setLoggedIn());
+        if (!LOGGED_IN) {
+            console.log('LOGGING IN');
+            dispatch(
+                setUserData({
+                    id: 1,
+                    name: generateRandomName(true),
+                    nickname: generateRandomName(false),
+                })
+            );
+            dispatch(setLoggedIn());
+        } else {
+            console.log('LOGGING OUT');
+            dispatch(clearUserData());
+            dispatch(setLoggedOut());
+        }
     };
 
     const randomColor = () => {
@@ -168,7 +186,7 @@ export default function Dev(props) {
     ==================================================*/
 
     return (
-        <Draggable initial={{ top: 'calc(100vh - 387px)', left: '15px' }}>
+        <Draggable initial={{ top: 'calc(100vh - 433px)', left: '15px' }}>
             <Container>
                 <Info>
                     <List>
@@ -192,12 +210,12 @@ export default function Dev(props) {
                             {' ' + user.color}
                         </ListItem>
                         <ListItem>
-                            <Title>LoggedIn</Title>
-                            {' ' + user.loggedIn}
-                        </ListItem>
-                        <ListItem>
                             <Title>ChannelID</Title>
                             {' ' + user.channelID}
+                        </ListItem>
+                        <ListItem>
+                            <Title>LOGGED_IN</Title>
+                            {' ' + LOGGED_IN}
                         </ListItem>
                         <ListItem>
                             <Title>Timestamps</Title>

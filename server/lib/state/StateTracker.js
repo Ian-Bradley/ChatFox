@@ -16,6 +16,8 @@ module.exports = class StateTracker {
         this.addUser = usersModule.addUser.bind(this);
         this.removeUser = usersModule.removeUser.bind(this);
 
+        this.getUser = usersModule.getUser.bind(this);
+
         this.setUserName = usersModule.setUserName.bind(this);
         this.setUserNickname = usersModule.setUserNickname.bind(this);
         this.setUserColor = usersModule.setUserColor.bind(this);

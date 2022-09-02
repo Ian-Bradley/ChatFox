@@ -18,6 +18,7 @@ const channels = {
     /*================================================*/
     // QUERY: => insertChannel
     insertChannel: async function (channel) {
+        // TODO: add other column, use Util function to build queries
         try {
             const client = await pool.connect();
             const results = await client.query(
@@ -34,11 +35,11 @@ const channels = {
     /*================================================*/
     /*================================================*/
     // QUERY: => updateChannel
-    updateChannel: async function (name, update) {
+    updateChannel: async function (id, update) {
         try {
             const client = await pool.connect();
             const results = await client.query(
-                `UPDATE channels SET ${update.column} = '${update.data}' WHERE name = '${name}';`
+                `UPDATE channels SET ${update.column} = '${update.data}' WHERE id = '${id}';`
             );
             client.release();
             return results;
@@ -50,10 +51,10 @@ const channels = {
     /*================================================*/
     /*================================================*/
     // QUERY: => deleteChannel
-    deleteChannel: async function (name) {
+    deleteChannel: async function (id) {
         try {
             const client = await pool.connect();
-            const results = await client.query(`DELETE FROM channels WHERE UPPER(name) = UPPER('${name}');`);
+            const results = await client.query(`DELETE FROM channels WHERE id = '${id}';`);
             client.release();
             return results;
         } catch (error) {

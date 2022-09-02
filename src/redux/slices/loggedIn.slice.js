@@ -1,31 +1,26 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-    prefs: {
-        showTimestamps: false,
-        show24HourTime: false,
-    },
+    loggedIn: false,
 };
 
-let preferencesSlice = createSlice({
-    name: 'prefs',
+let loggedInSlice = createSlice({
+    name: 'loggedIn',
     initialState: initialState,
     reducers: {
         /*================================================*/
         /*================================================*/
-        toggleTimestamps: function (state) {
-            state.prefs.showTimestamps = !state.prefs.showTimestamps;
+        setLoggedIn: function (state) {
+            state.loggedIn = true;
         },
-
         /*================================================*/
         /*================================================*/
-        toggle24HourTime: function (state) {
-            state.prefs.show24HourTime = !state.prefs.show24HourTime;
+        setLoggedOut: function (state) {
+            state.loggedIn = false;
         },
-
         /*================================================*/
         /*================================================*/
     },
 });
-export const { toggleTimestamps, toggle24HourTime } = preferencesSlice.actions;
-export default preferencesSlice.reducer;
+export const { setLoggedIn, setLoggedOut } = loggedInSlice.actions;
+export default loggedInSlice.reducer;

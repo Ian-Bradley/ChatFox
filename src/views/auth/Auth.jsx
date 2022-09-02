@@ -13,8 +13,9 @@ import Form from './components/Form.jsx';
 import Fun from './components/Fun.jsx';
 
 // REDUX
-import { setName, setLoggedIn } from 'Redux/slices/user.slice.js';
+import { setLoggedIn } from 'Redux/slices/loggedIn.slice.js';
 import { setSocketOpen } from 'Redux/slices/socket.slice.js';
+import { setUserData } from 'Redux/slices/user.slice.js';
 
 // UTIL
 import { setCookie, getCookie, deleteCookie } from 'Util/helpers/functions.js';
@@ -28,8 +29,8 @@ export default function PageAuth(props) {
 
     // Redux
     const dispatch = useDispatch();
-    const user = useSelector((state) => {
-        return state['user'].user;
+    const LOGGED_IN = useSelector((state) => {
+        return state['loggedIn'].loggedIn;
     });
 
     // Hooks
@@ -49,11 +50,10 @@ export default function PageAuth(props) {
     ==================================================*/
 
     useEffect(() => {
-        // TODO: may not need, WS + cookies + JWT should hit loggin, maybe still need?
-        if (user.loggedIn) {
+        if (LOGGED_IN) {
             MODE_DEV ? navigate('/chat', { replace: false }) : navigate('/chat', { replace: true });
         }
-    }, [user.loggedIn]);
+    }, [LOGGED_IN]);
 
     /*================================================
         BLOCK: EVENTS
@@ -69,10 +69,11 @@ export default function PageAuth(props) {
                 password: formRef.current[1].value,
             };
             const results = await api.post(url, data);
-            // console.log('results: ', results);
+            console.log('results: ', results);
 
             // ==> Log In - Redux
-            dispatch(setLoggedIn(data.name));
+            dispatch(setUserData({ id: results.data.id, name: results.data.name }));
+            dispatch(setLoggedIn());
 
             // ==> Session
             if (isChecked) {

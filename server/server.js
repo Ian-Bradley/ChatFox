@@ -13,15 +13,15 @@ const jwtHandler = require('./lib/util/jwt/jwt.js');
 
 // ==> Utilities
 const dbQuery = require('./lib/db/root.query');
-const config = require('./config.env.js');
 const Util = require('./lib/util/util.js');
+const config = require('./config.env.js');
 
 // ==> API
-const login = require('./lib/api/auth/login.js');
+const messagesAPI = require('./lib/api/messages.api.js');
+const channelsAPI = require('./lib/api/channels.api.js');
 const register = require('./lib/api/auth/register.js');
 const usersAPI = require('./lib/api/users.api.js');
-const channelsAPI = require('./lib/api/channels.api.js');
-const messagesAPI = require('./lib/api/messages.api.js');
+const login = require('./lib/api/auth/login.js');
 
 // ==> Routes
 const routes = require('./lib/routes/routes.js');
@@ -31,11 +31,11 @@ const server = express()
     .use(cors())
     .use(express.json())
     .use(express.static(path.join(__dirname, '..', 'dist')))
-    .use('/api/login', login)
+    .use('/api/messages', messagesAPI)
+    .use('/api/channels', channelsAPI)
     .use('/api/register', register)
     .use('/api/users', usersAPI)
-    .use('/api/channels', channelsAPI)
-    .use('/api/messages', messagesAPI)
+    .use('/api/login', login)
     .use('/', routes)
     .listen(config.server.port, config.server.ip, config.server.domain, () => {
         console.log(`Listening on ${config.server.domain}:${config.server.port}`);
@@ -85,11 +85,11 @@ WSS.broadcastToAll = (data) => {
     BLOCK: WEBSOCKET SERVER
 ==================================================*/
 
-WSS.on('connection', (client, request) => {
+WSS.on('connection', async (client, request) => {
     console.log('======= CLIENT CONNECTED =======');
 
-    // NOTE: testing
-    let disconnectData = '';
+    // Minor state variable for disconnecting client from WSState & client state
+    let disconnectID = '';
 
     /*================================================
         INNER: > JWT COOKIE SESSION
@@ -104,39 +104,38 @@ WSS.on('connection', (client, request) => {
     // ==> Manage session
     if (cookies['sessionid']) {
         try {
+            // ==> Resolve and validate
             const token = cookies['sessionid'].split(' ')[0];
             const decoded = Util.validateAuthToken(token);
-            if (decoded) {
-                console.log('VALID TOKEN');
-                console.log(decoded.user_id);
-                console.log(typeof decoded.user_id);
-
-                // ==> Get user data from db (use decoded token id)
-                const retrieveUser = async (id) => {
-                    const results = await dbQuery.users.getUser(id);
-                    return results;
+            if (decoded.user_id) {
+                // ==> Get user data
+                const results = await dbQuery.users.getUser(decoded.user_id);
+                const user = {
+                    id: results[0].id,
+                    name: results[0].name,
                 };
-                const user = retrieveUser(decoded.user_id);
 
-                // ==> Set disconnect id
-                disconnectData = user.id;
+                // ==> Set user in state
+                WSState.addUser(user);
+                disconnectID = user.id;
 
-                // ==> Send state data to user
-                const data = {
+                // ==> Send state + user data to user
+                const wsData = {
                     id: uuidv4(), // message id
                     type: 'connectionReady',
                     users: WSState.state.users,
                     channels: WSState.state.channels,
+                    user: user,
                 };
-                WSS.broadcastToClient(JSON.stringify(data), client);
+                WSS.broadcastToClient(JSON.stringify(wsData), client);
 
-                // // ==> Send new user data to all other users
-                messageData.id = uuidv4();
-                WSState.addUser(messageData.user);
-                WSS.broadcastToOthers(JSON.stringify(messageData), client);
-            } else {
-                console.log('INVALID TOKEN');
-                // INVALID TOKEN
+                // ==> Send user data to all other users
+                const userData = {
+                    id: uuidv4(), // message id
+                    type: 'userConnected',
+                    user: user,
+                };
+                WSS.broadcastToOthers(JSON.stringify(userData), client);
             }
         } catch (err) {
             console.error(err);
@@ -147,9 +146,9 @@ WSS.on('connection', (client, request) => {
         INNER: > HANDLERS
     ==================================================*/
 
-    client.on('message', async function incoming(data) {
+    client.on('message', async (data) => {
         const messageData = JSON.parse(data);
-        console.log('>>>>>>>>> MESSAGE RECIEVED - ' + messageData.type + ' >>>>>>>>>');
+        console.log('>>>>> MESSAGE RECIEVED - ' + messageData.type);
         try {
             switch (messageData.type) {
                 /*================================================*/
@@ -157,16 +156,16 @@ WSS.on('connection', (client, request) => {
                 // HANDLER: => userConnected (LOGIN)
                 case 'userConnected': {
                     // NOTE: testing
-                    disconnectData = messageData.user.id;
+                    disconnectID = messageData.user.id;
 
                     // ==> Send state data to user
-                    const data = {
+                    const wsData = {
                         id: uuidv4(), // message id
                         type: 'connectionReady',
                         users: WSState.state.users,
                         channels: WSState.state.channels,
                     };
-                    WSS.broadcastToClient(JSON.stringify(data), client);
+                    WSS.broadcastToClient(JSON.stringify(wsData), client);
 
                     // ==> Send new user data to all other users
                     messageData.id = uuidv4();
@@ -181,19 +180,19 @@ WSS.on('connection', (client, request) => {
                     // ==> Log message
                     // let disconnectMessage = {
                     //     type: 'notification-disconnect',
-                    //     name: disconnectData,
+                    //     name: disconnectID,
                     //     time: new Date().toGMTString(),
                     // };
                     // console.log('disconnectMessage: ', disconnectMessage);
 
                     // ==> Remove user
-                    WSState.removeUser(disconnectData);
+                    WSState.removeUser(disconnectID);
 
                     // ==> Update other clients
                     const messageData = {
                         id: uuidv4(),
                         type: 'userDisconnected',
-                        name: disconnectData,
+                        name: disconnectID,
                         // message: disconnectMessage,
                     };
                     console.log('messageData: ', messageData);
@@ -383,29 +382,23 @@ WSS.on('connection', (client, request) => {
     client.on('close', (client) => {
         console.log('======= START - Client Disonnected =======');
 
-        console.log(WSState.state.users.find((user) => (user.name = disconnectData)));
+        if (WSState.getUser(disconnectID)) {
+            // ==> Remove user
+            WSState.removeUser(disconnectID);
 
-        // ==> Log message
-        // let disconnectMessage = {
-        //     type: 'notification-disconnect',
-        //     name: disconnectData,
-        //     time: new Date().toGMTString(),
-        // };
-        // console.log('disconnectMessage: ', disconnectMessage);
-
-        // ==> Remove user
-        WSState.removeUser(disconnectData);
-
-        // ==> Update other clients
-        const messageData = {
-            id: uuidv4(),
-            type: 'userDisconnected',
-            name: disconnectData,
-            // message: disconnectMessage,
-        };
-        console.log('messageData: ', messageData);
-        WSS.broadcastToOthers(JSON.stringify(messageData), client);
-        console.log('>>>>>>>>> MESSAGE SENT - userDisconnected >>>>>>>>>');
+            // ==> Update other clients
+            const disconnectData = {
+                id: uuidv4(),
+                type: 'userDisconnected',
+                userID: disconnectID,
+                // message: {
+                //     type: 'notification-disconnect',
+                //     name: disconnectID,
+                //     time: new Date.now(),
+                // },
+            };
+            WSS.broadcastToOthers(JSON.stringify(disconnectData), client);
+        }
 
         console.log('======= END - Client Disonnected =======');
     });
