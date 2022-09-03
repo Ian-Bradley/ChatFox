@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import User from '../User/User.jsx';
 import SimpleBar from 'simplebar-react';
 import SearchSVG from 'Assets/icons/search.svg.js';
-import IconButton from 'Shared/Buttons/IconButton.jsx';
+import IconButton from 'Common/Buttons/IconButton.jsx';
 import { List, Header, OpenSearch, UserTotal, SearchBar, SearchInput } from './styles.js';
 
 /**

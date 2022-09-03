@@ -1,11 +1,10 @@
 import { KEYCODE_ENTER } from 'Util/helpers/constants.js';
-import FormButton from 'Shared/Buttons/FormButton.jsx';
 import { sizes, transition } from 'Styles/common.js';
 import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
 
 // COMPONENTS
-// import { Container, FormContainer, Form } from './styles.js';
+import FormButton from 'Common/Buttons/FormButton.jsx';
 
 // UTIL
 import {

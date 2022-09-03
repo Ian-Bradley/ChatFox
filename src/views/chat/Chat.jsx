@@ -8,6 +8,7 @@ import MessageList from './components/MessageList/MessageList.jsx';
 import UserList from './components/UserList/UserList.jsx';
 import ChatBar from './components/ChatBar/ChatBar.jsx';
 import Header from './components/Header/Header.jsx';
+import Modals from './components/Modals/Modals.jsx';
 import { Body, Chat, Sidebar } from './styles.js';
 
 // REDUX
@@ -84,6 +85,8 @@ export default function PageChat(props) {
                     <UserList clickName={clickName} />
                 </Sidebar>
             </Body>
+
+            <Modals />
         </>
     );
 }

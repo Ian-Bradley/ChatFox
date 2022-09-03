@@ -3,9 +3,9 @@ import { useSelector } from 'react-redux';
 import React from 'react';
 
 // COMPONENTS
-import Title from 'Shared/Title/Title.jsx';
+import Title from 'Common/Title/Title.jsx';
 import LogoSrc from 'Assets/logos/logo_1a.png';
-import FormButton from 'Shared/Buttons/FormButton.jsx';
+import FormButton from 'Common/Buttons/FormButton.jsx';
 import { Container, Error, ErrorText, Logo } from './styles.js';
 
 export default function PageError(props) {

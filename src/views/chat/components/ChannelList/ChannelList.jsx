@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 
 // COMPONENTS
 import { Header, List, OpenSearch, SearchBar, AddChannel, SearchInput } from './styles.js';
-import IconButton from 'Shared/Buttons/IconButton.jsx';
+import IconButton from 'Common/Buttons/IconButton.jsx';
 import SearchSVG from 'Assets/icons/search.svg.js';
 import PlusSVG from 'Assets/icons/plus.svg.js';
 import Channel from '../Channel/Channel.jsx';

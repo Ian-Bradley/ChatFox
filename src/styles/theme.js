@@ -34,6 +34,7 @@
 
 const THEME_MONO_BLACK = '#000000';
 const THEME_MONO_DARK = '#343635';
+const THEME_MONO_MEDIUM = 'rgba(255,255,255, .60)';
 const THEME_MONO_LIGHT = '#e1ebe2';
 const THEME_MONO_WHITE = '#FFFFFF';
 
@@ -43,7 +44,7 @@ const THEME_LIGHT = '#c6a9e1';
 
 const THEME_ERROR = '#ff3333';
 
-const MODAL_BG = 'rgba(0,0,0, .1)';
+const MODAL_BG = 'rgba(0,0,0, .6)';
 
 const MATERIAL_1 = '#121212';
 const MATERIAL_2 = '#1D1D1D';
@@ -101,7 +102,7 @@ const theme = {
         bg_hover: THEME_MEDIUM,
     },
     button_icon: {
-        text: THEME_MONO_DARK,
+        text: THEME_MONO_MEDIUM,
         text_hover: THEME_MONO_LIGHT,
         bg: 'none',
         bg_hover: 'none',

@@ -15,7 +15,9 @@ export default function Draggable(props) {
         let pos1 = 0,
             pos2 = 0,
             pos3 = 0,
-            pos4 = 0;
+            pos4 = 0,
+            top = 0,
+            left = 0;
 
         const dragMouseDown = (e) => {
             e = e || window.event;
@@ -33,8 +35,22 @@ export default function Draggable(props) {
             pos2 = pos4 - e.clientY;
             pos3 = e.clientX;
             pos4 = e.clientY;
-            dragRef.current.style.top = dragRef.current.offsetTop - pos2 + 'px';
-            dragRef.current.style.left = dragRef.current.offsetLeft - pos1 + 'px';
+            top = dragRef.current.offsetTop - pos2;
+            left = dragRef.current.offsetLeft - pos1;
+            if (top > window.innerHeight) {
+                top = window.innerHeight - 6;
+            }
+            if (top < 0 - dragRef.current.offsetHeight) {
+                top = 6 - dragRef.current.offsetHeight;
+            }
+            if (left > window.innerWidth) {
+                left = window.innerWidth - 6;
+            }
+            if (left < 0 - dragRef.current.offsetWidth) {
+                left = 6 - dragRef.current.offsetWidth;
+            }
+            dragRef.current.style.top = top + 'px';
+            dragRef.current.style.left = left + 'px';
         };
 
         const closeDragElement = () => {

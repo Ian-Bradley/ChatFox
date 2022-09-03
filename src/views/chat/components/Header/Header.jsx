@@ -4,15 +4,16 @@ import React from 'react';
 
 // COMPONENTS
 import { Container, Brand, Logo, Nav, Name } from './styles.js';
-import MenuButton from 'Shared/Buttons/MenuButton.jsx';
+import MenuButton from 'Common/Buttons/MenuButton.jsx';
 import UserSVG from 'Assets/icons/user-circle.svg.js';
 import LogoutSVG from 'Assets/icons/logout.svg.js';
 import GearSVG from 'Assets/icons/gear.svg.js';
 import LogoSrc from 'Assets/logos/logo_1a.png';
-import Menu from 'Shared/Dropdowns/Menu.jsx';
-import Title from 'Shared/Title/Title.jsx';
+import Menu from 'Common/Dropdowns/Menu.jsx';
+import Title from 'Common/Title/Title.jsx';
 
 // REDUX
+import { setModalActive } from 'Redux/slices/modals.slice.js';
 import { clearUserData } from 'Redux/slices/user.slice.js';
 import { setLoggedOut } from 'Redux/slices/app.slice.js';
 
@@ -50,7 +51,7 @@ export default function Header(props) {
             log: {
                 type: 'disconnect',
                 user: user,
-                time: new Date.now(),
+                time: Date.now(),
             },
         };
         socket.send(JSON.stringify(newUpdate));
@@ -58,7 +59,7 @@ export default function Header(props) {
         // ==> Redux
         dispatch(clearUserData());
         dispatch(setLoggedOut());
-        
+
         // ==> JWT session
         // TODO: check and fix
         console.log(getCookie('sessionid'));
@@ -75,6 +76,7 @@ export default function Header(props) {
         console.log('===> onPreferences');
         // TODO: preferences menu
         // ==> open modal
+        dispatch(setModalActive('preferences'));
         console.log('===> END - onPreferences');
     };
 

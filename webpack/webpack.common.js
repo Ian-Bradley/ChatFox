@@ -19,7 +19,7 @@ module.exports = {
             Src: path.join(path.dirname(__dirname), 'src'),
             Assets: path.join(path.dirname(__dirname), 'src', 'assets'),
             Redux: path.join(path.dirname(__dirname), 'src', 'redux'),
-            Shared: path.join(path.dirname(__dirname), 'src', 'shared'),
+            Common: path.join(path.dirname(__dirname), 'src', 'common'),
             Styles: path.join(path.dirname(__dirname), 'src', 'styles'),
             Util: path.join(path.dirname(__dirname), 'src', 'util'),
             Views: path.join(path.dirname(__dirname), 'src', 'views'),

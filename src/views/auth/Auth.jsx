@@ -8,7 +8,7 @@ import { Container, Forms, Error } from './styles.js';
 import Remember from './components/Remember.jsx';
 import Swapper from './components/Swapper.jsx';
 import Logos from './components/Logos.jsx';
-import Title from 'Shared/Title/Title.jsx';
+import Title from 'Common/Title/Title.jsx';
 import Form from './components/Form.jsx';
 import Fun from './components/Fun.jsx';
 

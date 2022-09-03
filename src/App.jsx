@@ -3,12 +3,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import React, { useEffect } from 'react';
 
 // COMPONENTS
-import SocketHandler from 'Shared/SocketHandler/SocketHandler.jsx';
+import SocketHandler from 'Common/SocketHandler/SocketHandler.jsx';
 import PageError from 'Views/error/Error.jsx';
 import PageAuth from 'Views/auth/Auth.jsx';
 import PageChat from 'Views/chat/Chat.jsx';
 import { ContainerApp } from './styles.js';
-import Dev from 'Shared/Dev/Dev.jsx';
+import Dev from 'Common/Dev/Dev.jsx';
 
 // REDUX
 import { setAppReady } from 'Redux/slices/app.slice.js';

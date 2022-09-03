@@ -4,7 +4,7 @@ import React from 'react';
 
 // COMPONENTS
 import { Container, Info, Tools, List, ListItem, Title } from './styles.js';
-import Draggable from 'Shared/draggable/draggable.jsx';
+import Draggable from 'Common/draggable/draggable.jsx';
 
 // REDUX
 import { toggleTimestamps, toggle24HourTime } from 'Redux/slices/prefs.slice.js';

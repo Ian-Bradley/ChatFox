@@ -2,7 +2,7 @@ import { sizes, transition } from 'Styles/common.js';
 import styled from 'styled-components';
 import React from 'react';
 
-import IconButton from 'Shared/Buttons/IconButton.jsx';
+import IconButton from 'Common/Buttons/IconButton.jsx';
 import RightSVG from 'Assets/icons/right.svg.js';
 import LeftSVG from 'Assets/icons/left.svg.js';
 import DownSVG from 'Assets/icons/down.svg.js';

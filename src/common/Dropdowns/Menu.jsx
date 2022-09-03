@@ -2,7 +2,7 @@ import React, { useState, useCallback, useRef } from 'react';
 
 // COMPONENTS
 import { Container, Menu, List, ListItem } from './styles.js';
-import IconButton from 'Shared/Buttons/IconButton.jsx';
+import IconButton from 'Common/Buttons/IconButton.jsx';
 
 /**
  * @props icon {SVG Component} // required
