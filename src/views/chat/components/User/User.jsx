@@ -2,12 +2,14 @@ import React from 'react';
 import { Container, Name } from './styles.js';
 
 /**
- * @props user (Object)
-    id: (Number)
-    name: (String)
-    nickname: (String)
-    color: (String [HEX])
- * @props clickName (Function) Clicking on a user name
+ * @props clickName {function}
+ * @props user {object}
+ *      id: {number}
+ *      name: {string}
+ *      nickname: {string}
+ *      color: {string}
+ *      role: {string}
+ *      channelID: {number}     
  */
 
 export default function User(props) {
@@ -26,8 +28,10 @@ export default function User(props) {
     ==================================================*/
 
     return (
-        <Container>
-            <Name onClick={onClickName}>{props.user.nickname}</Name>
-        </Container>
+        <>
+            <Container>
+                <Name onClick={onClickName}>{props.user.nickname}</Name>
+            </Container>
+        </>
     );
 }

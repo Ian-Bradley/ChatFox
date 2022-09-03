@@ -48,6 +48,14 @@ export const generateRandomName = (withNumbers) => {
 };
 /*================================================*/
 /*================================================*/
+// FUNCTION: => generateRandomNumber
+export const generateRandomNumber = (min, max) => {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+};
+/*================================================*/
+/*================================================*/
 // FUNCTION: => debounce
 export const debounce = (func, wait, immediate) => {
     let timeout;
@@ -71,7 +79,7 @@ export const setCookie = (name, value, days) => {
     let expires = '';
     if (days) {
         let date = new Date();
-        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
         expires = ' expires=' + date.toUTCString();
     }
     document.cookie = name + '=' + (value || '') + expires + ' path=/';
@@ -99,5 +107,11 @@ export const getCookie = (name) => {
     }
     return null;
 };
+/*================================================*/
+/*================================================*/
+// FUNCTION: => escapeString
+export const escapeString = (string) => {
+    return string.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+}
 /*================================================*/
 /*================================================*/

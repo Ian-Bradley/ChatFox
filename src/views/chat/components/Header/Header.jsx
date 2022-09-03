@@ -1,4 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
+import { useSocket } from 'Util/api/websocket.js';
 import React from 'react';
 
 // COMPONENTS
@@ -27,10 +28,14 @@ export default function Header(props) {
         BLOCK: STATES
     ==================================================*/
 
+    // Redux
     const dispatch = useDispatch();
     const user = useSelector((state) => {
         return state['user'].user;
     });
+
+    // Hooks
+    const socket = useSocket();
 
     /*================================================
         BLOCK: EVENTS
@@ -38,19 +43,28 @@ export default function Header(props) {
 
     const onLogout = () => {
         console.log('===> onLogout');
+        // ==> Socket
+        const newUpdate = {
+            type: 'userDisconnected',
+            userID: user.id,
+            log: {
+                type: 'disconnect',
+                user: user,
+                time: new Date.now(),
+            },
+        };
+        socket.send(JSON.stringify(newUpdate));
+
         // ==> Redux
         dispatch(clearUserData());
         dispatch(setLoggedOut());
+        
         // ==> JWT session
-
         // TODO: check and fix
         console.log(getCookie('sessionid'));
         if (getCookie('sessionid')) {
             deleteCookie('sessionid');
         }
-        // TODO: logout
-        // ==> send api request to server and remove token from db
-        // use socket
         console.log('===> END - onLogout');
     };
 

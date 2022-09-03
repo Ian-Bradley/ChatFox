@@ -26,7 +26,7 @@ export default function ChatBar(props) {
 
     const onTypingMessage = (e) => {
         if (e.keyCode === KEYCODE_ENTER && e.target.value !== '') {
-            let newUpdate = {
+            const newUpdate = {
                 type: 'newMessage',
                 message: {
                     channelID: user.channelID,

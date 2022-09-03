@@ -8,11 +8,15 @@ import { Container, Div, Time, Name, Content } from './styles.js';
 import { REGEX_IMAGE, GMT_MINUTES, GMT_HOURS, GMT_DIRECTION } from 'Util/helpers/constants.js';
 
 /**
- * @props message (object)
-    id: (Number)
-    data: (Object)
-    content: (String)
- * @props clickName (function) Clicking on a user name
+ * @props message {object}
+    id: {number}
+    channelID: {number}
+    timestamp: {string}
+    name: {string}
+    nickname: {string}
+    color: {string}
+    content: {string}
+ * @props clickName {function} Clicking on a user name
  */
 
 export default function Message(props) {
@@ -109,30 +113,33 @@ export default function Message(props) {
     if (!REGEX_IMAGE.test(props.message.content)) {
         // NOTE: MESSAGE - Regular
         return (
-            <Container>
-                <Div>
-                    {renderTimestamp()}
-                    <Name style={{ color: props.message.color }} onClick={onclickName}>
-                        {props.message.name}:
-                    </Name>
-                    <Content className='message-content'>{props.message.content}</Content>
-                </Div>
-            </Container>
+            <>
+                <Container>
+                    <Div>
+                        {renderTimestamp()}
+                        <Name style={{ color: props.message.color }} onClick={onclickName}>
+                            {props.message.name}:
+                        </Name>
+                        <Content className='message-content'>{props.message.content}</Content>
+                    </Div>
+                </Container>
+            </>
         );
     } else {
         // NOTE: MESSAGE - Image
         return (
-            <Container>
-                <Div>
-                    {renderTimestamp()}
-                    <Name
-                        className={'message-name'}
-                        style={{ color: props.message.color }}
-                        onClick={onclickName}
-                    >
-                        {props.message.name}
-                    </Name>
-                    {/* <div className='message-image-container'>
+            <>
+                <Container>
+                    <Div>
+                        {renderTimestamp()}
+                        <Name
+                            className={'message-name'}
+                            style={{ color: props.message.color }}
+                            onClick={onclickName}
+                        >
+                            {props.message.name}
+                        </Name>
+                        {/* <div className='message-image-container'>
                         <img
                             className='message-image'
                             src={props.message.content}
@@ -142,8 +149,9 @@ export default function Message(props) {
                             {props.message.content}
                         </span>
                     </div> */}
-                </Div>
-            </Container>
+                    </Div>
+                </Container>
+            </>
         );
     }
 }

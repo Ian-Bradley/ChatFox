@@ -31,9 +31,6 @@ module.exports = class StateTracker {
         this.setChannelPrivate = channelsModule.setChannelPrivate.bind(this);
         this.setChannelPassword = channelsModule.setChannelPassword.bind(this);
         this.setChannelDescription = channelsModule.setChannelDescription.bind(this);
-
-        this.addUserToChannel = channelsModule.addUserToChannel.bind(this);
-        this.removeUserFromChannel = channelsModule.removeUserFromChannel.bind(this);
     }
 
     async initializeData() {

@@ -42,35 +42,39 @@ let userSlice = createSlice({
         },
         /*================================================*/
         /*================================================*/
-        setChannel: function (state, action) {
-            // action.payload = channel id {number}
-            state.user.channelID = action.payload;
-        },
-        /*================================================*/
-        /*================================================*/
         setRole: function (state, action) {
             // action.payload = role {string}
             state.user.role = action.payload;
         },
         /*================================================*/
         /*================================================*/
+        setChannelID: function (state, action) {
+            // action.payload = channel id {number}
+            state.user.channelID = action.payload;
+        },
+        /*================================================*/
+        /*================================================*/
         setUserData: function (state, action) {
+            // TODO: action.payload = 
             state.user = {
                 id: action.payload.id,
                 name: action.payload.name,
                 nickname: action.payload.nickname ? action.payload.nickname : '',
                 color: action.payload.color ? action.payload.color : generateRandomColor(),
+                role: '',
                 channelID: 1,
             };
         },
         /*================================================*/
         /*================================================*/
         clearUserData: function (state) {
+            // TODO: action.payload = 
             state.user = {
                 id: 0,
                 name: '',
                 nickname: '',
                 color: '',
+                role: '',
                 channelID: 0,
             };
         },
@@ -84,8 +88,8 @@ export const {
     setNickname,
     setColor,
     setRole,
+    setChannelID,
     setUserData,
     clearUserData,
-    setChannel,
 } = userSlice.actions;
 export default userSlice.reducer;

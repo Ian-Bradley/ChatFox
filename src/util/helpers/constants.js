@@ -8,7 +8,7 @@ export const SERVER_URL = 'http://localhost:3001';
 
 export const PAGE_LOAD_TRANSITION_DELAY = 200;
 export const PAGE_LOAD_DELAY = 1000;
-export const DEBOUNCE_DELAY = 200;
+export const DEBOUNCE_DELAY = 250;
 export const AXIOS_TIMEOUT = 5000;
 
 export const CLASS_ACTIVE = 'active';

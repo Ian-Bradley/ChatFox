@@ -14,7 +14,7 @@ import { addChannel } from 'Redux/slices/channels.slice.js';
 import { addUser } from 'Redux/slices/users.slice.js';
 
 // UTILS
-import { generateRandomName, generateRandomColor } from 'Util/helpers/functions.js';
+import { generateRandomName, generateRandomColor, generateRandomNumber } from 'Util/helpers/functions.js';
 
 export default function Dev(props) {
     /*================================================
@@ -124,11 +124,11 @@ export default function Dev(props) {
     const addFakeChannel = () => {
         dispatch(
             addChannel({
+                id: generateRandomNumber(1,200),
                 name: generateRandomName(false),
                 active: false,
                 locked: false,
                 password: '',
-                users: [],
             })
         );
     };

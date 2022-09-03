@@ -67,31 +67,5 @@ const channels = {
     },
     /*================================================*/
     /*================================================*/
-    // METHOD: => addUserToChannel
-    addUserToChannel(channelID, userName) {
-        console.log('addUserToChannel ==> this.state.channels: ', this.state.channels);
-        this.state.channels.map((channel) => {
-            if (channel.id === channelID) {
-                channel.users.push(userName);
-            }
-        });
-        console.log('addUserToChannel ==> this.state.channels: ', this.state.channels);
-    },
-    /*================================================*/
-    /*================================================*/
-    // METHOD: => removeUserFromChannel
-    removeUserFromChannel(channelID, userName) {
-        console.log('removeUserFromChannel ==> this.state.channels: ', this.state.channels);
-        this.state.channels.map((channel) => {
-            if (channel.id === channelID) {
-                channel.users = channel.users.filter(
-                    (user) => user !== userName
-                );
-            }
-        });
-        console.log('removeUserFromChannel ==> this.state.channels: ', this.state.channels);
-    },
-    /*================================================*/
-    /*================================================*/
 };
 module.exports = channels;

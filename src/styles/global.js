@@ -29,6 +29,16 @@ const GlobalStyles = createGlobalStyle`
             }
         }
     }
+
+    .hidden {
+        display: none;
+    }
+
+    .disabled {
+        pointer-events: none;
+        cursor: not-allowed;
+        opacity: .38;
+    }
 `;
 /*======================================*/
 export default GlobalStyles;

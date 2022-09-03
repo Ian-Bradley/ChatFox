@@ -26,8 +26,6 @@ import {
     setChannelPrivate,
     setChannelPublic,
     setChannelPassword,
-    addUserToChannel,
-    removeUserFromChannel,
 } from 'Redux/slices/channels.slice.js';
 
 export default function SocketHandler(props) {
@@ -225,26 +223,6 @@ export default function SocketHandler(props) {
                             dispatch(setChannelPassword(updateData.channelID, updateData.password));
                             // dispatch(addLogItem(updateData.message));
                             console.log('======= END MESSAGE - updateChannelPassword =======');
-                            break;
-                        }
-                        /*================================================*/
-                        /*================================================*/
-                        // HANDLER: => addUserToChannel
-                        case 'addUserToChannel': {
-                            console.log('======= START - MESSAGE - addUserToChannel =======');
-                            dispatch(addUserToChannel(updateData.channelID, updateData.userName));
-                            // dispatch(addLogItem(updateData.message));
-                            console.log('======= END MESSAGE - addUserToChannel =======');
-                            break;
-                        }
-                        /*================================================*/
-                        /*================================================*/
-                        // HANDLER: => removeUserFromChannel
-                        case 'removeUserFromChannel': {
-                            console.log('======= START - MESSAGE - removeUserFromChannel =======');
-                            dispatch(removeUserFromChannel(updateData.channelID, updateData.userName));
-                            // dispatch(addLogItem(updateData.message));
-                            console.log('======= END MESSAGE - removeUserFromChannel =======');
                             break;
                         }
                         /*================================================*/

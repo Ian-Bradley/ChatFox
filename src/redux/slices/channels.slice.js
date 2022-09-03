@@ -11,7 +11,6 @@ channel {object}
     active: {boolean}
     locked: {boolean}
     password: {string}
-    users: {array}
 */
 
 let channelsSlice = createSlice({
@@ -104,30 +103,6 @@ let channelsSlice = createSlice({
         },
         /*================================================*/
         /*================================================*/
-        // FUNCTION: => addUserToChannel
-        addUserToChannel(state, action) {
-            // action.payload = {object {id: {number}, userName: {string}}}
-            state.channels.map((channel) => {
-                if (channel.id === action.payload.id) {
-                    channel.users.push(action.payload.userName);
-                }
-            });
-        },
-        /*================================================*/
-        /*================================================*/
-        // FUNCTION: => removeUserFromChannel
-        removeUserFromChannel(state, action) {
-            // action.payload = {object {id: {number}, userName: {string}}}
-            state.channels.map((channel) => {
-                if (channel.id === action.payload.id) {
-                    channel.users = channel.users.filter(
-                        (user) => user !== action.payload.userName
-                    );
-                }
-            });
-        },
-        /*================================================*/
-        /*================================================*/
     },
 });
 export const {
@@ -140,7 +115,5 @@ export const {
     setChannelPublic,
     setChannelPrivate,
     setChannelPassword,
-    addUserToChannel,
-    removeUserFromChannel,
 } = channelsSlice.actions;
 export default channelsSlice.reducer;

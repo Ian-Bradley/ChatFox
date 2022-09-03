@@ -4,12 +4,16 @@ import { useSocket } from 'Util/api/websocket.js';
 import { useSelector } from 'react-redux';
 
 // COMPONENTS
-import SimpleBar from 'simplebar-react';
-import Channel from '../Channel/Channel.jsx';
-import PlusSVG from 'Assets/icons/plus.svg.js';
-import SearchSVG from 'Assets/icons/search.svg.js';
-import IconButton from 'Shared/Buttons/IconButton.jsx';
 import { Header, List, OpenSearch, SearchBar, AddChannel, SearchInput } from './styles.js';
+import IconButton from 'Shared/Buttons/IconButton.jsx';
+import SearchSVG from 'Assets/icons/search.svg.js';
+import PlusSVG from 'Assets/icons/plus.svg.js';
+import Channel from '../Channel/Channel.jsx';
+import SimpleBar from 'simplebar-react';
+
+// UTIL
+import { debounce, escapeString } from 'Util/helpers/functions.js';
+import { DEBOUNCE_DELAY } from 'Util/helpers/constants.js';
 
 export default function listRef(props) {
     /*================================================
@@ -27,12 +31,32 @@ export default function listRef(props) {
     const searchRef = useRef();
     const listRef = useRef();
 
+    /*================================================
+        BLOCK: SEARCHING
+    ==================================================*/
+    // const REGEX_IMAGE = /\.( gif|jp?g|png|svg|bmp|tiff|bat )$/i;
+    // const REGEX_USERNAME = /[^A-Za-z0-9\-\_]+/g;
+
+    const search = (list, searchValue) => {
+        console.log('VALUE: ', searchValue);
+        const REGEX_STRING = `/(${searchValue})/gi`;
+        console.log('REGEX STRING: ', REGEX_STRING);
+        REGEX_SEARCH = escapeString(REGEX_STRING)
+        console.log('REGEX: ', REGEX_SEARCH);
+        let REGEX_SEARCH = new RegExp(REGEX_STRING);
+        console.log('REGEX: ', REGEX_SEARCH);
+
+
+
+    };
+
     /*=================================================
         BLOCK: EVENTS
     ===================================================*/
 
     const onSearchButton = (e) => {
         // console.log(searchRef);
+        // TODO: refine to use ref height (offsetheight or clientheight) instead of -37px/-36px
         !searchOpen ? searchRef.current.children[0].focus() : searchRef.current.children[0].blur();
         // console.log(listRef);
         !searchOpen
@@ -45,7 +69,7 @@ export default function listRef(props) {
     /*================================================*/
 
     const onAddChannel = (e) => {
-        // NOTE: testing
+        // TODO: open modal
         // let newUpdate = {
         //     type: 'addChannel',
         //     channel: {
@@ -57,6 +81,17 @@ export default function listRef(props) {
         //     },
         // };
         // socket.send(JSON.stringify(newUpdate));
+    };
+
+    /*================================================*/
+    /*================================================*/
+
+    const onSearch = (e) => {
+        if (e.target.value) {
+            // TODO: confirm debounce is working
+            // debounce(search(channels, e.target.value), DEBOUNCE_DELAY, false);
+            debounce(search(channels, e.target.value), 1000, false); // NOTE: testing
+        }
     };
 
     /*=================================================
@@ -87,7 +122,7 @@ export default function listRef(props) {
                 </AddChannel>
             </Header>
             <SearchBar ref={searchRef} open={searchOpen}>
-                <SearchInput placeholder={'Search channels'}></SearchInput>
+                <SearchInput onChange={onSearch} placeholder={'Search channels'}></SearchInput>
             </SearchBar>
             <List ref={listRef}>
                 <SimpleBar style={SIMPLE_BAR_STYLES}>{renderChannels()}</SimpleBar>
