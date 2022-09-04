@@ -27,13 +27,21 @@ export const InputContainer = styled.div`
 /*======================================*/
 export const Input = styled.input`
     width: 100%;
-    background-color: ${({ theme }) => theme.bg.main_2};
 
-    border: 1px solid;
+    color: ${({ theme }) => theme.input.text};
+    background: ${({ theme }) => theme.input.bg};
+
+    outline: none;
+    border: 1px solid rgba(0,0,0,0);
     border-radius: 4px;
 
     line-height: 1rem;
     padding: 0.2rem 0.6rem;
+    margin: 0;
+
+    &:focus {
+        border: 1px solid ${({ theme }) => theme.input.outline};
+    }
 `;
 /*======================================*/
 /*======================================*/

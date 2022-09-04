@@ -6,7 +6,7 @@ export default function LockSVG(props) {
         <>
             <SVG viewBox='0 0 512 512'>
                 <path
-                    fill='none'
+                    fill='currentColor'
                     stroke='currentColor'
                     strokeLinecap='square'
                     strokeMiterlimit='10'

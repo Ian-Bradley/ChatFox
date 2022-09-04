@@ -2,8 +2,9 @@ import { useDispatch } from 'react-redux';
 import React from 'react';
 
 // COMPONENTS
-import { Container, Name, Icon } from './styles.js';
+import { Container, Name, Icon, Lock } from './styles.js';
 import ChatSVG from 'Assets/icons/chat.svg.js';
+import LockSVG from 'Assets/icons/lock.svg.js';
 
 // REDUX
 import { setChannelID } from 'Redux/slices/user.slice.js';
@@ -44,7 +45,7 @@ export default function Channel(props) {
             <Container onClick={onClickChannel} data-name={props.channel.name}>
                 <Icon>{ChatSVG()}</Icon>
                 <Name>{props.channel.name}</Name>
-                {/* {TODO: locked SVG} */}
+                {props.channel.locked && <Lock>{LockSVG()}</Lock>}
             </Container>
         </>
     );

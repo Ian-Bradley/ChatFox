@@ -29,7 +29,7 @@
 /**
  * NOTE: Colors used in Loader/Spinner are not generated
  *       from these constants, and must be changed manually
- * 
+ *       (=> Outside of React rendering)
  */
 
 const THEME_MONO_BLACK = '#000000';

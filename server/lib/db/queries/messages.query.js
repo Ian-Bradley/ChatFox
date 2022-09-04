@@ -33,11 +33,15 @@ const messages = {
     // QUERY: => insertMessage
     insertMessage: async function (message) {
         try {
+            let query = '';
+            // TODO: too specific, use a freakin' query builder function
+            messages.nickname
+                ? (query = `INSERT INTO messages (channel_id, timestamp, name, content, color, nickname)
+                 VALUES ('${message.channelID}', '${message.timestamp}', '${message.name}', '${message.content}', '${message.color}', '${message.nickname}');`)
+                : (query = `INSERT INTO messages (channel_id, timestamp, name, content, color)
+                 VALUES ('${message.channelID}', '${message.timestamp}', '${message.name}', '${message.content}', '${message.color}');`);
             const client = await pool.connect();
-            const results = await client.query(
-                `INSERT INTO messages (channel_id, timestamp, name, content)
-                 VALUES ('${message.channelID}', '${message.timestamp}', '${message.name}', '${message.content}');`
-            );
+            const results = await client.query(query);
             client.release();
             return results;
         } catch (error) {

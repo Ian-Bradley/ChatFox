@@ -8,8 +8,9 @@ export const Container = styled.div`
     justify-content: flex-start;
     align-items: center;
 
+    position: relative;
     width: 100%;
-    padding: ${sizes.spacing.app};
+    padding: calc(${sizes.spacing.app} / 2);
     margin-bottom: ${sizes.spacing.lists};
 
     cursor: pointer;
@@ -17,6 +18,9 @@ export const Container = styled.div`
     border-radius: ${sizes.spacing.app};
     &:hover {
         background: ${({ theme }) => theme.bg.main_5};
+    }
+    &:hover * {
+        opacity: 1;
     }
 `;
 /*======================================*/
@@ -30,11 +34,19 @@ export const Icon = styled.span`
     width: 1rem;
     margin-right: 4px;
 `;
+
 /*======================================*/
 /*======================================*/
 export const Name = styled.span`
     font-size: 1rem;
     font-weight: 400;
+`;
+/*======================================*/
+/*======================================*/
+export const Lock = styled(Icon)`
+    position: absolute;
+    right: 0;
+    opacity: 0;
 `;
 /*======================================*/
 /*======================================*/

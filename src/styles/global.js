@@ -6,6 +6,13 @@ const GlobalStyles = createGlobalStyle`
     }
 
     body {
+        font-family: 'Ubuntu', sans-serif;
+        font-size: 14px;
+        font-weight: 400;
+
+        color: ${({ theme }) => theme.text.light};
+        background: ${({ theme }) => theme.bg.main_1};
+
         & h1, & h2, & h3, & h4, & h5, & h6, & h7 {
             font-family: 'SpaceAge', sans-serif;
         }
@@ -13,13 +20,6 @@ const GlobalStyles = createGlobalStyle`
         & button {
             font-family: 'Roboto', sans-serif;
         }
-
-        font-family: 'Ubuntu', sans-serif;
-        font-size: 14px;
-        font-weight: 400;
-
-        color: ${({ theme }) => theme.text.light};
-        background: ${({ theme }) => theme.bg.main_1};
     
         & a {
             color: ${({ theme }) => theme.text.link};
@@ -29,7 +29,7 @@ const GlobalStyles = createGlobalStyle`
             }
         }
     }
-
+    
     .hidden {
         display: none;
     }

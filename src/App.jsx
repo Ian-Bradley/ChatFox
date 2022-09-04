@@ -22,13 +22,20 @@ import {
 } from 'Util/helpers/constants.js';
 
 export default function App(props) {
+    /*================================================
+        BLOCK: STATES
+    ==================================================*/
+
     // Redux
     const dispatch = useDispatch();
     const LOADING = useSelector((state) => {
         return state['app'].app.loading;
     });
 
-    // Loader+Spinner
+    /*================================================
+        BLOCK: HOOKS - LOADER + SPINNER
+    ==================================================*/
+
     useEffect(() => {
         if (LOADING) {
             setTimeout(() => {
@@ -41,7 +48,10 @@ export default function App(props) {
         }
     }, [LOADING]);
 
-    // Components and routing
+    /*================================================
+        BLOCK: COMPONENTS + ROUTING
+    ==================================================*/
+
     return (
         <>
             <ContainerApp>

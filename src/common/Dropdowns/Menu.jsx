@@ -1,8 +1,11 @@
-import React, { useState, useCallback, useRef } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 
 // COMPONENTS
 import { Container, Menu, List, ListItem } from './styles.js';
 import IconButton from 'Common/Buttons/IconButton.jsx';
+
+// UTIL
+import { KEYCODE_ESCAPE } from 'Util/helpers/constants.js';
 
 /**
  * @props icon {SVG Component} // required
@@ -15,25 +18,35 @@ export default function Dropdown(props) {
 
     // Hooks
     const [menuOpen, setMenuOpen] = useState(false);
-    const menuRef = useRef();
 
     /*================================================
         BLOCK: EVENTS
     ==================================================*/
 
-    const onClose = () => {
-        console.log('CLOSING');
-        setMenuOpen(false);
-    }
-
-    /*================================================*/
-    /*================================================*/
-
-    const onToggle = () => {
-        console.log('TOGGLING');
-        // TODO: close on outside click
-        // menuOpen ? window.addEventListener('click', onClose) : window.removeEventListener('click', onClose);
+    const onToggleMenu = () => {
         setMenuOpen(!menuOpen);
+    };
+
+    /*================================================*/
+    /*================================================*/
+
+    const onEscapeClose = (e) => {
+        e.keyCode === KEYCODE_ESCAPE && setMenuOpen(false);
+    };
+
+    useEffect(() => {
+        window.addEventListener('keydown', onEscapeClose);
+
+        return () => {
+            window.removeEventListener('keydown', onEscapeClose);
+        };
+    }, []);
+
+    /*================================================*/
+    /*================================================*/
+
+    const onListClose = () => {
+        menuOpen && setMenuOpen(false);
     };
 
     /*=================================================
@@ -44,10 +57,12 @@ export default function Dropdown(props) {
         if (!(props.children === undefined)) {
             if (props.children.constructor === Array) {
                 return [...Array(props.children.length)].map((x, i) => (
-                    <ListItem key={i}>{props.children[i]}</ListItem>
+                    <ListItem key={i} onClick={onListClose}>
+                        {props.children[i]}
+                    </ListItem>
                 ));
             } else {
-                return <ListItem>{props.children}</ListItem>;
+                return <ListItem onClick={onListClose}>{props.children}</ListItem>;
             }
         }
     });
@@ -59,10 +74,12 @@ export default function Dropdown(props) {
     return (
         <>
             <Container>
-                <IconButton onClick={onToggle} icon={props.icon} size={25} />
-                <Menu ref={menuRef} open={menuOpen}>
-                    <List>{renderChildren()}</List>
-                </Menu>
+                <IconButton onClick={onToggleMenu} icon={props.icon} size={25} />
+                {menuOpen && (
+                    <Menu>
+                        <List>{renderChildren()}</List>
+                    </Menu>
+                )}
             </Container>
         </>
     );

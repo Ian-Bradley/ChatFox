@@ -1,3 +1,4 @@
+import { useSocket } from 'Util/api/websocket.js';
 import { useSelector } from 'react-redux';
 import React from 'react';
 
@@ -13,9 +14,29 @@ export default function Modals(props) {
         BLOCK: STATES
     ==================================================*/
 
+    // Redux
     const modals = useSelector((state) => {
         return state['modals'].modals;
     });
+
+    // Hooks
+    const socket = useSocket();
+
+    /*================================================
+        BLOCK: EVENTS
+    ==================================================*/
+
+    // let newUpdate = {
+    //     type: 'addChannel',
+    //     channel: {
+    //         name: 'test',
+    //         active: false,
+    //         locked: false,
+    //         password: '',
+    //         users: [],
+    //     },
+    // };
+    // socket.send(JSON.stringify(newUpdate));
 
     /*================================================
         BLOCK: RENDERING
@@ -26,13 +47,13 @@ export default function Modals(props) {
             return <Modal modal={'preferences'}>Preferences</Modal>;
         }
         if (modals.addChannel) {
-            return <Modal modal={'preferences'}>addChannel</Modal>;
+            return <Modal modal={'addChannel'}>addChannel</Modal>;
         }
         if (modals.editChannel) {
-            return <Modal modal={'preferences'}>editChannel</Modal>;
+            return <Modal modal={'editChannel'}>editChannel</Modal>;
         }
         if (modals.editUser) {
-            return <Modal modal={'preferences'}>editUser</Modal>;
+            return <Modal modal={'editUser'}>editUser</Modal>;
         }
     };
 

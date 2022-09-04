@@ -62,7 +62,7 @@ export default function Header(props) {
 
         // ==> JWT session
         // TODO: check and fix
-        console.log(getCookie('sessionid'));
+        console.log('sessionid: ', getCookie('sessionid'));
         if (getCookie('sessionid')) {
             deleteCookie('sessionid');
         }
@@ -73,11 +73,7 @@ export default function Header(props) {
     /*================================================*/
 
     const onPreferences = () => {
-        console.log('===> onPreferences');
-        // TODO: preferences menu
-        // ==> open modal
         dispatch(setModalActive('preferences'));
-        console.log('===> END - onPreferences');
     };
 
     /*================================================
