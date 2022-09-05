@@ -9,7 +9,7 @@ import { Container, Name } from './styles.js';
  *      nickname: {string}
  *      color: {string}
  *      role: {string}
- *      channelID: {number}     
+ *      channelID: {number}
  */
 
 export default function User(props) {
@@ -29,8 +29,8 @@ export default function User(props) {
 
     return (
         <>
-            <Container>
-                <Name onClick={onClickName}>{props.user.nickname}</Name>
+            <Container onClick={onClickName} data-user={props.user.nickname}>
+                <Name>{props.user.nickname}</Name>
             </Container>
         </>
     );

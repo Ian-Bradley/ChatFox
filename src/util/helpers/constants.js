@@ -17,7 +17,9 @@ export const CLASS_HIDDEN = 'hidden';
 export const CLASS_FADE = 'fade';
 
 export const REGEX_IMAGE = /\.( gif|jp?g|png|svg|bmp|tiff|bat )$/i;
-export const REGEX_USERNAME = /[^A-Za-z0-9\-\_]+/g;
+export const REGEX_ESCAPE_STRING = /[-\/\\^$*+?.()|[\]{}]/g;
+export const REGEX_SPECIAL_CHARACTERS = /[^A-Za-z0-9\-\_]+/g;
+export const REGEX_ACCENTED_CHARACTERS = /[\u0300-\u036f]/g;
 
 export const ROLE_ADMIN = 'admin';
 export const ROLE_MODERATOR = 'moderator';

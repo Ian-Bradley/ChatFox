@@ -83,6 +83,7 @@ const theme = {
         error: THEME_ERROR,
     },
     bg: {
+        banner: THEME_MONO_DARK,
         error: THEME_ERROR,
         highlight: THEME_DARK,
         modal: MODAL_BG,

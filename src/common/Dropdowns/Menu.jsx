@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect, useRef } from 'react';
 
 // COMPONENTS
 import { Container, Menu, List, ListItem } from './styles.js';
@@ -18,9 +18,10 @@ export default function Dropdown(props) {
 
     // Hooks
     const [menuOpen, setMenuOpen] = useState(false);
+    const menuRef = useRef();
 
     /*================================================
-        BLOCK: EVENTS
+        BLOCK: OPENING & CLOSING
     ==================================================*/
 
     const onToggleMenu = () => {
@@ -49,6 +50,39 @@ export default function Dropdown(props) {
         menuOpen && setMenuOpen(false);
     };
 
+    /*================================================*/
+    /*================================================*/
+
+    const onClickClose = (e) => {
+        // console.log('========E========');
+        // console.log(e);
+        // console.log(menuRef);
+        if (e.target === menuRef) {
+            console.log('TEST');
+        }
+        // setMenuOpen(false);
+    };
+
+    useEffect(() => {
+        window.addEventListener('click', onClickClose);
+
+        return () => {
+            window.removeEventListener('click', onClickClose);
+        };
+    }, []);
+
+    // ==> Off-modal click
+    // const onOverlayClose = (e) => {
+    //     handleClose();
+    // };
+
+    // const onPreventBubbling = (e) => {
+    //     e.stopPropagation();
+    // };
+
+    /*================================================*/
+    /*================================================*/
+
     /*=================================================
         BLOCK: RENDERING
     ===================================================*/
@@ -76,7 +110,7 @@ export default function Dropdown(props) {
             <Container>
                 <IconButton onClick={onToggleMenu} icon={props.icon} size={25} />
                 {menuOpen && (
-                    <Menu>
+                    <Menu ref={menuRef}>
                         <List>{renderChildren()}</List>
                     </Menu>
                 )}

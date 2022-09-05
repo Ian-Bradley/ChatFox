@@ -1,8 +1,13 @@
-import { LOTR_NAMES } from './constants.js';
+import {
+    LOTR_NAMES,
+    REGEX_ESCAPE_STRING,
+    REGEX_ACCENTED_CHARACTERS,
+    REGEX_SPECIAL_CHARACTERS,
+} from './constants.js';
 /*================================================*/
 /*================================================*/
 // FUNCTION: => isTooDark
-export const isTooDark = (hexStr) => {
+const isTooDark = (hexStr) => {
     let c = hexStr.substring(1); // strip #
     let rgb = parseInt(c, 16); // convert rrggbb to decimal
     let r = (rgb >> 16) & 0xff; // extract red
@@ -109,9 +114,21 @@ export const getCookie = (name) => {
 };
 /*================================================*/
 /*================================================*/
-// FUNCTION: => escapeString
-export const escapeString = (string) => {
-    return string.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
-}
+// FUNCTION: => escapeRegex
+export const escapeRegex = (string) => {
+    return string.replace(REGEX_ESCAPE_STRING, '\\$&');
+};
+/*================================================*/
+/*================================================*/
+// FUNCTION: => normalizeString
+export const normalizeString = (string) => {
+    return string.normalize('NFD').replace(REGEX_ACCENTED_CHARACTERS, '');
+};
+/*================================================*/
+/*================================================*/
+// FUNCTION: => hasSpecialCharacters
+export const hasSpecialCharacters = (string) => {
+    return REGEX_SPECIAL_CHARACTERS.test(string);
+};
 /*================================================*/
 /*================================================*/

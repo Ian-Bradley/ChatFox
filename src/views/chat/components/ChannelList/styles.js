@@ -38,8 +38,10 @@ export const SearchBar = styled.div`
     z-index: 10;
 
     width: 100%;
-    /* height: ${(props) => (props.open ? 0 : 'auto')}; */
+    height: 40px;
+
     padding: ${sizes.spacing.app};
+    background: ${({ theme }) => theme.bg.main_4};
 
     transition: all linear ${transition.transform};
     transform: translateY(${(props) => (props.open ? 0 : '-100%')});
@@ -69,9 +71,8 @@ export const List = styled.div`
     width: 100%;
     height: 100%;
 
-    margin-top: -36px;
-    /* margin-top: ${(props) => (props.margin ? props.margin : '0')}; */
-    transition: all linear ${transition.transform};
+    margin-top: ${(props) => (props.open ? '0' : '-40px')};
+    transition: margin linear ${transition.transform};
 `;
 /*======================================*/
 /*======================================*/

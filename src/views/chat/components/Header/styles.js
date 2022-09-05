@@ -15,7 +15,7 @@ export const Container = styled.div`
     justify-content: space-between;
 
     padding: 0 1rem;
-    background: ${({ theme }) => theme.bg.main_3};
+    background: ${({ theme }) => theme.bg.banner};
 `;
 /*======================================*/
 /*======================================*/

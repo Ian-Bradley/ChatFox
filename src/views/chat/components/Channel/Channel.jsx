@@ -42,7 +42,7 @@ export default function Channel(props) {
 
     return (
         <>
-            <Container onClick={onClickChannel} data-name={props.channel.name}>
+            <Container onClick={onClickChannel} data-channel={props.channel.name}>
                 <Icon>{ChatSVG()}</Icon>
                 <Name>{props.channel.name}</Name>
                 {props.channel.locked && <Lock>{LockSVG()}</Lock>}

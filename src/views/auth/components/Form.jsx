@@ -7,11 +7,8 @@ import styled from 'styled-components';
 import FormButton from 'Common/Buttons/FormButton.jsx';
 
 // UTIL
-import {
-    REGEX_USERNAME,
-    MAX_CHARACTERS_NAME,
-    MAX_CHARACTERS_PASSWORD,
-} from 'Util/helpers/constants.js';
+import { hasSpecialCharacters } from 'Util/helpers/functions.js';
+import { MAX_CHARACTERS_NAME, MAX_CHARACTERS_PASSWORD } from 'Util/helpers/constants.js';
 
 /**
  * @props buttonText {string}
@@ -51,7 +48,7 @@ export default function Form(props) {
                 errorName = true;
                 break;
             }
-            if (REGEX_USERNAME.test(name)) {
+            if (hasSpecialCharacters(name)) {
                 setNameError('Name cannot contain special characters');
                 errorName = true;
                 break;
@@ -75,12 +72,8 @@ export default function Form(props) {
         }
 
         // ==> Reset
-        if (!errorName) {
-            setNameError('');
-        }
-        if (!errorPassword) {
-            setPassError('');
-        }
+        !errorName && setNameError('');
+        !errorPassword && setPassError('');
 
         // ==> END
         if (errorPassword || errorName) {
@@ -98,9 +91,7 @@ export default function Form(props) {
     const onInput = (e) => {
         if (e.keyCode === KEYCODE_ENTER) {
             e.preventDefault();
-            if (validateInputs(formRef)) {
-                props.onSubmit(formRef);
-            }
+            validateInputs(formRef) && props.onSubmit(formRef);
         }
     };
 
@@ -110,9 +101,7 @@ export default function Form(props) {
     // EVENT: onForm
     const onForm = (e) => {
         e.preventDefault();
-        if (validateInputs(formRef)) {
-            props.onSubmit(formRef);
-        }
+        validateInputs(formRef) && props.onSubmit(formRef);
     };
 
     /*================================================*/
@@ -121,9 +110,7 @@ export default function Form(props) {
     // EVENT: onButton
     const onButton = (e) => {
         e.preventDefault();
-        if (validateInputs(formRef)) {
-            props.onSubmit(formRef);
-        }
+        validateInputs(formRef) && props.onSubmit(formRef);
     };
 
     /*================================================
