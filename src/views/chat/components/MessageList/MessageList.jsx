@@ -7,10 +7,6 @@ import SimpleBar from 'simplebar-react';
 import Message from '../Message/Message.jsx';
 // import { Container } from './styles.js';
 
-/**
- * @props clickName (function) Clicking on a user name
- */
-
 export default function MessageList(props) {
     /*================================================
         BLOCK: STATES
@@ -40,7 +36,7 @@ export default function MessageList(props) {
     const renderMessages = useCallback(() => {
         if (!(messages === undefined) && messages.length) {
             return [...Array(messages.length)].map((x, i) => (
-                <Message key={i} message={messages[i]} clickName={props.clickName} />
+                <Message key={i} message={messages[i]} />
             ));
         }
     });

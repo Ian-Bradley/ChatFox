@@ -2,7 +2,6 @@ import React from 'react';
 import { Container, Name } from './styles.js';
 
 /**
- * @props clickName {function}
  * @props user {object}
  *      id: {number}
  *      name: {string}
@@ -19,7 +18,7 @@ export default function User(props) {
 
     const onClickName = (e) => {
         console.log('===> onClickName');
-        props.clickName(e);
+        // TODO: click a user name
         console.log('===> END - onClickName');
     };
 

@@ -3,9 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import React, { useEffect } from 'react';
 
 // COMPONENETS
-import ChannelList from './components/ChannelList/ChannelList.jsx';
 import MessageList from './components/MessageList/MessageList.jsx';
-import UserList from './components/UserList/UserList.jsx';
+import ChannelList from './components/Sidebars/Channels.jsx';
+import UserList from './components/Sidebars/Users.jsx';
 import ChatBar from './components/ChatBar/ChatBar.jsx';
 import Header from './components/Header/Header.jsx';
 import Modals from './components/Modals/Modals.jsx';
@@ -59,6 +59,9 @@ export default function PageChat(props) {
         console.log('===> clickName');
         console.log('data: ', data);
         // TODO: name clicking
+
+        // NOTE: THIS IS GOING TO BE MOVED TO <User> AND <Message>, maybe using redux ==> otherwise rebuild here and redo props
+
         // --> open DM + Info sidebar (OVER player list)
         // --> this sidebar will have a button to swap to DM Chat (new window, don't overwrite MessageList, just make a new one on top)
         // --> 'return to main chat' button

@@ -1,30 +1,26 @@
-import React, { useState, useCallback, useRef } from 'react';
 import { SIMPLE_BAR_STYLES } from 'Styles/common.js';
-import { useSelector } from 'react-redux';
+import React, { useState,useRef } from 'react';
 
 // COMPONENTS
-import { List, Header, OpenSearch, UserTotal, SearchBar, SearchInput } from './styles.js';
+import { List, Header, Left, Right, SearchBar, SearchInput } from './styles.js';
 import IconButton from 'Common/Buttons/IconButton.jsx';
 import SearchSVG from 'Assets/icons/search.svg.js';
 import SimpleBar from 'simplebar-react';
-import User from '../User/User.jsx';
 
 // UTIL
+import { CLASS_HIDDEN } from 'Util/helpers/constants.js';
 import { escapeRegex, normalizeString } from 'Util/helpers/functions.js';
 
 /**
- * @props clickName (function) Clicking on a user name
+ * @props type {string}
+ * @props header {React Components || string || number}
+ * @props list {array}
  */
 
-export default function UserList(props) {
+export default function Sidebar(props) {
     /*================================================
         BLOCK: STATES
     ==================================================*/
-
-    // Redux
-    const users = useSelector((state) => {
-        return state['users'].users;
-    });
 
     // Hooks
     const [searchOpen, setSearchOpen] = useState(false);
@@ -44,10 +40,10 @@ export default function UserList(props) {
             let compareValue = normalizeString(item.name);
             if (REGEX_SEARCH.test(compareValue)) {
                 console.log('POSITIVE => ', compareValue);
-                document.querySelector(`[data-user='${item.name}']`).classList.remove('hidden');
+                document.querySelector(`[data-${props.type}='${item.name}']`).classList.remove(CLASS_HIDDEN);
             } else {
                 console.log('NEGATIVE => ', compareValue);
-                document.querySelector(`[data-user='${item.name}']`).classList.add('hidden');
+                document.querySelector(`[data-${props.type}='${item.name}']`).classList.add(CLASS_HIDDEN);
             }
         });
     };
@@ -57,9 +53,9 @@ export default function UserList(props) {
 
     const onSearch = (e) => {
         e.target.value
-            ? search(users, e.target.value)
-            : document.querySelectorAll('[data-user]').forEach((element) => {
-                  element.classList.remove('hidden');
+            ? search(props.list, e.target.value)
+            : document.querySelectorAll(`[data-${props.type}]`).forEach((element) => {
+                  element.classList.remove(CLASS_HIDDEN);
               });
     };
 
@@ -72,35 +68,26 @@ export default function UserList(props) {
     };
 
     /*=================================================
-        BLOCK: RENDERING
-    ===================================================*/
-
-    const renderUsers = useCallback(() => {
-        if (!(users === undefined) && users.length) {
-            return [...Array(users.length)].map((x, i) => (
-                <User key={i} user={users[i]} clickName={props.clickName} />
-            ));
-        }
-    });
-
-    /*=================================================
         BLOCK: COMPONENTS
     ===================================================*/
 
     return (
         <>
             <Header>
-                <OpenSearch>
+                <Left>
                     <IconButton onClick={onSearchToggle} icon={SearchSVG} />
-                </OpenSearch>
-                Users
-                <UserTotal>{users.length}</UserTotal>
+                </Left>
+                {props.type + 's'}
+                <Right>{props.header}</Right>
             </Header>
             <SearchBar ref={searchRef} open={searchOpen}>
-                <SearchInput onChange={onSearch} placeholder={'Search users'}></SearchInput>
+                <SearchInput
+                    onChange={onSearch}
+                    placeholder={`Search ${props.type}s`}
+                ></SearchInput>
             </SearchBar>
             <List open={searchOpen}>
-                <SimpleBar style={SIMPLE_BAR_STYLES}>{renderUsers()}</SimpleBar>
+                <SimpleBar style={SIMPLE_BAR_STYLES}>{props.children}</SimpleBar>
             </List>
         </>
     );

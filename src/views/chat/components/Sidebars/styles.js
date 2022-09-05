@@ -5,7 +5,9 @@ import { sizes, transition } from 'Styles/common.js';
 export const Header = styled.div`
     width: 100%;
     z-index: 20;
+
     font-family: 'Roboto', sans-serif;
+    text-transform: capitalize;
 
     display: flex;
     flex-flow: row nowrap;
@@ -17,14 +19,14 @@ export const Header = styled.div`
 `;
 /*======================================*/
 /*======================================*/
-export const OpenSearch = styled.span`
+export const Left = styled.span`
     position: absolute;
     left: ${sizes.spacing.app};
     width: 15px;
 `;
 /*======================================*/
 /*======================================*/
-export const UserTotal = styled.span`
+export const Right = styled.span`
     position: absolute;
     right: ${sizes.spacing.app};
 

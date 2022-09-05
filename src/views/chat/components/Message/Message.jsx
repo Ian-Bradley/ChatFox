@@ -16,7 +16,6 @@ import { REGEX_IMAGE, GMT_MINUTES, GMT_HOURS, GMT_DIRECTION } from 'Util/helpers
     nickname: {string}
     color: {string}
     content: {string}
- * @props clickName {function} Clicking on a user name
  */
 
 export default function Message(props) {
@@ -34,7 +33,7 @@ export default function Message(props) {
 
     const onclickName = (e) => {
         console.log('===> onclickName');
-        props.clickName(e);
+        // TODO: click a user name
         console.log('===> END - onclickName');
     };
 
